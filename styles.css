@@ -53,6 +53,26 @@ div.main {
 	padding-top: 32px;
 }
 
+div.main-date {
+	color: rgba(0, 0, 0, 0.85);
+	color-scheme: light dark;
+	column-gap: 0px;
+	cursor: default;
+	font-family: -apple-system, BlinkMacSystemFont, "Apple Color Emoji", "SF Pro", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 13px;
+	font-style: normal;
+	font-synthesis: none;
+	font-weight: 100;
+	letter-spacing: normal;
+	line-height: 22px;
+	position: relative;
+	row-gap: 0px;
+	visibility: visible;
+	margin-left: 40px;
+	margin-right: 40px;
+	padding-top: 0px;
+}
+
 input {
   border-radius: 5px;
   border: 1px solid grey;
