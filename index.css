@@ -1471,7 +1471,7 @@ html[dir=rtl] .multiline-clamp--overflow.svelte-1qrlry {
 
 .product-lockup__content-details--no-subtitle-link.svelte-21e67y .product-lockup__subtitle-links.svelte-21e67y, .product-lockup__content-details--no-subtitle-link.svelte-21e67y .product-lockup__title-link.svelte-21e67y {
     -webkit-text-decoration: var(--linkHoverTextDecoration);
-    text-decoration:var(--linkHoverTextDecoration)
+    text-decoration:var(--linkHoverTextDecoration);
 }
 
 .product-lockup__title-link.svelte-21e67y.svelte-21e67y {
@@ -1926,4 +1926,8 @@ html[dir=rtl] .title__button.svelte-hprj71 {
 
 .subtitle.svelte-hprj71:lang(ar) {
     font-family:-apple-system, BlinkMacSystemFont, Apple Color Emoji, SF Pro, Arabic UI Text, SF Pro Icons, Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif
+}
+
+.new-release {
+    background-color: #ceffce;
 }
