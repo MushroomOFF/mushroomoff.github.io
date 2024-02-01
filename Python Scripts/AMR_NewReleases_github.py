@@ -391,7 +391,6 @@ def comingSoon(caLink):
 
         pdCS = pd.read_csv(csReleasesDB, sep=";")
         if len(pdCS.loc[pdCS['album__href'] == row[7]]) == 0:
-            print(pdCS.loc[pdCS['album__href'] == row[7]])
             row[13] = 1
 
             fieldNamesCS = ['update__date','album_cover__jpeg','album__href','album__name','artist__href','artist__name','release__date','release__date_text']
