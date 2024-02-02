@@ -1,10 +1,11 @@
 ver = "v.2.024 [GitHub]"
 # comment will mark the specific code for GitHub
 # GitHub version will always run complete list of artists
-print(ver)
+
 import requests
 import os
 import pandas as pd
+import numpy as np
 import csv
 import time
 import json
@@ -143,7 +144,7 @@ pd.set_option('display.max_rows', None)
 
 artistIDlist = pd.read_csv(artistIDs, sep=';')
 artistIDlist.drop('downloaded', axis=1, inplace=True)
-artistIDlist.insert(2, "downloaded", '')
+artistIDlist.insert(2, "downloaded", np.NaN)
 artistIDlist.to_csv(artistIDs, sep=';', index=False)
 
 returner=''
