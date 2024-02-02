@@ -9,6 +9,8 @@ import csv
 import time
 import json
 import datetime
+import math
+from math import nan
 
 # Инициализация переменных================================================
 
@@ -143,7 +145,7 @@ pd.set_option('display.max_rows', None)
 
 artistIDlist = pd.read_csv(artistIDs, sep=';')
 artistIDlist.drop('downloaded', axis=1, inplace=True)
-artistIDlist.insert(2, "downloaded", '')
+artistIDlist.insert(2, "downloaded", nan)
 artistIDlist.to_csv(artistIDs, sep=';', index=False)
 
 returner=''
