@@ -1,29 +1,11 @@
-ver = "v.2.0"
-print("###################################################################")
-print("""     _                _        __  __           _                 
-    / \   _ __  _ __ | | ___  |  \/  |_   _ ___(_) ___            
-   / _ \ | '_ \| '_ \| |/ _ \ | |\/| | | | / __| |/ __|           
-  / ___ \| |_) | |_) | |  __/ | |  | | |_| \__ \ | (__            
- /_/   \_\ .__/| .__/|_|\___| |_|  |_|\__,_|___/_|\___|           
-         |_|   |_|  _ \ ___| | ___  __ _ ___  ___  ___            
-                 | |_) / _ \ |/ _ \/ _` / __|/ _ \/ __|           
-                 |  _ <  __/ |  __/ (_| \__ \  __/\__ \           
-  ____           |_| \_\___|_|\___|\__,_|___/\___||___/ _     _   
- |  _ \  _____      ___ __ | | ___   __ _  __| | | |   (_)___| |_ 
- | | | |/ _ \ \ /\ / / '_ \| |/ _ \ / _` |/ _` | | |   | / __| __|
- | |_| | (_) \ V  V /| | | | | (_) | (_| | (_| | | |___| \__ \ |_ 
- |____/ \___/ \_/\_/ |_| |_|_|\___/ \__,_|\__,_| |_____|_|___/\__|
-""")
-print(" "+ver+"                                    ")
-print(" (c)&(p) 2022-2023 by Viktor 'MushroomOFF' Gribov")
-print("###################################################################")
+ver = "v.2.024 [Local]"
 
 import pandas as pd
 import datetime
 from pandasql import sqldf
 
 # Переменные ----------------------------------
-rootFolder = '/Users/viktorgribov/GitHub/Apple-Music-Releases/'
+rootFolder = '/Users/viktorgribov/GitHub/mushroomoff.github.io/'
 dbFolder = 'Databases/'
 releasesDB = rootFolder + dbFolder + 'AMR_releases_DB.csv'
 pdiTunesDB = pd.read_csv(releasesDB, sep=";")
@@ -50,9 +32,28 @@ def ShowReleases(dateFrom,dateTo):
     
     selectSection = 'SELECT DISTINCT "mainArtist","artistName","collectionName",SUBSTRING("releaseDate",1,10) AS "releaseDate"'
     
-    resultDF = sqldf(f'''{selectSection} FROM pdiTunesDB WHERE 1=1 {whereBlock} AND "downloadedRelease" is NULL ORDER BY SUBSTRING("releaseDate",1,10) ASC, "mainArtist" ASC, "collectionName" ASC''')
+    resultDF = sqldf(f'''{selectSection} FROM pdiTunesDB WHERE 1=1 {whereBlock} AND "downloadedRelease" is NULL ORDER BY "mainArtist" ASC, SUBSTRING("releaseDate",1,10) DESC, "collectionName" ASC''')
     return resultDF
 # --------------------------------------------
+
+print("###################################################################")
+print("""     _                _        __  __           _                 
+    / \   _ __  _ __ | | ___  |  \/  |_   _ ___(_) ___            
+   / _ \ | '_ \| '_ \| |/ _ \ | |\/| | | | / __| |/ __|           
+  / ___ \| |_) | |_) | |  __/ | |  | | |_| \__ \ | (__            
+ /_/   \_\ .__/| .__/|_|\___| |_|  |_|\__,_|___/_|\___|           
+         |_|   |_|  _ \ ___| | ___  __ _ ___  ___  ___            
+                 | |_) / _ \ |/ _ \/ _` / __|/ _ \/ __|           
+                 |  _ <  __/ |  __/ (_| \__ \  __/\__ \           
+  ____           |_| \_\___|_|\___|\__,_|___/\___||___/ _     _   
+ |  _ \  _____      ___ __ | | ___   __ _  __| | | |   (_)___| |_ 
+ | | | |/ _ \ \ /\ / / '_ \| |/ _ \ / _` |/ _` | | |   | / __| __|
+ | |_| | (_) \ V  V /| | | | | (_) | (_| | (_| | | |___| \__ \ |_ 
+ |____/ \___/ \_/\_/ |_| |_|_|\___/ \__,_|\__,_| |_____|_|___/\__|
+""")
+print(" "+ver+"                                    ")
+print(" (c)&(p) 2022-" + str(datetime.datetime.now())[0:4] + " by Viktor 'MushroomOFF' Gribov")
+print("###################################################################")
 
 print("")
 print("Все релизы к скачиванию")

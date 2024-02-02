@@ -1,4 +1,4 @@
-ver = "v.2.024 [Mac]"
+ver = "v.2.024 [Local]"
 
 import datetime
 import requests

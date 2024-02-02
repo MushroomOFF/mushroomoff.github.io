@@ -1,41 +1,18 @@
-ver = "v.2.0.1"
-print("########################################################")
-print("""     _                _        __  __           _      
-    / \   _ __  _ __ | | ___  |  \/  |_   _ ___(_) ___ 
-   / _ \ | '_ \| '_ \| |/ _ \ | |\/| | | | / __| |/ __|
-  / ___ \| |_) | |_) | |  __/ | |  | | |_| \__ \ | (__ 
- /_/   \_\ .__/| .__/|_|\___| |_|  |_|\__,_|___/_|\___|
-         |_|   |_|  _ \ ___| | ___  __ _ ___  ___  ___ 
-                 | |_) / _ \ |/ _ \/ _` / __|/ _ \/ __|
-                 |  _ <  __/ |  __/ (_| \__ \  __/\__ \\
-  _              |_| \_\___|_|\___|\__,_|___/\___||___/
- | |    ___   ___ | | __   / \   _ __  _ __            
- | |   / _ \ / _ \| |/ /  / _ \ | '_ \| '_ \           
- | |__| (_) | (_) |   <  / ___ \| |_) | |_) |          
- |_____\___/ \___/|_|\_\/_/   \_\ .__/| .__/           
-                                |_|   |_|              
-""")
-print(" "+ver+"                                    ")
-print(" (c)&(p) 2022-2023 by Viktor 'MushroomOFF' Gribov")
-print("########################################################")
+ver = "v.2.024 [GitHub]"
+# comment will mark the specific code for GitHub
+# GitHub version will always run complete list of artists
 
 import requests
 import os
 import pandas as pd
-import numpy as np
 import csv
 import time
 import json
 import datetime
-import openpyxl
-from openpyxl import load_workbook
-
-print('')
-print('[V] Libraries loaded')
 
 # Инициализация переменных================================================
 
-userDataFolder = '/Users/viktorgribov/GitHub/Apple-Music-Releases/'
+userDataFolder = '' # root is root
 dbFolder = 'Databases/'
 releasesDB = userDataFolder + dbFolder + 'AMR_releases_DB.csv'
 artistIDs = userDataFolder + dbFolder + 'AMR_artisitIDs.csv'
@@ -45,8 +22,23 @@ fieldNames = ['mainArtist','mainId','artistName','artistId','primaryGenreName',
               'dateUpdate','artworkUrlD','downloadedCover','downloadedRelease','updReason']
 #--------------------v  отрезал JP
 lCountry = ['us','ru','jp']
+logFile = userDataFolder + 'status.log' # path to log file
+
+# establishing session
+ses = requests.Session() 
+ses.headers.update({'Referer': 'https://itunes.apple.com',
+                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'})
 
 # Инициализация функций===================================================
+
+# This logger is only for GitHub --------------------------------------------------------------------
+def amnr_logger(pyScript, logLine):
+    with open(logFile, 'r+') as f:
+        content = f.read()
+        f.seek(0, 0)
+        # GitHub server time is UTC (-3 from Moscow), so i add +3 hours to log actions in Moscow time. Only where time matters
+        f.write(str(datetime.datetime.now() + datetime.timedelta(hours=3)) + ' - ' + pyScript + ' - ' + logLine.rstrip('\r\n') + '\n' + content)
+#----------------------------------------------------------------------------------------------------
 
 # Процедура Загрузки библиотеки
 def CreateDB():
@@ -54,16 +46,11 @@ def CreateDB():
         with open(releasesDB, 'a+', newline='') as csvfile:
             writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=fieldNames)
             writer.writeheader()
-        print('[V] Database created')
-    else:
-        print('[V] Database exists')
-    print('')
 
 # Процедура Поиска релизов исполнителя в базе iTunes  
-def FindReleases(artistID, cRow):
+def FindReleases(artistID, cRow, artistPrintName):
     allDataFrame=pd.DataFrame()
     dfExport=pd.DataFrame()
-    check_ers=0
     for country in lCountry:
         url = 'https://itunes.apple.com/lookup?id='+str(artistID)+'&country='+country+'&entity=album&limit=200'
         request = ses.get(url)
@@ -72,35 +59,21 @@ def FindReleases(artistID, cRow):
             if dJSON['resultCount']>1:
                 dfTemp = pd.DataFrame(dJSON['results'])
                 allDataFrame=allDataFrame.append(dfTemp[['artistName','artistId','primaryGenreName','collectionId','collectionName','collectionCensoredName','artworkUrl100','collectionExplicitness','trackCount','copyright','country','releaseDate']],ignore_index=True)
-                #print(country+' | ', sep=' ', end='', flush=True)
             else:
-                if check_ers == 0:
-                    print('\n',end='')
-                print(' '+country+' - EMPTY |', sep=' ', end='', flush=True)
-                check_ers=1
+                amnr_logger('[Apple Music Releases LookApp]', artistPrintName + ' - ' + country + ' - EMPTY')
         else:
-            if check_ers == 0:
-                print('\n',end='')
-            print(' '+country+' - ERROR ('+str(request.status_code)+') |', sep=' ', end='', flush=True)
-            check_ers=1
+            amnr_logger('[Apple Music Releases LookApp]', artistPrintName + ' - ' + country + ' - ERROR (' + str(request.status_code) + ')')
         time.sleep(1) # обход блокировки
     allDataFrame.drop_duplicates(subset='artworkUrl100', keep='first', inplace=True, ignore_index=True)
     dfExport = allDataFrame.loc[allDataFrame['collectionName'].notna()]
-    if check_ers==1:
-        print ('') 
-    #print('[V]')
 
-    if len(dfExport)>0:
-        #print("I've found "+str(len(dfExport)))
-        
+    if len(dfExport)>0:        
         pdiTunesDB = pd.read_csv(releasesDB, sep=";")
-
-        #Открываем файл лога для проверки скаченных файлов и записи новых скачиваний
 
         csvfile = open(releasesDB, 'a+', newline='')
         writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=fieldNames)
 
-        dateUpdate=str(datetime.datetime.now())[0:19]
+        dateUpdate=str(datetime.datetime.now() + datetime.timedelta(hours=3))[0:19] # GitHub server time is UTC (-3 from Moscow), so i add +3 hours to log actions in Moscow time. Only where time matters
         mainArtist=allDataFrame['artistName'].loc[0]
         mainId=artistID
         updReason=''
@@ -153,57 +126,26 @@ def FindReleases(artistID, cRow):
 
         pdiTunesDB = pd.DataFrame() 
         if (newRelCounter + newCovCounter) > 0:
-            print('\n^ '+str(newRelCounter+newCovCounter)+' new records: '+str(newRelCounter)+' releases, '+str(newCovCounter)+' covers')
-#        else:
-#            print(str(newRelCounter+newCovCounter)+' new records: '+str(newRelCounter)+' releases, '+str(newCovCounter)+' covers')
+            amnr_logger('[Apple Music Releases LookApp]', 
+                        artistPrintName + ' - ' + str(newRelCounter + newCovCounter) + ' new records: ' + str(newRelCounter) + ' releases, ' + str(newCovCounter) + ' covers')
         return "v" 
     
     else:
-        print("Didn't find a thing!")
-        print("")
+        amnr_logger('[Apple Music Releases LookApp]', "[!] Didn't find " + artistPrintName + "on ID " + artistID) 
         return "x"
 # Инициализация функций===================================================
 
-print('[V] Functions initialized')
-
-# establishing session
-ses = requests.Session() 
-ses.headers.update({'Referer': 'https://itunes.apple.com',
-                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'})
+amnr_logger('[Apple Music Releases LookApp]', ver + " (c)&(p) 2022-" + str(datetime.datetime.now())[0:4] + " by Viktor 'MushroomOFF' Gribov")
 
 CreateDB()
 
 pd.set_option('display.max_rows', None)
 
-# Определяем на каком Артисте остановились в прошлый раз. При желании начинаем сначала
-starter=0
-while starter==0:
-    artistIDlist = pd.read_csv(artistIDs, sep=';')
-    artID = artistIDlist['mainArtist'].loc[artistIDlist['downloaded'].isna()].head(1)
-    if len(artID) != 0:
-        curRow = artID.index[0]
-        artID.reset_index(drop=True,inplace=True)
-        curArt= artID[0]
-    else:
-        keyLoger = input("Всё закончили. Начнём с начала. Продолжить (Enter) ")
-        curRow = 0
-        artistIDlist.drop('downloaded', axis=1, inplace=True)
-        artistIDlist.insert(2, "downloaded", np.NaN)
-        artistIDlist.to_csv(artistIDs, sep=';', index=False)
-    if curRow==0:
-        keyLoger = input("Начнём с начала. Продолжить (Enter) ")
-        starter=1
-    else:
-        keyLoger = input("Остановились на '"+str(curArt)+"'. Продолжить (Enter) или начать сначала? ")
-        if keyLoger=='':
-            starter=1
-        else:
-            artistIDlist.drop('downloaded', axis=1, inplace=True)
-            artistIDlist.insert(2, "downloaded", np.NaN)
-            artistIDlist.to_csv(artistIDs, sep=';', index=False)
+artistIDlist = pd.read_csv(artistIDs, sep=';')
+artistIDlist.drop('downloaded', axis=1, inplace=True)
+artistIDlist.insert(2, "downloaded", np.NaN)
+artistIDlist.to_csv(artistIDs, sep=';', index=False)
 
-print('')
-# Эта часть будет крутиться по кургу, пока не откажешься качать новые обложки
 returner=''
 while returner=='':
     artID = artistIDlist['mainId'].loc[artistIDlist['downloaded'].isna()].head(1)
@@ -214,22 +156,15 @@ while returner=='':
         artID.reset_index(drop=True,inplace=True)
         curArt= artID[0]
 
-        #print("")
         printArtID = artistIDlist['mainArtist'].loc[artistIDlist['downloaded'].isna()].head(1)
         printArtID.reset_index(drop=True,inplace=True)
-        printArtist= printArtID[0]
-        print(f'{printArtist:40}', end='\r')
-        #print(artistIDlist['mainArtist'].loc[artistIDlist['downloaded'].isna()].head(1))
+        printArtist = printArtID[0]
 
-        findMark=FindReleases(curArt, curRow)
+        findMark=FindReleases(curArt, curRow, printArtist)
 
 #------------------V  Изменил с 2 на 1
         time.sleep(1) # обход блокировки
-        #returner = input("LookUp more Artists? Empty - yes. ")
-        #print("")
 
 pd.set_option('display.max_rows', 10)
 
-fspace=' '
-print(f'{fspace:40}')
-print('[V] All Done!')
+amnr_logger('[Apple Music Releases LookApp]', '[V] Done!')
