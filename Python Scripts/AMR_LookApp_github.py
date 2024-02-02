@@ -5,6 +5,7 @@ ver = "v.2.024 [GitHub]"
 import requests
 import os
 import pandas as pd
+import numpy as np
 import csv
 import time
 import json
@@ -159,6 +160,7 @@ while returner=='':
         printArtID = artistIDlist['mainArtist'].loc[artistIDlist['downloaded'].isna()].head(1)
         printArtID.reset_index(drop=True,inplace=True)
         printArtist = printArtID[0]
+        print(f'{printArtist:50}', end='\r')
 
         findMark=FindReleases(curArt, curRow, printArtist)
 
@@ -166,5 +168,7 @@ while returner=='':
         time.sleep(1) # обход блокировки
 
 pd.set_option('display.max_rows', 10)
+fspace=' '
+print(f'{fspace:50}')
 
 amnr_logger('[Apple Music Releases LookApp]', '[V] Done!')
