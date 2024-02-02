@@ -3,8 +3,8 @@ name: Apple Music New Releases
 on:
   schedule:
     - cron: '9 5 * * 5' # Every Friday at 8:09 (+/- 15 min). 5:09 UTC is 8:09 in Moscow.
-  # push:
-  #   branches: [ "main" ]
+  push:
+    branches: [ "main" ]
   # pull_request:
   #   branches: [ "main" ]
 
@@ -27,6 +27,7 @@ jobs:
       run: python 'Python Scripts/AMR_NewReleases_github.py'
     - name: commit files
       run: |
+        git add -A
         git config --local user.email "mushroomoff@mail.ru"
         git config --local user.name "MushroomOFF"
         git commit -a -m "weekly AMR New Releases autoupdate"
