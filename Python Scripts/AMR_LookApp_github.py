@@ -1,7 +1,7 @@
 ver = "v.2.024 [GitHub]"
 # comment will mark the specific code for GitHub
 # GitHub version will always run complete list of artists
-print(ver)
+
 import requests
 import os
 import pandas as pd
