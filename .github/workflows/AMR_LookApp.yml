@@ -3,8 +3,8 @@ name: Apple Music Releases LookApp
 on:
   schedule:
     - cron: '39 2 * * 5' # Every Friday at 2:39 UTC (+/- 15 min). 2:39 UTC is 5:39 in Moscow.
-  # push:
-  #   branches: [ "main" ]
+  push:
+    branches: [ "main" ]
   # pull_request:
   #   branches: [ "main" ]
 
