@@ -522,9 +522,6 @@ svg {
         --segmentedControlSelectedText: #000;
         --segmentedControlActiveBG:#d9d9d9
     }
-}
-
-
 
     @supports not (font: -apple-system-body) {
         :root {
@@ -971,7 +968,7 @@ button {
     outline:none
 }
 
-@supports selector (: focus-visible) {
+@supports selector(: focus-visible) {
     :focus {
         outline:none
     }
@@ -987,7 +984,7 @@ button {
     outline:none
 }
 
-@supports selector (: focus-visible) {
+@supports selector(: focus-visible) {
     [type=button]:focus, a:focus, button:focus {
         box-shadow: none;
         outline:none
@@ -1406,7 +1403,7 @@ html[dir=rtl] .multiline-clamp--overflow.svelte-1qrlry {
         --scrimOpacity:1
     }
 
-    @supports selector (: has(: focus-visible)) {
+    @supports selector(: has(: focus-visible)) {
         .product-lockup.svelte-21e67y.svelte-21e67y:focus-within {
             --scrimOpacity:0
         }
@@ -1492,7 +1489,7 @@ html[dir=rtl] .multiline-clamp--overflow.svelte-1qrlry {
     font-family:-apple-system, BlinkMacSystemFont, Apple Color Emoji, SF Pro, Arabic UI Text, SF Pro Icons, Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif
 }
 
-@supports selector (: has(: focus-visible)) {
+@supports selector(: has(: focus-visible)) {
     .product-lockup__subtitle-links--multiline.product-lockup__subtitle-links--singlet.svelte-21e67y .svelte-21e67y:focus-visible, .product-lockup__title-link--multiline.svelte-21e67y .svelte-21e67y:focus-visible {
         box-shadow: none;
         outline:none
