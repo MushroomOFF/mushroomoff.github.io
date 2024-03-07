@@ -1,4 +1,5 @@
 ver = "v.2.024 [Local]"
+# Python 3.12 & Pandas 2.2 ready
 
 import pandas as pd
 import datetime
