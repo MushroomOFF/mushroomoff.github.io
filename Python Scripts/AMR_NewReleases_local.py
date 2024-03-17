@@ -366,7 +366,8 @@ def coming_soon(caLink):
                                       date_time2, 
                                       ul2_string, 
                                       ''], index=pdNR.columns)
-            pdNR = pd.concat([pdNR, serTemp], ignore_index=True)
+
+            pdNR.loc[len(pdNR.index)] = serTemp
 
             print('Comming Soon [' + str(amSort) + ']', end='\r')
         i += 1
@@ -485,29 +486,29 @@ print(" (c)&(p) 2022-" + str(datetime.datetime.now())[0:4] + " by Viktor 'Mushro
 print("##############################################################")
 print('')
 
-caLink = 'https://music.apple.com/us/room/993297832'
-caText = 'METAL - Classic. Black. Death. Speed. Prog. Sludge. Doom.'
-caGrad = '#81BB98, #9AD292'
-collect_albums(caLink, caText, caGrad)
-print('Metal [US]     - OK')
+# caLink = 'https://music.apple.com/us/room/993297832'
+# caText = 'METAL - Classic. Black. Death. Speed. Prog. Sludge. Doom.'
+# caGrad = '#81BB98, #9AD292'
+# collect_albums(caLink, caText, caGrad)
+# print('Metal [US]     - OK')
 
-caLink = 'https://music.apple.com/us/room/1184023815'
-caText = 'HARD ROCK'
-caGrad = '#EE702E, #F08933'
-collect_albums(caLink, caText, caGrad)
-print('Hard Rock [US] - OK')
+# caLink = 'https://music.apple.com/us/room/1184023815'
+# caText = 'HARD ROCK'
+# caGrad = '#EE702E, #F08933'
+# collect_albums(caLink, caText, caGrad)
+# print('Hard Rock [US] - OK')
 
-caLink = 'https://music.apple.com/ru/room/1118077423'
-caText = 'METAL - RU - Classic. Black. Death. Speed. Prog. Sludge. Doom.'
-caGrad = '#81BB98, #9AD292'
-collect_albums(caLink, caText, caGrad)
-print('Metal [RU]     - OK')
+# caLink = 'https://music.apple.com/ru/room/1118077423'
+# caText = 'METAL - RU - Classic. Black. Death. Speed. Prog. Sludge. Doom.'
+# caGrad = '#81BB98, #9AD292'
+# collect_albums(caLink, caText, caGrad)
+# print('Metal [RU]     - OK')
 
-caLink = 'https://music.apple.com/ru/room/1532200949'
-caText = 'HARD ROCK - RU'
-caGrad = '#EE702E, #F08933'
-collect_albums(caLink, caText, caGrad)
-print('Hard Rock [RU] - OK')
+# caLink = 'https://music.apple.com/ru/room/1532200949'
+# caText = 'HARD ROCK - RU'
+# caGrad = '#EE702E, #F08933'
+# collect_albums(caLink, caText, caGrad)
+# print('Hard Rock [RU] - OK')
 
 coming_soon('https://music.apple.com/us/room/993297822')
 print('Comming Soon   - OK')
