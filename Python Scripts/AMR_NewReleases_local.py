@@ -470,6 +470,176 @@ def coming_soon(caLink):
     idx2.close()    
 #----------------------------------------------------------------------------------------------------
 
+def CS2NR():
+# Coming soon to New Releases
+  
+  pdNR = pd.read_csv(newReleasesDB, sep=";")
+  pdCS = pd.read_csv(csReleasesDB, sep=";")
+  pdCSNR = pd.DataFrame(columns=['artist', 'album', 'link', 'image'])
+
+  for index, row in pdCS.iterrows():
+      if datetime.datetime.strptime(row.iloc[6], "%Y-%m-%d %H:%M:%S") <= datetime.datetime.now():
+          if len(pdNR.loc[pdNR['link'] == row.iloc[2]]) == 0:
+              pdCSNR.loc[len(pdCSNR.index)] = [row.iloc[5], row.iloc[3], row.iloc[2], row.iloc[1]]
+
+  pdNR = pd.DataFrame()
+  pdCS = pd.DataFrame()
+
+  if len(pdCSNR) > 0:
+      dldCategory = 'CS'
+      caText = 'METAL - CS - Classic. Black. Death. Speed. Prog. Sludge. Doom.'
+      caGrad = '#81BB98, #9AD292'
+
+      dldDate = str(datetime.datetime.now())[0:10]
+      htmlHead = """<head>
+  <meta charset="utf-8">
+  <title>Apple Music Releases</title>
+  <link rel="stylesheet" type="text/css" href="../Resources/styles.css" />
+  <SCRIPT language=JavaScript type=text/JavaScript>
+    <!--
+    function show(id) {
+      if(document.getElementById("show" + id).style.display == 'none') {
+        document.getElementById("show" + id).style.display = '';
+      }else{
+        document.getElementById("show" + id).style.display = 'none';
+      }
+    }
+
+    function show_tr(id) {
+      var elms;
+      if (id=="v") {
+        elms = document.querySelectorAll("[id='v']");
+      } else if (id=="x") {
+        elms = document.querySelectorAll("[id='x']");
+      } else if (id=="d") {
+        elms = document.querySelectorAll("[id='d']");
+      } else if (id=="o") {
+        elms = document.querySelectorAll("[id='o']");
+      } else if (id=="") {
+        elms = document.querySelectorAll("[id='']");
+      }
+      for (var i = 0; i < elms.length; i++) {
+        if (elms[i].style.display == 'none') {
+          elms[i].style.display = '';
+        } else {
+          elms[i].style.display = 'none';
+        }
+      }
+    }
+    //-->
+  </SCRIPT>
+</head>
+
+<body>
+  <input id="bV" type="button" value="V" onclick="show_tr('v');" class="bV" />
+  <input id="bD" type="button" value="D" onclick="show_tr('d');" class="bD" />
+  <input id="bX" type="button" value="O" onclick="show_tr('o');" class="bO" />
+  <input id="bX" type="button" value="X" onclick="show_tr('x');" class="bX" />
+  <input id="bE" type="button" value="  " onclick="show_tr('');" class="bE" />
+  <input type="button" onclick="location.href='../index.html';" value="Index"  class="bI"/>
+  <hr>
+"""
+
+      htmlStart = """  <table border="1">
+    <tr><th colspan="2" style="background: linear-gradient(to right, """ + caGrad + """);">""" + dldDate + """ | """ + caText + """</th></tr>
+    <tr><th width="100px">Cover</th><th width="600px">Album</th></tr>
+"""
+
+      htmlText = ''
+
+      htmlEnd = """  </table>
+  <hr>
+"""
+
+      htmlFinal = """  <!-- End of File -->
+  <script id="rendered-js" >
+    [...document.querySelectorAll('[data-frame-load]')].forEach(button => {
+      button.addEventListener('click', () => {
+        const group = button.getAttribute('data-frame-load');
+        [...document.querySelectorAll(`[data-frame-group="${group}"]`)].forEach(frame => {
+          javascript:show(frame.getAttribute('data-frame-group') + '_');
+          frame.setAttribute('src', frame.getAttribute('data-frame-src'));
+        });
+      });
+    });
+  </script>
+</body>
+"""
+
+      fieldNames = ['date', 'category', 'artist', 'album', 'Best_Fav_New_OK', 'rec_send2TG', 'link', 'imga', 'send2TG', 'TGmsgID']
+      csvfile = open(newReleasesDB, 'a+', newline='')
+      writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=fieldNames)
+
+      for index, row in pdCSNR.iterrows():
+          aralname = row.iloc[0] + ' - ' + row.iloc[1]
+          aralinsert = aralname.replace(row.iloc[0], row.iloc[0] + '</b>') if len(aralname) < 80 else aralname[:aralname[:80].rfind(' ') + 1].replace(row.iloc[0], row.iloc[0] + '</b>') + '<br>' + aralname[aralname[:80].rfind(' ') + 1:]
+          writer.writerow({'date': dldDate, 
+                          'category': dldCategory, 
+                          'artist': row.iloc[0], 
+                          'album': row.iloc[1], 
+                          'Best_Fav_New_OK': '', 
+                          'rec_send2TG': '', 
+                          'link': row.iloc[2], 
+                          'imga': row.iloc[3], 
+                          'send2TG': '', 
+                          'TGmsgID': ''})
+          
+          htmlText += """  <!-- """ + row.iloc[0] + ' - ' + row.iloc[1] + """" -->
+    <tr style="display:;" id=''>
+      <td><a href=""" + '"' + row.iloc[3].replace('296x296bb.webp', '100000x100000-999.jpg').replace('296x296bf.webp', '100000x100000-999.jpg').replace('296x296bf-60.jpg', '100000x100000-999.jpg') + '"' + """ target="_blank"><img src=""" + '"' + row.iloc[3] + '"' + """ height="100px"></a></td>
+      <td class="album_name"><a href=""" + '"' + row.iloc[2] + '"' + """ target="_blank"><b>""" + aralinsert + """</a><br><br><button data-frame-load=""" + '"' + row.iloc[2][row.iloc[2].rfind('/') + 1:] + '"' + """>Preview</button></td>
+    </tr> 
+    <tr style="display:none;" id="show""" + row.iloc[2][row.iloc[2].rfind('/') + 1:] + """_"><td colspan="2"><iframe id="embedPlayer" data-frame-group=""" + '"' + row.iloc[2][row.iloc[2].rfind('/') + 1:] + '"' + """ data-frame-src=""" + '"' + row.iloc[2].replace('://', '://embed.') + """?app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=light" height="450px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *; clipboard-write" style="width: 100%; overflow: hidden; border-radius: 10px; transform: translateZ(0px); animation: 2s ease 0s 6 normal none running loading-indicator; background-color: rgb(228, 228, 228);"></iframe></td></tr>
+"""
+
+      csvfile.close()
+
+      yearNOW = dldDate[0:4]
+      monthNOW = dldDate[0:7]
+      monthTextNOW = datetime.datetime.strptime(dldDate, '%Y-%m-%d').strftime('%B')    
+      HTMLFile = open(rootFolder + "index.html", "r")
+      index = HTMLFile.read()
+      monthDB = index[index.find('<a href="AMRs/AMR ') + len('<a href="AMRs/AMR '):index.find('.html">')]
+      HTMLFile.close()
+      monthTextDB = datetime.datetime.strptime(monthDB, '%Y-%m').strftime('%B')
+      yearDB = monthDB[0:4]
+      newMonth = 0
+      newYear = 0
+
+      if yearNOW != yearDB:
+          newYear = 1
+          with open(rootFolder + 'index.html', 'r+') as idx:
+              idxContent = idx.read()
+              idxContent = idxContent.replace('\n    <h2 class="title svelte-hprj71" data-testid="header-title">' + yearDB + ':</h2>',
+                                              '\n    <h2 class="title svelte-hprj71" data-testid="header-title">' + yearNOW + ':</h2>\n        <a href="AMRs/AMR ' + monthNOW + '.html">' + monthTextNOW + '</a><br>\n    <h2 class="title svelte-hprj71" data-testid="header-title">' + yearDB + ':</h2>')
+              idx.seek(0, 0)
+              idx.write(idxContent)
+          idx.close()
+      else:
+          if monthNOW != monthDB:
+              newMonth = 1
+              with open(rootFolder + 'index.html', 'r+') as idx:
+                  idxContent = idx.read()
+                  idxContent = idxContent.replace('\n        <a href="AMRs/AMR ' + monthDB + '.html">' + monthTextDB + '</a>',
+                                                  '\n        <a href="AMRs/AMR ' + monthNOW + '.html">' + monthTextNOW + '</a> | \n        <a href="AMRs/AMR ' + monthDB + '.html">' + monthTextDB + '</a>')
+                  idx.seek(0, 0)
+                  idx.write(idxContent)
+              idx.close()
+
+      if htmlText != '':
+          if newMonth == 1 or newYear == 1:
+              with open(amrsFolder + 'AMR ' + monthNOW + '.html', 'w') as h2r:
+                  h2r.write(htmlHead + '\n' + htmlStart + htmlText + htmlEnd + '\n' + htmlFinal)
+              h2r.close()            
+          else:
+              with open(amrsFolder + 'AMR '+monthNOW + '.html', 'r+') as h2r:
+                  h2rContent = h2r.read()
+                  h2rContent = h2rContent.replace(htmlHead, '')
+                  h2r.seek(0, 0)
+                  h2r.write(htmlHead + '\n' + htmlStart + htmlText + htmlEnd + '\n' + h2rContent)
+              h2r.close()
+#----------------------------------------------------------------------------------------------------
+
 print("##############################################################")
 print("""     _                _        __  __           _            
     / \\   _ __  _ __ | | ___  |  \\/  |_   _ ___(_) ___       
@@ -512,3 +682,6 @@ print('Hard Rock [RU] - OK')
 
 coming_soon('https://music.apple.com/us/room/993297822')
 print('Comming Soon   - OK')
+
+CS2NR()
+print('Metal [CS]     - OK')
