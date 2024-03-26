@@ -1,10 +1,13 @@
+# [Apple Music New Releases](https://mushroomoff.github.io)
 There will be some description... soon!
 
 ## Index
 ### root
-index.html
-README.md
-status.log
+*index.html* - main HTML-page with upcoming releases
+
+*README.md* - read me
+
+*status.log* - GitHub Actions log
 
 #### AMRs
 HTMLs for each month with new releases
