@@ -3,6 +3,9 @@ There will be some description... soon!
 ## Index
 ### root
 index.html
+README.md
+status.log
+
 #### AMRs
 HTMLs for each month with new releases
 
@@ -19,7 +22,6 @@ CSV with all parsed new releases
 CSS & ICOs
 
 
-mushroomoff.github.io
 mushroomoff.github.io/AMRs
 mushroomoff.github.io/AMRs/AMR 2022-12.html
 mushroomoff.github.io/AMRs/AMR 2023-01.html
