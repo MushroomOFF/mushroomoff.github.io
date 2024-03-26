@@ -3,11 +3,11 @@ There will be some description... soon!
 
 ## Index
 ### root
-*index.html* - main HTML-page with upcoming releases
+- *index.html* - main HTML-page with upcoming releases
 
-*README.md* - read me
+- *README.md* - read me
 
-*status.log* - GitHub Actions log
+- *status.log* - GitHub Actions log
 
 #### AMRs
 HTMLs for each month with new releases
