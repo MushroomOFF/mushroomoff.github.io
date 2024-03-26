@@ -11,9 +11,10 @@ HTMLs for each month with new releases
 CSV with all parsed new releases 
 
 #### Python
-*AMR_NewReleases.py* - main Python script to collect new releases
+> *AMR_NewReleases.py* - >main Python script to collect new releases
 
-*requirements.txt* - third party packages for Python 
+*requirements.txt* -
+>third party packages for Python 
 
 #### resources
 CSS & ICOs
