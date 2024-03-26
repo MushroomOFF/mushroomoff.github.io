@@ -12,7 +12,7 @@ There will be some description... soon!
 - *AMR_NewReleases.yml* - YAML to run GitHub Action "Apple Music New Releases" on schedule: Every Friday at 5:09 UTC (+/- 15 min). 5:09 UTC is 8:09 in Moscow.
 
 ### /AMRs
-  HTMLs for each month with new releases
+- *AMR YYYY-MM.html* - HTMLs for each month with new releases (YYYY - year, MM - month)
 
 > ### /Covers (ignored from GitHub)
 > - */New Covers* - folder to download new covers
@@ -25,33 +25,26 @@ There will be some description... soon!
 - *AMR_newReleases_DB.csv* - CSV of New releases (shown on AMR HTMLs)
 - *AMR_releases_DB.csv* - CSV of all releases for Artists in "AMR_artisitIDs.csv"
 
-### \Python Notebooks
-- *AMR Check Database v.2.024.ipynb* - main
-- *AMR Covers Downloader v.2.024.ipynb* - main
-- *AMR LookApp v.2.024.ipynb* - main
-- *AMR New Releases v.2.024.ipynb* - main
-- *requirements.txt* - third party packages for Python 
+### /Python Notebooks
+- *AMR Check Database v.2.024.ipynb* - PyNotebook to work with all releases database "AMR_releases_DB.csv". Here all releases must be marked for downloading (empty - to download, 'v' - downloaded, 'x' - no need to download). Here stores the script for "AMR_List2Download_local.py"
+- *AMR Covers Downloader v.2.024.ipynb* - PyNotebook contains script for "AMR_CoversDownloader_local.py"
+- *AMR LookApp v.2.024.ipynb* - PyNotebook contains script for "AMR_LookApp_local.py" and "AMR_LookApp_github.py"
+- *AMR New Releases v.2.024.ipynb* - PyNotebook contains script for "AMR_NewReleases_local.py" and "AMR_NewReleases_github.py"
+- *requirements.txt* - third party packages for Python (used to run GitHub Actions)
 
-#### \resources
-CSS & ICOs
+### /Python Scripts
+- *AMR_CoversDownloader_local.py* - PyNotebook to work with all releases database "AMR_releases_DB.csv".
+- *AMR_List2Download_local.py* - PyNotebook contains script for "AMR_CoversDownloader_local.py"
+- *AMR_LookApp_github.py* - PyNotebook contains script for "AMR_LookApp_local.py" and "AMR_LookApp_github.py"
+- *AMR_LookApp_local.py* - PyNotebook contains script for "AMR_NewReleases_local.py" and "AMR_NewReleases_github.py"
+- *AMR_NewReleases_github.py* - third party packages for Python (used to run GitHub Actions)
+- *AMR_NewReleases_local.py* - third party packages for Python (used to run GitHub Actions)
 
+### \resources
+- *favicon-2.ico* - a
+- *favicon.ico* - a
+- *index.css* - a
+- *styles.css* - a
+- *touch-icon-** - a
 
-
-mushroomoff.github.io/Python Scripts
-mushroomoff.github.io/Python Scripts/AMR_CoversDownloader_local.py
-mushroomoff.github.io/Python Scripts/AMR_List2Download_local.py
-mushroomoff.github.io/Python Scripts/AMR_LookApp_github.py
-mushroomoff.github.io/Python Scripts/AMR_LookApp_local.py
-mushroomoff.github.io/Python Scripts/AMR_NewReleases_github.py
-mushroomoff.github.io/Python Scripts/AMR_NewReleases_local.py
-mushroomoff.github.io/Resources
-mushroomoff.github.io/Resources/favicon-2.ico
-mushroomoff.github.io/Resources/favicon.ico
-mushroomoff.github.io/Resources/index.css
-mushroomoff.github.io/Resources/styles.css
-mushroomoff.github.io/Resources/touch-icon-ipad-retina-2.png
-mushroomoff.github.io/Resources/touch-icon-ipad-retina.png
-mushroomoff.github.io/Resources/touch-icon-ipad.png
-mushroomoff.github.io/Resources/touch-icon-iphone-retina.png
-mushroomoff.github.io/Resources/touch-icon-iphone.png
-
+(c)&(p) 2022-2024 by Viktor 'MushroomOFF' Gribov
