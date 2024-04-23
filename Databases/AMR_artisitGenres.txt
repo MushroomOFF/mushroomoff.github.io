@@ -53,6 +53,7 @@ Anubis Gate                          | Progressive Metal
 Apocalyptica                         | Symphonic Metal
 Arcane Roots                         | Alternative
 Arch Enemy                           | Melodic Death Metal
+Archetypes Collide                   | Alternative
 Ariana Grande                        | Pop
 Artillery                            | Thrash Metal
 As Blood Runs Black                  | Deathcore
@@ -145,6 +146,7 @@ Coheed and Cambria                   | Alternative
 Cold                                 | Alternative Metal
 Coldplay                             | Alternative
 Conquer Divide                       | Metalcore
+Conquering Dystopia                  | Progressive Metal
 Contracult Collective                | Industrial Metal
 Corey Taylor                         | Rock
 Corpsegrinder                        | Death Metal
