@@ -235,8 +235,10 @@ Emigrate                             | Industrial Metal
 Emil Bulls                           | Alternative
 Eminem                               | Rap
 Enter Shikari                        | Alternative
+Enterprise Earth                     | Deathcore
 Epica                                | Symphonic Metal
 Equipoise                            | Technical Death Metal
+Eternal Storm                        | Melodic Death Metal
 Eva Under Fire                       | Alternative
 Evanescence                          | Alternative
 Evans Blue                           | Alternative
@@ -249,7 +251,6 @@ Fall Out Boy                         | Alternative
 Fallujah                             | Technical Death Metal
 False Memories                       | Gothic Metal
 Farmer Boys                          | Alternative
-Fateful Finality                     | 
 Faun                                 | Folk Metal
 Fear Factory                         | Industrial Metal
 Fergie                               | Pop
@@ -277,6 +278,7 @@ Genus Ordinis Dei                    | Symphonic Metal
 George Lynch                         | Hard Rock
 Ghost                                | Heavy Metal
 Glamour of the Kill                  | Metalcore
+Glass Beams                          | Rock
 Godsmack                             | Metal
 Gojira                               | Progressive Metal
 Goldfinger                           | Punk Rock
@@ -295,6 +297,7 @@ Haken                                | Progressive Metal
 Halestorm                            | Hard Rock
 HammerFall                           | Power Metal
 Hammers of Misfortune                | Progressive Metal
+Hand of Kalliach                     | Melodic Death Metal
 Hatebreed                            | Metalcore
 He Is Legend                         | Metal
 Heart of a Coward                    | Metalcore
@@ -355,10 +358,12 @@ Justin Bieber                        | Pop
 Kadinja                              | Progressive Metal
 Kaipa                                | Progressive Rock
 Kaledon                              | Power Metal
+Kaosis                               | Nu Metal
 Kataklysm                            | Death Metal
 Katatonia                            | Doom Metal
 Katy Perry                           | Pop
 Kesha                                | Pop
+Keygen Church                        | Industrial Metal
 Khemmis                              | Doom Metal
 Kid Rock                             | Rock
 Kiesza                               | Pop
@@ -525,6 +530,7 @@ Revolution Harmony                   | Metal
 Rihanna                              | R&B
 Rings of Saturn                      | Technical Death Metal
 Rise to Remain                       | Metalcore
+Ryujin                               | Power Metal
 Sabaton                              | Power Metal
 Sadus                                | Thrash Metal
 Saffire                              | Hard Rock
@@ -599,6 +605,7 @@ Sworn In                             | Metalcore
 Symphony X                           | Progressive Metal
 Syncatto                             | Progressive Metal
 System of a Down                     | Alternative
+Takida                               | Alternative
 Tallah                               | Nu Metal
 Tarja                                | Symphonic Metal
 Taylor Swift                         | Pop
@@ -660,6 +667,7 @@ Unleash the Archers                  | Power Metal
 Unloco                               | Nu Metal
 Unprocessed                          | Progressive Metal
 Upon a Burning Body                  | Deathcore
+Upon Stone                           | Melodic Death Metal
 Vader                                | Death Metal
 Vanilla Sky                          | Punk Rock
 Varg                                 | Melodic Death Metal
