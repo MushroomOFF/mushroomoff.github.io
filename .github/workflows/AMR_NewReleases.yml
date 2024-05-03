@@ -2,7 +2,7 @@ name: Apple Music New Releases
 
 on:
   schedule:
-    - cron: '9 5 * * 6' # Every Friday at 5:09 UTC (+/- 15 min). 5:09 UTC is 8:09 in Moscow.
+    - cron: '9 5 * * 5' # Every Friday at 5:09 UTC (+/- 15 min). 5:09 UTC is 8:09 in Moscow.
   # push:
   #   branches: [ "main" ]
   # pull_request:
