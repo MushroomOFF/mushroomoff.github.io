@@ -362,6 +362,7 @@ Kaosis                               | Nu Metal
 Kataklysm                            | Death Metal
 Katatonia                            | Doom Metal
 Katy Perry                           | Pop
+Keith Wallen                         | Alternative
 Kesha                                | Pop
 Keygen Church                        | Industrial Metal
 Khemmis                              | Doom Metal
@@ -435,6 +436,7 @@ Misfire                              | Thrash Metal
 Miss Fortune                         | Alternative
 MMXX                                 | Gothic Metal
 Mnemic                               | Industrial Metal
+Mob Rules                            | Power Metal
 MolyBaron                            | Alternative
 Monument of a Memory                 | Metalcore
 Monuments                            | Progressive Metal
@@ -526,6 +528,7 @@ Red Hot Chili Peppers                | Alternative
 Refuge                               | Power Metal
 ReinXeed                             | Power Metal
 Repentance                           | Metalcore
+Return to Dust                       | Alternative
 Revolution Harmony                   | Metal
 Rihanna                              | R&B
 Rings of Saturn                      | Technical Death Metal
@@ -689,6 +692,7 @@ Warmen                               | Power Metal
 We Set Signals                       | Alternative
 Weeping Wound                        | Metalcore
 Weezer                               | Alternative
+Wheel                                | Progressive Metal
 While Heaven Wept                    | Heavy Metal
 Whitechapel                          | Deathcore
 Wig Wam                              | Glam Metal
