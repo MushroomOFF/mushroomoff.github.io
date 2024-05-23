@@ -8,6 +8,10 @@ on:
   # pull_request:
   #   branches: [ "main" ]
 
+env:
+  tg_channel_id: ${{ secrets.TG_CHANNEL_ID }}
+  tg_token: ${{ secrets.TG_TOKEN }}
+
 jobs:
   build:
 
