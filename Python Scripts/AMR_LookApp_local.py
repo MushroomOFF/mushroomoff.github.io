@@ -1,5 +1,6 @@
-ver = "v.2.024 [Local]"
+ver = "v.2.024.5 [Local]"
 # Python 3.12 & Pandas 2.2 ready
+# Added status sender via Telegram Bot
 
 import requests
 import os
@@ -22,6 +23,14 @@ fieldNames = ['mainArtist', 'mainId', 'artistName', 'artistId', 'primaryGenreNam
               'dateUpdate', 'artworkUrlD', 'downloadedCover', 'downloadedRelease', 'updReason']
 #---------------------v  отрезал JP
 lCountry = ['us', 'ru', 'jp']
+emojis = {'us': '\U0001F1FA\U0001F1F8', 'ru': '\U0001F1F7\U0001F1FA', 'jp': '\U0001F1EF\U0001F1F5', 'wtf': '\U0001F914', 
+          'album': '\U0001F4BF', 'cover': '\U0001F3DE\U0000FE0F', 'error': '\U00002757\U0000FE0F', 'empty': '\U0001F6AB'}
+# Telegram -------------------------------
+URL = 'https://api.telegram.org/bot'
+TOKEN = input("Telegram Bot TOKEN: ")
+chat_id = input("Telegram Bot chat_id: ")
+#chat_id = '-1001939128351' #Test channel
+#-----------------------------------------
 
 # establishing session
 ses = requests.Session() 
@@ -29,6 +38,21 @@ ses.headers.update({'Referer': 'https://itunes.apple.com',
                     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'})
 
 # Инициализация функций===================================================
+
+# Процедура Замены символов для Markdown v2
+def ReplaceSymbols(rsTxt):
+    rsTmplt = """'_*[]",()~`>#+-=|{}.!"""
+    for rsf in range(len(rsTmplt)):
+        rsTxt = rsTxt.replace(rsTmplt[rsf], '\\' + rsTmplt[rsf])
+    return rsTxt
+
+# Процедура Отправки сообщения ботом в канал
+def send_message(text):
+    method = URL + TOKEN + "/sendMessage"
+    r = requests.post(method, data={"chat_id": chat_id, "parse_mode": 'MarkdownV2', "text": text})
+    json_response = json.loads(r.text)
+    rmi = json_response['result']['message_id']   
+    return rmi
 
 # Процедура Загрузки библиотеки
 def CreateDB():
@@ -43,6 +67,7 @@ def CreateDB():
 
 # Процедура Поиска релизов исполнителя в базе iTunes  
 def FindReleases(artistID, cRow):
+    global message2send, messageEmpty, messageError
     allDataFrame = pd.DataFrame()
     dfExport = pd.DataFrame()
     check_ers = 0
@@ -58,11 +83,13 @@ def FindReleases(artistID, cRow):
                 if check_ers == 0:
                     print('\n', end='')
                 print(' ' + country + ' - EMPTY |', sep=' ', end='', flush=True)
+                messageEmpty += '\n' + emojis[country] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*'
                 check_ers = 1
         else:
             if check_ers == 0:
                 print('\n', end='')
             print(' ' + country + ' - ERROR (' + str(request.status_code) + ') |', sep=' ', end='', flush=True)
+            messageError += '\n' + emojis[country] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*'
             check_ers = 1
         time.sleep(1) # обход блокировки
     allDataFrame.drop_duplicates(subset='artworkUrl100', keep='first', inplace=True, ignore_index=True)
@@ -70,7 +97,7 @@ def FindReleases(artistID, cRow):
     if check_ers == 1:
         print ('') 
 
-    if len(dfExport)>0:
+    if len(dfExport) > 0:
         pdiTunesDB = pd.read_csv(releasesDB, sep=";")
         #Открываем файл лога для проверки скаченных файлов и записи новых скачиваний
         csvfile = open(releasesDB, 'a+', newline='')
@@ -130,6 +157,11 @@ def FindReleases(artistID, cRow):
         pdiTunesDB = pd.DataFrame() 
         if (newRelCounter + newCovCounter) > 0:
             print('\n^ '+str(newRelCounter+newCovCounter)+' new records: '+str(newRelCounter)+' releases, '+str(newCovCounter)+' covers')
+            if newRelCounter > 0 :
+                iconka = 'album'
+            else:
+                iconka = 'cover'
+            message2send += '\n' + emojis[iconka] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*: ' + str(newRelCounter + newCovCounter)
         return "v" 
     
     else:
@@ -158,6 +190,14 @@ print(" " + ver + "                                    ")
 print(" (c)&(p) 2022-" + str(datetime.datetime.now())[0:4] + " by Viktor 'MushroomOFF' Gribov")
 print("########################################################")
 print('')
+
+message2send = ReplaceSymbols('====== ' + str(datetime.datetime.now())[:10] + ' ======')
+messageErPrt = ReplaceSymbols('======== ERRORS ========') + '\n'
+messageError = emojis['error'] + ' 503 Service Unavailable ' + emojis['error']
+messageEmpty = emojis['empty'] + ' Not available in country ' + emojis['empty']
+checkMesSnd = len(message2send)
+checkMesErr = len(messageError)
+checkMesEmp = len(messageEmpty)
 
 CreateDB()
 
@@ -216,4 +256,20 @@ pd.set_option('display.max_rows', 10)
 
 fspace = ' '
 print(f'{fspace:50}')
+
+if checkMesSnd == len(message2send):
+    message2send += '\n' + emojis['wtf']
+
+if checkMesErr == len(messageError) and checkMesEmp == len(messageEmpty):
+    send_message(message2send)
+elif checkMesErr != len(messageError) and checkMesEmp != len(messageEmpty):
+    send_message(message2send + '\n\n' + messageErPrt + messageError + '\n\n' + messageEmpty)    
+else:
+    if checkMesEmp != len(messageEmpty):
+        send_message(message2send + '\n\n' + messageErPrt + messageEmpty)
+    elif checkMesErr != len(messageError):
+        send_message(message2send + '\n\n' + messageErPrt + messageError)
+    else:
+        send_message(message2send + '\n\n' + messageErPrt + '\n' + emojis['wtf'])
+
 print('[V] All Done!')

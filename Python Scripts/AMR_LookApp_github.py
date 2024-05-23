@@ -1,5 +1,6 @@
-ver = "v.2.024 [GitHub]"
+ver = "v.2.024.5 [GitHub]"
 # Python 3.12 & Pandas 2.2 ready
+# Added status sender via Telegram Bot
 # comment will mark the specific code for GitHub
 # GitHub version will always run complete list of artists
 
@@ -24,7 +25,14 @@ fieldNames = ['mainArtist', 'mainId', 'artistName', 'artistId', 'primaryGenreNam
               'dateUpdate', 'artworkUrlD', 'downloadedCover', 'downloadedRelease', 'updReason']
 #---------------------v  отрезал JP
 lCountry = ['us', 'ru', 'jp']
+emojis = {'us': '\U0001F1FA\U0001F1F8', 'ru': '\U0001F1F7\U0001F1FA', 'jp': '\U0001F1EF\U0001F1F5', 'wtf': '\U0001F914', 
+          'album': '\U0001F4BF', 'cover': '\U0001F3DE\U0000FE0F', 'error': '\U00002757\U0000FE0F', 'empty': '\U0001F6AB'}
 logFile = userDataFolder + 'status.log' # path to log file
+# Telegram -------------------------------
+URL = 'https://api.telegram.org/bot'
+TOKEN = os.environ['tg_token']
+chat_id = os.environ['tg_channel_id']
+#-----------------------------------------
 
 # establishing session
 ses = requests.Session() 
@@ -42,6 +50,21 @@ def amnr_logger(pyScript, logLine):
         f.write(str(datetime.datetime.now() + datetime.timedelta(hours=3)) + ' - ' + pyScript + ' - ' + logLine.rstrip('\r\n') + '\n' + content)
 #----------------------------------------------------------------------------------------------------
 
+# Процедура Замены символов для Markdown v2
+def ReplaceSymbols(rsTxt):
+    rsTmplt = """'_*[]",()~`>#+-=|{}.!"""
+    for rsf in range(len(rsTmplt)):
+        rsTxt = rsTxt.replace(rsTmplt[rsf], '\\' + rsTmplt[rsf])
+    return rsTxt
+
+# Процедура Отправки сообщения ботом в канал
+def send_message(text):
+    method = URL + TOKEN + "/sendMessage"
+    r = requests.post(method, data={"chat_id": chat_id, "parse_mode": 'MarkdownV2', "text": text})
+    json_response = json.loads(r.text)
+    rmi = json_response['result']['message_id']   
+    return rmi
+
 # Процедура Загрузки библиотеки
 def CreateDB():
     if not os.path.exists(releasesDB):
@@ -51,9 +74,9 @@ def CreateDB():
 
 # Процедура Поиска релизов исполнителя в базе iTunes  
 def FindReleases(artistID, cRow, artistPrintName):
+    global message2send, messageEmpty, messageError
     allDataFrame = pd.DataFrame()
     dfExport = pd.DataFrame()
-    check_ers = 0
     for country in lCountry:
         url = 'https://itunes.apple.com/lookup?id=' + str(artistID) + '&country=' + country + '&entity=album&limit=200'
         request = ses.get(url)
@@ -64,13 +87,15 @@ def FindReleases(artistID, cRow, artistPrintName):
                 allDataFrame = pd.concat([allDataFrame, dfTemp[['artistName', 'artistId', 'primaryGenreName', 'collectionId', 'collectionName', 'collectionCensoredName', 'artworkUrl100', 'collectionExplicitness', 'trackCount', 'copyright', 'country', 'releaseDate']]], ignore_index=True)
             else:
                 amnr_logger('[Apple Music Releases LookApp]', artistPrintName + ' - ' + country + ' - EMPTY')
+                messageEmpty += '\n' + emojis[country] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*'
         else:
             amnr_logger('[Apple Music Releases LookApp]', artistPrintName + ' - ' + country + ' - ERROR (' + str(request.status_code) + ')')
+            messageError += '\n' + emojis[country] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*'
         time.sleep(1) # обход блокировки
     allDataFrame.drop_duplicates(subset='artworkUrl100', keep='first', inplace=True, ignore_index=True)
     dfExport = allDataFrame.loc[allDataFrame['collectionName'].notna()]
 
-    if len(dfExport)>0:
+    if len(dfExport) > 0:
         pdiTunesDB = pd.read_csv(releasesDB, sep=";")
         #Открываем файл лога для проверки скаченных файлов и записи новых скачиваний
         csvfile = open(releasesDB, 'a+', newline='')
@@ -101,10 +126,10 @@ def FindReleases(artistID, cRow, artistPrintName):
             downloadedCover = ''
             downloadedRelease = ''
             updReason = ''
-            if len(pdiTunesDB.loc[pdiTunesDB['collectionId']  == dfExport.iloc[index-1]['collectionId']])  == 0:
+            if len(pdiTunesDB.loc[pdiTunesDB['collectionId']  == dfExport.iloc[index - 1]['collectionId']])  == 0:
                 updReason = 'New release'
                 newRelCounter += 1
-            elif len(pdiTunesDB[pdiTunesDB['artworkUrl100'].str[40:] == dfExport.iloc[index-1]['artworkUrl100'][40:]]) == 0:
+            elif len(pdiTunesDB[pdiTunesDB['artworkUrl100'].str[40:] == dfExport.iloc[index - 1]['artworkUrl100'][40:]]) == 0:
                 updReason = 'New cover'
                 newCovCounter += 1
                 #.str[40] -------------------------------V
@@ -131,6 +156,11 @@ def FindReleases(artistID, cRow, artistPrintName):
         if (newRelCounter + newCovCounter) > 0:
             amnr_logger('[Apple Music Releases LookApp]', 
                         artistPrintName + ' - ' + str(newRelCounter + newCovCounter) + ' new records: ' + str(newRelCounter) + ' releases, ' + str(newCovCounter) + ' covers')
+            if newRelCounter > 0 :
+                iconka = 'album'
+            else:
+                iconka = 'cover'
+            message2send += '\n' + emojis[iconka] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*: ' + str(newRelCounter + newCovCounter)
         return "v" 
     
     else:
@@ -139,6 +169,13 @@ def FindReleases(artistID, cRow, artistPrintName):
 # Инициализация функций===================================================
 
 amnr_logger('[Apple Music Releases LookApp]', ver + " (c)&(p) 2022-" + str(datetime.datetime.now())[0:4] + " by Viktor 'MushroomOFF' Gribov")
+message2send = ReplaceSymbols('====== ' + str(datetime.datetime.now())[:10] + ' ======')
+messageErPrt = ReplaceSymbols('======== ERRORS ========') + '\n'
+messageError = emojis['error'] + ' 503 Service Unavailable ' + emojis['error']
+messageEmpty = emojis['empty'] + ' Not available in country ' + emojis['empty']
+checkMesSnd = len(message2send)
+checkMesErr = len(messageError)
+checkMesEmp = len(messageEmpty)
 
 CreateDB()
 
@@ -172,5 +209,20 @@ while returner == '':
 pd.set_option('display.max_rows', 10)
 fspace = ' '
 print(f'{fspace:50}')
+
+if checkMesSnd == len(message2send):
+    message2send += '\n' + emojis['wtf']
+
+if checkMesErr == len(messageError) and checkMesEmp == len(messageEmpty):
+    send_message(message2send)
+elif checkMesErr != len(messageError) and checkMesEmp != len(messageEmpty):
+    send_message(message2send + '\n\n' + messageErPrt + messageError + '\n\n' + messageEmpty)    
+else:
+    if checkMesEmp != len(messageEmpty):
+        send_message(message2send + '\n\n' + messageErPrt + messageEmpty)
+    elif checkMesErr != len(messageError):
+        send_message(message2send + '\n\n' + messageErPrt + messageError)
+    else:
+        send_message(message2send + '\n\n' + messageErPrt + '\n' + emojis['wtf'])
 
 amnr_logger('[Apple Music Releases LookApp]', '[V] Done!')
