@@ -1,14 +1,14 @@
-ver = "v.2.024 [GitHub]"
+ver = "v.2.024.5 [GitHub]"
 # Python 3.12 & Pandas 2.2 ready
+# Added status sender via Telegram Bot
 # comment will mark the specific code for GitHub
 
+import os
+import json
 import datetime
 import requests
 import pandas as pd
 import csv
-
-s = requests.Session() 
-s.headers.update({'Referer':'https://music.apple.com', 'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'})
 
 rootFolder = '' # root is root
 amrsFolder = rootFolder + 'AMRs/'
@@ -16,6 +16,15 @@ dbFolder = rootFolder + 'Databases/'
 newReleasesDB = dbFolder + 'AMR_newReleases_DB.csv'
 csReleasesDB = dbFolder + 'AMR_csReleases_DB.csv'
 logFile = rootFolder + 'status.log' # path to log file
+# Telegram -------------------------------
+URL = 'https://api.telegram.org/bot'
+TOKEN = os.environ['tg_token']
+chat_id = os.environ['tg_channel_id']
+#-----------------------------------------
+
+# establishing session
+s = requests.Session() 
+s.headers.update({'Referer':'https://music.apple.com', 'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'})
 
 # This logger is only for GitHub --------------------------------------------------------------------
 def amnr_logger(pyScript, logLine):
@@ -26,7 +35,23 @@ def amnr_logger(pyScript, logLine):
         f.write(str(datetime.datetime.now() + datetime.timedelta(hours=3)) + ' - ' + pyScript + ' - ' + logLine.rstrip('\r\n') + '\n' + content)
 #----------------------------------------------------------------------------------------------------
 
+# Процедура Замены символов для Markdown v2
+def ReplaceSymbols(rsTxt):
+    rsTmplt = """'_*[]",()~`>#+-=|{}.!"""
+    for rsf in range(len(rsTmplt)):
+        rsTxt = rsTxt.replace(rsTmplt[rsf], '\\' + rsTmplt[rsf])
+    return rsTxt
+
+# Процедура Отправки сообщения ботом в канал
+def send_message(text):
+    method = URL + TOKEN + "/sendMessage"
+    r = requests.post(method, data={"chat_id": chat_id, "parse_mode": 'MarkdownV2', "text": text})
+    json_response = json.loads(r.text)
+    rmi = json_response['result']['message_id']   
+    return rmi
+
 def collect_albums(caLink, caText, caGrad):
+    global message2send
     request = s.get(caLink)
     request.encoding = 'UTF-8'
 
@@ -117,6 +142,7 @@ def collect_albums(caLink, caText, caGrad):
 
     fieldNames = ['date', 'category', 'artist', 'album', 'Best_Fav_New_OK', 'rec_send2TG', 'link', 'imga', 'send2TG', 'TGmsgID']
     pdDB = pd.read_csv(newReleasesDB, sep=";")
+    pdAIDDB = pd.read_csv(artistIDsDB, sep=";")
     csvfile = open(newReleasesDB, 'a+', newline='')
     writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=fieldNames)
 
@@ -127,7 +153,7 @@ def collect_albums(caLink, caText, caGrad):
     fullCard0 = '<li class="grid-item '
     fullCard1 = '</li>'
     while i < pos:
-        if res.find(fullCard0,i) > -1:
+        if res.find(fullCard0, i) > -1:
             posCard0 = res.find(fullCard0, i) + len(fullCard0)
             posCard1 = res.find(fullCard1, posCard0) 
             i = posCard0
@@ -152,12 +178,26 @@ def collect_albums(caLink, caText, caGrad):
                     i = res.find(sstr, i) + len(sstr)
                     pEnd = res.find('</p>', i) 
                     artist = ''
+                    artistID = ''
+                    isMyArtist = 0 # Check Artist ID
                     while i < pEnd:
+                        posArtID1 = res.find('" class="product-lockup__subtitle link', i)
+                        if posArtID1 < pEnd and posArtID1 > -1:
+                            posArtID0 = res.rfind('/', i, posArtID1) + len('/')
+                            artistID = res[posArtID0:posArtID1].strip()
+                            if float(artistID) in pdAIDDB['mainId'].values:
+                                isMyArtist += 1
                         posArtist0 = res.find('>', i) + len('>')
                         posArtist1 = res.find('<', posArtist0)
-                        artist += res[posArtist0:posArtist1].strip()
+                        if res[posArtist0:posArtist1].strip() == ',':
+                            artist += ';'
+                        else:
+                            artist += res[posArtist0:posArtist1].strip()
                         i = posArtist1
                         i += 1
+                    artist = artist.replace('&amp;','_&_')
+                    artist = artist.replace(';','; ')
+                    artist = artist.replace('_&_', '&amp;')
                     check = 0
                     for index, row in pdDB.iterrows():
                         if row.iloc[6][row.iloc[6].rfind('/') + 1:] == link[link.rfind('/') + 1:]:
@@ -166,10 +206,14 @@ def collect_albums(caLink, caText, caGrad):
                         if artist != '':
                             aralname = artist + ' - ' + album
                             aralinsert = aralname.replace(artist, artist + '</b>') if len(aralname) < 80 else aralname[:aralname[:80].rfind(' ') + 1].replace(artist, artist + '</b>') + '<br>' + aralname[aralname[:80].rfind(' ') + 1:]
+                            if isMyArtist > 0:
+                                message2send += ('\n*' + ReplaceSymbols(artist.replace('&amp;','&')) + 
+                                                 '* \\- [' + ReplaceSymbols(album.replace('&amp;','&')) + 
+                                                 '](' + link.replace('://','://embed.') + ')')
                             writer.writerow({'date': dldDate, 
                                              'category': dldCategory, 
-                                             'artist': artist, 
-                                             'album': album, 
+                                             'artist': artist.replace('&amp;','&'), 
+                                             'album': album.replace('&amp;','&'), 
                                              'Best_Fav_New_OK': '', 
                                              'rec_send2TG': '', 
                                              'link': link, 
@@ -237,6 +281,7 @@ def collect_albums(caLink, caText, caGrad):
 #----------------------------------------------------------------------------------------------------
 
 def coming_soon(caLink):
+    global messageCS
     CS_request = s.get(caLink)
     CS_request.encoding = 'UTF-8'
     CS_res = CS_request.text
@@ -402,6 +447,7 @@ def coming_soon(caLink):
             AMRelDate = row.iloc[12]
 
         pdCS = pd.read_csv(csReleasesDB, sep=";")
+        pdAIDDB = pd.read_csv(artistIDsDB, sep=";")
         if len(pdCS.loc[pdCS['album__href'] == row.iloc[7]]) == 0:
             row.iloc[13] = 1
 
@@ -412,11 +458,16 @@ def coming_soon(caLink):
             writerCS.writerow({'update__date': str(datetime.datetime.now())[0:10],
                                'album_cover__jpeg': row.iloc[5][0:row.iloc[5].find(' ')],
                                'album__href': row.iloc[7],
-                               'album__name': row.iloc[8],
+                               'album__name': row.iloc[8].replace('&amp;','&'), 
                                'artist__href': row.iloc[9],
-                               'artist__name': row.iloc[10],
+                               'artist__name': row.iloc[10].replace('&amp;','&'), 
                                'release__date': row.iloc[11],
-                               'release__date_text': row.iloc[12]})          
+                               'release__date_text': row.iloc[12]})
+
+            if float(row.iloc[9][row.iloc[9].rfind('/', 0, len(row.iloc[9])) + 1:]) in pdAIDDB['mainId'].values:
+                messageCS += ('\n*' + ReplaceSymbols(row.iloc[10].replace('&amp;','&')) + 
+                              '* \\- [' + ReplaceSymbols(row.iloc[8].replace('&amp;','&')) + 
+                              '](' + row.iloc[7].replace('://','://embed.') + ') ' + ReplaceSymbols(str(row.iloc[11])[0:10]))
 
         css_newRelease = '<a class="product-lockup__title svelte-21e67y"'
         if row.iloc[13] == 1:
@@ -655,6 +706,11 @@ def CS2NR():
 
 amnr_logger('[Apple Music New Releases]', ver + " (c)&(p) 2022-" + str(datetime.datetime.now())[0:4] + " by Viktor 'MushroomOFF' Gribov")
 
+message2send = '\U0001F4C0 New Releases *' + ReplaceSymbols(str(datetime.datetime.now())[:10]) + '*\\:'
+messageCS = '\n\U0001F5D3\U0000FE0F Coming soon\\:'
+checkMesSnd = len(message2send)
+checkMesCS = len(messageCS)
+
 caLink = 'https://music.apple.com/us/room/993297832'
 caText = 'METAL - Classic. Black. Death. Speed. Prog. Sludge. Doom.'
 caGrad = '#81BB98, #9AD292'
@@ -684,3 +740,11 @@ amnr_logger('[Apple Music New Releases]', 'Comming Soon   - OK')
 
 CS2NR()
 amnr_logger('[Apple Music New Releases]', 'Metal [CS]     - OK')
+
+if checkMesSnd == len(message2send):
+    message2send += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
+if checkMesCS == len(messageCS):
+    messageCS += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
+send_message(message2send + '\n' + messageCS)
+
+amnr_logger('[Apple Music New Releases]', '[V] Done!')
