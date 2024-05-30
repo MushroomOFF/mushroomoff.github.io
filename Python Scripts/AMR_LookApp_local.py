@@ -16,7 +16,7 @@ from math import nan
 userDataFolder = '/Users/viktorgribov/GitHub/mushroomoff.github.io/'
 dbFolder = 'Databases/'
 releasesDB = userDataFolder + dbFolder + 'AMR_releases_DB.csv'
-artistIDs = userDataFolder + dbFolder + 'AMR_artisitIDs.csv'
+artistIDDB = userDataFolder + dbFolder + 'AMR_artisitIDs.csv'
 fieldNames = ['mainArtist', 'mainId', 'artistName', 'artistId', 'primaryGenreName', 
               'collectionId', 'collectionName', 'collectionCensoredName', 'artworkUrl100', 
               'collectionExplicitness', 'trackCount', 'copyright', 'country', 'releaseDate', 'releaseYear', 
@@ -28,8 +28,8 @@ emojis = {'us': '\U0001F1FA\U0001F1F8', 'ru': '\U0001F1F7\U0001F1FA', 'jp': '\U0
 # Telegram -------------------------------
 URL = 'https://api.telegram.org/bot'
 TOKEN = input("Telegram Bot TOKEN: ")
-chat_id = input("Telegram Bot chat_id: ")
-#chat_id = '-1001939128351' #Test channel
+CHAT_ID = input("Telegram Bot CHAT_ID: ")
+#CHAT_ID = '-1001939128351' #Test channel
 #-----------------------------------------
 
 # establishing session
@@ -49,7 +49,7 @@ def ReplaceSymbols(rsTxt):
 # Процедура Отправки сообщения ботом в канал
 def send_message(text):
     method = URL + TOKEN + "/sendMessage"
-    r = requests.post(method, data={"chat_id": chat_id, "parse_mode": 'MarkdownV2', "text": text})
+    r = requests.post(method, data={"chat_id": CHAT_ID, "parse_mode": 'MarkdownV2', "text": text})
     json_response = json.loads(r.text)
     rmi = json_response['result']['message_id']   
     return rmi
@@ -152,11 +152,11 @@ def FindReleases(artistID, cRow):
         csvfile.close()
 
         artistIDlist.iloc[cRow, 2] = dateUpdate
-        artistIDlist.to_csv(artistIDs, sep=';', index=False)
+        artistIDlist.to_csv(artistIDDB, sep=';', index=False)
 
         pdiTunesDB = pd.DataFrame() 
         if (newRelCounter + newCovCounter) > 0:
-            print('\n^ '+str(newRelCounter+newCovCounter)+' new records: '+str(newRelCounter)+' releases, '+str(newCovCounter)+' covers')
+            print('\n^ ' + str(newRelCounter + newCovCounter) + ' new records: ' + str(newRelCounter) + ' releases, ' + str(newCovCounter) + ' covers')
             if newRelCounter > 0 :
                 iconka = 'album'
             else:
@@ -206,7 +206,7 @@ pd.set_option('display.max_rows', None)
 # Определяем на каком Артисте остановились в прошлый раз. При желании начинаем сначала
 starter = 0
 while starter == 0:
-    artistIDlist = pd.read_csv(artistIDs, sep=';')
+    artistIDlist = pd.read_csv(artistIDDB, sep=';')
     artID = artistIDlist['mainArtist'].loc[artistIDlist['downloaded'].isna()].head(1)
     if len(artID) != 0:
         curRow = artID.index[0]
@@ -217,7 +217,7 @@ while starter == 0:
         curRow = 0
         artistIDlist.drop('downloaded', axis=1, inplace=True)
         artistIDlist.insert(2, "downloaded", nan)
-        artistIDlist.to_csv(artistIDs, sep=';', index=False)
+        artistIDlist.to_csv(artistIDDB, sep=';', index=False)
     if curRow == 0:
         keyLoger = input("Начнём с начала. Продолжить (Enter) ")
         starter = 1
@@ -228,7 +228,7 @@ while starter == 0:
         else:
             artistIDlist.drop('downloaded', axis=1, inplace=True)
             artistIDlist.insert(2, "downloaded", nan)
-            artistIDlist.to_csv(artistIDs, sep=';', index=False)
+            artistIDlist.to_csv(artistIDDB, sep=';', index=False)
 
 print('')
 # Эта часть будет крутиться по кургу, пока не откажешься качать новые обложки
@@ -257,19 +257,22 @@ pd.set_option('display.max_rows', 10)
 fspace = ' '
 print(f'{fspace:50}')
 
-if checkMesSnd == len(message2send):
-    message2send += '\n' + emojis['wtf']
-
-if checkMesErr == len(messageError) and checkMesEmp == len(messageEmpty):
-    send_message(message2send)
-elif checkMesErr != len(messageError) and checkMesEmp != len(messageEmpty):
-    send_message(message2send + '\n\n' + messageErPrt + messageError + '\n\n' + messageEmpty)    
+if TOKEN == '' or CHAT_ID == '':
+    print('Message not sent! No TOKEN or CHAT_ID')
 else:
-    if checkMesEmp != len(messageEmpty):
-        send_message(message2send + '\n\n' + messageErPrt + messageEmpty)
-    elif checkMesErr != len(messageError):
-        send_message(message2send + '\n\n' + messageErPrt + messageError)
+    if checkMesSnd == len(message2send):
+        message2send += '\n' + emojis['wtf']
+
+    if checkMesErr == len(messageError) and checkMesEmp == len(messageEmpty):
+        send_message(message2send)
+    elif checkMesErr != len(messageError) and checkMesEmp != len(messageEmpty):
+        send_message(message2send + '\n\n' + messageErPrt + messageError + '\n\n' + messageEmpty)    
     else:
-        send_message(message2send + '\n\n' + messageErPrt + '\n' + emojis['wtf'])
+        if checkMesEmp != len(messageEmpty):
+            send_message(message2send + '\n\n' + messageErPrt + messageEmpty)
+        elif checkMesErr != len(messageError):
+            send_message(message2send + '\n\n' + messageErPrt + messageError)
+        else:
+            send_message(message2send + '\n\n' + messageErPrt + '\n' + emojis['wtf'])
 
 print('[V] All Done!')

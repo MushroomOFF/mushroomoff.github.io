@@ -18,7 +18,7 @@ from math import nan
 userDataFolder = '' # root is root
 dbFolder = 'Databases/'
 releasesDB = userDataFolder + dbFolder + 'AMR_releases_DB.csv'
-artistIDs = userDataFolder + dbFolder + 'AMR_artisitIDs.csv'
+artistIDDB = userDataFolder + dbFolder + 'AMR_artisitIDs.csv'
 fieldNames = ['mainArtist', 'mainId', 'artistName', 'artistId', 'primaryGenreName', 
               'collectionId', 'collectionName', 'collectionCensoredName', 'artworkUrl100', 
               'collectionExplicitness', 'trackCount', 'copyright', 'country', 'releaseDate', 'releaseYear', 
@@ -31,7 +31,7 @@ logFile = userDataFolder + 'status.log' # path to log file
 # Telegram -------------------------------
 URL = 'https://api.telegram.org/bot'
 TOKEN = os.environ['tg_token']
-chat_id = os.environ['tg_channel_id']
+CHAT_ID = os.environ['tg_channel_id']
 #-----------------------------------------
 
 # establishing session
@@ -60,7 +60,7 @@ def ReplaceSymbols(rsTxt):
 # Процедура Отправки сообщения ботом в канал
 def send_message(text):
     method = URL + TOKEN + "/sendMessage"
-    r = requests.post(method, data={"chat_id": chat_id, "parse_mode": 'MarkdownV2', "text": text})
+    r = requests.post(method, data={"chat_id": CHAT_ID, "parse_mode": 'MarkdownV2', "text": text})
     json_response = json.loads(r.text)
     rmi = json_response['result']['message_id']   
     return rmi
@@ -150,7 +150,7 @@ def FindReleases(artistID, cRow, artistPrintName):
         csvfile.close()
 
         artistIDlist.iloc[cRow, 2] = dateUpdate
-        artistIDlist.to_csv(artistIDs, sep=';', index=False)
+        artistIDlist.to_csv(artistIDDB, sep=';', index=False)
 
         pdiTunesDB = pd.DataFrame() 
         if (newRelCounter + newCovCounter) > 0:
@@ -181,10 +181,10 @@ CreateDB()
 
 pd.set_option('display.max_rows', None)
 
-artistIDlist = pd.read_csv(artistIDs, sep=';')
+artistIDlist = pd.read_csv(artistIDDB, sep=';')
 artistIDlist.drop('downloaded', axis=1, inplace=True)
 artistIDlist.insert(2, "downloaded", nan)
-artistIDlist.to_csv(artistIDs, sep=';', index=False)
+artistIDlist.to_csv(artistIDDB, sep=';', index=False)
 
 returner = ''
 while returner == '':
