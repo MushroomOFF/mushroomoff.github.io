@@ -33,18 +33,18 @@ There will be some description... soon!
 - *requirements.txt* - third party packages for Python (used to run GitHub Actions)
 
 ### /Python Scripts
-- *AMR_CoversDownloader_local.py* - PyNotebook to work with all releases database "AMR_releases_DB.csv".
-- *AMR_List2Download_local.py* - PyNotebook contains script for "AMR_CoversDownloader_local.py"
-- *AMR_LookApp_github.py* - PyNotebook contains script for "AMR_LookApp_local.py" and "AMR_LookApp_github.py"
-- *AMR_LookApp_local.py* - PyNotebook contains script for "AMR_NewReleases_local.py" and "AMR_NewReleases_github.py"
-- *AMR_NewReleases_github.py* - third party packages for Python (used to run GitHub Actions)
-- *AMR_NewReleases_local.py* - third party packages for Python (used to run GitHub Actions)
+- *AMR_CoversDownloader_local.py* - There will be some description... soon!
+- *AMR_List2Download_local.py* - There will be some description... soon!
+- *AMR_LookApp_github.py* - There will be some description... soon!
+- *AMR_LookApp_local.py* - There will be some description... soon!
+- *AMR_NewReleases_github.py* - There will be some description... soon!
+- *AMR_NewReleases_local.py* - There will be some description... soon!
 
 ### \resources
-- *favicon-2.ico* - a
-- *favicon.ico* - a
-- *index.css* - a
-- *styles.css* - a
-- *touch-icon-** - a
+- *favicon-2.ico* - site favourite icon
+- *favicon.ico* - site favourite icon
+- *index.css* - CSS #1
+- *styles.css* - CSS #2
+- *touch-icon-\** - mobile devices favourite icon
 
-(c)&(p) 2022-2024 by Viktor 'MushroomOFF' Gribov
+2022-2024 by Viktor 'MushroomOFF' Gribov
