@@ -15,6 +15,7 @@ amrsFolder = rootFolder + 'AMRs/'
 dbFolder = rootFolder + 'Databases/'
 newReleasesDB = dbFolder + 'AMR_newReleases_DB.csv'
 csReleasesDB = dbFolder + 'AMR_csReleases_DB.csv'
+artistIDsDB = dbFolder + 'AMR_artisitIDs.csv'
 logFile = rootFolder + 'status.log' # path to log file
 # Telegram -------------------------------
 URL = 'https://api.telegram.org/bot'
