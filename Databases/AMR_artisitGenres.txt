@@ -109,7 +109,7 @@ Brad Paisley                         | Country
 Brand of Sacrifice                   | Deathcore
 Breaking Benjamin                    | Alternative
 Brides of Lucifer                    | Metal
-Bring Me the Horizon                 | Alternative Metal
+Bring Me the Horizon                 | Alternative
 Britney Spears                       | Pop
 Brothers of Metal                    | Power Metal
 Brujeria                             | Death Metal
@@ -143,7 +143,7 @@ Clawfinger                           | Rap Metal
 Cobra Spell                          | Hard Rock
 Coffin Feeder                        | Deathcore
 Coheed and Cambria                   | Alternative
-Cold                                 | Alternative Metal
+Cold                                 | Alternative
 Coldplay                             | Alternative
 Conquer Divide                       | Metalcore
 Conquering Dystopia                  | Progressive Metal
@@ -255,7 +255,7 @@ Faun                                 | Folk Metal
 Fear Factory                         | Industrial Metal
 Fergie                               | Pop
 Feuerschwanz                         | Folk Metal
-Fever 333                            | Alternative Metal
+Fever 333                            | Alternative
 Finger Eleven                        | Alternative
 First Fragment                       | Technical Death Metal
 Fit for an Autopsy                   | Deathcore
@@ -270,6 +270,7 @@ Fozzy                                | Heavy Metal
 Freternia                            | Power Metal
 From First to Last                   | Alternative
 Fuel                                 | Alternative
+Full House Brew Crew                 | Groove Metal
 Funeral                              | Doom Metal
 Future Palace                        | Alternative
 Galactic Empire                      | Progressive Metal

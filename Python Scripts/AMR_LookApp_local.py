@@ -66,7 +66,7 @@ def CreateDB():
     print('')
 
 # Процедура Поиска релизов исполнителя в базе iTunes  
-def FindReleases(artistID, cRow):
+def FindReleases(artistID, cRow, artistPrintName):
     global message2send, messageEmpty, messageError
     allDataFrame = pd.DataFrame()
     dfExport = pd.DataFrame()
@@ -247,7 +247,7 @@ while returner == '':
         printArtist = printArtID[0]
         print(f'{printArtist:50}', end='\r')
 
-        findMark = FindReleases(curArt, curRow)
+        findMark = FindReleases(curArt, curRow, printArtist)
 
 #------------------V  Изменил с 2 на 1
         time.sleep(1) # обход блокировки
