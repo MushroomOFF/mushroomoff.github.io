@@ -25,8 +25,8 @@ fieldNames = ['mainArtist', 'mainId', 'artistName', 'artistId', 'primaryGenreNam
               'dateUpdate', 'artworkUrlD', 'downloadedCover', 'downloadedRelease', 'updReason']
 #---------------------v  отрезал JP
 lCountry = ['us', 'ru', 'jp']
-emojis = {'us': '\U0001F1FA\U0001F1F8', 'ru': '\U0001F1F7\U0001F1FA', 'jp': '\U0001F1EF\U0001F1F5', 'wtf': '\U0001F914', 
-          'album': '\U0001F4BF', 'cover': '\U0001F3DE\U0000FE0F', 'error': '\U00002757\U0000FE0F', 'empty': '\U0001F6AB'}
+emojis = {'us': '\U0001F1FA\U0001F1F8', 'ru': '\U0001F1F7\U0001F1FA', 'jp': '\U0001F1EF\U0001F1F5', 'no': '\U0001F3F3\U0000FE0F', 'wtf': '\U0001F914', 
+          'album': '\U0001F4BF', 'cover': '\U0001F3DE\U0000FE0F', 'error': '\U00002757\U0000FE0F', 'empty': '\U0001F6AB', 'badid': '\U0000274C'}
 logFile = userDataFolder + 'status.log' # path to log file
 # Telegram -------------------------------
 URL = 'https://api.telegram.org/bot'
@@ -74,7 +74,7 @@ def CreateDB():
 
 # Процедура Поиска релизов исполнителя в базе iTunes  
 def FindReleases(artistID, cRow, artistPrintName):
-    global message2send, messageEmpty, messageError
+    global message2send, messageEmpty, messageError, messageBadID
     allDataFrame = pd.DataFrame()
     dfExport = pd.DataFrame()
     for country in lCountry:
@@ -93,7 +93,12 @@ def FindReleases(artistID, cRow, artistPrintName):
             messageError += '\n' + emojis[country] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*'
         time.sleep(1) # обход блокировки
     allDataFrame.drop_duplicates(subset='artworkUrl100', keep='first', inplace=True, ignore_index=True)
-    dfExport = allDataFrame.loc[allDataFrame['collectionName'].notna()]
+    if len(allDataFrame) > 0:
+        dfExport = allDataFrame.loc[allDataFrame['collectionName'].notna()]
+    else:
+        amnr_logger('[Apple Music Releases LookApp]', artistPrintName + ' - Bad ID - ' + str(artistID))
+        messageBadID += '\n' + emojis['no'] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*'
+        check_ers = 1
 
     if len(dfExport) > 0:
         pdiTunesDB = pd.read_csv(releasesDB, sep=";")
@@ -161,21 +166,22 @@ def FindReleases(artistID, cRow, artistPrintName):
             else:
                 iconka = 'cover'
             message2send += '\n' + emojis[iconka] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*: ' + str(newRelCounter + newCovCounter)
-        return "v" 
     
     else:
-        amnr_logger('[Apple Music Releases LookApp]', "[!] Didn't find " + artistPrintName + "on ID " + artistID) 
-        return "x"
+        artistIDlist.iloc[cRow, 2] = str(datetime.datetime.now() + datetime.timedelta(hours=3))[0:19] # GitHub server time is UTC (-3 from Moscow), so i add +3 hours to log actions in Moscow time. Only where time matters
+        artistIDlist.to_csv(artistIDDB, sep=';', index=False)
 # Инициализация функций===================================================
 
 amnr_logger('[Apple Music Releases LookApp]', ver + " (c)&(p) 2022-" + str(datetime.datetime.now())[0:4] + " by Viktor 'MushroomOFF' Gribov")
 message2send = ReplaceSymbols('====== ' + str(datetime.datetime.now())[:10] + ' ======')
-messageErPrt = ReplaceSymbols('======== ERRORS ========') + '\n'
+messageErPrt = ReplaceSymbols('======== ERRORS ========')
 messageError = emojis['error'] + ' 503 Service Unavailable ' + emojis['error']
 messageEmpty = emojis['empty'] + ' Not available in country ' + emojis['empty']
+messageBadID = emojis['badid'] + '               Bad ID                ' + emojis['badid']
 checkMesSnd = len(message2send)
 checkMesErr = len(messageError)
 checkMesEmp = len(messageEmpty)
+checkMesBad = len(messageBadID)
 
 CreateDB()
 
@@ -201,7 +207,7 @@ while returner == '':
         printArtist = printArtID[0]
         print(f'{printArtist:50}', end='\r')
 
-        findMark = FindReleases(curArt, curRow, printArtist)
+        FindReleases(curArt, curRow, printArtist)
 
 #------------------V  Изменил с 2 на 1
         time.sleep(1) # обход блокировки
@@ -213,16 +219,15 @@ print(f'{fspace:50}')
 if checkMesSnd == len(message2send):
     message2send += '\n' + emojis['wtf']
 
-if checkMesErr == len(messageError) and checkMesEmp == len(messageEmpty):
-    send_message(message2send)
-elif checkMesErr != len(messageError) and checkMesEmp != len(messageEmpty):
-    send_message(message2send + '\n\n' + messageErPrt + messageError + '\n\n' + messageEmpty)    
-else:
+if checkMesErr != len(messageError) or checkMesEmp != len(messageEmpty) or checkMesBad != len(messageBadID):
+    message2send += '\n\n' + messageErPrt
+    if checkMesBad != len(messageBadID):
+        message2send += '\n\n' + messageBadID
+    if checkMesErr != len(messageError):
+        message2send += '\n\n' + messageError
     if checkMesEmp != len(messageEmpty):
-        send_message(message2send + '\n\n' + messageErPrt + messageEmpty)
-    elif checkMesErr != len(messageError):
-        send_message(message2send + '\n\n' + messageErPrt + messageError)
-    else:
-        send_message(message2send + '\n\n' + messageErPrt + '\n' + emojis['wtf'])
+        message2send += '\n\n' + messageEmpty
+
+send_message(message2send)
 
 amnr_logger('[Apple Music Releases LookApp]', '[V] Done!')

@@ -23,8 +23,8 @@ fieldNames = ['mainArtist', 'mainId', 'artistName', 'artistId', 'primaryGenreNam
               'dateUpdate', 'artworkUrlD', 'downloadedCover', 'downloadedRelease', 'updReason']
 #---------------------v  отрезал JP
 lCountry = ['us', 'ru', 'jp']
-emojis = {'us': '\U0001F1FA\U0001F1F8', 'ru': '\U0001F1F7\U0001F1FA', 'jp': '\U0001F1EF\U0001F1F5', 'wtf': '\U0001F914', 
-          'album': '\U0001F4BF', 'cover': '\U0001F3DE\U0000FE0F', 'error': '\U00002757\U0000FE0F', 'empty': '\U0001F6AB'}
+emojis = {'us': '\U0001F1FA\U0001F1F8', 'ru': '\U0001F1F7\U0001F1FA', 'jp': '\U0001F1EF\U0001F1F5', 'no': '\U0001F3F3\U0000FE0F', 'wtf': '\U0001F914', 
+          'album': '\U0001F4BF', 'cover': '\U0001F3DE\U0000FE0F', 'error': '\U00002757\U0000FE0F', 'empty': '\U0001F6AB', 'badid': '\U0000274C'}
 # Telegram -------------------------------
 URL = 'https://api.telegram.org/bot'
 TOKEN = input("Telegram Bot TOKEN: ")
@@ -67,7 +67,7 @@ def CreateDB():
 
 # Процедура Поиска релизов исполнителя в базе iTunes  
 def FindReleases(artistID, cRow, artistPrintName):
-    global message2send, messageEmpty, messageError
+    global message2send, messageEmpty, messageError, messageBadID
     allDataFrame = pd.DataFrame()
     dfExport = pd.DataFrame()
     check_ers = 0
@@ -93,7 +93,15 @@ def FindReleases(artistID, cRow, artistPrintName):
             check_ers = 1
         time.sleep(1) # обход блокировки
     allDataFrame.drop_duplicates(subset='artworkUrl100', keep='first', inplace=True, ignore_index=True)
-    dfExport = allDataFrame.loc[allDataFrame['collectionName'].notna()]
+    if len(allDataFrame) > 0:
+        dfExport = allDataFrame.loc[allDataFrame['collectionName'].notna()]
+    else:
+        if check_ers == 0:
+            print('\n', end='')
+        print(' Bad ID: ' + str(artistID), sep=' ', end='', flush=True)
+        messageBadID += '\n' + emojis['no'] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*'
+        check_ers = 1
+
     if check_ers == 1:
         print ('') 
 
@@ -162,12 +170,10 @@ def FindReleases(artistID, cRow, artistPrintName):
             else:
                 iconka = 'cover'
             message2send += '\n' + emojis[iconka] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*: ' + str(newRelCounter + newCovCounter)
-        return "v" 
-    
+
     else:
-        print("Didn't find a thing!")
-        print("")
-        return "x"
+        artistIDlist.iloc[cRow, 2] = str(datetime.datetime.now())[0:19]
+        artistIDlist.to_csv(artistIDDB, sep=';', index=False)
 # Инициализация функций===================================================
 
 print("########################################################")
@@ -192,12 +198,14 @@ print("########################################################")
 print('')
 
 message2send = ReplaceSymbols('====== ' + str(datetime.datetime.now())[:10] + ' ======')
-messageErPrt = ReplaceSymbols('======== ERRORS ========') + '\n'
+messageErPrt = ReplaceSymbols('======== ERRORS ========')
 messageError = emojis['error'] + ' 503 Service Unavailable ' + emojis['error']
 messageEmpty = emojis['empty'] + ' Not available in country ' + emojis['empty']
+messageBadID = emojis['badid'] + '               Bad ID                ' + emojis['badid']
 checkMesSnd = len(message2send)
 checkMesErr = len(messageError)
 checkMesEmp = len(messageEmpty)
+checkMesBad = len(messageBadID)
 
 CreateDB()
 
@@ -247,7 +255,7 @@ while returner == '':
         printArtist = printArtID[0]
         print(f'{printArtist:50}', end='\r')
 
-        findMark = FindReleases(curArt, curRow, printArtist)
+        FindReleases(curArt, curRow, printArtist)
 
 #------------------V  Изменил с 2 на 1
         time.sleep(1) # обход блокировки
@@ -263,16 +271,15 @@ else:
     if checkMesSnd == len(message2send):
         message2send += '\n' + emojis['wtf']
 
-    if checkMesErr == len(messageError) and checkMesEmp == len(messageEmpty):
-        send_message(message2send)
-    elif checkMesErr != len(messageError) and checkMesEmp != len(messageEmpty):
-        send_message(message2send + '\n\n' + messageErPrt + messageError + '\n\n' + messageEmpty)    
-    else:
+    if checkMesErr != len(messageError) or checkMesEmp != len(messageEmpty) or checkMesBad != len(messageBadID):
+        message2send += '\n\n' + messageErPrt
+        if checkMesBad != len(messageBadID):
+            message2send += '\n\n' + messageBadID
+        if checkMesErr != len(messageError):
+            message2send += '\n\n' + messageError
         if checkMesEmp != len(messageEmpty):
-            send_message(message2send + '\n\n' + messageErPrt + messageEmpty)
-        elif checkMesErr != len(messageError):
-            send_message(message2send + '\n\n' + messageErPrt + messageError)
-        else:
-            send_message(message2send + '\n\n' + messageErPrt + '\n' + emojis['wtf'])
+            message2send += '\n\n' + messageEmpty
+    
+    send_message(message2send)
 
 print('[V] All Done!')
