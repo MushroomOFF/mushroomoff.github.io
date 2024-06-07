@@ -171,17 +171,18 @@ Dark Sarah                           | Symphonic Metal
 Dark Tranquillity                    | Melodic Death Metal
 Darkane                              | Melodic Death Metal
 Darkwoods My Betrothed               | Symphonic Black Metal
-Daron Malakian and Scars on Broadway | Alternative
 David Guetta                         | EDM
 Dayseeker                            | Alternative
 De Sangre                            | Alternative
 Dead by April                        | Metalcore
+Dead Icarus                          | Metalcore
 Dead Wing                            | Stoner Metal
 Deadmau5                             | EDM
 Death                                | Death Metal
 Decapitated                          | Technical Death Metal
 Dee Snider                           | Heavy Metal
 Deep Purple                          | Hard Rock
+Deer Death                           | Alternative
 Defecto                              | Progressive Metal
 Deicide                              | Death Metal
 Delain                               | Symphonic Metal
@@ -546,6 +547,7 @@ Santana                              | Rock
 Satan                                | Heavy Metal
 Savage Hands                         | Alternative
 Scar Symmetry                        | Melodic Death Metal
+Scars on Broadway                    | Alternative
 Scene Queen                          | Nu Metal
 Scorpions                            | Hard Rock
 Scotch                               | Alternative
@@ -722,13 +724,14 @@ Zebrahead                            | Punk Rock
 Карандаш                             | Hip-Hop
 Каста                                | Hip-Hop
 Кипелов                              | Heavy Metal
-Король и Шут                         | Punk Rock
+Король и шут                         | Punk Rock
 Коррозия металла                     | Thrash Metal
 Крематорий                           | Rock
 Лешак                                | Folk Metal
 Ноггано                              | Hip-Hop
 Психея                               | Alternative
 Район моей мечты                     | Rap
+Рекорд оркестр                       | Rock
 Сектор газа                          | Punk Rock
 Сергей Маврин                        | Heavy Metal
 Слот                                 | Alternative

@@ -112,7 +112,8 @@ def FindReleases(artistID, cRow, artistPrintName):
         writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=fieldNames)
 
         dateUpdate = str(datetime.datetime.now())[0:19]
-        mainArtist = allDataFrame['artistName'].loc[0]
+        # mainArtist = allDataFrame['artistName'].loc[0]
+        mainArtist = artistPrintName
         mainId = artistID
         updReason = ''
         newRelCounter = 0

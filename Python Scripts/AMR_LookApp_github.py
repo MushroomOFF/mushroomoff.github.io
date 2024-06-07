@@ -107,7 +107,8 @@ def FindReleases(artistID, cRow, artistPrintName):
         writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=fieldNames)
 
         dateUpdate = str(datetime.datetime.now() + datetime.timedelta(hours=3))[0:19] # GitHub server time is UTC (-3 from Moscow), so i add +3 hours to log actions in Moscow time. Only where time matters
-        mainArtist = allDataFrame['artistName'].loc[0]
+        # mainArtist = allDataFrame['artistName'].loc[0]
+        mainArtist = artistPrintName
         mainId = artistID
         updReason = ''
         newRelCounter = 0
