@@ -1,7 +1,7 @@
 import os
 import shutil
 
-originalRootFolder = '/Users/viktorgribov/Downloads/_Фото/_COVERS/_BIG_test'
+originalRootFolder = '/Users/viktorgribov/Downloads/_Фото/_COVERS/_BIG'
 rootFolder = input(f'Type me some path (Enter -> {originalRootFolder}): ')
 if rootFolder == '':
     rootFolder = originalRootFolder
