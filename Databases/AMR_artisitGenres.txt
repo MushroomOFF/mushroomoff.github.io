@@ -681,6 +681,7 @@ Veil of Maya                         | Progressive Metal
 Vended                               | Alternative
 Venom                                | Thrash Metal
 Venom Inc.                           | Heavy Metal
+Vilt                                 | Melodic Death Metal
 Vinsta                               | Progressive Metal
 Vital Remains                        | Death Metal
 Vitamin String Quartet               | Modern Classical
@@ -700,6 +701,7 @@ While Heaven Wept                    | Heavy Metal
 Whitechapel                          | Deathcore
 Wig Wam                              | Glam Metal
 Will.I.Am                            | Hip-Hop
+Withering Surface                    | Melodic Death Metal
 Within Temptation                    | Symphonic Metal
 Within the Ruins                     | Deathcore
 Wolf Hoffmann                        | Hard Rock
