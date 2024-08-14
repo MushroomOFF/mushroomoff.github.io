@@ -24,7 +24,7 @@ fieldNames = ['mainArtist', 'mainId', 'artistName', 'artistId', 'primaryGenreNam
               'collectionExplicitness', 'trackCount', 'copyright', 'country', 'releaseDate', 'releaseYear', 
               'dateUpdate', 'artworkUrlD', 'downloadedCover', 'downloadedRelease', 'updReason']
 #---------------------v  отрезал JP
-lCountry = ['us', 'ru', 'jp']
+lCountry = ['us', 'ru'] #, 'jp']
 emojis = {'us': '\U0001F1FA\U0001F1F8', 'ru': '\U0001F1F7\U0001F1FA', 'jp': '\U0001F1EF\U0001F1F5', 'no': '\U0001F3F3\U0000FE0F', 'wtf': '\U0001F914', 
           'album': '\U0001F4BF', 'cover': '\U0001F3DE\U0000FE0F', 'error': '\U00002757\U0000FE0F', 'empty': '\U0001F6AB', 'badid': '\U0000274C'}
 logFile = userDataFolder + 'status.log' # path to log file
