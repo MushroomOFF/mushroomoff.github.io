@@ -1,6 +1,7 @@
-ver = "v.2.024.5 [GitHub]"
+ver = "v.2.024.8 [GitHub]"
 # Python 3.12 & Pandas 2.2 ready
 # Added status sender via Telegram Bot
+# Add ID to log
 # comment will mark the specific code for GitHub
 # GitHub version will always run complete list of artists
 
@@ -86,17 +87,17 @@ def FindReleases(artistID, cRow, artistPrintName):
                 dfTemp = pd.DataFrame(dJSON['results'])
                 allDataFrame = pd.concat([allDataFrame, dfTemp[['artistName', 'artistId', 'primaryGenreName', 'collectionId', 'collectionName', 'collectionCensoredName', 'artworkUrl100', 'collectionExplicitness', 'trackCount', 'copyright', 'country', 'releaseDate']]], ignore_index=True)
             else:
-                amnr_logger('[Apple Music Releases LookApp]', artistPrintName + ' - ' + country + ' - EMPTY')
+                amnr_logger('[Apple Music Releases LookApp]', artistPrintName + ' - ' + str(artistID) + ' - ' + country + ' - EMPTY')
                 messageEmpty += '\n' + emojis[country] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*'
         else:
-            amnr_logger('[Apple Music Releases LookApp]', artistPrintName + ' - ' + country + ' - ERROR (' + str(request.status_code) + ')')
+            amnr_logger('[Apple Music Releases LookApp]', artistPrintName + ' - ' + str(artistID) + ' - ' + country + ' - ERROR (' + str(request.status_code) + ')')
             messageError += '\n' + emojis[country] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*'
         time.sleep(1) # обход блокировки
     allDataFrame.drop_duplicates(subset='artworkUrl100', keep='first', inplace=True, ignore_index=True)
     if len(allDataFrame) > 0:
         dfExport = allDataFrame.loc[allDataFrame['collectionName'].notna()]
     else:
-        amnr_logger('[Apple Music Releases LookApp]', artistPrintName + ' - Bad ID - ' + str(artistID))
+        amnr_logger('[Apple Music Releases LookApp]', artistPrintName + ' - ' + str(artistID) + ' - Bad ID')
         messageBadID += '\n' + emojis['no'] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*'
         check_ers = 1
 
@@ -161,7 +162,7 @@ def FindReleases(artistID, cRow, artistPrintName):
         pdiTunesDB = pd.DataFrame() 
         if (newRelCounter + newCovCounter) > 0:
             amnr_logger('[Apple Music Releases LookApp]', 
-                        artistPrintName + ' - ' + str(newRelCounter + newCovCounter) + ' new records: ' + str(newRelCounter) + ' releases, ' + str(newCovCounter) + ' covers')
+                        artistPrintName + ' - ' + str(artistID) + ' - ' + str(newRelCounter + newCovCounter) + ' new records: ' + str(newRelCounter) + ' releases, ' + str(newCovCounter) + ' covers')
             if newRelCounter > 0 :
                 iconka = 'album'
             else:
@@ -206,7 +207,7 @@ while returner == '':
         printArtID = artistIDlist['mainArtist'].loc[artistIDlist['downloaded'].isna()].head(1)
         printArtID.reset_index(drop=True, inplace=True)
         printArtist = printArtID[0]
-        print(f'{printArtist:50}', end='\r')
+        print(f'{(printArtist + ' - ' + str(curArt)):50}', end='\r')
 
         FindReleases(curArt, curRow, printArtist)
 
@@ -214,8 +215,7 @@ while returner == '':
         time.sleep(1) # обход блокировки
 
 pd.set_option('display.max_rows', 10)
-fspace = ' '
-print(f'{fspace:50}')
+print(f'{'':50}')
 
 if checkMesSnd == len(message2send):
     message2send += '\n' + emojis['wtf']

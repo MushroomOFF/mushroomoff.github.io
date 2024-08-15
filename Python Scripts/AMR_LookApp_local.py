@@ -1,6 +1,8 @@
-ver = "v.2.024.5 [Local]"
+ver = "v.2.024.8 [Local]"
 # Python 3.12 & Pandas 2.2 ready
 # Added status sender via Telegram Bot
+# Add ID to log
+# Add country chooser
 
 import requests
 import os
@@ -22,7 +24,15 @@ fieldNames = ['mainArtist', 'mainId', 'artistName', 'artistId', 'primaryGenreNam
               'collectionExplicitness', 'trackCount', 'copyright', 'country', 'releaseDate', 'releaseYear', 
               'dateUpdate', 'artworkUrlD', 'downloadedCover', 'downloadedRelease', 'updReason']
 #---------------------v  отрезал JP
-lCountry = ['us', 'ru', 'jp']
+lCountry = input("Какие страны проверить?\nEnter: [us, ru, jp]\n2:     [us, ru]\njp:    [jp]\n")
+if lCountry == 'jp':
+    lCountry = ['jp']
+elif lCountry == '2':
+    lCountry = ['us', 'ru']
+else:
+    lCountry = ['us', 'ru', 'jp']
+print(lCountry)
+
 emojis = {'us': '\U0001F1FA\U0001F1F8', 'ru': '\U0001F1F7\U0001F1FA', 'jp': '\U0001F1EF\U0001F1F5', 'no': '\U0001F3F3\U0000FE0F', 'wtf': '\U0001F914', 
           'album': '\U0001F4BF', 'cover': '\U0001F3DE\U0000FE0F', 'error': '\U00002757\U0000FE0F', 'empty': '\U0001F6AB', 'badid': '\U0000274C'}
 # Telegram -------------------------------
@@ -95,7 +105,7 @@ def FindReleases(artistID, cRow, artistPrintName):
     allDataFrame.drop_duplicates(subset='artworkUrl100', keep='first', inplace=True, ignore_index=True)
     if len(allDataFrame) > 0:
         dfExport = allDataFrame.loc[allDataFrame['collectionName'].notna()]
-    else:
+    elif len(lCountry) > 1:
         if check_ers == 0:
             print('\n', end='')
         print(' Bad ID: ' + str(artistID), sep=' ', end='', flush=True)
@@ -185,7 +195,7 @@ print("""     _                _        __  __           _
  /_/   \\_\\ .__/| .__/|_|\\___| |_|  |_|\\__,_|___/_|\\___|
          |_|   |_|  _ \\ ___| | ___  __ _ ___  ___  ___ 
                  | |_) / _ \\ |/ _ \\/ _` / __|/ _ \\/ __|
-                 |  _ <  __/ |  __/ (_| \\__ \\  __/\\__ \\\\
+                 |  _ <  __/ |  __/ (_| \\__ \\  __/\\__ \\
   _              |_| \\_\\___|_|\\___|\\__,_|___/\\___||___/
  | |    ___   ___ | | __   / \\   _ __  _ __            
  | |   / _ \\ / _ \\| |/ /  / _ \\ | '_ \\| '_ \\           
@@ -254,7 +264,7 @@ while returner == '':
         printArtID = artistIDlist['mainArtist'].loc[artistIDlist['downloaded'].isna()].head(1)
         printArtID.reset_index(drop=True, inplace=True)
         printArtist = printArtID[0]
-        print(f'{printArtist:50}', end='\r')
+        print(f'{(printArtist + ' - ' + str(curArt)):50}', end='\r')
 
         FindReleases(curArt, curRow, printArtist)
 
@@ -263,8 +273,7 @@ while returner == '':
 
 pd.set_option('display.max_rows', 10)
 
-fspace = ' '
-print(f'{fspace:50}')
+print(f'{'':50}')
 
 if TOKEN == '' or CHAT_ID == '':
     print('Message not sent! No TOKEN or CHAT_ID')
