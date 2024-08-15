@@ -99,7 +99,6 @@ def FindReleases(artistID, cRow, artistPrintName):
     else:
         amnr_logger('[Apple Music Releases LookApp]', artistPrintName + ' - ' + str(artistID) + ' - Bad ID')
         messageBadID += '\n' + emojis['no'] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*'
-        check_ers = 1
 
     if len(dfExport) > 0:
         pdiTunesDB = pd.read_csv(releasesDB, sep=";")

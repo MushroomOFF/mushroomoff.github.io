@@ -1,4 +1,5 @@
-ver = "v.2.024.8 [Local]"
+SCRIPT_NAME = "Apple Music Releases LookApp"
+VERSION = "v.2.024.8 [Local]"
 # Python 3.12 & Pandas 2.2 ready
 # Added status sender via Telegram Bot
 # Add ID to log
@@ -15,23 +16,24 @@ from math import nan
 
 # Инициализация переменных================================================
 
-userDataFolder = '/Users/viktorgribov/GitHub/mushroomoff.github.io/'
-dbFolder = 'Databases/'
-releasesDB = userDataFolder + dbFolder + 'AMR_releases_DB.csv'
-artistIDDB = userDataFolder + dbFolder + 'AMR_artisitIDs.csv'
-fieldNames = ['mainArtist', 'mainId', 'artistName', 'artistId', 'primaryGenreName', 
+root_folder = '/Users/viktorgribov/GitHub/mushroomoff.github.io'
+db_folder = 'Databases'
+releases_db = os.path.join(root_folder, db_folder, 'AMR_releases_DB.csv')
+artist_id_db = os.path.join(root_folder, db_folder, 'AMR_artisitIDs.csv')
+log_file = os.path.join(root_folder, 'status.log')
+field_names = ['mainArtist', 'mainId', 'artistName', 'artistId', 'primaryGenreName', 
               'collectionId', 'collectionName', 'collectionCensoredName', 'artworkUrl100', 
               'collectionExplicitness', 'trackCount', 'copyright', 'country', 'releaseDate', 'releaseYear', 
               'dateUpdate', 'artworkUrlD', 'downloadedCover', 'downloadedRelease', 'updReason']
 #---------------------v  отрезал JP
-lCountry = input("Какие страны проверить?\nEnter: [us, ru, jp]\n2:     [us, ru]\njp:    [jp]\n")
-if lCountry == 'jp':
-    lCountry = ['jp']
-elif lCountry == '2':
-    lCountry = ['us', 'ru']
+countries = input("Какие страны проверить?\nEnter: [us, ru, jp]\n2:     [us, ru]\njp:    [jp]\n")
+if countries == 'jp':
+    countries = ['jp']
+elif countries == '2':
+    countries = ['us', 'ru']
 else:
-    lCountry = ['us', 'ru', 'jp']
-print(lCountry)
+    countries = ['us', 'ru', 'jp']
+print(countries)
 
 emojis = {'us': '\U0001F1FA\U0001F1F8', 'ru': '\U0001F1F7\U0001F1FA', 'jp': '\U0001F1EF\U0001F1F5', 'no': '\U0001F3F3\U0000FE0F', 'wtf': '\U0001F914', 
           'album': '\U0001F4BF', 'cover': '\U0001F3DE\U0000FE0F', 'error': '\U00002757\U0000FE0F', 'empty': '\U0001F6AB', 'badid': '\U0000274C'}
@@ -43,9 +45,9 @@ CHAT_ID = input("Telegram Bot CHAT_ID: ")
 #-----------------------------------------
 
 # establishing session
-ses = requests.Session() 
-ses.headers.update({'Referer': 'https://itunes.apple.com', 
-                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'})
+session = requests.Session() 
+session.headers.update({'Referer': 'https://itunes.apple.com', 
+                        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'})
 
 # Инициализация функций===================================================
 
@@ -64,11 +66,18 @@ def send_message(text):
     rmi = json_response['result']['message_id']   
     return rmi
 
+# Процедура логирования
+def logger(script_name, log_line):
+    with open(log_file, 'r+') as f:
+        content = f.read()
+        f.seek(0, 0)
+        f.write(str(datetime.datetime.now()) + ' - ' + script_name + ' - ' + log_line.rstrip('\r\n') + '\n' + content)
+
 # Процедура Загрузки библиотеки
 def CreateDB():
-    if not os.path.exists(releasesDB):
-        with open(releasesDB, 'a+', newline='') as csvfile:
-            writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=fieldNames)
+    if not os.path.exists(releases_db):
+        with open(releases_db, 'a+', newline='') as csvfile:
+            writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=field_names)
             writer.writeheader()
         print('[V] Database created')
     else:
@@ -81,9 +90,9 @@ def FindReleases(artistID, cRow, artistPrintName):
     allDataFrame = pd.DataFrame()
     dfExport = pd.DataFrame()
     check_ers = 0
-    for country in lCountry:
+    for country in countries:
         url = 'https://itunes.apple.com/lookup?id=' + str(artistID) + '&country=' + country + '&entity=album&limit=200'
-        request = ses.get(url)
+        request = session.get(url)
         if request.status_code == 200:     
             dJSON = json.loads(request.text)
             if dJSON['resultCount']>1:
@@ -93,22 +102,25 @@ def FindReleases(artistID, cRow, artistPrintName):
                 if check_ers == 0:
                     print('\n', end='')
                 print(' ' + country + ' - EMPTY |', sep=' ', end='', flush=True)
+                logger(f'[{SCRIPT_NAME}]', f'{artistPrintName} - {artistID} - {country} - EMPTY')
                 messageEmpty += '\n' + emojis[country] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*'
                 check_ers = 1
         else:
             if check_ers == 0:
                 print('\n', end='')
             print(' ' + country + ' - ERROR (' + str(request.status_code) + ') |', sep=' ', end='', flush=True)
+            logger(f'[{SCRIPT_NAME}]', f'{artistPrintName} - {artistID} - {country} - ERROR ({request.status_code})')
             messageError += '\n' + emojis[country] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*'
             check_ers = 1
         time.sleep(1) # обход блокировки
     allDataFrame.drop_duplicates(subset='artworkUrl100', keep='first', inplace=True, ignore_index=True)
     if len(allDataFrame) > 0:
         dfExport = allDataFrame.loc[allDataFrame['collectionName'].notna()]
-    elif len(lCountry) > 1:
+    elif len(countries) > 1:
         if check_ers == 0:
             print('\n', end='')
         print(' Bad ID: ' + str(artistID), sep=' ', end='', flush=True)
+        logger(f'[{SCRIPT_NAME}]', f'{artistPrintName} - {artistID} - Bad ID')
         messageBadID += '\n' + emojis['no'] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*'
         check_ers = 1
 
@@ -116,10 +128,10 @@ def FindReleases(artistID, cRow, artistPrintName):
         print ('') 
 
     if len(dfExport) > 0:
-        pdiTunesDB = pd.read_csv(releasesDB, sep=";")
+        pdiTunesDB = pd.read_csv(releases_db, sep=";")
         #Открываем файл лога для проверки скаченных файлов и записи новых скачиваний
-        csvfile = open(releasesDB, 'a+', newline='')
-        writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=fieldNames)
+        csvfile = open(releases_db, 'a+', newline='')
+        writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=field_names)
 
         dateUpdate = str(datetime.datetime.now())[0:19]
         # mainArtist = allDataFrame['artistName'].loc[0]
@@ -171,11 +183,12 @@ def FindReleases(artistID, cRow, artistPrintName):
         csvfile.close()
 
         artistIDlist.iloc[cRow, 2] = dateUpdate
-        artistIDlist.to_csv(artistIDDB, sep=';', index=False)
+        artistIDlist.to_csv(artist_id_db, sep=';', index=False)
 
         pdiTunesDB = pd.DataFrame() 
         if (newRelCounter + newCovCounter) > 0:
             print('\n^ ' + str(newRelCounter + newCovCounter) + ' new records: ' + str(newRelCounter) + ' releases, ' + str(newCovCounter) + ' covers')
+            logger(f'[{SCRIPT_NAME}]', f'{artistPrintName} - {artistID} - {newRelCounter + newCovCounter} new records: {newRelCounter} releases, {newCovCounter} covers')
             if newRelCounter > 0 :
                 iconka = 'album'
             else:
@@ -184,7 +197,7 @@ def FindReleases(artistID, cRow, artistPrintName):
 
     else:
         artistIDlist.iloc[cRow, 2] = str(datetime.datetime.now())[0:19]
-        artistIDlist.to_csv(artistIDDB, sep=';', index=False)
+        artistIDlist.to_csv(artist_id_db, sep=';', index=False)
 # Инициализация функций===================================================
 
 print("########################################################")
@@ -203,11 +216,12 @@ print("""     _                _        __  __           _
  |_____\\___/ \\___/|_|\\_\\/_/   \\_\\ .__/| .__/           
                                 |_|   |_|              
 """)
-print(" " + ver + "                                    ")
-print(" (c)&(p) 2022-" + str(datetime.datetime.now())[0:4] + " by Viktor 'MushroomOFF' Gribov")
+print(f' {VERSION}')
+print(f" (c)&(p) 2022-{datetime.datetime.now().strftime('%Y')} by Viktor 'MushroomOFF' Gribov")
 print("########################################################")
 print('')
 
+logger(f'[{SCRIPT_NAME}]', f"{VERSION} (c)&(p) 2022-{datetime.datetime.now().strftime('%Y')} by Viktor 'MushroomOFF' Gribov")
 message2send = ReplaceSymbols('====== ' + str(datetime.datetime.now())[:10] + ' ======')
 messageErPrt = ReplaceSymbols('======== ERRORS ========')
 messageError = emojis['error'] + ' 503 Service Unavailable ' + emojis['error']
@@ -225,7 +239,7 @@ pd.set_option('display.max_rows', None)
 # Определяем на каком Артисте остановились в прошлый раз. При желании начинаем сначала
 starter = 0
 while starter == 0:
-    artistIDlist = pd.read_csv(artistIDDB, sep=';')
+    artistIDlist = pd.read_csv(artist_id_db, sep=';')
     artID = artistIDlist['mainArtist'].loc[artistIDlist['downloaded'].isna()].head(1)
     if len(artID) != 0:
         curRow = artID.index[0]
@@ -236,7 +250,7 @@ while starter == 0:
         curRow = 0
         artistIDlist.drop('downloaded', axis=1, inplace=True)
         artistIDlist.insert(2, "downloaded", nan)
-        artistIDlist.to_csv(artistIDDB, sep=';', index=False)
+        artistIDlist.to_csv(artist_id_db, sep=';', index=False)
     if curRow == 0:
         keyLoger = input("Начнём с начала. Продолжить (Enter) ")
         starter = 1
@@ -247,7 +261,7 @@ while starter == 0:
         else:
             artistIDlist.drop('downloaded', axis=1, inplace=True)
             artistIDlist.insert(2, "downloaded", nan)
-            artistIDlist.to_csv(artistIDDB, sep=';', index=False)
+            artistIDlist.to_csv(artist_id_db, sep=';', index=False)
 
 print('')
 # Эта часть будет крутиться по кургу, пока не откажешься качать новые обложки
@@ -264,7 +278,7 @@ while returner == '':
         printArtID = artistIDlist['mainArtist'].loc[artistIDlist['downloaded'].isna()].head(1)
         printArtID.reset_index(drop=True, inplace=True)
         printArtist = printArtID[0]
-        print(f'{(printArtist + ' - ' + str(curArt)):50}', end='\r')
+        print(f'{(printArtist + ' - ' + str(curArt)):55}', end='\r')
 
         FindReleases(curArt, curRow, printArtist)
 
@@ -273,7 +287,7 @@ while returner == '':
 
 pd.set_option('display.max_rows', 10)
 
-print(f'{'':50}')
+print(f'{'':55}')
 
 if TOKEN == '' or CHAT_ID == '':
     print('Message not sent! No TOKEN or CHAT_ID')
@@ -293,3 +307,4 @@ else:
     send_message(message2send)
 
 print('[V] All Done!')
+logger(f'[{SCRIPT_NAME}]', '[V] Done!')
