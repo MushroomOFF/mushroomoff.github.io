@@ -185,7 +185,7 @@ if key_logger == '':
         find_releases(artist_id, country, artist_name)
 
 print(f'{'':55}')
-
+ 
 if key_logger == '':
     logger(f'[{SCRIPT_NAME}]', '[V] Done!')
 else:
