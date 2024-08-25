@@ -27,6 +27,7 @@ Aliases                              | Progressive Metal
 Alice in Chains                      | Grunge
 Alicia Keys                          | R&B
 Alien Ant Farm                       | Alternative
+All for Metal                        | Power Metal
 All Shall Perish                     | Deathcore
 All That Remains                     | Metalcore
 Almanac                              | Power Metal
@@ -60,6 +61,7 @@ As Blood Runs Black                  | Deathcore
 As I Lay Dying                       | Metalcore
 Ascension of the Watchers            | Progressive Rock
 Asking Alexandria                    | Metalcore
+Assemble the Chariots                | Symphonic Metal
 At the Gates                         | Melodic Death Metal
 Atreyu                               | Metalcore
 Attila                               | Deathcore
@@ -250,6 +252,7 @@ Exhorder                             | Thrash Metal
 Exotype                              | Nu Metal
 Extortionist                         | Deathcore
 Fall Out Boy                         | Alternative
+Falling in Reverse                   | Alternative
 Fallujah                             | Technical Death Metal
 False Memories                       | Gothic Metal
 Farmer Boys                          | Alternative
@@ -263,7 +266,7 @@ First Fragment                       | Technical Death Metal
 Fit for an Autopsy                   | Deathcore
 Five Finger Death Punch              | Groove Metal
 Flaw                                 | Nu Metal
-Fleshgod Apocalypse                  | Death Metal
+Fleshgod Apocalypse                  | Symphonic Metal
 Flyleaf                              | Alternative
 Foo Fighters                         | Alternative
 For My Pain...                       | Gothic Metal
@@ -437,6 +440,7 @@ Miley Cyrus                          | Pop
 Miseration                           | Melodic Death Metal
 Misfire                              | Thrash Metal
 Miss Fortune                         | Alternative
+Mister Misery                        | Alternative
 MMXX                                 | Gothic Metal
 Mnemic                               | Industrial Metal
 Mob Rules                            | Power Metal
@@ -486,6 +490,7 @@ Orbit Culture                        | Melodic Death Metal
 Orden Ogan                           | Power Metal
 Orphanage                            | Gothic Metal
 Orphaned Land                        | Folk Metal
+Orpheus Omega                        | Melodic Death Metal
 Otep                                 | Nu Metal
 Ottto                                | Hard Rock
 Ov Sulfur                            | Deathcore
