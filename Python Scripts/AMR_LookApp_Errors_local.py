@@ -85,11 +85,11 @@ def find_releases(artist_id, country, artist_print_name):
                 'copyright', 'country', 'releaseDate'
             ]]], ignore_index=True)
         else:
-            print(f'\n {country} - EMPTY |', end='', flush=True)
+            print(f'\n {country} - EMPTY')
             logger(f'[{SCRIPT_NAME}]', f'{artist_print_name} - {artist_id} - {country} - EMPTY')
             # errors_found = True
     else:
-        print(f'\n {country} - ERROR ({response.status_code}) |', end='', flush=True)
+        print(f'\n {country} - ERROR ({response.status_code})')
         logger(f'[{SCRIPT_NAME}]', f'{artist_print_name} - {artist_id} - {country} - ERROR ({response.status_code})')
         # errors_found = True
 
@@ -169,7 +169,8 @@ print("""     _    __  __ ____
  | ____|_ __ _ __ ___  _ __ ___ |_|   |_|    
  |  _| | '__| '__/ _ \\| '__/ __|             
  | |___| |  | | | (_) | |  \\__ \\             
- |_____|_|  |_|  \\___/|_|  |___/""")
+ |_____|_|  |_|  \\___/|_|  |___/
+ """)
 print(f" {VERSION}")
 print(f" (c)&(p) 2022-{datetime.datetime.now().strftime('%Y')} by Viktor 'MushroomOFF' Gribov")
 print("########################################################")

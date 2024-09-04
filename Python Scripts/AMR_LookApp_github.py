@@ -211,7 +211,7 @@ while returner == '':
         FindReleases(curArt, curRow, printArtist)
 
 #------------------V  Изменил с 2 на 1
-        time.sleep(1) # обход блокировки
+        time.sleep(1.5) # обход блокировки
 
 pd.set_option('display.max_rows', 10)
 print(f'{'':50}')
