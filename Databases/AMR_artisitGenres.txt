@@ -132,6 +132,7 @@ Carnifex                             | Deathcore
 Cavalera Conspiracy                  | Groove Metal
 Cellar Darling                       | Folk Metal
 Centr                                | Hip-Hop
+Charlotte Wessels                    | Symphonic Metal
 Charred Walls of the Damned          | Heavy Metal
 Chelsea Grin                         | Deathcore
 Chevelle                             | Alternative
@@ -283,6 +284,7 @@ Gemini Syndrome                      | Nu Metal
 Genus Ordinis Dei                    | Symphonic Metal
 George Lynch                         | Hard Rock
 Ghost                                | Heavy Metal
+Giant Walker                         | Alternative
 Glamour of the Kill                  | Metalcore
 Glass Beams                          | Rock
 Godsmack                             | Metal
