@@ -261,7 +261,7 @@ Faun                                 | Folk Metal
 Fear Factory                         | Industrial Metal
 Fergie                               | Pop
 Feuerschwanz                         | Folk Metal
-Fever 333                            | Alternative
+Fever 333                            | Rap Metal
 Finger Eleven                        | Alternative
 First Fragment                       | Technical Death Metal
 Fit for an Autopsy                   | Deathcore
@@ -645,6 +645,7 @@ The Dark Element                     | Symphonic Metal
 The Dark Side of the Moon            | Symphonic Metal
 The Faceless                         | Technical Death Metal
 The Few Against Many                 | Melodic Death Metal
+The Funeral Portrait                 | Alternative
 The Halo Effect                      | Melodic Death Metal
 The Korea                            | Metalcore
 The Oath                             | Heavy Metal
@@ -686,7 +687,7 @@ Vader                                | Death Metal
 Vanilla Sky                          | Punk Rock
 Varg                                 | Melodic Death Metal
 Veil of Maya                         | Progressive Metal
-Vended                               | Alternative
+Vended                               | Nu Metal
 Venom                                | Thrash Metal
 Venom Inc.                           | Heavy Metal
 Vilt                                 | Melodic Death Metal
