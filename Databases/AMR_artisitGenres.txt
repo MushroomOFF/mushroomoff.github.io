@@ -459,7 +459,7 @@ Muse                                 | Alternative
 My Autumn                            | Deathcore
 My Darkest Days                      | Hard Rock
 My Dying Bride                       | Doom Metal
-Myles Kennedy                        | Rock
+Myles Kennedy                        | Hard Rock
 Myrath                               | Progressive Metal
 Necrophagist                         | Technical Death Metal
 Nero                                 | EDM
@@ -481,6 +481,7 @@ Nonpoint                             | Nu Metal
 Nuclear Power Trio                   | Progressive Metal
 Oasis                                | Alternative
 Obituary                             | Death Metal
+Obscura                              | Technical Death Metal
 Of Mice & Men                        | Metalcore
 Old Gods of Asgard                   | Hard Rock
 Omi                                  | Pop
@@ -595,6 +596,7 @@ Sonya Belousova & Giona Ostinelli    | Score
 Soulfly                              | Groove Metal
 Spineshank                           | Nu Metal
 Spiritbox                            | Metal
+Spite                                | Deathcore
 SR-71                                | Punk Rock
 Staind                               | Nu Metal
 Stardown                             | Groove Metal
