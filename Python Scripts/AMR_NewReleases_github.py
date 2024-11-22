@@ -712,13 +712,13 @@ messageCS = '\n\U0001F5D3\U0000FE0F Coming soon\\:'
 checkMesSnd = len(message2send)
 checkMesCS = len(messageCS)
 
-caLink = 'https://music.apple.com/us/room/993297832'
+caLink = 'https://music.apple.com/us/room/6738290717'
 caText = 'METAL - Classic. Black. Death. Speed. Prog. Sludge. Doom.'
 caGrad = '#81BB98, #9AD292'
 collect_albums(caLink, caText, caGrad)
 amnr_logger('[Apple Music New Releases]', 'Metal [US]     - OK')
 
-caLink = 'https://music.apple.com/us/room/1184023815'
+caLink = 'https://music.apple.com/us/room/6738289734'
 caText = 'HARD ROCK'
 caGrad = '#EE702E, #F08933'
 collect_albums(caLink, caText, caGrad)
@@ -736,7 +736,7 @@ caGrad = '#EE702E, #F08933'
 collect_albums(caLink, caText, caGrad)
 amnr_logger('[Apple Music New Releases]', 'Hard Rock [RU] - OK')
 
-coming_soon('https://music.apple.com/us/room/993297822')
+coming_soon('https://music.apple.com/us/room/6738559053')
 amnr_logger('[Apple Music New Releases]', 'Comming Soon   - OK')
 
 CS2NR()
