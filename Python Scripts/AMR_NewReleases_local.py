@@ -741,16 +741,20 @@ collect_albums(caLink, caText, caGrad)
 print('Hard Rock [RU] - OK')
 
 # coming_soon('https://music.apple.com/us/room/993297822')
-coming_soon('https://music.apple.com/us/room/6738559053')
+# coming_soon('https://music.apple.com/us/room/6738559053')
+coming_soon('https://music.apple.com/us/room/6738827652')
 print('Comming Soon   - OK')
 
 CS2NR()
 print('Metal [CS]     - OK')
 
-if checkMesSnd == len(message2send):
-    message2send += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
-if checkMesCS == len(messageCS):
-    messageCS += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
-send_message(message2send + '\n' + messageCS)
+if TOKEN == '' or CHAT_ID == '':
+    print('Message not sent! No TOKEN or CHAT_ID')
+else:
+    if checkMesSnd == len(message2send):
+        message2send += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
+    if checkMesCS == len(messageCS):
+        messageCS += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
+    send_message(message2send + '\n' + messageCS)
 
 print('[V] All Done!')

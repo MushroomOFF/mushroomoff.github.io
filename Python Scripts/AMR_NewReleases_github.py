@@ -736,7 +736,7 @@ caGrad = '#EE702E, #F08933'
 collect_albums(caLink, caText, caGrad)
 amnr_logger('[Apple Music New Releases]', 'Hard Rock [RU] - OK')
 
-coming_soon('https://music.apple.com/us/room/6738559053')
+coming_soon('https://music.apple.com/us/room/6738827652')
 amnr_logger('[Apple Music New Releases]', 'Comming Soon   - OK')
 
 CS2NR()
