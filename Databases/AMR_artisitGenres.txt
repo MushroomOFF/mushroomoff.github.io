@@ -52,6 +52,7 @@ Animals as Leaders                   | Progressive Metal
 Annihilator                          | Thrash Metal
 Anubis Gate                          | Progressive Metal
 Apocalyptica                         | Symphonic Metal
+April Art                            | Alternative
 Arcane Roots                         | Alternative
 Arch Enemy                           | Melodic Death Metal
 Archetypes Collide                   | Alternative
@@ -129,6 +130,7 @@ Cannibal Corpse                      | Death Metal
 Carach Angren                        | Symphonic Black Metal
 Carcass                              | Death Metal
 Carnifex                             | Deathcore
+Casandra's Crossing                  | Hard Rock
 Cavalera Conspiracy                  | Groove Metal
 Cellar Darling                       | Folk Metal
 Centr                                | Hip-Hop
@@ -200,6 +202,7 @@ Devil You Know                       | Metalcore
 Devilment                            | Gothic Metal
 Devin Townsend                       | Country
 Devin Townsend                       | Progressive Metal
+DGM                                  | Progressive Metal
 Diabulus in Musica                   | Symphonic Metal
 Diamond Head                         | Heavy Metal
 Die Allergie                         | Industrial Metal
