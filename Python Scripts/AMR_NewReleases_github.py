@@ -1,6 +1,6 @@
-ver = "v.2.024.5 [GitHub]"
+ver = "v.2.024.12 [GitHub]"
 # Python 3.12 & Pandas 2.2 ready
-# Added status sender via Telegram Bot
+# NEW: always actual link to NR & CS rooms 
 # comment will mark the specific code for GitHub
 
 import os
@@ -50,6 +50,18 @@ def send_message(text):
     json_response = json.loads(r.text)
     rmi = json_response['result']['message_id']   
     return rmi
+
+# Процедура поиска актуальной ссылки на раздел
+def find_link(catLink, catName):
+    request = s.get(catLink)
+    request.encoding = 'UTF-8'
+    res = request.text
+    strt = res.find('{"title":"' + catName + '"')
+    pos_id_0 = res.find('"id":"', strt) + len('"id":"')
+    pos_id_1 = res.find('"', pos_id_0)
+    catID = res[pos_id_0:pos_id_1].strip()
+    roomLink = catLink[:catLink.find('/curator')] + '/room/' + str(catID)
+    return roomLink
 
 def collect_albums(caLink, caText, caGrad):
     global message2send
@@ -712,13 +724,13 @@ messageCS = '\n\U0001F5D3\U0000FE0F Coming soon\\:'
 checkMesSnd = len(message2send)
 checkMesCS = len(messageCS)
 
-caLink = 'https://music.apple.com/us/room/6738290717'
+caLink = find_link('https://music.apple.com/us/curator/apple-music-metal/976439543', 'New Releases')
 caText = 'METAL - Classic. Black. Death. Speed. Prog. Sludge. Doom.'
 caGrad = '#81BB98, #9AD292'
 collect_albums(caLink, caText, caGrad)
 amnr_logger('[Apple Music New Releases]', 'Metal [US]     - OK')
 
-caLink = 'https://music.apple.com/us/room/6738289734'
+caLink = find_link('https://music.apple.com/us/curator/apple-music-hard-rock/979231690', 'New Releases')
 caText = 'HARD ROCK'
 caGrad = '#EE702E, #F08933'
 collect_albums(caLink, caText, caGrad)
@@ -736,7 +748,8 @@ caGrad = '#EE702E, #F08933'
 collect_albums(caLink, caText, caGrad)
 amnr_logger('[Apple Music New Releases]', 'Hard Rock [RU] - OK')
 
-coming_soon('https://music.apple.com/us/room/6738827652')
+caLink = find_link('https://music.apple.com/us/curator/apple-music-metal/976439543', 'Coming Soon')
+coming_soon(caLink)
 amnr_logger('[Apple Music New Releases]', 'Comming Soon   - OK')
 
 CS2NR()
