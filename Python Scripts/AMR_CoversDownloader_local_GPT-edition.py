@@ -93,7 +93,4 @@ while True:
     releases_df.at[row_index, 'downloadedCover'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     releases_df.to_csv(releases_db, sep=';', index=False)
 
-pd.set_option('display.max_rows', 10)
-
-print('')
-print('[V] All Done!')
+print("\n[V] All Done!")
