@@ -50,11 +50,12 @@ def find_errors(log_file):
         print("При последнем запуске Apple Music Releases LookApp ошибок не возникало.")
         return []
 
+    suffix = ('ERROR (503)\n', 'ERROR (502)\n')
     # Собираем группы и страны, которые необходимо повторно проверить
     error_list = [
         line.split(' - ')[2:5] # режем строку лога и берём 2, 3 и 4 куски
         for line in log_lines[start_idx:end_idx] # смотрим только строки между начальным и конечным индексами
-        if line.endswith('ERROR (503)\n') # берём только строки, где есть ошибка 503
+        if line.endswith(suffix) # берём только строки, где есть ошибка 503
     ]
 
     print(f'Найдено ошибок: {len(error_list)}')
