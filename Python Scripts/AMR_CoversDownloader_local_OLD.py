@@ -1,48 +1,48 @@
+ver = "v.2.024 [Local]"
+# Python 3.12 & Pandas 2.2 ready
+
 import requests
 import os
 import pandas as pd
 import datetime
 
-VERSION = "v.2.024.12 [Local]"
-# Python 3.12 & Pandas 2.2 ready
+# Инициализация переменных================================================
 
-# Инициализация переменных
-root_folder = '/Users/viktorgribov/GitHub/mushroomoff.github.io/'
-db_folder = 'Databases/'
-releases_db = os.path.join(root_folder, db_folder, 'AMR_releases_DB.csv')
-user_data_folder = os.path.join(root_folder, 'Covers/Fresh Covers to Check/')
+rootFolder = '/Users/viktorgribov/GitHub/mushroomoff.github.io/'
+dbFolder = 'Databases/'
+releasesDB = rootFolder + dbFolder + 'AMR_releases_DB.csv'
+userDataFolder = rootFolder + 'Covers/Fresh Covers to Check/'
 
-# Функции
-def replace_symbols(text):
-    """Замена неиспользуемых символов в имени файла и пути к папке"""
-    symbols = '\\/*:?<>|`"'
-    for symbol in symbols:
-        text = text.replace(symbol,'_')
-    return text
+# Инициализация функций===================================================
 
-def image_download(name, folder, link):
-    """Загрузка изображения"""
-    name = replace_symbols(name)
-    folder = replace_symbols(folder)
-    folder_path = os.path.join(user_data_folder, folder)
+## Замена неиспользуемых символов в имени файла и пути к папке
+def ReplaceSymbols(rsTxt):
+    rsTmplt = '\\/*:?<>|`"'
+    for rsf in range(len(rsTmplt)):
+        rsTxt=rsTxt.replace(rsTmplt[rsf],'_')
+    return rsTxt
 
-    os.makedirs(folder_path, exist_ok=True)
-
-    response = requests.get(link)
-    if response.status_code == 200:
-        with open(os.path.join(folder_path, f"{name}.jpg"), "wb") as file:
-            file.write(response.content)
+## Загрузка изображения
+def ImgDownload(idName, idFolder, idLink):
+    idName=ReplaceSymbols(idName)
+    idFolder=ReplaceSymbols(idFolder)
+    try:
+        os.mkdir(userDataFolder+idFolder)
+    except OSError:
+        pass
+    idImage = requests.get(idLink)
+    out = open(userDataFolder+idFolder+"/"+idName+".jpg", "wb")
+    out.write(idImage.content)
+    out.close()
     
-# Основой код main():
-session = requests.Session() 
-session.headers.update({
-    'Referer': 'https://itunes.apple.com',
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'
-})
+# ========================================================================
 
-print(f"""
-###########################################################
-     _                _        __  __           _         
+ses = requests.Session() 
+ses.headers.update({'Referer': 'https://itunes.apple.com',
+                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'})
+
+print("###########################################################")
+print("""     _                _        __  __           _         
     / \\   _ __  _ __ | | ___  |  \\/  |_   _ ___(_) ___    
    / _ \\ | '_ \\| '_ \\| |/ _ \\ | |\\/| | | | / __| |/ __|   
   / ___ \\| |_) | |_) | |  __/ | |  | | |_| \\__ \\ | (__    
@@ -58,15 +58,17 @@ print(f"""
  | | | |/ _ \\ \\ /\\ / / '_ \\| |/ _ \\ / _` |/ _` |/ _ \\ '__|
  | |_| | (_) \\ V  V /| | | | | (_) | (_| | (_| |  __/ |   
  |____/ \\___/ \\_/\\_/ |_| |_|_|\\___/ \\__,_|\\__,_|\\___|_|   
-
- {VERSION}
- (c)&(p) 2022-{datetime.datetime.now().strftime("%Y")} by Viktor 'MushroomOFF' Gribov
-###########################################################
 """)
+print(" "+ver+"                                    ")
+print(" (c)&(p) 2022-" + str(datetime.datetime.now())[0:4] + " by Viktor 'MushroomOFF' Gribov")
+print("###########################################################")
+print('')
+
+pd.set_option('display.max_rows', None)
 
 returner=''
 while returner=='':
-    pdiTunesDB = pd.read_csv(releases_db, sep=";")
+    pdiTunesDB = pd.read_csv(releasesDB, sep=";")
     if len(pdiTunesDB['artworkUrlD'].loc[pdiTunesDB['downloadedCover'].isna()])==0:
         pdiTunesDB = pd.DataFrame()
         returner='x'
@@ -79,7 +81,7 @@ while returner=='':
         # curRow + 2 -> позиция строки в текстовом файле с учетом шапки и порядковым номером первой строки данных - 2  
         # curRow + 2 -> только для вывода
 
-        image_download(coverToDownload['artistName'].loc[curRow] + " - " + \
+        ImgDownload(coverToDownload['artistName'].loc[curRow] + " - " + \
                     coverToDownload['collectionName'].loc[curRow][:100] + " - " + \
                     coverToDownload['releaseDate'].loc[curRow] + " [" + \
                     str(curRow + 2) + "]", \
@@ -94,8 +96,10 @@ while returner=='':
               + ". (Covers left: " + str(len(pdiTunesDB['artworkUrlD'].loc[pdiTunesDB['downloadedCover'].isna()])) + ")")
 
         pdiTunesDB.iloc[curRow,17] = str(datetime.datetime.now())[0:19]
-        pdiTunesDB.to_csv(releases_db, sep=';', index=False)        
+        pdiTunesDB.to_csv(releasesDB, sep=';', index=False)        
         pdiTunesDB = pd.DataFrame()
+
+pd.set_option('display.max_rows', 10)
 
 print('')
 print('[V] All Done!')
