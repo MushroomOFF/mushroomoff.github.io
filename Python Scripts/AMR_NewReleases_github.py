@@ -736,17 +736,17 @@ caGrad = '#EE702E, #F08933'
 collect_albums(caLink, caText, caGrad)
 amnr_logger('[Apple Music New Releases]', 'Hard Rock [US] - OK')
 
-caLink = 'https://music.apple.com/ru/room/1118077423'
-caText = 'METAL - RU - Classic. Black. Death. Speed. Prog. Sludge. Doom.'
-caGrad = '#81BB98, #9AD292'
-collect_albums(caLink, caText, caGrad)
-amnr_logger('[Apple Music New Releases]', 'Metal [RU]     - OK')
+# caLink = 'https://music.apple.com/ru/room/1118077423'
+# caText = 'METAL - RU - Classic. Black. Death. Speed. Prog. Sludge. Doom.'
+# caGrad = '#81BB98, #9AD292'
+# collect_albums(caLink, caText, caGrad)
+# amnr_logger('[Apple Music New Releases]', 'Metal [RU]     - OK')
 
-caLink = 'https://music.apple.com/ru/room/1532200949'
-caText = 'HARD ROCK - RU'
-caGrad = '#EE702E, #F08933'
-collect_albums(caLink, caText, caGrad)
-amnr_logger('[Apple Music New Releases]', 'Hard Rock [RU] - OK')
+# caLink = 'https://music.apple.com/ru/room/1532200949'
+# caText = 'HARD ROCK - RU'
+# caGrad = '#EE702E, #F08933'
+# collect_albums(caLink, caText, caGrad)
+# amnr_logger('[Apple Music New Releases]', 'Hard Rock [RU] - OK')
 
 caLink = find_link('https://music.apple.com/us/curator/apple-music-metal/976439543', 'Coming Soon')
 coming_soon(caLink)
