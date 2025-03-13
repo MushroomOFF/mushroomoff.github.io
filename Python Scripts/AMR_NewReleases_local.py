@@ -58,11 +58,11 @@ def collect_albums(caLink, caText, caGrad):
     request = s.get(caLink)
     request.encoding = 'UTF-8'
 
-    if caText == 'METAL - Classic. Black. Death. Speed. Prog. Sludge. Doom.':
+    if caText == 'METAL':
         dldCategory = 'M'
     elif caText == 'HARD ROCK':
         dldCategory = 'HR'
-    elif caText == 'METAL - RU - Classic. Black. Death. Speed. Prog. Sludge. Doom.':
+    elif caText == 'METAL - RU':
         dldCategory = 'MRU'
     elif caText == 'HARD ROCK - RU':
         dldCategory = 'HRRU'
@@ -118,7 +118,7 @@ def collect_albums(caLink, caText, caGrad):
 """
 
     htmlStart = """  <table border="1">
-    <tr><th colspan="2" style="background: linear-gradient(to right, """ + caGrad + """);">""" + dldDate + """ | """ + caText + """</th></tr>
+    <tr id=""" + ('\"' + dldDate + '_' + caText + '\""').lower().replace(' ','_') +  """><th colspan="2" style="background: linear-gradient(to right, """ + caGrad + """);">""" + dldDate + """ | """ + caText + """</th></tr>
     <tr><th width="100px">Cover</th><th width="600px">Album</th></tr>
 """
 
@@ -552,7 +552,7 @@ def CS2NR():
 
   if len(pdCSNR) > 0:
       dldCategory = 'CS'
-      caText = 'METAL - CS - Classic. Black. Death. Speed. Prog. Sludge. Doom.'
+      caText = 'METAL - CS'
       caGrad = '#81BB98, #9AD292'
 
       dldDate = str(datetime.datetime.now())[0:10]
@@ -606,7 +606,7 @@ def CS2NR():
 """
 
       htmlStart = """  <table border="1">
-    <tr><th colspan="2" style="background: linear-gradient(to right, """ + caGrad + """);">""" + dldDate + """ | """ + caText + """</th></tr>
+    <tr id=""" + ('\"' + dldDate + '_' + caText + '\""').lower().replace(' ','_') +  """><th colspan="2" style="background: linear-gradient(to right, """ + caGrad + """);">""" + dldDate + """ | """ + caText + """</th></tr>
     <tr><th width="100px">Cover</th><th width="600px">Album</th></tr>
 """
 
@@ -729,7 +729,7 @@ checkMesCS = len(messageCS)
 # caLink = 'https://music.apple.com/us/room/993297832'
 # caLink = 'https://music.apple.com/us/room/6738290717'
 caLink = find_link('https://music.apple.com/us/curator/apple-music-metal/976439543', 'New Releases')
-caText = 'METAL - Classic. Black. Death. Speed. Prog. Sludge. Doom.'
+caText = 'METAL'
 caGrad = '#81BB98, #9AD292'
 collect_albums(caLink, caText, caGrad)
 print('Metal [US]     - OK')
@@ -743,7 +743,7 @@ collect_albums(caLink, caText, caGrad)
 print('Hard Rock [US] - OK')
 
 caLink = 'https://music.apple.com/ru/room/1118077423'
-caText = 'METAL - RU - Classic. Black. Death. Speed. Prog. Sludge. Doom.'
+caText = 'METAL - RU'
 caGrad = '#81BB98, #9AD292'
 collect_albums(caLink, caText, caGrad)
 print('Metal [RU]     - OK')
