@@ -128,7 +128,7 @@ def collect_albums(caLink, caText, caGrad):
 """
 
     htmlStart = """  <table border="1">
-    <tr id=""" + ('\"' + dldDate + '_' + caText + '\""').lower().replace(' ','_') +  """><th colspan="2" style="background: linear-gradient(to right, """ + caGrad + """);">""" + dldDate + """ | """ + caText + """</th></tr>
+    <tr id=""" + ('\"' + dldDate + '_' + caText + '\"').lower().replace(' ','_') +  """><th colspan="2" style="background: linear-gradient(to right, """ + caGrad + """);">""" + dldDate + """ | """ + caText + """</th></tr>
     <tr><th width="100px">Cover</th><th width="600px">Album</th></tr>
 """
 
@@ -618,7 +618,7 @@ def CS2NR():
 """
 
       htmlStart = """  <table border="1">
-    <tr id=""" + ('\"' + dldDate + '_' + caText + '\""').lower().replace(' ','_') +  """><th colspan="2" style="background: linear-gradient(to right, """ + caGrad + """);">""" + dldDate + """ | """ + caText + """</th></tr>
+    <tr id=""" + ('\"' + dldDate + '_' + caText + '\"').lower().replace(' ','_') +  """><th colspan="2" style="background: linear-gradient(to right, """ + caGrad + """);">""" + dldDate + """ | """ + caText + """</th></tr>
     <tr><th width="100px">Cover</th><th width="600px">Album</th></tr>
 """
 
