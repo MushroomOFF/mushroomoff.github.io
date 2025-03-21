@@ -90,6 +90,7 @@ Beyonce                              | R&B
 Beyond Creation                      | Technical Death Metal
 Beyond the Black                     | Symphonic Metal
 Billie Eilish                        | Pop
+Billy Morrison                       | Hard Rock
 Bilmiru                              | Alternative
 Black Earth                          | Melodic Death Metal
 Black Sabbath                        | Heavy Metal
@@ -617,6 +618,7 @@ Steve 'n' Seagulls                   | Bluegrass
 Stigmata                             | Metalcore
 Stone Broken                         | Hard Rock
 Stone Sour                           | Alternative
+Storm Seeker                         | Folk Metal
 Story of the Year                    | Alternative
 Stratovarius                         | Power Metal
 Stuck Mojo                           | Rap Metal
