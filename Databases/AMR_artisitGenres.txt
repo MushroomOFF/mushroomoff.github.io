@@ -354,6 +354,7 @@ Iommi                                | Hard Rock
 Iotunn                               | Progressive Metal
 Iron Horse                           | Bluegrass
 Iron Maiden                          | Heavy Metal
+Izzy Reign                           | Alternative
 Jane Air                             | Nu Metal
 Jared Dines                          | Deathcore
 Jared James Nichols                  | Hard Rock
@@ -434,12 +435,14 @@ Marcin Przybylowicz                  | Score
 Marilyn Manson                       | Alternative
 Mark Morton                          | Metal
 Mark Ronson                          | Hip-Hop
+Marko Hietala                        | Heavy Metal
 Marty Friedman                       | Heavy Metal
 Master Boot Record                   | Industrial Metal
 Mastodon                             | Progressive Metal
 Maximum the Hormone                  | Alternative
 Me and That Man                      | Country
 Megadeth                             | Thrash Metal
+Mental Cruelty                       | Deathcore
 Mercenary                            | Melodic Death Metal
 Mercyful Fate                        | Heavy Metal
 Meshuggah                            | Progressive Metal
