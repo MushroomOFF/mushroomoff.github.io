@@ -492,6 +492,7 @@ Nirvana                              | Grunge
 No One                               | Nu Metal
 Noize MC                             | Alternative
 Nonpoint                             | Nu Metal
+Nox Doloris                          | Symphonic Black Metal
 Nuclear Power Trio                   | Progressive Metal
 Oasis                                | Alternative
 Obituary                             | Death Metal
@@ -736,6 +737,7 @@ Wolfgang Gartner                     | EDM
 Wolves at The Gate                   | Metalcore
 Wovenwar                             | Alternative
 Xandria                              | Symphonic Metal
+Year of the Cobra                    | Stoner Metal
 Years & Years                        | Pop
 Yelawolf                             | Hip-Hop
 Zebrahead                            | Punk Rock

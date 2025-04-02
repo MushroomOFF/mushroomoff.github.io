@@ -2,7 +2,7 @@ import os
 import shutil
 
 # Original root folder path
-originalRootFolder = '/Users/viktorgribov/Yandex.Disk.localized/Проекты/Обложки/_BIG'
+originalRootFolder = '/Users/viktorgribov/Yandex.Disk.localized/Проекты/_Covers/_BIG'
 
 # Prompt user for a path, if nothing is entered, use the original root folder
 rootFolder = input(f'Type me some path (Enter -> {originalRootFolder}): ')
