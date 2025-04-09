@@ -14,7 +14,7 @@ where_block = ""
 # ---------------------------------------------
 
 # Функции -------------------------------------
-def ShowReleases(dateFrom,dateTo):
+def ShowReleases(dateFrom, dateTo, sortType):
     """Функция поиска релизов в БД
     dateFrom:          0             -> no condition           
                        "2022-01-01"  -> AND "releaseDate" > {dateFrom}
@@ -30,10 +30,15 @@ def ShowReleases(dateFrom,dateTo):
     
     if len(dateTo) == 10: whereBlock += ' AND SUBSTRING("releaseDate",1,10) < "'+dateTo+'"'
     elif len(dateTo) == 11: whereBlock += ' AND SUBSTRING("releaseDate",1,10) <= "'+dateTo[:10]+'"'
-    
-    selectSection = 'SELECT DISTINCT "mainArtist","artistName","collectionName",SUBSTRING("releaseDate",1,10) AS "releaseDate"'
-    
-    resultDF = sqldf(f'''{selectSection} FROM pdiTunesDB WHERE 1=1 {whereBlock} AND "downloadedRelease" is NULL ORDER BY "mainArtist" ASC, SUBSTRING("releaseDate",1,10) DESC, "collectionName" ASC''')
+        
+    if sortType == 'artist':
+        selectSection = 'SELECT DISTINCT "mainArtist","artistName","collectionName",SUBSTRING("releaseDate",1,10) AS "releaseDate"'
+        orderBy = '"mainArtist" ASC, SUBSTRING("releaseDate",1,10) ASC'
+    elif sortType == 'date':
+        selectSection = 'SELECT DISTINCT SUBSTRING("releaseDate",1,10) AS "releaseDate","mainArtist","artistName","collectionName"'
+        orderBy = 'SUBSTRING("releaseDate",1,10) ASC, "mainArtist" ASC'
+
+    resultDF = sqldf(f'''{selectSection} FROM pdiTunesDB WHERE 1=1 {whereBlock} AND "downloadedRelease" is NULL ORDER BY {orderBy}, "collectionName" ASC''')
     return resultDF
 # --------------------------------------------
 
@@ -60,12 +65,12 @@ print("")
 print("Все релизы к скачиванию")
 print("")
 dt = datetime.datetime.today().strftime('%Y-%m-%d')
-resDF = ShowReleases("",dt+"+")
+resDF = ShowReleases("", dt+"+", 'artist')
 print(resDF)
 
 print("")
 print("Предстоящие релизы")
 print("")
 dt = (datetime.datetime.now() + datetime.timedelta(days = 1)).strftime('%Y-%m-%d')
-resDF = ShowReleases(dt+"+","")
+resDF = ShowReleases(dt+"+", "", 'date')
 print(resDF)
