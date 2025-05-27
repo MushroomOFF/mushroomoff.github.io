@@ -292,6 +292,7 @@ Future Palace                        | Alternative
 Galactic Empire                      | Progressive Metal
 Gemini Syndrome                      | Nu Metal
 Genus Ordinis Dei                    | Symphonic Metal
+Geoff Castellucci                    | Country
 George Lynch                         | Hard Rock
 Ghost                                | Heavy Metal
 Giant Walker                         | Alternative
@@ -402,6 +403,7 @@ Lacuna Coil                          | Gothic Metal
 Lady Gaga                            | Pop
 Lake of Silence                      | Metal
 Lamb of God                          | Groove Metal
+Larcenia Roe                         | Deathcore
 League of Distortion                 | Alternative
 Leander Rising                       | Metal
 Led Zeppelin                         | Hard Rock
@@ -518,6 +520,7 @@ Pain of Salvation                    | Progressive Metal
 Pantera                              | Groove Metal
 Papa Roach                           | Nu Metal
 Paralydium                           | Progressive Metal
+Paradise Slaves                      | Metalcore
 Parkway Drive                        | Metalcore
 Patrick Doyle                        | Score
 Paul Romero                          | Score
@@ -659,6 +662,7 @@ The Black Dahlia Murder              | Melodic Death Metal
 The Black Eyed Peas                  | Hip-Hop
 The Bones of J.R. Jones              | Alternative
 The Buzzhorn                         | Alternative
+The Cost                             | Alternative
 The Dark Element                     | Symphonic Metal
 The Dark Side of the Moon            | Symphonic Metal
 The Faceless                         | Technical Death Metal
@@ -675,6 +679,7 @@ The Raven Age                        | Metal
 The Showdown                         | Groove Metal
 The Shredderz                        | Thrash Metal
 The Stranded                         | Melodic Death Metal
+The Troops of Doom                   | Thrash Metal
 The Unguided                         | Melodic Death Metal
 The Veronicas                        | Pop
 The Weeknd                           | R&B
@@ -752,6 +757,7 @@ Zebrahead                            | Punk Rock
 Виктор Зинчук                        | Modern Classical
 Город Дит                            | Heavy Metal
 Грай                                 | Folk Metal
+Ирма Сохадзе                         | Pop
 Карандаш                             | Hip-Hop
 Каста                                | Hip-Hop
 Кипелов                              | Heavy Metal
