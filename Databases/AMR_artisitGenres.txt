@@ -545,9 +545,11 @@ Puddle of Mudd                       | Alternative
 Pulse Ultra                          | Alternative
 Purson                               | Progressive Rock
 Pyramaze                             | Power Metal
+Quadvium                             | Progressive Metal
 Queen                                | Rock
 Rage                                 | Power Metal
 Rage Against the Machine             | Rap Metal
+Rain Paris                           | Alternative
 Rainbow                              | Hard Rock
 Ramin Djawadi                        | Score
 Rammstein                            | Industrial Metal
@@ -739,7 +741,7 @@ Within Temptation                    | Symphonic Metal
 Within the Ruins                     | Deathcore
 Wolf Hoffmann                        | Hard Rock
 Wolfgang Gartner                     | EDM
-Wolves at The Gate                   | Metalcore
+Wolves at the Gate                   | Metalcore
 Wovenwar                             | Alternative
 Xandria                              | Symphonic Metal
 Year of the Cobra                    | Stoner Metal
