@@ -1,6 +1,6 @@
-ver = "v.2.024.12 [Local]"
+ver = "v.2.025.06 [Local]"
 # Python 3.12 & Pandas 2.2 ready
-# NEW: always actual link to NR & CS rooms
+# NEW: new Telegram group
 
 import os
 import json
@@ -19,6 +19,7 @@ artistIDsDB = dbFolder + 'AMR_artisitIDs.csv' # ArtistID
 URL = 'https://api.telegram.org/bot'
 TOKEN = input("Telegram Bot TOKEN: ")
 chat_id = input("Telegram Bot chat_id: ")
+thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2}
 #chat_id = '-1001939128351' #Test channel
 #-----------------------------------------
 
@@ -34,11 +35,18 @@ def ReplaceSymbols(rsTxt):
     return rsTxt
 
 # Процедура Отправки сообщения ботом в канал
-def send_message(text):
+def send_message(topic, text):
     method = URL + TOKEN + "/sendMessage"
-    r = requests.post(method, data={"chat_id": chat_id, "parse_mode": 'MarkdownV2', "text": text})
+    r = requests.post(method, data={"message_thread_id": thread_id[topic], "chat_id": chat_id, "parse_mode": 'MarkdownV2', "text": text})
     json_response = json.loads(r.text)
     rmi = json_response['result']['message_id']   
+    return rmi
+
+# Процедура Отправки изображения ботом в канал
+def send_photo_url(topic, img_url, img_caption):
+    r = requests.post(f'{URL}{TOKEN}/sendPhoto?chat_id={chat_id}&message_thread_id={thread_id[topic]}&photo={img_url}&caption={img_caption}&parse_mode=markdown&disable_notification=true')
+    json_response = json.loads(r.text)
+    rmi = json_response['result']['message_id']    
     return rmi
 
 # Процедура поиска актуальной ссылки на раздел
@@ -210,9 +218,10 @@ def collect_albums(caLink, caText, caGrad):
                             aralname = artist + ' - ' + album
                             aralinsert = aralname.replace(artist, artist + '</b>') if len(aralname) < 80 else aralname[:aralname[:80].rfind(' ') + 1].replace(artist, artist + '</b>') + '<br>' + aralname[aralname[:80].rfind(' ') + 1:]
                             if isMyArtist > 0:
-                                message2send += ('\n*' + ReplaceSymbols(artist.replace('&amp;','&')) + 
-                                                 '* \\- [' + ReplaceSymbols(album.replace('&amp;','&')) + 
-                                                 '](' + link.replace('://','://embed.') + ')')
+                                img_url = imga.replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
+                                img_caption = f'*{ReplaceSymbols(artist.replace('&amp;','&'))}* - [{ReplaceSymbols(album.replace('&amp;','&'))}]({link.replace('://','://embed.')})'
+                                message2send = send_photo_url('New Releases', img_url, img_caption)
+
                             writer.writerow({'date': dldDate, 
                                              'category': dldCategory, 
                                              'artist': artist.replace('&amp;','&'), 
@@ -467,10 +476,10 @@ def coming_soon(caLink):
                                'release__date_text': row.iloc[12]})
 
             if float(row.iloc[9][row.iloc[9].rfind('/', 0, len(row.iloc[9])) + 1:]) in pdAIDDB['mainId'].values:
-                messageCS += ('\n*' + ReplaceSymbols(row.iloc[10].replace('&amp;','&')) + 
-                              '* \\- [' + ReplaceSymbols(row.iloc[8].replace('&amp;','&')) + 
-                              '](' + row.iloc[7].replace('://','://embed.') + ') ' + ReplaceSymbols(str(row.iloc[11])[0:10]))
-
+                img_url = row.iloc[5][0:row.iloc[5].find(' ')].replace('296x296bb-60.jpg', '632x632bb.webp').replace('296x296bf-60.jpg', '632x632bf.webp')
+                img_caption = f'*{ReplaceSymbols(row.iloc[10].replace('&amp;','&'))}* - [{ReplaceSymbols(row.iloc[8].replace('&amp;','&'))}]({row.iloc[7].replace('://','://embed.')})\n{str(row.iloc[11])[0:10]}'
+                messageCS = send_photo_url('Coming Soon', img_url, img_caption)
+                
         css_newRelease = '<a class="product-lockup__title svelte-21e67y"'
         if row.iloc[13] == 1:
             css_newRelease = '<a class="product-lockup__title svelte-21e67y new-release"'
@@ -721,21 +730,15 @@ print(" (c)&(p) 2022-" + str(datetime.datetime.now())[0:4] + " by Viktor 'Mushro
 print("##############################################################")
 print('')
 
-message2send = '\U0001F4C0 New Releases *' + ReplaceSymbols(str(datetime.datetime.now())[:10]) + '*\\:'
-messageCS = '\n\U0001F5D3\U0000FE0F Coming soon\\:'
-checkMesSnd = len(message2send)
-checkMesCS = len(messageCS)
+message2send = 0
+messageCS = 0
 
-# caLink = 'https://music.apple.com/us/room/993297832'
-# caLink = 'https://music.apple.com/us/room/6738290717'
 caLink = find_link('https://music.apple.com/us/curator/apple-music-metal/976439543', 'New Releases')
 caText = 'METAL'
 caGrad = '#81BB98, #9AD292'
 collect_albums(caLink, caText, caGrad)
 print('Metal [US]     - OK')
 
-# caLink = 'https://music.apple.com/us/room/1184023815'
-# caLink = 'https://music.apple.com/us/room/6738289734'
 caLink = find_link('https://music.apple.com/us/curator/apple-music-hard-rock/979231690', 'New Releases')
 caText = 'HARD ROCK'
 caGrad = '#EE702E, #F08933'
@@ -754,9 +757,6 @@ caGrad = '#EE702E, #F08933'
 collect_albums(caLink, caText, caGrad)
 print('Hard Rock [RU] - OK')
 
-# coming_soon('https://music.apple.com/us/room/993297822')
-# coming_soon('https://music.apple.com/us/room/6738559053')
-# coming_soon('https://music.apple.com/us/room/6738827652')
 caLink = find_link('https://music.apple.com/us/curator/apple-music-metal/976439543', 'Coming Soon')
 coming_soon(caLink)
 print('Comming Soon   - OK')
@@ -764,13 +764,12 @@ print('Comming Soon   - OK')
 CS2NR()
 print('Metal [CS]     - OK')
 
-if TOKEN == '' or CHAT_ID == '':
+if TOKEN == '' or chat_id == '':
     print('Message not sent! No TOKEN or CHAT_ID')
 else:
-    if checkMesSnd == len(message2send):
-        message2send += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
-    if checkMesCS == len(messageCS):
-        messageCS += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
-    send_message(message2send + '\n' + messageCS)
+    if message2send == 0:
+        send_message('New Releases', '\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F')
+    if messageCS == 0:
+        send_message('Coming Soon', '\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F')
 
 print('[V] All Done!')

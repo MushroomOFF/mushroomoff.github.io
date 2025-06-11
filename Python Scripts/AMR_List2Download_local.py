@@ -38,7 +38,7 @@ def ShowReleases(dateFrom, dateTo, sortType):
         selectSection = 'SELECT DISTINCT SUBSTRING("releaseDate",1,10) AS "releaseDate","mainArtist","artistName","collectionName"'
         orderBy = 'SUBSTRING("releaseDate",1,10) ASC, "mainArtist" ASC'
 
-    resultDF = sqldf(f'''{selectSection} FROM pdiTunesDB WHERE 1=1 {whereBlock} AND "downloadedRelease" is NULL ORDER BY {orderBy}, "collectionName" ASC''')
+    resultDF = sqldf(f'''{selectSection} FROM pdiTunesDB WHERE 1=1 {whereBlock} AND "downloadedRelease" = 'd' ORDER BY {orderBy}, "collectionName" ASC''')
     return resultDF
 # --------------------------------------------
 

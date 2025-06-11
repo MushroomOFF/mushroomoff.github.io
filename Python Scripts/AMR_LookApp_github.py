@@ -1,7 +1,6 @@
-ver = "v.2.024.8 [GitHub]"
+ver = "v.2.025.06 [GitHub]"
 # Python 3.12 & Pandas 2.2 ready
-# Added status sender via Telegram Bot
-# Add ID to log
+# New TG group
 # comment will mark the specific code for GitHub
 # GitHub version will always run complete list of artists
 
@@ -33,6 +32,7 @@ logFile = userDataFolder + 'status.log' # path to log file
 URL = 'https://api.telegram.org/bot'
 TOKEN = os.environ['tg_token']
 CHAT_ID = os.environ['tg_channel_id']
+thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2}
 #-----------------------------------------
 
 # establishing session
@@ -59,9 +59,9 @@ def ReplaceSymbols(rsTxt):
     return rsTxt
 
 # Процедура Отправки сообщения ботом в канал
-def send_message(text):
+def send_message(topic, text):
     method = URL + TOKEN + "/sendMessage"
-    r = requests.post(method, data={"chat_id": CHAT_ID, "parse_mode": 'MarkdownV2', "text": text})
+    r = requests.post(method, data={"message_thread_id": thread_id[topic], "chat_id": CHAT_ID, "parse_mode": 'MarkdownV2', "text": text})
     json_response = json.loads(r.text)
     rmi = json_response['result']['message_id']   
     return rmi
@@ -174,7 +174,8 @@ def FindReleases(artistID, cRow, artistPrintName):
 # Инициализация функций===================================================
 
 amnr_logger('[Apple Music Releases LookApp]', ver + " (c)&(p) 2022-" + str(datetime.datetime.now())[0:4] + " by Viktor 'MushroomOFF' Gribov")
-message2send = ReplaceSymbols('====== ' + str(datetime.datetime.now())[:10] + ' ======')
+message2send = ''
+# message2send = ReplaceSymbols('====== ' + str(datetime.datetime.now())[:10] + ' ======')
 messageErPrt = ReplaceSymbols('======== ERRORS ========')
 messageError = emojis['error'] + ' 503 Service Unavailable ' + emojis['error']
 messageEmpty = emojis['empty'] + ' Not available in country ' + emojis['empty']
@@ -228,6 +229,6 @@ if checkMesErr != len(messageError) or checkMesEmp != len(messageEmpty) or check
     if checkMesEmp != len(messageEmpty):
         message2send += '\n\n' + messageEmpty
 
-send_message(message2send)
+send_message('New Updates', message2send)
 
 amnr_logger('[Apple Music Releases LookApp]', '[V] Done!')

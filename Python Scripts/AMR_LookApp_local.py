@@ -1,9 +1,7 @@
 SCRIPT_NAME = "Apple Music Releases LookApp"
-VERSION = "v.2.024.8 [Local]"
+VERSION = "v.2.025.06 [Local]"
 # Python 3.12 & Pandas 2.2 ready
-# Added status sender via Telegram Bot
-# Add ID to log
-# Add country chooser
+# New TG group
 
 import requests
 import os
@@ -41,6 +39,7 @@ emojis = {'us': '\U0001F1FA\U0001F1F8', 'ru': '\U0001F1F7\U0001F1FA', 'jp': '\U0
 URL = 'https://api.telegram.org/bot'
 TOKEN = input("Telegram Bot TOKEN: ")
 CHAT_ID = input("Telegram Bot CHAT_ID: ")
+thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2}
 #CHAT_ID = '-1001939128351' #Test channel
 #-----------------------------------------
 
@@ -59,9 +58,9 @@ def ReplaceSymbols(rsTxt):
     return rsTxt
 
 # Процедура Отправки сообщения ботом в канал
-def send_message(text):
+def send_message(topic, text):
     method = URL + TOKEN + "/sendMessage"
-    r = requests.post(method, data={"chat_id": CHAT_ID, "parse_mode": 'MarkdownV2', "text": text})
+    r = requests.post(method, data={"message_thread_id": thread_id[topic], "chat_id": CHAT_ID, "parse_mode": 'MarkdownV2', "text": text})
     json_response = json.loads(r.text)
     rmi = json_response['result']['message_id']   
     return rmi
@@ -222,7 +221,8 @@ print("########################################################")
 print('')
 
 logger(f'[{SCRIPT_NAME}]', f"{VERSION} (c)&(p) 2022-{datetime.datetime.now().strftime('%Y')} by Viktor 'MushroomOFF' Gribov")
-message2send = ReplaceSymbols('====== ' + str(datetime.datetime.now())[:10] + ' ======')
+message2send = ''
+# message2send = ReplaceSymbols('====== ' + str(datetime.datetime.now())[:10] + ' ======')
 messageErPrt = ReplaceSymbols('======== ERRORS ========')
 messageError = emojis['error'] + ' 503 Service Unavailable ' + emojis['error']
 messageEmpty = emojis['empty'] + ' Not available in country ' + emojis['empty']
@@ -304,7 +304,7 @@ else:
         if checkMesEmp != len(messageEmpty):
             message2send += '\n\n' + messageEmpty
     
-    send_message(message2send)
+    send_message('New Updates', message2send)
 
 print('[V] All Done!')
 logger(f'[{SCRIPT_NAME}]', '[V] Done!')
