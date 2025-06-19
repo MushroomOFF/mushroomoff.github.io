@@ -1,6 +1,7 @@
 ver = "v.2.025.06 [GitHub]"
 # Python 3.12 & Pandas 2.2 ready
-# NEW: new Telegram group 
+# NEW: new Telegram group
+# NEW: CS date pre-check
 # comment will mark the specific code for GitHub
 
 import os
@@ -54,7 +55,8 @@ def send_message(topic, text):
 
 # Процедура Отправки изображения ботом в канал
 def send_photo_url(topic, img_url, img_caption):
-    r = requests.post(f'{URL}{TOKEN}/sendPhoto?chat_id={chat_id}&message_thread_id={thread_id[topic]}&photo={img_url}&caption={img_caption}&parse_mode=markdown&disable_notification=true')
+    method = URL + TOKEN + "/sendPhoto"
+    r = requests.post(method, data={"message_thread_id": thread_id[topic], "chat_id": chat_id, "photo": img_url, "parse_mode": 'MarkdownV2', "caption": img_caption})
     json_response = json.loads(r.text)
     rmi = json_response['result']['message_id']    
     return rmi
@@ -556,27 +558,41 @@ def coming_soon(caLink):
 #----------------------------------------------------------------------------------------------------
 
 def CS2NR():
-# Coming soon to New Releases
-  
-  pdNR = pd.read_csv(newReleasesDB, sep=";")
-  pdCS = pd.read_csv(csReleasesDB, sep=";")
-  pdCSNR = pd.DataFrame(columns=['artist', 'album', 'link', 'image'])
+# Coming soon to New Releases  
 
-  for index, row in pdCS.iterrows():
-      if datetime.datetime.strptime(row.iloc[6], "%Y-%m-%d %H:%M:%S") <= datetime.datetime.now():
-          if len(pdNR.loc[pdNR['link'] == row.iloc[2]]) == 0:
-              pdCSNR.loc[len(pdCSNR.index)] = [row.iloc[5], row.iloc[3], row.iloc[2], row.iloc[1]]
+    pdNR = pd.read_csv(newReleasesDB, sep=";")
+    pdCS = pd.read_csv(csReleasesDB, sep=";")
+    pdCSNR = pd.DataFrame(columns=['artist', 'album', 'link', 'image'])
 
-  pdNR = pd.DataFrame()
-  pdCS = pd.DataFrame()
+    for index, row in pdCS.iterrows():
+        if datetime.datetime.strptime(row.iloc[6], "%Y-%m-%d %H:%M:%S") <= datetime.datetime.now():
+            if len(pdNR.loc[pdNR['link'] == row.iloc[2]]) == 0:
+                CS2_request = s.get(row.iloc[2])
+                CS2_request.encoding = 'UTF-8'
+                CS2_res = CS2_request.text
+                bigstring = 'data-testid="tracklist-footer-description">'
+                ul2_r = CS2_res.find(bigstring)
+                ul2_p = CS2_res.find('\n', ul2_r)
+                ul2_string = CS2_res[ul2_r + len(bigstring):ul2_p]
+                date_time2 = datetime.datetime.strptime(ul2_string, '%B %d, %Y')
+                if row.iloc[6] != date_time2 and date_time2 > datetime.datetime.now():
+                    pdCS.loc[index, 'release__date'] = date_time2
+                    pdCS.loc[index, 'release__date_text'] = ul2_string
+                else:
+                    pdCSNR.loc[len(pdCSNR.index)] = [row.iloc[5], row.iloc[3], row.iloc[2], row.iloc[1]]
 
-  if len(pdCSNR) > 0:
-      dldCategory = 'CS'
-      caText = 'METAL - CS'
-      caGrad = '#81BB98, #9AD292'
+    # !!! ЗАПИСЬ В БД !!!
+    pdCS.to_csv(csReleasesDB, sep=';', index=False)
+    pdNR = pd.DataFrame()
+    pdCS = pd.DataFrame()
 
-      dldDate = str(datetime.datetime.now())[0:10]
-      htmlHead = """<head>
+    if len(pdCSNR) > 0:
+        dldCategory = 'CS'
+        caText = 'METAL - CS'
+        caGrad = '#81BB98, #9AD292'
+
+        dldDate = str(datetime.datetime.now())[0:10]
+        htmlHead = """<head>
   <meta charset="utf-8">
   <title>Apple Music Releases</title>
   <link rel="stylesheet" type="text/css" href="../Resources/styles.css" />
@@ -625,18 +641,18 @@ def CS2NR():
   <hr>
 """
 
-      htmlStart = """  <table border="1">
+        htmlStart = """  <table border="1">
     <tr id=""" + ('\"' + dldDate + '_' + caText + '\"').lower().replace(' ','_') +  """><th colspan="2" style="background: linear-gradient(to right, """ + caGrad + """);">""" + dldDate + """ | """ + caText + """</th></tr>
     <tr><th width="100px">Cover</th><th width="600px">Album</th></tr>
 """
 
-      htmlText = ''
+        htmlText = ''
 
-      htmlEnd = """  </table>
+        htmlEnd = """  </table>
   <hr>
 """
 
-      htmlFinal = """  <!-- End of File -->
+        htmlFinal = """  <!-- End of File -->
   <script id="rendered-js" >
     [...document.querySelectorAll('[data-frame-load]')].forEach(button => {
       button.addEventListener('click', () => {
@@ -651,14 +667,14 @@ def CS2NR():
 </body>
 """
 
-      fieldNames = ['date', 'category', 'artist', 'album', 'Best_Fav_New_OK', 'rec_send2TG', 'link', 'imga', 'send2TG', 'TGmsgID']
-      csvfile = open(newReleasesDB, 'a+', newline='')
-      writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=fieldNames)
+        fieldNames = ['date', 'category', 'artist', 'album', 'Best_Fav_New_OK', 'rec_send2TG', 'link', 'imga', 'send2TG', 'TGmsgID']
+        csvfile = open(newReleasesDB, 'a+', newline='')
+        writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=fieldNames)
 
-      for index, row in pdCSNR.iterrows():
-          aralname = row.iloc[0] + ' - ' + row.iloc[1]
-          aralinsert = aralname.replace(row.iloc[0], row.iloc[0] + '</b>') if len(aralname) < 80 else aralname[:aralname[:80].rfind(' ') + 1].replace(row.iloc[0], row.iloc[0] + '</b>') + '<br>' + aralname[aralname[:80].rfind(' ') + 1:]
-          writer.writerow({'date': dldDate, 
+        for index, row in pdCSNR.iterrows():
+            aralname = row.iloc[0] + ' - ' + row.iloc[1]
+            aralinsert = aralname.replace(row.iloc[0], row.iloc[0] + '</b>') if len(aralname) < 80 else aralname[:aralname[:80].rfind(' ') + 1].replace(row.iloc[0], row.iloc[0] + '</b>') + '<br>' + aralname[aralname[:80].rfind(' ') + 1:]
+            writer.writerow({'date': dldDate, 
                           'category': dldCategory, 
                           'artist': row.iloc[0], 
                           'album': row.iloc[1], 
@@ -668,8 +684,8 @@ def CS2NR():
                           'imga': row.iloc[3], 
                           'send2TG': '', 
                           'TGmsgID': ''})
-          
-          htmlText += """  <!-- """ + row.iloc[0] + ' - ' + row.iloc[1] + """" -->
+
+            htmlText += """  <!-- """ + row.iloc[0] + ' - ' + row.iloc[1] + """" -->
     <tr style="display:;" id=''>
       <td><a href=""" + '"' + row.iloc[3].replace('296x296bb.webp', '100000x100000-999.jpg').replace('296x296bf.webp', '100000x100000-999.jpg').replace('296x296bf-60.jpg', '100000x100000-999.jpg') + '"' + """ target="_blank"><img src=""" + '"' + row.iloc[3] + '"' + """ height="100px"></a></td>
       <td class="album_name"><a href=""" + '"' + row.iloc[2] + '"' + """ target="_blank"><b>""" + aralinsert + """</a><br><br><button data-frame-load=""" + '"' + row.iloc[2][row.iloc[2].rfind('/') + 1:] + '"' + """>Preview</button></td>
@@ -677,52 +693,52 @@ def CS2NR():
     <tr style="display:none;" id="show""" + row.iloc[2][row.iloc[2].rfind('/') + 1:] + """_"><td colspan="2"><iframe id="embedPlayer" data-frame-group=""" + '"' + row.iloc[2][row.iloc[2].rfind('/') + 1:] + '"' + """ data-frame-src=""" + '"' + row.iloc[2].replace('://', '://embed.') + """?app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=light" height="450px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *; clipboard-write" style="width: 100%; overflow: hidden; border-radius: 10px; transform: translateZ(0px); animation: 2s ease 0s 6 normal none running loading-indicator; background-color: rgb(228, 228, 228);"></iframe></td></tr>
 """
 
-      csvfile.close()
+        csvfile.close()
 
-      yearNOW = dldDate[0:4]
-      monthNOW = dldDate[0:7]
-      monthTextNOW = datetime.datetime.strptime(dldDate, '%Y-%m-%d').strftime('%B')    
-      HTMLFile = open(rootFolder + "index.html", "r")
-      index = HTMLFile.read()
-      monthDB = index[index.find('<a href="AMRs/AMR ') + len('<a href="AMRs/AMR '):index.find('.html">')]
-      HTMLFile.close()
-      monthTextDB = datetime.datetime.strptime(monthDB, '%Y-%m').strftime('%B')
-      yearDB = monthDB[0:4]
-      newMonth = 0
-      newYear = 0
+        yearNOW = dldDate[0:4]
+        monthNOW = dldDate[0:7]
+        monthTextNOW = datetime.datetime.strptime(dldDate, '%Y-%m-%d').strftime('%B')    
+        HTMLFile = open(rootFolder + "index.html", "r")
+        index = HTMLFile.read()
+        monthDB = index[index.find('<a href="AMRs/AMR ') + len('<a href="AMRs/AMR '):index.find('.html">')]
+        HTMLFile.close()
+        monthTextDB = datetime.datetime.strptime(monthDB, '%Y-%m').strftime('%B')
+        yearDB = monthDB[0:4]
+        newMonth = 0
+        newYear = 0
 
-      if yearNOW != yearDB:
-          newYear = 1
-          with open(rootFolder + 'index.html', 'r+') as idx:
-              idxContent = idx.read()
-              idxContent = idxContent.replace('\n    <h2 class="title svelte-hprj71" data-testid="header-title">' + yearDB + ':</h2>',
+        if yearNOW != yearDB:
+            newYear = 1
+            with open(rootFolder + 'index.html', 'r+') as idx:
+                idxContent = idx.read()
+                idxContent = idxContent.replace('\n    <h2 class="title svelte-hprj71" data-testid="header-title">' + yearDB + ':</h2>',
                                               '\n    <h2 class="title svelte-hprj71" data-testid="header-title">' + yearNOW + ':</h2>\n        <a href="AMRs/AMR ' + monthNOW + '.html">' + monthTextNOW + '</a><br>\n    <h2 class="title svelte-hprj71" data-testid="header-title">' + yearDB + ':</h2>')
-              idx.seek(0, 0)
-              idx.write(idxContent)
-          idx.close()
-      else:
-          if monthNOW != monthDB:
-              newMonth = 1
-              with open(rootFolder + 'index.html', 'r+') as idx:
-                  idxContent = idx.read()
-                  idxContent = idxContent.replace('\n        <a href="AMRs/AMR ' + monthDB + '.html">' + monthTextDB + '</a>',
-                                                  '\n        <a href="AMRs/AMR ' + monthNOW + '.html">' + monthTextNOW + '</a> | \n        <a href="AMRs/AMR ' + monthDB + '.html">' + monthTextDB + '</a>')
-                  idx.seek(0, 0)
-                  idx.write(idxContent)
-              idx.close()
+                idx.seek(0, 0)
+                idx.write(idxContent)
+            idx.close()
+        else:
+            if monthNOW != monthDB:
+                newMonth = 1
+                with open(rootFolder + 'index.html', 'r+') as idx:
+                    idxContent = idx.read()
+                    idxContent = idxContent.replace('\n        <a href="AMRs/AMR ' + monthDB + '.html">' + monthTextDB + '</a>',
+                                                    '\n        <a href="AMRs/AMR ' + monthNOW + '.html">' + monthTextNOW + '</a> | \n        <a href="AMRs/AMR ' + monthDB + '.html">' + monthTextDB + '</a>')
+                    idx.seek(0, 0)
+                    idx.write(idxContent)
+                idx.close()
 
-      if htmlText != '':
-          if newMonth == 1 or newYear == 1:
-              with open(amrsFolder + 'AMR ' + monthNOW + '.html', 'w') as h2r:
-                  h2r.write(htmlHead + '\n' + htmlStart + htmlText + htmlEnd + '\n' + htmlFinal)
-              h2r.close()            
-          else:
-              with open(amrsFolder + 'AMR '+monthNOW + '.html', 'r+') as h2r:
-                  h2rContent = h2r.read()
-                  h2rContent = h2rContent.replace(htmlHead, '')
-                  h2r.seek(0, 0)
-                  h2r.write(htmlHead + '\n' + htmlStart + htmlText + htmlEnd + '\n' + h2rContent)
-              h2r.close()
+        if htmlText != '':
+            if newMonth == 1 or newYear == 1:
+                with open(amrsFolder + 'AMR ' + monthNOW + '.html', 'w') as h2r:
+                    h2r.write(htmlHead + '\n' + htmlStart + htmlText + htmlEnd + '\n' + htmlFinal)
+                h2r.close()            
+            else:
+                with open(amrsFolder + 'AMR '+monthNOW + '.html', 'r+') as h2r:
+                    h2rContent = h2r.read()
+                    h2rContent = h2rContent.replace(htmlHead, '')
+                    h2r.seek(0, 0)
+                    h2r.write(htmlHead + '\n' + htmlStart + htmlText + htmlEnd + '\n' + h2rContent)
+                h2r.close()
 #----------------------------------------------------------------------------------------------------
 
 amnr_logger('[Apple Music New Releases]', ver + " (c)&(p) 2022-" + str(datetime.datetime.now())[0:4] + " by Viktor 'MushroomOFF' Gribov")
