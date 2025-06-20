@@ -221,7 +221,7 @@ def collect_albums(caLink, caText, caGrad):
                             aralinsert = aralname.replace(artist, artist + '</b>') if len(aralname) < 80 else aralname[:aralname[:80].rfind(' ') + 1].replace(artist, artist + '</b>') + '<br>' + aralname[aralname[:80].rfind(' ') + 1:]
                             if isMyArtist > 0:
                                 img_url = imga.replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
-                                img_caption = f'*{ReplaceSymbols(artist.replace('&amp;','&'))}* - [{ReplaceSymbols(album.replace('&amp;','&'))}]({link.replace('://','://embed.')})'
+                                img_caption = f'*{ReplaceSymbols(artist.replace('&amp;','&'))}* \\- [{ReplaceSymbols(album.replace('&amp;','&'))}]({link.replace('://','://embed.')})'
                                 message2send = send_photo_url('New Releases', img_url, img_caption)
 
                             writer.writerow({'date': dldDate, 
@@ -479,7 +479,7 @@ def coming_soon(caLink):
 
             if float(row.iloc[9][row.iloc[9].rfind('/', 0, len(row.iloc[9])) + 1:]) in pdAIDDB['mainId'].values:
                 img_url = row.iloc[5][0:row.iloc[5].find(' ')].replace('296x296bb-60.jpg', '632x632bb.webp').replace('296x296bf-60.jpg', '632x632bf.webp')
-                img_caption = f'*{ReplaceSymbols(row.iloc[10].replace('&amp;','&'))}* - [{ReplaceSymbols(row.iloc[8].replace('&amp;','&'))}]({row.iloc[7].replace('://','://embed.')})\n{str(row.iloc[11])[0:10]}'
+                img_caption = f'*{ReplaceSymbols(row.iloc[10].replace('&amp;','&'))}* \\- [{ReplaceSymbols(row.iloc[8].replace('&amp;','&'))}]({row.iloc[7].replace('://','://embed.')})\n{ReplaceSymbols(str(row.iloc[11])[0:10])}'
                 messageCS = send_photo_url('Coming Soon', img_url, img_caption)
 
         css_newRelease = '<a class="product-lockup__title svelte-21e67y"'
