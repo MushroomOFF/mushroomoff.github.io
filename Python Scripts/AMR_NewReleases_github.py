@@ -232,6 +232,7 @@ def collect_albums(caLink, caText, caGrad):
                             if isMyArtist > 0:
                                 img_url = imga.replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
                                 img_caption = f'*{ReplaceSymbols(artist.replace('&amp;','&'))}* \\- [{ReplaceSymbols(album.replace('&amp;','&'))}]({link.replace('://','://embed.')})'
+                                print(img_caption)
                                 message2send = send_photo_url('New Releases', img_url, img_caption)
                             writer.writerow({'date': dldDate, 
                                              'category': dldCategory, 
