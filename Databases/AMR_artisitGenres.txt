@@ -283,6 +283,7 @@ Foo Fighters                         | Alternative
 For My Pain...                       | Gothic Metal
 For You.Earth                        | Deathcore
 Fozzy                                | Heavy Metal
+Freeze the Fall                      | Alternative
 Freternia                            | Power Metal
 From First to Last                   | Alternative
 Fuel                                 | Alternative
@@ -307,6 +308,7 @@ Graveworm                            | Symphonic Black Metal
 Green Day                            | Punk Rock
 Green Lung                           | Stoner Metal
 Grey Daze                            | Grunge
+Gridiron                             | Rap Metal
 Guano Apes                           | Alternative
 Guns n' Roses                        | Hard Rock
 GZR                                  | Metal
@@ -564,6 +566,7 @@ Revolution Harmony                   | Metal
 Rihanna                              | R&B
 Rings of Saturn                      | Technical Death Metal
 Rise to Remain                       | Metalcore
+Rivers of Nihil                      | Progressive Metal
 Ryujin                               | Power Metal
 Sabaton                              | Power Metal
 Sadus                                | Thrash Metal
