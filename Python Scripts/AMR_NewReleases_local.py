@@ -233,9 +233,9 @@ def collect_albums(caLink, caText, caGrad):
                                              'link': link, 
                                              'imga': imga, 
                                              'send2TG': '', 
-                                             'TGmsgID': ''})
+                                             'TGmsgID': message2send})
                             
-                            htmlText += """  <!-- """ + artist + ' - ' + album + """" -->
+                            htmlText += """  <!-- """ + artist.replace('&amp;','&') + ' - ' + album.replace('&amp;','&') + """ -->
     <tr style="display:;" id=''>
       <td><a href=""" + '"' + imga.replace('296x296bb.webp', '100000x100000-999.jpg').replace('296x296bf.webp', '100000x100000-999.jpg') + '"' + """ target="_blank"><img src=""" + '"' + imga + '"' + """ height="100px"></a></td>
       <td class="album_name"><a href=""" + '"' + link + '"' + """ target="_blank"><b>""" + aralinsert + """</a><br><br><button data-frame-load=""" + '"' + link[link.rfind('/') + 1:] + '"' + """>Preview</button></td>
@@ -674,7 +674,7 @@ def CS2NR():
                           'send2TG': '', 
                           'TGmsgID': ''})
 
-            htmlText += """  <!-- """ + row.iloc[0] + ' - ' + row.iloc[1] + """" -->
+            htmlText += """  <!-- """ + row.iloc[0] + ' - ' + row.iloc[1] + """ -->
     <tr style="display:;" id=''>
       <td><a href=""" + '"' + row.iloc[3].replace('296x296bb.webp', '100000x100000-999.jpg').replace('296x296bf.webp', '100000x100000-999.jpg').replace('296x296bf-60.jpg', '100000x100000-999.jpg') + '"' + """ target="_blank"><img src=""" + '"' + row.iloc[3] + '"' + """ height="100px"></a></td>
       <td class="album_name"><a href=""" + '"' + row.iloc[2] + '"' + """ target="_blank"><b>""" + aralinsert + """</a><br><br><button data-frame-load=""" + '"' + row.iloc[2][row.iloc[2].rfind('/') + 1:] + '"' + """>Preview</button></td>
