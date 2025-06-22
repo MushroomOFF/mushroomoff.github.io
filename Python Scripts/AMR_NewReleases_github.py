@@ -20,8 +20,8 @@ artistIDsDB = dbFolder + 'AMR_artisitIDs.csv'
 logFile = rootFolder + 'status.log' # path to log file
 # Telegram -------------------------------
 URL = 'https://api.telegram.org/bot'
-TOKEN = os.environ['tg_token']
-chat_id = os.environ['tg_channel_id']
+TOKEN = os.environ['tg_token'] # GitHub Secrets
+chat_id = os.environ['tg_channel_id'] # GitHub Secrets
 thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2}
 #-----------------------------------------
 
