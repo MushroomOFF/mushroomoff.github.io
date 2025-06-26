@@ -86,7 +86,8 @@ for index, row in pdNR[(pdNR['Best_Fav_New_OK'] == 'o') & (pdNR['TGmsgID'].isna(
     img_url = row.iloc[7].replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
     img_caption = f'*{ReplaceSymbols(row.iloc[2].replace('&amp;','&'))}* \\- [{ReplaceSymbols(row.iloc[3].replace('&amp;','&'))}]({row.iloc[6].replace('://','://embed.')})'
     message2send = send_photo_url('Top Releases', img_url, img_caption)
-    pdNR.loc[index,'TGmsgID'] = message2send
+    if TOKEN != '' and chat_id != '':
+        pdNR.loc[index,'TGmsgID'] = message2send
     trs += 1
 
 nrs = 0
@@ -95,10 +96,14 @@ for index, row in pdNR[(pdNR['Best_Fav_New_OK'].isin(['v','d'])) & (pdNR['TGmsgI
     img_url = row.iloc[7].replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
     img_caption = f'*{ReplaceSymbols(row.iloc[2].replace('&amp;','&'))}* \\- [{ReplaceSymbols(row.iloc[3].replace('&amp;','&'))}]({row.iloc[6].replace('://','://embed.')})'
     message2send = send_photo_url('New Releases', img_url, img_caption)
-    pdNR.loc[index,'TGmsgID'] = message2send
+    if TOKEN != '' and chat_id != '':
+        pdNR.loc[index,'TGmsgID'] = message2send
     nrs += 1
 
 # WRITE to FILE !!!
 pdNR.to_csv(newReleasesDB, sep=';', index=False)
 pdNR = pd.DataFrame()
 print(f'New Releases: {nrs}; Top Releases: {trs}')
+
+if TOKEN == '' or chat_id == '':
+    print('Message not sent! No TOKEN or CHAT_ID')
