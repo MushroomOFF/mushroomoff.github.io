@@ -22,7 +22,7 @@ logFile = rootFolder + 'status.log' # path to log file
 URL = 'https://api.telegram.org/bot'
 TOKEN = os.environ['tg_token'] # GitHub Secrets
 chat_id = os.environ['tg_channel_id'] # GitHub Secrets
-thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2}
+thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80}
 #-----------------------------------------
 
 # establishing session
@@ -243,8 +243,8 @@ def collect_albums(caLink, caText, caGrad):
                                              'link': link, 
                                              'imga': imga, 
                                              'send2TG': '', 
-                                             'TGmsgID': message2send})
-                            
+                                             'TGmsgID': message2send if message2send > 1 else ''})
+                            message2send = 1
                             htmlText += """  <!-- """ + artist.replace('&amp;','&') + ' - ' + album.replace('&amp;','&') + """ -->
     <tr style="display:;" id=''>
       <td><a href=""" + '"' + imga.replace('296x296bb.webp', '100000x100000-999.jpg').replace('296x296bf.webp', '100000x100000-999.jpg') + '"' + """ target="_blank"><img src=""" + '"' + imga + '"' + """ height="100px"></a></td>
@@ -740,6 +740,37 @@ def CS2NR():
                     h2r.seek(0, 0)
                     h2r.write(htmlHead + '\n' + htmlStart + htmlText + htmlEnd + '\n' + h2rContent)
                 h2r.close()
+
+def nextWeekReleases_sender():
+    pdR = pd.read_csv(ReleasesDB, sep=";")
+
+    msg2snd = ''
+    msg2snd_nw = ''
+    nowDate = str(datetime.datetime.now())[0:10]
+
+    msg2snd += '\U0001F50E This week releases:'
+    if len(pdR[(pdR['downloadedRelease'] == 'd') & (pdR['releaseDate'] <= nowDate)]) > 0:
+        for index, row in pdR[(pdR['downloadedRelease'] == 'd') & (pdR['releaseDate'] <= nowDate)].sort_values(by=['releaseDate','mainArtist'], ascending=[True, True]).iterrows():
+            msg2snd += f'\n*{ReplaceSymbols(row.iloc[2].replace('&amp;','&'))}* \\- {ReplaceSymbols(row.iloc[6].replace('&amp;','&'))}'
+    else:
+        msg2snd += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
+
+    week_date = '0000-00-00'
+    msg2snd_nw += '\U000023F3 Next weeks releases:'
+    if len(pdR[(pdR['downloadedRelease'] == 'd') & (pdR['releaseDate'] > nowDate)]) > 0:
+        for index, row in pdR[(pdR['downloadedRelease'] == 'd') & (pdR['releaseDate'] > nowDate)].sort_values(by=['releaseDate','mainArtist'], ascending=[True, True]).iterrows():
+            if week_date != row.iloc[13]:
+                week_date = row.iloc[13]
+                msg2snd_nw += f'\n\n__{ReplaceSymbols(week_date)}__'
+            msg2snd_nw += f'\n*{ReplaceSymbols(row.iloc[2].replace('&amp;','&'))}* \\- {ReplaceSymbols(row.iloc[6].replace('&amp;','&'))}'
+    else:
+        msg2snd_nw += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
+
+
+    send_message('Next Week Releases', msg2snd_nw)
+    send_message('Next Week Releases', msg2snd)    
+
+    pdR = pd.DataFrame()
 #----------------------------------------------------------------------------------------------------
 
 amnr_logger('[Apple Music New Releases]', ver + " (c)&(p) 2022-" + str(datetime.datetime.now())[0:4] + " by Viktor 'MushroomOFF' Gribov")
@@ -782,5 +813,7 @@ if message2send == 0:
     send_message('New Releases', '\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F')
 if messageCS == 0:
     send_message('Coming Soon', '\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F')
+
+nextWeekReleases_sender()
 
 amnr_logger('[Apple Music New Releases]', '[V] Done!')

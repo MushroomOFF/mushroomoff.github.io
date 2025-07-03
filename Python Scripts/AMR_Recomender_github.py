@@ -18,7 +18,7 @@ logFile = rootFolder + 'status.log' # path to log file
 URL = 'https://api.telegram.org/bot'
 TOKEN = os.environ['tg_token'] # GitHub Secrets
 chat_id = os.environ['tg_channel_id'] # GitHub Secrets
-thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2}
+thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80}
 #-----------------------------------------
 
 # This logger is only for GitHub --------------------------------------------------------------------
@@ -68,6 +68,7 @@ for index, row in pdNR[pdNR['Best_Fav_New_OK'].isna()].iterrows():
     else:
         pdNR.loc[index,'Best_Fav_New_OK'] = 'E'
         ers += 1
+    htmlFile.close()
 amnr_logger('[Apple Music Releases Recomender]', f'OK: {oks}; Errors: {ers}')
 
 trs = 0

@@ -32,7 +32,7 @@ logFile = userDataFolder + 'status.log' # path to log file
 URL = 'https://api.telegram.org/bot'
 TOKEN = os.environ['tg_token']
 CHAT_ID = os.environ['tg_channel_id']
-thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2}
+thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80}
 #-----------------------------------------
 
 # establishing session

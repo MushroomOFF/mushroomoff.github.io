@@ -16,7 +16,7 @@ newReleasesDB = dbFolder + 'AMR_newReleases_DB.csv' # This Week New Releases
 URL = 'https://api.telegram.org/bot'
 TOKEN = input("Telegram Bot TOKEN: ")
 chat_id = input("Telegram Bot chat_id: ")
-thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2}
+thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80}
 #-----------------------------------------
 
 # Процедура Замены символов для Markdown v2
@@ -78,6 +78,7 @@ for index, row in pdNR[pdNR['Best_Fav_New_OK'].isna()].iterrows():
     else:
         pdNR.loc[index,'Best_Fav_New_OK'] = 'E'
         ers += 1
+    htmlFile.close()
 print(f'OK: {oks}; Errors: {ers}')
 
 trs = 0
