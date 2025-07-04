@@ -245,7 +245,7 @@ def collect_albums(caLink, caText, caGrad):
                                              'imga': imga, 
                                              'send2TG': '', 
                                              'TGmsgID': message2send if message2send > 1 else ''})
-                            message2send = 1
+                            message2send = 1 if message2send > 0 else 0
                             htmlText += """  <!-- """ + artist.replace('&amp;','&') + ' - ' + album.replace('&amp;','&') + """ -->
     <tr style="display:;" id=''>
       <td><a href=""" + '"' + imga.replace('296x296bb.webp', '100000x100000-999.jpg').replace('296x296bf.webp', '100000x100000-999.jpg') + '"' + """ target="_blank"><img src=""" + '"' + imga + '"' + """ height="100px"></a></td>
