@@ -16,6 +16,7 @@ dbFolder = rootFolder + 'Databases/'
 newReleasesDB = dbFolder + 'AMR_newReleases_DB.csv' # This Week New Releases 
 csReleasesDB = dbFolder + 'AMR_csReleases_DB.csv' # Coomin Soon Releases
 artistIDsDB = dbFolder + 'AMR_artisitIDs.csv' # ArtistID
+ReleasesDB = dbFolder + 'AMR_releases_DB.csv' # Releases
 # Telegram -------------------------------
 URL = 'https://api.telegram.org/bot'
 TOKEN = input("Telegram Bot TOKEN: ")
