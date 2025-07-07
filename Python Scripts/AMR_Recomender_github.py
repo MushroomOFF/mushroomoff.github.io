@@ -1,4 +1,4 @@
-ver = "v.2.025.06 [GitHub]"
+ver = "v.2.025.07 [GitHub]"
 # Python 3.12 & Pandas 2.2 ready
 # comment will mark the specific code for GitHub
 
@@ -53,6 +53,7 @@ pdNR = pd.read_csv(newReleasesDB, sep=";")
 # Check AMR files for recomendations
 oks = 0
 ers = 0
+emp = 0
 for index, row in pdNR[pdNR['Best_Fav_New_OK'].isna()].iterrows():
     amrLink = f'{amrsFolder}AMR {row.iloc[0][0:7]}.html'
     htmlFile = open(amrLink, 'r', encoding='utf-8')
@@ -65,11 +66,13 @@ for index, row in pdNR[pdNR['Best_Fav_New_OK'].isna()].iterrows():
     if len(relRec) == 1:
         pdNR.loc[index,'Best_Fav_New_OK'] = relRec
         oks += 1
+    elif len(relRec) == 0:
+        emp += 1
     else:
         pdNR.loc[index,'Best_Fav_New_OK'] = 'E'
         ers += 1
     htmlFile.close()
-amnr_logger('[Apple Music Releases Recomender]', f'OK: {oks}; Errors: {ers}')
+amnr_logger('[Apple Music Releases Recomender]', f'OK: {oks}; Emptys: {emp}; Errors: {ers}')
 
 trs = 0
 # Send to Top Releases (O)
