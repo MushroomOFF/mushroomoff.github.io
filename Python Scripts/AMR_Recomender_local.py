@@ -1,4 +1,5 @@
-ver = "v.2.025.07 [Local]"
+SCRIPT_NAME = "Apple Music Releases LookApp Errors"
+VERSION = "v.2.025.07 [Local]"
 # Python 3.12 & Pandas 2.2 ready
 
 import os
@@ -12,12 +13,20 @@ rootFolder = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github
 amrsFolder = rootFolder + 'AMRs/'
 dbFolder = rootFolder + 'Databases/'
 newReleasesDB = dbFolder + 'AMR_newReleases_DB.csv' # This Week New Releases 
+log_file = os.path.join(rootFolder, 'status.log')
 # Telegram -------------------------------
 URL = 'https://api.telegram.org/bot'
 TOKEN = input("Telegram Bot TOKEN: ")
 chat_id = input("Telegram Bot chat_id: ")
 thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80}
 #-----------------------------------------
+# Логирование
+def logger(script_name, log_line):
+    """Запись лога в файл."""
+    with open(log_file, 'r+') as f:
+        content = f.read()
+        f.seek(0, 0)
+        f.write(str(datetime.datetime.now()) + ' - ' + script_name + ' - ' + log_line.rstrip('\r\n') + '\n' + content)
 
 # Процедура Замены символов для Markdown v2
 def ReplaceSymbols(rsTxt):
@@ -53,10 +62,13 @@ print("""                       _      __  __           _
  | | \\ \\  __/ (_| (_) | | | | | |  __/ | | | (_| |  __/ |   
  |_|  \\_\\___|\\___\\___/|_| |_| |_|\\___|_| |_|\\__,_|\\___|_|   
 """)
-print(" " + ver)
+print(" " + VERSION)
 print(" (c)&(p) 2022-" + str(datetime.datetime.now())[0:4] + " by Viktor 'MushroomOFF' Gribov")
 print("##############################################################")
 print('')
+
+logMes = f"{ver} (c)&(p) 2022-{str(datetime.datetime.now())[0:4]} by Viktor 'MushroomOFF' Gribov"
+logger(f'[{SCRIPT_NAME}]', logMes)
 
 pdNR = pd.read_csv(newReleasesDB, sep=";")
 
@@ -82,7 +94,9 @@ for index, row in pdNR[pdNR['Best_Fav_New_OK'].isna()].iterrows():
         pdNR.loc[index,'Best_Fav_New_OK'] = 'E'
         ers += 1
     htmlFile.close()
-print(f'OK: {oks}; Emptys: {emp}; Errors: {ers}')
+logMes = f'OK: {oks}; Emptys: {emp}; Errors: {ers}'
+logger(f'[{SCRIPT_NAME}]', logMes)
+print(logMes)
 
 trs = 0
 # Send to Top Releases (O)
@@ -107,7 +121,15 @@ for index, row in pdNR[(pdNR['Best_Fav_New_OK'].isin(['v','d'])) & (pdNR['TGmsgI
 # WRITE to FILE !!!
 pdNR.to_csv(newReleasesDB, sep=';', index=False)
 pdNR = pd.DataFrame()
-print(f'New Releases: {nrs}; Top Releases: {trs}')
+logMes = f'New Releases: {nrs}; Top Releases: {trs}'
+logger(f'[{SCRIPT_NAME}]', logMes)
+print(logMes)
 
 if TOKEN == '' or chat_id == '':
-    print('Message not sent! No TOKEN or CHAT_ID')
+    logMes = 'Message not sent! No TOKEN or CHAT_ID'
+    logger(f'[{SCRIPT_NAME}]', logMes)
+    print(logMes)
+
+logMes = '[V] Done!'
+logger(f'[{SCRIPT_NAME}]', logMes)
+print(logMes)
