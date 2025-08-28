@@ -510,7 +510,7 @@ Of Mice & Men                        | Metalcore
 Old Gods of Asgard                   | Hard Rock
 Omi                                  | Pop
 OneRepublic                          | Rock
-Oni                                  | Technical Death Metal
+Oni                                  | Metalcore
 Opeth                                | Progressive Metal
 Oracles                              | Melodic Death Metal
 Orbit Culture                        | Melodic Death Metal
@@ -551,6 +551,7 @@ Protest the Hero                     | Progressive Metal
 Puddle of Mudd                       | Alternative
 Pulse Ultra                          | Alternative
 Purson                               | Progressive Rock
+Pustulant Flesh                      | Death Metal
 Pyramaze                             | Power Metal
 Quadvium                             | Progressive Metal
 Queen                                | Rock
@@ -577,6 +578,7 @@ Sabaton                              | Power Metal
 Sadus                                | Thrash Metal
 Saffire                              | Hard Rock
 Saint Asonia                         | Alternative
+Sakoya                               | Alternative
 Saliva                               | Nu Metal
 Sanctity                             | Thrash Metal
 Sanguine Glacialis                   | Symphonic Metal
@@ -599,6 +601,7 @@ Shadow of Intent                     | Melodic Death Metal
 Shokran                              | Progressive Metal
 Sia                                  | Pop
 Siamese                              | Alternative
+Sinsaenum                            | Death Metal
 Sion                                 | Metalcore
 Six Feet Under                       | Death Metal
 Sixx:A.M.                            | Hard Rock
@@ -692,6 +695,7 @@ The Stranded                         | Melodic Death Metal
 The Troops of Doom                   | Thrash Metal
 The Unguided                         | Melodic Death Metal
 The Veronicas                        | Pop
+The Violent Hour                     | Metal
 The Weeknd                           | R&B
 Therion                              | Symphonic Metal
 Thousand Foot Krutch                 | Alternative
