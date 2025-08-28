@@ -67,7 +67,7 @@ print(" (c)&(p) 2022-" + str(datetime.datetime.now())[0:4] + " by Viktor 'Mushro
 print("##############################################################")
 print('')
 
-logMes = f"{ver} (c)&(p) 2022-{str(datetime.datetime.now())[0:4]} by Viktor 'MushroomOFF' Gribov"
+logMes = f"{VERSION} (c)&(p) 2022-{str(datetime.datetime.now())[0:4]} by Viktor 'MushroomOFF' Gribov"
 logger(f'[{SCRIPT_NAME}]', logMes)
 
 pdNR = pd.read_csv(newReleasesDB, sep=";")
