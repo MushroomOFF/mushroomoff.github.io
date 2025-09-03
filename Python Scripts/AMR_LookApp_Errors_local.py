@@ -14,11 +14,9 @@ db_folder = 'Databases'
 releases_db = os.path.join(root_folder, db_folder, 'AMR_releases_DB.csv')
 artist_id_db = os.path.join(root_folder, db_folder, 'AMR_artisitIDs.csv')
 log_file = os.path.join(root_folder, 'status.log')
-field_names = ['mainArtist', 'mainId', 'artistName', 'artistId', 'primaryGenreName', 
-               'collectionId', 'collectionName', 'collectionCensoredName', 'artworkUrl100',
-               'collectionExplicitness', 'trackCount', 'copyright', 'country', 
-               'releaseDate', 'releaseYear', 'dateUpdate', 'artworkUrlD', 'downloadedCover', 
-               'downloadedRelease', 'updReason']
+field_names = ['dateUpdate', 'downloadedRelease', 'mainArtist', 'artistName', 'collectionName', 
+               'trackCount', 'releaseDate', 'releaseYear', 'mainId', 'artistId', 'collectionId', 
+               'country', 'artworkUrlD', 'downloadedCover', 'updReason']
 session = requests.Session() 
 session.headers.update({
     'Referer': 'https://itunes.apple.com',
@@ -81,9 +79,8 @@ def find_releases(artist_id, country, artist_print_name):
         if data['resultCount'] > 1:
             df_temp = pd.DataFrame(data['results'])
             all_data = pd.concat([all_data, df_temp[[
-                'artistName', 'artistId', 'primaryGenreName', 'collectionId', 'collectionName',
-                'collectionCensoredName', 'artworkUrl100', 'collectionExplicitness', 'trackCount',
-                'copyright', 'country', 'releaseDate'
+                'artistName', 'artistId', 'collectionId', 'collectionName',
+                'artworkUrl100', 'trackCount', 'country', 'releaseDate'
             ]]], ignore_index=True)
         else:
             print(f'\n {country} - EMPTY')
@@ -124,31 +121,28 @@ def find_releases(artist_id, country, artist_print_name):
 
             for _, row in df_export.iterrows():
                 collection_id = row['collectionId']
-                artwork_url = row['artworkUrl100']
-                artwork_url_d = artwork_url.replace('100x100bb', '100000x100000-999')
+                # artwork_url = row['artworkUrl100']
+                artwork_url_d = row['artworkUrl100'].replace('100x100bb', '100000x100000-999')
 
                 if pdi_tunes_db[pdi_tunes_db['collectionId'] == collection_id].empty:
                     upd_reason = 'New release'
                     new_rel_counter += 1
-                elif pdi_tunes_db[pdi_tunes_db['artworkUrl100'].str[40:] == artwork_url[40:]].empty:
+                elif pdi_tunes_db[pdi_tunes_db['artworkUrlD'].str[40:] == artwork_url_d[40:]].empty:
                     # .str[40:] ------------------------------V проверка ссылок на совпадение пойдет отсюда, т.к. одиннаковые обложки могут лежать на разных серверах
-                    # https://is2-ssl.mzstatic.com/image/thumb/Music/v4/b2/cc/64/b2cc645c-9f18-db02-d0ab-69e296ea4d70/source/100x100bb.jpg            
+                    # https://is2-ssl.mzstatic.com/image/thumb/Music/v4/b2/cc/64/b2cc645c-9f18-db02-d0ab-69e296ea4d70/source/100000x100000-999.jpg            
                     upd_reason = 'New cover'
                     new_cov_counter += 1
                 else:
                     continue
 
                 writer.writerow({
-                    'mainArtist': artist_print_name, 'mainId': artist_id, 'artistName': row['artistName'],
-                    'artistId': row['artistId'], 'primaryGenreName': row['primaryGenreName'],
-                    'collectionId': collection_id, 'collectionName': row['collectionName'],
-                    'collectionCensoredName': row['collectionCensoredName'], 'artworkUrl100': artwork_url,
-                    'collectionExplicitness': row['collectionExplicitness'], 'trackCount': row['trackCount'],
-                    'copyright': row['copyright'], 'country': row['country'],
-                    'releaseDate': row['releaseDate'][:10], 'releaseYear': row['releaseDate'][:4],
-                    'dateUpdate': date_update, 'artworkUrlD': artwork_url_d,
-                    'downloadedCover': '', 'downloadedRelease': '', 'updReason': upd_reason
-                })
+                    'dateUpdate': date_update, 'downloadedRelease': '', 'mainArtist': artist_print_name,
+                    'artistName': row['artistName'], 'collectionName': row['collectionName'], 
+                    'trackCount': row['trackCount'], 'releaseDate': row['releaseDate'][:10], 
+                    'releaseYear': row['releaseDate'][:4], 'mainId': artist_id, 'artistId': row['artistId'], 
+                    'collectionId': collection_id, 'country': row['country'], 'artworkUrlD': artwork_url_d, 
+                    'downloadedCover': '', 'updReason': upd_reason
+                    })
 
         del pdi_tunes_db
         

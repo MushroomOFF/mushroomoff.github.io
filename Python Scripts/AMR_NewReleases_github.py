@@ -164,7 +164,7 @@ def collect_albums(caLink, caText, caGrad):
 </body>
 """
 
-    fieldNames = ['date', 'category', 'artist', 'album', 'Best_Fav_New_OK', 'rec_send2TG', 'link', 'imga', 'send2TG', 'TGmsgID']
+    fieldNames = ['date', 'category', 'artist', 'album', 'Best_Fav_New_OK', 'rec_send2TG', 'link', 'link_ym', 'link_zv', 'imga', 'send2TG', 'TGmsgID']
     pdDB = pd.read_csv(newReleasesDB, sep=";")
     pdAIDDB = pd.read_csv(artistIDsDB, sep=";")
     csvfile = open(newReleasesDB, 'a+', newline='')
@@ -242,6 +242,8 @@ def collect_albums(caLink, caText, caGrad):
                                              'Best_Fav_New_OK': '', 
                                              'rec_send2TG': '', 
                                              'link': link, 
+                                             'link_ym': '', 
+                                             'link_zv': '', 
                                              'imga': imga, 
                                              'send2TG': '', 
                                              'TGmsgID': message2send if message2send > 1 else ''})
@@ -669,7 +671,7 @@ def CS2NR():
 </body>
 """
 
-        fieldNames = ['date', 'category', 'artist', 'album', 'Best_Fav_New_OK', 'rec_send2TG', 'link', 'imga', 'send2TG', 'TGmsgID']
+        fieldNames = ['date', 'category', 'artist', 'album', 'Best_Fav_New_OK', 'rec_send2TG', 'link', 'link_ym', 'link_zv', 'imga', 'send2TG', 'TGmsgID']
         csvfile = open(newReleasesDB, 'a+', newline='')
         writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=fieldNames)
 
@@ -683,6 +685,8 @@ def CS2NR():
                           'Best_Fav_New_OK': '', 
                           'rec_send2TG': '', 
                           'link': row.iloc[2], 
+                          'link_ym': '', 
+                          'link_zv': '', 
                           'imga': row.iloc[3], 
                           'send2TG': '', 
                           'TGmsgID': ''})
@@ -752,7 +756,7 @@ def nextWeekReleases_sender():
     msg2snd += '\U0001F50E This week releases:'
     if len(pdR[(pdR['downloadedRelease'] == 'd') & (pdR['releaseDate'] <= nowDate)]) > 0:
         for index, row in pdR[(pdR['downloadedRelease'] == 'd') & (pdR['releaseDate'] <= nowDate)].sort_values(by=['releaseDate','mainArtist'], ascending=[True, True]).iterrows():
-            msg2snd += f'\n*{ReplaceSymbols(row.iloc[2].replace('&amp;','&'))}* \\- {ReplaceSymbols(row.iloc[6].replace('&amp;','&'))}'
+            msg2snd += f'\n*{ReplaceSymbols(row.iloc[3].replace('&amp;','&'))}* \\- {ReplaceSymbols(row.iloc[4].replace('&amp;','&'))}'
     else:
         msg2snd += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
 
@@ -760,10 +764,10 @@ def nextWeekReleases_sender():
     msg2snd_nw += '\U000023F3 Next weeks releases:'
     if len(pdR[(pdR['downloadedRelease'] == 'd') & (pdR['releaseDate'] > nowDate)]) > 0:
         for index, row in pdR[(pdR['downloadedRelease'] == 'd') & (pdR['releaseDate'] > nowDate)].sort_values(by=['releaseDate','mainArtist'], ascending=[True, True]).iterrows():
-            if week_date != row.iloc[13]:
-                week_date = row.iloc[13]
+            if week_date != row.iloc[6]:
+                week_date = row.iloc[6]
                 msg2snd_nw += f'\n\n__{ReplaceSymbols(week_date)}__'
-            msg2snd_nw += f'\n*{ReplaceSymbols(row.iloc[2].replace('&amp;','&'))}* \\- {ReplaceSymbols(row.iloc[6].replace('&amp;','&'))}'
+            msg2snd_nw += f'\n*{ReplaceSymbols(row.iloc[3].replace('&amp;','&'))}* \\- {ReplaceSymbols(row.iloc[4].replace('&amp;','&'))}'
     else:
         msg2snd_nw += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
 

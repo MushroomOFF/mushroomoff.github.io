@@ -19,10 +19,9 @@ userDataFolder = '' # root is root
 dbFolder = 'Databases/'
 releasesDB = userDataFolder + dbFolder + 'AMR_releases_DB.csv'
 artistIDDB = userDataFolder + dbFolder + 'AMR_artisitIDs.csv'
-fieldNames = ['mainArtist', 'mainId', 'artistName', 'artistId', 'primaryGenreName', 
-              'collectionId', 'collectionName', 'collectionCensoredName', 'artworkUrl100', 
-              'collectionExplicitness', 'trackCount', 'copyright', 'country', 'releaseDate', 'releaseYear', 
-              'dateUpdate', 'artworkUrlD', 'downloadedCover', 'downloadedRelease', 'updReason']
+field_names = ['dateUpdate', 'downloadedRelease', 'mainArtist', 'artistName', 'collectionName', 
+               'trackCount', 'releaseDate', 'releaseYear', 'mainId', 'artistId', 'collectionId', 
+               'country', 'artworkUrlD', 'downloadedCover', 'updReason']
 #---------------------v  отрезал JP
 lCountry = ['us', 'ru'] #, 'jp']
 emojis = {'us': '\U0001F1FA\U0001F1F8', 'ru': '\U0001F1F7\U0001F1FA', 'jp': '\U0001F1EF\U0001F1F5', 'no': '\U0001F3F3\U0000FE0F', 'wtf': '\U0001F914', 
@@ -83,9 +82,9 @@ def FindReleases(artistID, cRow, artistPrintName):
         request = ses.get(url)
         if request.status_code == 200:     
             dJSON = json.loads(request.text)
-            if dJSON['resultCount']>1:
+            if dJSON['resultCount'] > 1:
                 dfTemp = pd.DataFrame(dJSON['results'])
-                allDataFrame = pd.concat([allDataFrame, dfTemp[['artistName', 'artistId', 'primaryGenreName', 'collectionId', 'collectionName', 'collectionCensoredName', 'artworkUrl100', 'collectionExplicitness', 'trackCount', 'copyright', 'country', 'releaseDate']]], ignore_index=True)
+                allDataFrame = pd.concat([allDataFrame, dfTemp[['artistName', 'artistId', 'collectionId', 'collectionName', 'artworkUrl100', 'trackCount', 'country', 'releaseDate']]], ignore_index=True)
             else:
                 amnr_logger('[Apple Music Releases LookApp]', artistPrintName + ' - ' + str(artistID) + ' - ' + country + ' - EMPTY')
                 messageEmpty += '\n' + emojis[country] + ' *' + ReplaceSymbols(artistPrintName.replace('&amp;','and')) + '*'
@@ -117,42 +116,38 @@ def FindReleases(artistID, cRow, artistPrintName):
         for index, row in dfExport.iterrows():
             artistName = row.iloc[0]
             artistId = row.iloc[1]
-            primaryGenreName = row.iloc[2]
-            collectionId = row.iloc[3]
-            collectionName = row.iloc[4]
-            collectionCensoredName = row.iloc[5]
-            artworkUrl100 = row.iloc[6]
-            collectionExplicitness = row.iloc[7]
-            trackCount = row.iloc[8]
-            copyright = row.iloc[9]
-            country = row.iloc[10]
-            releaseDate = row.iloc[11][:10]
-            releaseYear = row.iloc[11][:4]
-            artworkUrlD = row.iloc[6].replace('100x100bb', '100000x100000-999')
+            collectionId = row.iloc[2]
+            collectionName = row.iloc[3]
+            artworkUrl100 = row.iloc[4]
+            trackCount = row.iloc[5]
+            country = row.iloc[6]
+            releaseDate = row.iloc[7][:10]
+            releaseYear = row.iloc[7][:4]
+            artworkUrlD = row.iloc[4].replace('100x100bb', '100000x100000-999')
             downloadedCover = ''
             downloadedRelease = ''
             updReason = ''
             if len(pdiTunesDB.loc[pdiTunesDB['collectionId']  == dfExport.iloc[index - 1]['collectionId']])  == 0:
                 updReason = 'New release'
                 newRelCounter += 1
-            elif len(pdiTunesDB[pdiTunesDB['artworkUrl100'].str[40:] == dfExport.iloc[index - 1]['artworkUrl100'][40:]]) == 0:
+            elif len(pdiTunesDB[pdiTunesDB['artworkUrlD'].str[40:] == dfExport.iloc[index-1]['artworkUrl100'].replace('100x100bb', '100000x100000-999')[40:]]) == 0:
                 updReason = 'New cover'
                 newCovCounter += 1
                 #.str[40] -------------------------------V
-                #https://is2-ssl.mzstatic.com/image/thumb/Music/v4/b2/cc/64/b2cc645c-9f18-db02-d0ab-69e296ea4d70/source/100x100bb.jpg
+                #https://is2-ssl.mzstatic.com/image/thumb/Music/v4/b2/cc/64/b2cc645c-9f18-db02-d0ab-69e296ea4d70/source/100000x100000-999.jpg
 
             #Это проверка - нужно ли сверяться с логом
             if updReason != '':
-                writer.writerow({'mainArtist': mainArtist, 'mainId': mainId, 'artistName': artistName,  
-                                 'artistId': artistId,  'primaryGenreName': primaryGenreName,  
-                                 'collectionId': collectionId,  'collectionName': collectionName,  
-                                 'collectionCensoredName': collectionCensoredName,  'artworkUrl100': artworkUrl100,  
-                                 'collectionExplicitness': collectionExplicitness,  'trackCount': trackCount,  
-                                 'copyright': copyright,  'country': country,  'releaseDate': releaseDate,  
-                                 'releaseYear': releaseYear,  'dateUpdate': dateUpdate[:10],  
-                                 'artworkUrlD': artworkUrlD,  'downloadedCover': downloadedCover,  
-                                 'downloadedRelease': downloadedRelease,  'updReason': updReason})
-
+                writer.writerow({
+                    'dateUpdate': dateUpdate[:10], 'downloadedRelease': downloadedRelease, 
+                    'mainArtist': mainArtist,
+                    'artistName': artistName, 'collectionName': collectionName, 
+                    'trackCount': trackCount, 'releaseDate': releaseDate, 
+                    'releaseYear': releaseYear, 'mainId': mainId, 'artistId': artistId, 
+                    'collectionId': collectionId, 'country': country, 'artworkUrlD': artworkUrlD, 
+                    'downloadedCover': downloadedCover, 'updReason': updReason
+                    })
+                
         csvfile.close()
 
         artistIDlist.iloc[cRow, 2] = dateUpdate
