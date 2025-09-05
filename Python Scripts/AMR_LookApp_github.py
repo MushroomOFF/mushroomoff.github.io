@@ -69,7 +69,7 @@ def send_message(topic, text):
 def CreateDB():
     if not os.path.exists(releasesDB):
         with open(releasesDB, 'a+', newline='') as csvfile:
-            writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=fieldNames)
+            writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=field_names)
             writer.writeheader()
 
 # Процедура Поиска релизов исполнителя в базе iTunes  
@@ -103,7 +103,7 @@ def FindReleases(artistID, cRow, artistPrintName):
         pdiTunesDB = pd.read_csv(releasesDB, sep=";")
         #Открываем файл лога для проверки скаченных файлов и записи новых скачиваний
         csvfile = open(releasesDB, 'a+', newline='')
-        writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=fieldNames)
+        writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=field_names)
 
         dateUpdate = str(datetime.datetime.now() + datetime.timedelta(hours=3))[0:19] # GitHub server time is UTC (-3 from Moscow), so i add +3 hours to log actions in Moscow time. Only where time matters
         # mainArtist = allDataFrame['artistName'].loc[0]
