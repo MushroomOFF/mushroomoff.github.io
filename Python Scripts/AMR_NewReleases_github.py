@@ -396,7 +396,7 @@ def collect_albums(caLink, caText, caGrad):
                             aralinsert = aralname.replace(artist, artist + '</b>') if len(aralname) < 80 else aralname[:aralname[:80].rfind(' ') + 1].replace(artist, artist + '</b>') + '<br>' + aralname[aralname[:80].rfind(' ') + 1:]
                             if isMyArtist > 0:
                                 img_url = imga.replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
-                                img_caption = f'*{ReplaceSymbols(artist.replace('&amp;','&'))}* \\- [{ReplaceSymbols(album.replace('&amp;','&'))}]({link.replace('://','://embed.')})'
+                                img_caption = f'*{ReplaceSymbols(artist.replace('&amp;','&'))}* \\- [{ReplaceSymbols(album.replace('&amp;','&'))}]({link.replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({link}){f'\n\U0001F4A5 [Яндекс\\.Музыка]({ym_result})' if ym_result is not None else ''}{f'\n\U0001F50A [Звук]({zv_result})' if zv_result is not None else ''}'
                                 message2send = send_photo_url('New Releases', img_url, img_caption)
 
                             writer.writerow({'date': dldDate, 

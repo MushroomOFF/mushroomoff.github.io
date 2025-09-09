@@ -1,6 +1,7 @@
 SCRIPT_NAME = "Apple Music Releases LookApp Errors"
-VERSION = "v.2.025.07 [Local]"
+VERSION = "v.2.025.09 [Local]"
 # Python 3.12 & Pandas 2.2 ready
+# NEW: Zvuk & Yandex.Music search engine
 
 import os
 import json
@@ -101,8 +102,8 @@ print(logMes)
 trs = 0
 # Send to Top Releases (O)
 for index, row in pdNR[(pdNR['Best_Fav_New_OK'] == 'o') & (pdNR['TGmsgID'].isna())].iterrows():
-    img_url = row.iloc[9].replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
-    img_caption = f'*{ReplaceSymbols(row.iloc[2].replace('&amp;','&'))}* \\- [{ReplaceSymbols(row.iloc[3].replace('&amp;','&'))}]({row.iloc[6].replace('://','://embed.')})'
+    img_url = row.loc['imga'].replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
+    img_caption = f'*{ReplaceSymbols(row.loc['artist'].replace('&amp;','&'))}* \\- [{ReplaceSymbols(row.loc['album'].replace('&amp;','&'))}]({row.loc['link'].replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({row.loc['link']}){'' if pd.isna(row.loc['link_ym']) else f'\n\U0001F4A5 [Яндекс\\.Музыка]({row.loc['link_ym']})'}{'' if pd.isna(row.loc['link_zv']) else f'\n\U0001F50A [Звук]({row.loc['link_zv']})'}'
     message2send = send_photo_url('Top Releases', img_url, img_caption)
     if TOKEN != '' and chat_id != '':
         pdNR.loc[index,'TGmsgID'] = message2send
@@ -111,8 +112,8 @@ for index, row in pdNR[(pdNR['Best_Fav_New_OK'] == 'o') & (pdNR['TGmsgID'].isna(
 nrs = 0
 # Send to New Releases (V, D)
 for index, row in pdNR[(pdNR['Best_Fav_New_OK'].isin(['v','d'])) & (pdNR['TGmsgID'].isna())].iterrows():
-    img_url = row.iloc[9].replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
-    img_caption = f'*{ReplaceSymbols(row.iloc[2].replace('&amp;','&'))}* \\- [{ReplaceSymbols(row.iloc[3].replace('&amp;','&'))}]({row.iloc[6].replace('://','://embed.')})'
+    img_url = row.loc['imga'].replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
+    img_caption = f'*{ReplaceSymbols(row.loc['artist'].replace('&amp;','&'))}* \\- [{ReplaceSymbols(row.loc['album'].replace('&amp;','&'))}]({row.loc['link'].replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({row.loc['link']}){'' if pd.isna(row.loc['link_ym']) else f'\n\U0001F4A5 [Яндекс\\.Музыка]({row.loc['link_ym']})'}{'' if pd.isna(row.loc['link_zv']) else f'\n\U0001F50A [Звук]({row.loc['link_zv']})'}'
     message2send = send_photo_url('New Releases', img_url, img_caption)
     if TOKEN != '' and chat_id != '':
         pdNR.loc[index,'TGmsgID'] = message2send
