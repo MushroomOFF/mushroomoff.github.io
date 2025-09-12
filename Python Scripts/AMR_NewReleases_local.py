@@ -21,7 +21,7 @@ artistIDsDB = dbFolder + 'AMR_artisitIDs.csv' # ArtistID
 ReleasesDB = dbFolder + 'AMR_releases_DB.csv' # Releases
 # Telegram -------------------------------
 URL = 'https://api.telegram.org/bot'
-print('It is extremely IMPORTANT to enter Telegram "TOKEN" and "chat_id!"')
+print(f'\nIt\'s IMPORTANT! to enter Telegram "TOKEN" and "chat_id"')
 TOKEN = input("Telegram Bot TOKEN: ")
 chat_id = input("Telegram Bot chat_id: ")
 thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80}
