@@ -3,11 +3,14 @@ name: Apple Music Releases Recomender
 on:
   # schedule:
   #   - cron: '9 5 * * 5' # Every Friday at 5:09 UTC (+/- 15 min). 5:09 UTC is 8:09 in Moscow.
-  push:
-    branches: [ "main" ]
+  # push:                    # That's one was before!
+  #   branches: [ "main" ]   # That's one was before!
   # pull_request:
   #   branches: [ "main" ]
-
+  workflow_run:
+    workflows: ["pages-build-deployment"]
+    types:
+      - completed
 env:
   tg_channel_id: ${{ secrets.TG_CHANNEL_ID }}
   tg_token: ${{ secrets.TG_TOKEN }}
