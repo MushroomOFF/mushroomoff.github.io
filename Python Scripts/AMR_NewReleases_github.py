@@ -191,7 +191,7 @@ def search_album_zv(query):
     # print(f'Search for: \nArtist: {sArtist}\nRelease: {sRelease}\nRelease type: {sType}')
     releases = search_command_zv(search_query)
     for rel in releases:
-        if (sArtist == rel['artist']) and (sRelease.lower() == rel['release'].lower()) and (sType.lower() == rel['type']):
+        if (sArtist.lower() == rel['artist'].lower()) and (sRelease.lower() == rel['release'].lower()) and (sType.lower() == rel['type']):
             return f'https://zvuk.com/release/{rel['id']}'
 #-----------------------------------------
 
