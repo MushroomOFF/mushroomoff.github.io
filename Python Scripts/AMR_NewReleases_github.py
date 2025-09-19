@@ -26,8 +26,9 @@ TOKEN = os.environ['tg_token'] # GitHub Secrets
 chat_id = os.environ['tg_channel_id'] # GitHub Secrets
 thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80}
 # Yandex.Music ---------------------------
+YM_TOKEN = os.environ['ym_token'] # GitHub Secrets
 search_result = ''
-client = Client().init()
+client = Client(YM_TOKEN).init()
 type_to_name = {'track': 'трек', 'artist': 'исполнитель', 'album': 'альбом', 'playlist': 'плейлист', 'video': 'видео', 'user': 'пользователь', 'podcast': 'подкаст', 'podcast_episode': 'эпизод подкаста'}
 # Zvuk -----------------------------------
 BASE_URL = "https://zvuk.com"

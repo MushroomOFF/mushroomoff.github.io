@@ -27,8 +27,9 @@ chat_id = input("Telegram Bot chat_id: ")
 thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80}
 #chat_id = '-1001939128351' #Test channel
 # Yandex.Music ---------------------------
+YM_TOKEN = input("Yandex.Music TOKEN: ")
 search_result = ''
-client = Client().init()
+client = Client(YM_TOKEN).init()
 type_to_name = {'track': 'трек', 'artist': 'исполнитель', 'album': 'альбом', 'playlist': 'плейлист', 'video': 'видео', 'user': 'пользователь', 'podcast': 'подкаст', 'podcast_episode': 'эпизод подкаста'}
 # Zvuk -----------------------------------
 BASE_URL = "https://zvuk.com"
