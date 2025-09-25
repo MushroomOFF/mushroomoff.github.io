@@ -65,7 +65,6 @@ def send_search_request_ym(query, year):
                     frstartst = artline.name
                 else:
                     artists += f', {artline.name}'
-            # print(f'{line.id} - {line.title} ({line.year}) of {artists}  =>  https://music.yandex.ru/album/{line.id}')
             if str(line.year) == str(year):
                 return f'https://music.yandex.ru/album/{line.id}'
 
@@ -161,7 +160,6 @@ def search_command_zv(arg_query):
                 "id": release['id'],
                 "hash": release["image"]["src"][urllen - 36:urllen]
             })
-            # print(f"{i}. {artists} - {release['title']} [{release['type']}] ({release['date'][0:10]}) [ID: {release['id']} | HASH: {release["image"]["src"][urllen - 36:urllen]}]")
         return releases_list
     except Exception as e:
         sys.stderr.write(f"Error: {e}\n")
@@ -189,7 +187,6 @@ def search_album_zv(query):
         else:
             sRelease = ' - '.join(search_split[1:])
             sType = "Album"
-    # print(f'Search for: \nArtist: {sArtist}\nRelease: {sRelease}\nRelease type: {sType}')
     releases = search_command_zv(search_query)
     for rel in releases:
         if (sArtist.lower() == rel['artist'].lower()) and (sRelease.lower() == rel['release'].lower()) and (sType.lower() == rel['type']):
