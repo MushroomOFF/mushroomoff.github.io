@@ -9,7 +9,7 @@ import datetime
 import requests
 import pandas as pd
 import csv
-# import sys # for Zvuk
+import sys # for Zvuk
 from yandex_music import Client # for YM
 
 
@@ -34,13 +34,13 @@ client = Client(YM_TOKEN).init()
 type_to_name = {'track': 'трек', 'artist': 'исполнитель', 'album': 'альбом', 'playlist': 'плейлист', 'video': 'видео', 'user': 'пользователь', 'podcast': 'подкаст', 'podcast_episode': 'эпизод подкаста'}
 
 # Zvuk -----------------------------------
-# BASE_URL = "https://zvuk.com"
-# API_ENDPOINTS = {"lyrics": f"{BASE_URL}/api/tiny/lyrics", "stream": f"{BASE_URL}/api/tiny/track/stream", "graphql": f"{BASE_URL}/api/v1/graphql", "profile": f"{BASE_URL}/api/tiny/profile"}
-# ZVUK_TOKEN = input("Zvuk TOKEN: ")
-# ZVUK_HEADERS = {
-#     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-#     "Content-Type": "application/json",
-# }
+BASE_URL = "https://zvuk.com"
+API_ENDPOINTS = {"lyrics": f"{BASE_URL}/api/tiny/lyrics", "stream": f"{BASE_URL}/api/tiny/track/stream", "graphql": f"{BASE_URL}/api/v1/graphql", "profile": f"{BASE_URL}/api/tiny/profile"}
+ZVUK_TOKEN = input("Zvuk TOKEN: ")
+ZVUK_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "Content-Type": "application/json",
+}
 
 # Establishing session -------------------
 s = requests.Session() 
@@ -83,112 +83,112 @@ def search_album_ym(query, year):
 #-----------------------------------------
 
 # Zvuk -----------------------------------
-# def get_anonymous_token():
-#     try:
-#         response = requests.get(API_ENDPOINTS["profile"], headers=ZVUK_HEADERS)
-#         response.raise_for_status()
+def get_anonymous_token():
+    try:
+        response = requests.get(API_ENDPOINTS["profile"], headers=ZVUK_HEADERS)
+        response.raise_for_status()
 
-#         data = response.json()
-#         if "result" in data and "token" in data["result"]:
-#             return data["result"]["token"]
+        data = response.json()
+        if "result" in data and "token" in data["result"]:
+            return data["result"]["token"]
 
-#         raise ValueError("Token not found in API response")
-#     except Exception as e:
-#         raise Exception(f"Failed to retrieve anonymous token: {e}")
+        raise ValueError("Token not found in API response")
+    except Exception as e:
+        raise Exception(f"Failed to retrieve anonymous token: {e}")
 
-# def get_auth_cookies():
-# # To get a token: Log in to Zvuk.com in your browser. Visit https://zvuk.com/api/v2/tiny/profile. Copy the token value from the response
-#     global ZVUK_TOKEN
-#     if not ZVUK_TOKEN:
-#         ZVUK_TOKEN = get_anonymous_token()
-#     return {"auth": ZVUK_TOKEN}
+def get_auth_cookies():
+# To get a token: Log in to Zvuk.com in your browser. Visit https://zvuk.com/api/v2/tiny/profile. Copy the token value from the response
+    global ZVUK_TOKEN
+    if not ZVUK_TOKEN:
+        ZVUK_TOKEN = get_anonymous_token()
+    return {"auth": ZVUK_TOKEN}
 
-# def search_tracks_zv(query):
-#     graphql_query = """
-#     query getSearchReleases($query: String) {
-#       search(query: $query) {
-#         releases(limit: 10) {
-#           items {
-#             id
-#             title
-#             type
-#             date
-#             artists {
-#               id
-#               title
-#             }
-#             image {
-#               src
-#             }
-#           }
-#         }
-#       }
-#     }
-#     """
-#     payload = {"query": graphql_query, "variables": {"query": query}, "operationName": "getSearchReleases"}
-#     response = requests.post(API_ENDPOINTS["graphql"], json=payload, headers=ZVUK_HEADERS, cookies=get_auth_cookies())
-#     response.raise_for_status()
-#     data = response.json()
-#     if (
-#         "data" in data
-#         and "search" in data["data"]
-#         and "releases" in data["data"]["search"]
-#     ):
-#         return data["data"]["search"]["releases"]["items"]
-#     return []
+def search_tracks_zv(query):
+    graphql_query = """
+    query getSearchReleases($query: String) {
+      search(query: $query) {
+        releases(limit: 10) {
+          items {
+            id
+            title
+            type
+            date
+            artists {
+              id
+              title
+            }
+            image {
+              src
+            }
+          }
+        }
+      }
+    }
+    """
+    payload = {"query": graphql_query, "variables": {"query": query}, "operationName": "getSearchReleases"}
+    response = requests.post(API_ENDPOINTS["graphql"], json=payload, headers=ZVUK_HEADERS, cookies=get_auth_cookies())
+    response.raise_for_status()
+    data = response.json()
+    if (
+        "data" in data
+        and "search" in data["data"]
+        and "releases" in data["data"]["search"]
+    ):
+        return data["data"]["search"]["releases"]["items"]
+    return []
 
-# def search_command_zv(arg_query):
-#     releases_list = []
-#     try:
-#         releases = search_tracks_zv(arg_query)
-#         if not releases:
-#             # print("No releases found")
-#             return
-#         # print(f"Found {len(releases)} releases:")
-#         for i, release in enumerate(releases, 1):
-#             artists = ", ".join([artist["title"] for artist in release["artists"]])
-#             urllen = len(release["image"]["src"])
-#             releases_list.append({
-#                 "artist": artists,
-#                 "release": release['title'],
-#                 "type": release['type'],
-#                 "date": release['date'][0:10],
-#                 "id": release['id'],
-#                 "hash": release["image"]["src"][urllen - 36:urllen]
-#             })
-#             # print(f"{i}. {artists} - {release['title']} [{release['type']}] ({release['date'][0:10]}) [ID: {release['id']} | HASH: {release["image"]["src"][urllen - 36:urllen]}]")
-#         return releases_list
-#     except Exception as e:
-#         sys.stderr.write(f"Error: {e}\n")
-#         sys.exit(1)
+def search_command_zv(arg_query):
+    releases_list = []
+    try:
+        releases = search_tracks_zv(arg_query)
+        if not releases:
+            # print("No releases found")
+            return
+        # print(f"Found {len(releases)} releases:")
+        for i, release in enumerate(releases, 1):
+            artists = ", ".join([artist["title"] for artist in release["artists"]])
+            urllen = len(release["image"]["src"])
+            releases_list.append({
+                "artist": artists,
+                "release": release['title'],
+                "type": release['type'],
+                "date": release['date'][0:10],
+                "id": release['id'],
+                "hash": release["image"]["src"][urllen - 36:urllen]
+            })
+            # print(f"{i}. {artists} - {release['title']} [{release['type']}] ({release['date'][0:10]}) [ID: {release['id']} | HASH: {release["image"]["src"][urllen - 36:urllen]}]")
+        return releases_list
+    except Exception as e:
+        sys.stderr.write(f"Error: {e}\n")
+        sys.exit(1)
 
-# def search_album_zv(query):
-#     search_query = query
-#     sArtist = ""
-#     sRelease = ""
-#     sType = ""    
-#     search_split = search_query.split(" - ")
-#     if len(search_split) == 1:
-#         if len(search_split[0]) == 0:
-#             print("Empty search")
-#         else:
-#             sArtist = search_split[0]
-#     else:
-#         sArtist = search_split[0]
-#         if search_split[len(search_split) - 1] in ['Single']:
-#             sRelease = ' - '.join(search_split[1:len(search_split) - 1])
-#             sType = search_split[len(search_split) - 1]
-#         elif search_split[len(search_split) - 1] in ['EP']:
-#             sRelease = ' - '.join(search_split[1:len(search_split) - 1])
-#             sType = "Album"
-#         else:
-#             sRelease = ' - '.join(search_split[1:])
-#             sType = "Album"
-#     # print(f'Search for: \nArtist: {sArtist}\nRelease: {sRelease}\nRelease type: {sType}')
-#     releases = search_command_zv(search_query)
-#     for rel in releases:
-#         if (sArtist.lower() == rel['artist'].lower()) and (sRelease.lower() == rel['release'].lower()) and (sType.lower() == rel['type']):
-#             return f'https://zvuk.com/release/{rel['id']}'
+def search_album_zv(query):
+    search_query = query
+    sArtist = ""
+    sRelease = ""
+    sType = ""    
+    search_split = search_query.split(" - ")
+    if len(search_split) == 1:
+        if len(search_split[0]) == 0:
+            print("Empty search")
+        else:
+            sArtist = search_split[0]
+    else:
+        sArtist = search_split[0]
+        if search_split[len(search_split) - 1] in ['Single']:
+            sRelease = ' - '.join(search_split[1:len(search_split) - 1])
+            sType = search_split[len(search_split) - 1]
+        elif search_split[len(search_split) - 1] in ['EP']:
+            sRelease = ' - '.join(search_split[1:len(search_split) - 1])
+            sType = "Album"
+        else:
+            sRelease = ' - '.join(search_split[1:])
+            sType = "Album"
+    # print(f'Search for: \nArtist: {sArtist}\nRelease: {sRelease}\nRelease type: {sType}')
+    releases = search_command_zv(search_query)
+    for rel in releases:
+        if (sArtist.lower() == rel['artist'].lower()) and (sRelease.lower() == rel['release'].lower()) and (sType.lower() == rel['type']):
+            return f'https://zvuk.com/release/{rel['id']}'
 #-----------------------------------------
 
 # Процедура Замены символов для Markdown v2
@@ -387,12 +387,12 @@ def collect_albums(caLink, caText, caGrad):
                             ym_result = ''
                             zv_result = ''
                             ym_result = search_album_ym(ym_zv_search_string, ym_year)
-                            # zv_result = search_album_zv(ym_zv_search_string)
+                            zv_result = search_album_zv(ym_zv_search_string)
                             # -------------------------------
                             aralinsert = aralname.replace(artist, artist + '</b>') if len(aralname) < 80 else aralname[:aralname[:80].rfind(' ') + 1].replace(artist, artist + '</b>') + '<br>' + aralname[aralname[:80].rfind(' ') + 1:]
                             if isMyArtist > 0:
                                 img_url = imga.replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
-                                img_caption = f'*{ReplaceSymbols(artist.replace('&amp;','&'))}* \\- [{ReplaceSymbols(album.replace('&amp;','&'))}]({link.replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({link}){f'\n\U0001F4A5 [Яндекс\\.Музыка]({ym_result})' if ym_result is not None else ''}{f'\n\U0001F50A [Звук]({zv_result})' if zv_result is not None else ''}'
+                                img_caption = f'*{ReplaceSymbols(artist.replace('&amp;','&'))}* \\- [{ReplaceSymbols(album.replace('&amp;','&'))}]({link.replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({link}){f'\n\U0001F4A5 [Яндекс\\.Музыка]({ym_result})' if ym_result is not None and ym_result != '' else ''}{f'\n\U0001F50A [Звук]({zv_result})' if zv_result is not None and zv_result != '' else ''}'
                                 message2send = send_photo_url('New Releases', img_url, img_caption)
 
                             writer.writerow({'date': dldDate, 
@@ -411,7 +411,7 @@ def collect_albums(caLink, caText, caGrad):
                             htmlText += f"""  <!-- {artist.replace('&amp;','&')} - {album.replace('&amp;','&')} -->
     <tr style="display:;" id=''>
       <td><a href="{imga.replace('296x296bb.webp', '100000x100000-999.jpg').replace('296x296bf.webp', '100000x100000-999.jpg')}" target="_blank"><img src="{imga}" height="100px"></a></td>
-      <td class="album_name"><a href="{link}" target="_blank"><b>{aralinsert}</a><br><br><button data-frame-load="{link[link.rfind('/') + 1:]}">Preview</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{ym_result if ym_result is not None else ''}" target="_blank"><button{' disabled' if ym_result is None else ''}>Яндекс.Музыка</button></a>&nbsp;<a href="{zv_result if zv_result is not None else ''}" target="_blank"><button{' disabled' if zv_result is None else ''}>Звук</button></a></td>
+      <td class="album_name"><a href="{link}" target="_blank"><b>{aralinsert}</a><br><br><button data-frame-load="{link[link.rfind('/') + 1:]}">Preview</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{ym_result if ym_result is not None else ''}" target="_blank"><button{' disabled' if ym_result is None or ym_result == '' else ''}>Яндекс.Музыка</button></a>&nbsp;<a href="{zv_result if zv_result is not None else ''}" target="_blank"><button{' disabled' if zv_result is None or zv_result == '' else ''}>Звук</button></a></td>
     </tr> 
     <tr style="display:none;" id="show{link[link.rfind('/') + 1:]}_"><td colspan="2"><iframe id="embedPlayer" data-frame-group="{link[link.rfind('/') + 1:]}" data-frame-src="{link.replace('://', '://embed.')}?app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=light" height="450px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *; clipboard-write" style="width: 100%; overflow: hidden; border-radius: 10px; transform: translateZ(0px); animation: 2s ease 0s 6 normal none running loading-indicator; background-color: rgb(228, 228, 228);"></iframe></td></tr>
 """
@@ -841,7 +841,7 @@ def CS2NR():
             ym_result = ''
             zv_result = ''
             ym_result = search_album_ym(ym_zv_search_string, ym_year)
-            # zv_result = search_album_zv(ym_zv_search_string)
+            zv_result = search_album_zv(ym_zv_search_string)
             # -------------------------------
             aralinsert = aralname.replace(row.iloc[0], row.iloc[0] + '</b>') if len(aralname) < 80 else aralname[:aralname[:80].rfind(' ') + 1].replace(row.iloc[0], row.iloc[0] + '</b>') + '<br>' + aralname[aralname[:80].rfind(' ') + 1:]
             writer.writerow({'date': dldDate, 
@@ -860,7 +860,7 @@ def CS2NR():
             htmlText += f"""  <!-- {row.iloc[0]} - {row.iloc[1]} -->
     <tr style="display:;" id=''>
       <td><a href="{row.iloc[3].replace('296x296bb.webp', '100000x100000-999.jpg').replace('296x296bf.webp', '100000x100000-999.jpg').replace('296x296bf-60.jpg', '100000x100000-999.jpg')}" target="_blank"><img src="{row.iloc[3]}" height="100px"></a></td>
-      <td class="album_name"><a href="{row.iloc[2]}" target="_blank"><b>{aralinsert}</a><br><br><button data-frame-load="{row.iloc[2][row.iloc[2].rfind('/') + 1:]}">Preview</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{ym_result if ym_result is not None else ''}" target="_blank"><button{' disabled' if ym_result is None else ''}>Яндекс.Музыка</button></a>&nbsp;<a href="{zv_result if zv_result is not None else ''}" target="_blank"><button{' disabled' if zv_result is None else ''}>Звук</button></a></td>
+      <td class="album_name"><a href="{row.iloc[2]}" target="_blank"><b>{aralinsert}</a><br><br><button data-frame-load="{row.iloc[2][row.iloc[2].rfind('/') + 1:]}">Preview</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{ym_result if ym_result is not None else ''}" target="_blank"><button{' disabled' if ym_result is None or ym_result == '' else ''}>Яндекс.Музыка</button></a>&nbsp;<a href="{zv_result if zv_result is not None else ''}" target="_blank"><button{' disabled' if zv_result is None or zv_result == '' else ''}>Звук</button></a></td>
     </tr> 
     <tr style="display:none;" id="show{row.iloc[2][row.iloc[2].rfind('/') + 1:]}_"><td colspan="2"><iframe id="embedPlayer" data-frame-group="{row.iloc[2][row.iloc[2].rfind('/') + 1:]}" data-frame-src="{row.iloc[2].replace('://', '://embed.')}?app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=light" height="450px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *; clipboard-write" style="width: 100%; overflow: hidden; border-radius: 10px; transform: translateZ(0px); animation: 2s ease 0s 6 normal none running loading-indicator; background-color: rgb(228, 228, 228);"></iframe></td></tr>
 """
