@@ -16,6 +16,7 @@ env:
   tg_channel_id: ${{ secrets.TG_CHANNEL_ID }}
   tg_token: ${{ secrets.TG_TOKEN }}
   ym_token: ${{ secrets.YM_TOKEN }}
+  zv_token: ${{ secrets.ZV_TOKEN }}
 
 jobs:
   build:

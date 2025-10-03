@@ -1,6 +1,7 @@
 SCRIPT_NAME = "Apple Music Releases Yandex.Music & Zvuk Lookup"
 VERSION = "v.2.025.09 [Local]"
 # Python 3.12 & Pandas 2.2 ready
+# Temporary block ZVUK
 
 import os
 import json
@@ -8,7 +9,7 @@ import datetime
 import requests
 import pandas as pd
 import csv
-import sys # for Zvuk
+# import sys # for Zvuk
 from yandex_music import Client # for YM
 
 rootFolder = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
@@ -27,12 +28,14 @@ YM_TOKEN = input("Yandex.Music TOKEN: ")
 search_result = ''
 client = Client(YM_TOKEN).init()
 type_to_name = {'track': 'трек', 'artist': 'исполнитель', 'album': 'альбом', 'playlist': 'плейлист', 'video': 'видео', 'user': 'пользователь', 'podcast': 'подкаст', 'podcast_episode': 'эпизод подкаста'}
+
 # Zvuk -----------------------------------
-BASE_URL = "https://zvuk.com"
-API_ENDPOINTS = {"lyrics": f"{BASE_URL}/api/tiny/lyrics", "stream": f"{BASE_URL}/api/tiny/track/stream", "graphql": f"{BASE_URL}/api/v1/graphql", "profile": f"{BASE_URL}/api/tiny/profile"}
-ZVUK_TOKEN = ""
-ZVUK_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-                "Content-Type": "application/json"}
+# BASE_URL = "https://zvuk.com"
+# API_ENDPOINTS = {"lyrics": f"{BASE_URL}/api/tiny/lyrics", "stream": f"{BASE_URL}/api/tiny/track/stream", "graphql": f"{BASE_URL}/api/v1/graphql", "profile": f"{BASE_URL}/api/tiny/profile"}
+# ZVUK_TOKEN = input("Zvuk TOKEN: ")
+# ZVUK_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+#                 "Content-Type": "application/json"}
+
 # Establishing session -------------------
 s = requests.Session() 
 s.headers.update({'Referer':'https://music.apple.com', 'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'})
@@ -74,112 +77,112 @@ def search_album_ym(query, year):
 #-----------------------------------------
 
 # Zvuk -----------------------------------
-def get_anonymous_token():
-    try:
-        response = requests.get(API_ENDPOINTS["profile"], headers=ZVUK_HEADERS)
-        response.raise_for_status()
+# def get_anonymous_token():
+#     try:
+#         response = requests.get(API_ENDPOINTS["profile"], headers=ZVUK_HEADERS)
+#         response.raise_for_status()
 
-        data = response.json()
-        if "result" in data and "token" in data["result"]:
-            return data["result"]["token"]
+#         data = response.json()
+#         if "result" in data and "token" in data["result"]:
+#             return data["result"]["token"]
 
-        raise ValueError("Token not found in API response")
-    except Exception as e:
-        raise Exception(f"Failed to retrieve anonymous token: {e}")
+#         raise ValueError("Token not found in API response")
+#     except Exception as e:
+#         raise Exception(f"Failed to retrieve anonymous token: {e}")
 
-def get_auth_cookies():
-# To get a token: Log in to Zvuk.com in your browser. Visit https://zvuk.com/api/v2/tiny/profile. Copy the token value from the response
-    global ZVUK_TOKEN
-    if not ZVUK_TOKEN:
-        ZVUK_TOKEN = get_anonymous_token()
-    return {"auth": ZVUK_TOKEN}
+# def get_auth_cookies():
+# # To get a token: Log in to Zvuk.com in your browser. Visit https://zvuk.com/api/v2/tiny/profile. Copy the token value from the response
+#     global ZVUK_TOKEN
+#     if not ZVUK_TOKEN:
+#         ZVUK_TOKEN = get_anonymous_token()
+#     return {"auth": ZVUK_TOKEN}
 
-def search_tracks_zv(query):
-    graphql_query = """
-    query getSearchReleases($query: String) {
-      search(query: $query) {
-        releases(limit: 10) {
-          items {
-            id
-            title
-            type
-            date
-            artists {
-              id
-              title
-            }
-            image {
-              src
-            }
-          }
-        }
-      }
-    }
-    """
-    payload = {"query": graphql_query, "variables": {"query": query}, "operationName": "getSearchReleases"}
-    response = requests.post(API_ENDPOINTS["graphql"], json=payload, headers=ZVUK_HEADERS, cookies=get_auth_cookies())
-    response.raise_for_status()
-    data = response.json()
-    if (
-        "data" in data
-        and "search" in data["data"]
-        and "releases" in data["data"]["search"]
-    ):
-        return data["data"]["search"]["releases"]["items"]
-    return []
+# def search_tracks_zv(query):
+#     graphql_query = """
+#     query getSearchReleases($query: String) {
+#       search(query: $query) {
+#         releases(limit: 10) {
+#           items {
+#             id
+#             title
+#             type
+#             date
+#             artists {
+#               id
+#               title
+#             }
+#             image {
+#               src
+#             }
+#           }
+#         }
+#       }
+#     }
+#     """
+#     payload = {"query": graphql_query, "variables": {"query": query}, "operationName": "getSearchReleases"}
+#     response = requests.post(API_ENDPOINTS["graphql"], json=payload, headers=ZVUK_HEADERS, cookies=get_auth_cookies())
+#     response.raise_for_status()
+#     data = response.json()
+#     if (
+#         "data" in data
+#         and "search" in data["data"]
+#         and "releases" in data["data"]["search"]
+#     ):
+#         return data["data"]["search"]["releases"]["items"]
+#     return []
 
-def search_command_zv(arg_query):
-    releases_list = []
-    try:
-        releases = search_tracks_zv(arg_query)
-        if not releases:
-            # print("No releases found")
-            return
-        # print(f"Found {len(releases)} releases:")
-        for i, release in enumerate(releases, 1):
-            artists = ", ".join([artist["title"] for artist in release["artists"]])
-            urllen = len(release["image"]["src"])
-            releases_list.append({
-                "artist": artists,
-                "release": release['title'],
-                "type": release['type'],
-                "date": release['date'][0:10],
-                "id": release['id'],
-                "hash": release["image"]["src"][urllen - 36:urllen]
-            })
-            # print(f"{i}. {artists} - {release['title']} [{release['type']}] ({release['date'][0:10]}) [ID: {release['id']} | HASH: {release["image"]["src"][urllen - 36:urllen]}]")
-        return releases_list
-    except Exception as e:
-        sys.stderr.write(f"Error: {e}\n")
-        sys.exit(1)
+# def search_command_zv(arg_query):
+#     releases_list = []
+#     try:
+#         releases = search_tracks_zv(arg_query)
+#         if not releases:
+#             # print("No releases found")
+#             return
+#         # print(f"Found {len(releases)} releases:")
+#         for i, release in enumerate(releases, 1):
+#             artists = ", ".join([artist["title"] for artist in release["artists"]])
+#             urllen = len(release["image"]["src"])
+#             releases_list.append({
+#                 "artist": artists,
+#                 "release": release['title'],
+#                 "type": release['type'],
+#                 "date": release['date'][0:10],
+#                 "id": release['id'],
+#                 "hash": release["image"]["src"][urllen - 36:urllen]
+#             })
+#             # print(f"{i}. {artists} - {release['title']} [{release['type']}] ({release['date'][0:10]}) [ID: {release['id']} | HASH: {release["image"]["src"][urllen - 36:urllen]}]")
+#         return releases_list
+#     except Exception as e:
+#         sys.stderr.write(f"Error: {e}\n")
+#         sys.exit(1)
 
-def search_album_zv(query):
-    search_query = query
-    sArtist = ""
-    sRelease = ""
-    sType = ""    
-    search_split = search_query.split(" - ")
-    if len(search_split) == 1:
-        if len(search_split[0]) == 0:
-            print("Empty search")
-        else:
-            sArtist = search_split[0]
-    else:
-        sArtist = search_split[0]
-        if search_split[len(search_split) - 1] in ['Single']:
-            sRelease = ' - '.join(search_split[1:len(search_split) - 1])
-            sType = search_split[len(search_split) - 1]
-        elif search_split[len(search_split) - 1] in ['EP']:
-            sRelease = ' - '.join(search_split[1:len(search_split) - 1])
-            sType = "Album"
-        else:
-            sRelease = ' - '.join(search_split[1:])
-            sType = "Album"
-    # print(f'Search for: \nArtist: {sArtist}\nRelease: {sRelease}\nRelease type: {sType}')
-    releases = search_command_zv(search_query)
-    for rel in releases:
-        if (sArtist.lower() == rel['artist'].lower()) and (sRelease.lower() == rel['release'].lower()) and (sType.lower() == rel['type']):
-            return f'https://zvuk.com/release/{rel['id']}'
+# def search_album_zv(query):
+#     search_query = query
+#     sArtist = ""
+#     sRelease = ""
+#     sType = ""    
+#     search_split = search_query.split(" - ")
+#     if len(search_split) == 1:
+#         if len(search_split[0]) == 0:
+#             print("Empty search")
+#         else:
+#             sArtist = search_split[0]
+#     else:
+#         sArtist = search_split[0]
+#         if search_split[len(search_split) - 1] in ['Single']:
+#             sRelease = ' - '.join(search_split[1:len(search_split) - 1])
+#             sType = search_split[len(search_split) - 1]
+#         elif search_split[len(search_split) - 1] in ['EP']:
+#             sRelease = ' - '.join(search_split[1:len(search_split) - 1])
+#             sType = "Album"
+#         else:
+#             sRelease = ' - '.join(search_split[1:])
+#             sType = "Album"
+#     # print(f'Search for: \nArtist: {sArtist}\nRelease: {sRelease}\nRelease type: {sType}')
+#     releases = search_command_zv(search_query)
+#     for rel in releases:
+#         if (sArtist.lower() == rel['artist'].lower()) and (sRelease.lower() == rel['release'].lower()) and (sType.lower() == rel['type']):
+#             return f'https://zvuk.com/release/{rel['id']}'
 #-----------------------------------------
 
 # Логирование
@@ -254,8 +257,8 @@ for index, row in pdNR[(pdNR['Best_Fav_New_OK'].isin(['v','d','o'])) & (pdNR['li
     ym_zv_search_string = f'{row.loc['artist'].replace('&amp;','&')} - {row.loc['album'].replace('&amp;','&')}'
     if pd.isna(row.loc['link_ym']): 
         ym_result = search_album_ym(ym_zv_search_string, row.loc['date'][0:4])
-    if pd.isna(row.loc['link_zv']): 
-        zv_result = search_album_zv(ym_zv_search_string)        
+    # if pd.isna(row.loc['link_zv']): 
+    #     zv_result = search_album_zv(ym_zv_search_string)        
         
     if ((ym_result is not None) & (ym_result != '')) | ((zv_result is not None) & (zv_result != '')):
         logMes = f'{index}. {row.loc['artist']} - {row.loc['album']}'
@@ -267,12 +270,12 @@ for index, row in pdNR[(pdNR['Best_Fav_New_OK'].isin(['v','d','o'])) & (pdNR['li
         do_amr_file(ym_result, 'Яндекс.Музыка')
         isYMchanged += 1
         need2sendmes = 1
-    if (zv_result is not None) & (zv_result != ''):
-        row.loc['link_zv'] = zv_result
-        pdNR.loc[index,'link_zv'] = zv_result
-        do_amr_file(zv_result, 'Звук')
-        isZVchanged += 1
-        need2sendmes = 1
+    # if (zv_result is not None) & (zv_result != ''):
+    #     row.loc['link_zv'] = zv_result
+    #     pdNR.loc[index,'link_zv'] = zv_result
+    #     do_amr_file(zv_result, 'Звук')
+    #     isZVchanged += 1
+    #     need2sendmes = 1
 
     if need2sendmes == 1:
         if row.loc['Best_Fav_New_OK'] == 'v' or row.loc['Best_Fav_New_OK'] == 'd':
