@@ -1,9 +1,10 @@
 name: AMR Yandex.Music & Zvuk Lookup
 
 on:
-  schedule:
-    - cron: '9 6 * * *' # At 06:09 UTC (+/- 15 min) on every day-of-week from Sunday through Thursday and Saturday. 6:09 UTC is 9:09 in Moscow.
-
+  # schedule:
+  #   - cron: '9 6 * * *' # At 06:09 UTC (+/- 15 min) on every day-of-week from Sunday through Thursday and Saturday. 6:09 UTC is 9:09 in Moscow.
+  push:                    # That's one was before!
+    branches: [ "main" ]   # That's one was before!
 env:
   tg_channel_id: ${{ secrets.TG_CHANNEL_ID }}
   tg_token: ${{ secrets.TG_TOKEN }}

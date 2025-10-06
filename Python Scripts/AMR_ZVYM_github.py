@@ -32,9 +32,10 @@ type_to_name = {'track': 'трек', 'artist': 'исполнитель', 'album'
 # Zvuk -----------------------------------
 BASE_URL = "https://zvuk.com"
 API_ENDPOINTS = {"lyrics": f"{BASE_URL}/api/tiny/lyrics", "stream": f"{BASE_URL}/api/tiny/track/stream", "graphql": f"{BASE_URL}/api/v1/graphql", "profile": f"{BASE_URL}/api/tiny/profile"}
-ZVUK_TOKEN = os.environ['zv_token'] # GitHub Secrets
-ZVUK_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-                "Content-Type": "application/json"}
+ZVUK_TOKEN = "" #os.environ['zv_token'] # GitHub Secrets
+ZVUK_HEADERS = {'Referer':'https://music.apple.com', 'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'}
+# ZVUK_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+                # "Content-Type": "application/json"}
 
 # Establishing session -------------------
 s = requests.Session() 
@@ -101,8 +102,10 @@ def get_anonymous_token():
 def get_auth_cookies():
 # To get a token: Log in to Zvuk.com in your browser. Visit https://zvuk.com/api/v2/tiny/profile. Copy the token value from the response
     global ZVUK_TOKEN
+
     if not ZVUK_TOKEN:
         ZVUK_TOKEN = get_anonymous_token()
+    
     return {"auth": ZVUK_TOKEN}
 
 def search_tracks_zv(query):
