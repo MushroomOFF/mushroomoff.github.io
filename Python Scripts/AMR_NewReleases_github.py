@@ -36,14 +36,12 @@ type_to_name = {'track': 'трек', 'artist': 'исполнитель', 'album'
 BASE_URL = "https://zvuk.com"
 API_ENDPOINTS = {"lyrics": f"{BASE_URL}/api/tiny/lyrics", "stream": f"{BASE_URL}/api/tiny/track/stream", "graphql": f"{BASE_URL}/api/v1/graphql", "profile": f"{BASE_URL}/api/tiny/profile"}
 ZVUK_TOKEN = os.environ['zv_token'] # GitHub Secrets
-ZVUK_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-    "Content-Type": "application/json",
-}
+# ZVUK_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36", "Content-Type": "application/json",}
 
 # Establishing session -------------------
+HEADERS = {'Referer':'https://music.apple.com', 'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'}
 s = requests.Session() 
-s.headers.update({'Referer':'https://music.apple.com', 'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'})
+s.headers.update(HEADERS)
 #-----------------------------------------
 
 # This logger is only for GitHub --------------------------------------------------------------------
@@ -92,7 +90,7 @@ def search_album_ym(query, year):
 # Zvuk -----------------------------------
 def get_anonymous_token():
     try:
-        response = requests.get(API_ENDPOINTS["profile"], headers=ZVUK_HEADERS)
+        response = requests.get(API_ENDPOINTS["profile"], headers=HEADERS)
         response.raise_for_status()
 
         data = response.json()
@@ -133,7 +131,7 @@ def search_tracks_zv(query):
     }
     """
     payload = {"query": graphql_query, "variables": {"query": query}, "operationName": "getSearchReleases"}
-    response = requests.post(API_ENDPOINTS["graphql"], json=payload, headers=ZVUK_HEADERS, cookies=get_auth_cookies())
+    response = requests.post(API_ENDPOINTS["graphql"], json=payload, headers=HEADERS, cookies=get_auth_cookies())
     response.raise_for_status()
     data = response.json()
     if (

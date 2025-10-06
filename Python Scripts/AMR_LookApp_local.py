@@ -44,8 +44,7 @@ thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releas
 
 # establishing session
 session = requests.Session() 
-session.headers.update({'Referer': 'https://itunes.apple.com', 
-                        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'})
+session.headers.update({'Referer': 'https://itunes.apple.com', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'})
 
 # Инициализация функций===================================================
 
