@@ -33,6 +33,7 @@ type_to_name = {'track': 'трек', 'artist': 'исполнитель', 'album'
 BASE_URL = "https://zvuk.com"
 API_ENDPOINTS = {"lyrics": f"{BASE_URL}/api/tiny/lyrics", "stream": f"{BASE_URL}/api/tiny/track/stream", "graphql": f"{BASE_URL}/api/v1/graphql", "profile": f"{BASE_URL}/api/tiny/profile"}
 ZVUK_TOKEN = os.environ['zv_token'] # GitHub Secrets
+ZVUK_ERROR = ''
 # ZVUK_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36", "Content-Type": "application/json"}
 
 # Establishing session -------------------
@@ -162,15 +163,14 @@ def search_command_zv(arg_query):
             })
         return releases_list
     except Exception as e:
-        sys.stderr.write(f"Error: {e}\n")
-        sys.exit(1)
+        return f"Error: {e}"
 
 def search_album_zv(query):
-    search_query = query
+    global ZVUK_ERROR
     sArtist = ""
     sRelease = ""
     sType = ""    
-    search_split = search_query.split(" - ")
+    search_split = query.split(" - ")
     if len(search_split) == 1:
         if len(search_split[0]) == 0:
             print("Empty search")
@@ -187,10 +187,15 @@ def search_album_zv(query):
         else:
             sRelease = ' - '.join(search_split[1:])
             sType = "Album"
-    releases = search_command_zv(search_query)
-    for rel in releases:
-        if (sArtist.lower() == rel['artist'].lower()) and (sRelease.lower() == rel['release'].lower()) and (sType.lower() == rel['type']):
-            return f'https://zvuk.com/release/{rel['id']}'
+    releases = search_command_zv(query)
+    if type(releases) is list:
+        for rel in releases:
+            if (sArtist.lower() == rel['artist'].lower()) and (sRelease.lower() == rel['release'].lower()) and (sType.lower() == rel['type']):
+                return f'https://zvuk.com/release/{rel['id']}'
+    elif type(releases) is str:
+        ZVUK_ERROR = 'Zvuk {releases}' # if search_command_zv return Error
+    elif releases is None:
+        amnr_logger(f"Zvuk didn't find {query}") # if search_command_zv return None
 #-----------------------------------------
         
 # Процедура Замены символов для Markdown v2
@@ -249,7 +254,8 @@ for index, row in pdNR[(pdNR['Best_Fav_New_OK'].isin(['v','d','o'])) & (pdNR['li
     if pd.isna(row.loc['link_ym']): 
         ym_result = search_album_ym(ym_zv_search_string, row.loc['date'][0:4])
     if pd.isna(row.loc['link_zv']): 
-        zv_result = search_album_zv(ym_zv_search_string)        
+        if ZVUK_ERROR == '':
+            zv_result = search_album_zv(ym_zv_search_string)     
         
     if ((ym_result is not None) & (ym_result != '')) | ((zv_result is not None) & (zv_result != '')):
         amnr_logger(f'{index}. {row.loc['artist']} - {row.loc['album']}')
@@ -280,5 +286,8 @@ for index, row in pdNR[(pdNR['Best_Fav_New_OK'].isin(['v','d','o'])) & (pdNR['li
 if (isYMchanged + isZVchanged) > 0:
     pdNR.to_csv(newReleasesDB, sep=';', index=False)
     amnr_logger(f'New links: {isYMchanged} Yandex.Music, {isZVchanged} Zvuk')
+
+if ZVUK_ERROR != '':
+    amnr_logger(f'{ZVUK_ERROR}')
 
 amnr_logger('[V] Done!')
