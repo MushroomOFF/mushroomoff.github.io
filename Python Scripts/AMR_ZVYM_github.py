@@ -1,7 +1,7 @@
 SCRIPT_NAME = "Apple Music Releases Yandex.Music & Zvuk Lookup"
-VERSION = "v.2.025.09 [GitHub]"
+VERSION = "v.2.025.10 [GitHub]"
 # Python 3.12 & Pandas 2.2 ready
-# Temporary block ZVUK
+# Zvuk availability check
 # comment will mark the specific code for GitHub
 
 import os
@@ -48,7 +48,7 @@ def amnr_logger(logLine):
         content = f.read()
         f.seek(0, 0)
         # GitHub server time is UTC (-3 from Moscow), so i add +3 hours to log actions in Moscow time. Only where time matters
-        f.write(str(datetime.datetime.now() + datetime.timedelta(hours=3)) + ' - ' + SCRIPT_NAME + ' - ' + logLine.rstrip('\r\n') + '\n' + content)
+        f.write(str(datetime.datetime.now() + datetime.timedelta(hours=3)) + ' - [' + SCRIPT_NAME + '] - ' + logLine.rstrip('\r\n') + '\n' + content)
 #----------------------------------------------------------------------------------------------------
 
 # YM -------------------------------------
@@ -163,6 +163,7 @@ def search_command_zv(arg_query):
             })
         return releases_list
     except Exception as e:
+        print(f"Error: {e}")
         return f"Error: {e}"
 
 def search_album_zv(query):
@@ -193,7 +194,7 @@ def search_album_zv(query):
             if (sArtist.lower() == rel['artist'].lower()) and (sRelease.lower() == rel['release'].lower()) and (sType.lower() == rel['type']):
                 return f'https://zvuk.com/release/{rel['id']}'
     elif type(releases) is str:
-        ZVUK_ERROR = 'Zvuk {releases}' # if search_command_zv return Error
+        ZVUK_ERROR = f'Zvuk {releases}' # if search_command_zv return Error
     elif releases is None:
         amnr_logger(f"Zvuk didn't find {query}") # if search_command_zv return None
 #-----------------------------------------
