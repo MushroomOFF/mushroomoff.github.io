@@ -1,7 +1,7 @@
 SCRIPT_NAME = "Apple Music Releases LookApp"
-VERSION = "v.2.025.06 [Local]"
+VERSION = "v.2.025.10 [Local]"
 # Python 3.12 & Pandas 2.2 ready
-# New TG group
+# Multiparameters
 
 import requests
 import os
@@ -35,9 +35,13 @@ print(countries)
 emojis = {'us': '\U0001F1FA\U0001F1F8', 'ru': '\U0001F1F7\U0001F1FA', 'jp': '\U0001F1EF\U0001F1F5', 'no': '\U0001F3F3\U0000FE0F', 'wtf': '\U0001F914', 
           'album': '\U0001F4BF', 'cover': '\U0001F3DE\U0000FE0F', 'error': '\U00002757\U0000FE0F', 'empty': '\U0001F6AB', 'badid': '\U0000274C'}
 # Telegram -------------------------------
+PARAMS = input("IMPORTANT! TOKEN chat_id YM_TOKEN ZV_TOKEN: ").split(' ')
+TOKEN = ''
+CHAT_ID = ''
+if len(PARAMS) > 1:
+    TOKEN = PARAMS[0] # input("Telegram Bot TOKEN: ")
+    CHAT_ID = PARAMS[1] # input("Telegram Bot CHAT_ID: ")
 URL = 'https://api.telegram.org/bot'
-TOKEN = input("Telegram Bot TOKEN: ")
-CHAT_ID = input("Telegram Bot CHAT_ID: ")
 thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80}
 #CHAT_ID = '-1001939128351' #Test channel
 #-----------------------------------------

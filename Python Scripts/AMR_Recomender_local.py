@@ -1,7 +1,7 @@
 SCRIPT_NAME = "Apple Music Releases LookApp Errors"
-VERSION = "v.2.025.09 [Local]"
+VERSION = "v.2.025.10 [Local]"
 # Python 3.12 & Pandas 2.2 ready
-# NEW: Zvuk & Yandex.Music search engine
+# Multiparameters
 
 import os
 import json
@@ -16,9 +16,13 @@ dbFolder = rootFolder + 'Databases/'
 newReleasesDB = dbFolder + 'AMR_newReleases_DB.csv' # This Week New Releases 
 log_file = os.path.join(rootFolder, 'status.log')
 # Telegram -------------------------------
+PARAMS = input("IMPORTANT! TOKEN chat_id YM_TOKEN ZV_TOKEN: ").split(' ')
+TOKEN = ''
+chat_id = ''
+if len(PARAMS) > 1:
+    TOKEN = PARAMS[0] # input("Telegram Bot TOKEN: ")
+    chat_id = PARAMS[1] # input("Telegram Bot CHAT_ID: ")
 URL = 'https://api.telegram.org/bot'
-TOKEN = input("Telegram Bot TOKEN: ")
-chat_id = input("Telegram Bot chat_id: ")
 thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80}
 #-----------------------------------------
 # Логирование

@@ -1,7 +1,6 @@
-ver = "v.2.025.09 [Local]"
+ver = "v.2.025.10 [Local]"
 # Python 3.12 & Pandas 2.2 ready
-# NEW: Zvuk & Yandex.Music search engine
-# Temporary block ZVUK
+# Zvuk availability check & multiparameters
 
 import os
 import json
@@ -20,15 +19,20 @@ newReleasesDB = dbFolder + 'AMR_newReleases_DB.csv' # This Week New Releases
 csReleasesDB = dbFolder + 'AMR_csReleases_DB.csv' # Coomin Soon Releases
 artistIDsDB = dbFolder + 'AMR_artisitIDs.csv' # ArtistID
 ReleasesDB = dbFolder + 'AMR_releases_DB.csv' # Releases
+
+PARAMS = input("IMPORTANT! TOKEN chat_id YM_TOKEN ZV_TOKEN: ").split(' ')
+if len(PARAMS) < 4:
+    sys.exit('Error: not enough parameters')
+TOKEN = PARAMS[0] # input("Telegram Bot TOKEN: ")
+chat_id = PARAMS[1] # input("Telegram Bot chat_id: ")
+YM_TOKEN = PARAMS[2] # input("Yandex.Music TOKEN: ")
+ZVUK_TOKEN = PARAMS[3] # input("Zvuk TOKEN: ")
+
 # Telegram -------------------------------
 URL = 'https://api.telegram.org/bot'
-print(f'\nIt\'s IMPORTANT! to enter Telegram "TOKEN" and "chat_id"')
-TOKEN = input("Telegram Bot TOKEN: ")
-chat_id = input("Telegram Bot chat_id: ")
 thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80}
 #chat_id = '-1001939128351' #Test channel
 # Yandex.Music ---------------------------
-YM_TOKEN = input("Yandex.Music TOKEN: ")
 search_result = ''
 client = Client(YM_TOKEN).init()
 type_to_name = {'track': 'трек', 'artist': 'исполнитель', 'album': 'альбом', 'playlist': 'плейлист', 'video': 'видео', 'user': 'пользователь', 'podcast': 'подкаст', 'podcast_episode': 'эпизод подкаста'}
@@ -36,7 +40,6 @@ type_to_name = {'track': 'трек', 'artist': 'исполнитель', 'album'
 # Zvuk -----------------------------------
 BASE_URL = "https://zvuk.com"
 API_ENDPOINTS = {"lyrics": f"{BASE_URL}/api/tiny/lyrics", "stream": f"{BASE_URL}/api/tiny/track/stream", "graphql": f"{BASE_URL}/api/v1/graphql", "profile": f"{BASE_URL}/api/tiny/profile"}
-ZVUK_TOKEN = input("Zvuk TOKEN: ")
 # ZVUK_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36", "Content-Type": "application/json",}
 
 # Establishing session -------------------
@@ -157,15 +160,15 @@ def search_command_zv(arg_query):
             # print(f"{i}. {artists} - {release['title']} [{release['type']}] ({release['date'][0:10]}) [ID: {release['id']} | HASH: {release["image"]["src"][urllen - 36:urllen]}]")
         return releases_list
     except Exception as e:
-        sys.stderr.write(f"Error: {e}\n")
-        sys.exit(1)
+        print(f"Error: {e}")
+        return f"Error: {e}"
 
 def search_album_zv(query):
-    search_query = query
+    global ZVUK_ERROR
     sArtist = ""
     sRelease = ""
     sType = ""    
-    search_split = search_query.split(" - ")
+    search_split = query.split(" - ")
     if len(search_split) == 1:
         if len(search_split[0]) == 0:
             print("Empty search")
@@ -183,10 +186,13 @@ def search_album_zv(query):
             sRelease = ' - '.join(search_split[1:])
             sType = "Album"
     # print(f'Search for: \nArtist: {sArtist}\nRelease: {sRelease}\nRelease type: {sType}')
-    releases = search_command_zv(search_query)
-    for rel in releases:
-        if (sArtist.lower() == rel['artist'].lower()) and (sRelease.lower() == rel['release'].lower()) and (sType.lower() == rel['type']):
-            return f'https://zvuk.com/release/{rel['id']}'
+    releases = search_command_zv(query)
+    if type(releases) is list:
+        for rel in releases:
+            if (sArtist.lower() == rel['artist'].lower()) and (sRelease.lower() == rel['release'].lower()) and (sType.lower() == rel['type']):
+                return f'https://zvuk.com/release/{rel['id']}'
+    elif type(releases) is str:
+        ZVUK_ERROR = f'Zvuk {releases}' # if search_command_zv return Error
 #-----------------------------------------
 
 # Процедура Замены символов для Markdown v2
@@ -385,7 +391,10 @@ def collect_albums(caLink, caText, caGrad):
                             ym_result = ''
                             zv_result = ''
                             ym_result = search_album_ym(ym_zv_search_string, ym_year)
-                            zv_result = search_album_zv(ym_zv_search_string)
+                            if ZVUK_ERROR == '':
+                                zv_result = search_album_zv(ym_zv_search_string)
+                            else:
+                                zv_result = ''
                             # -------------------------------
                             aralinsert = aralname.replace(artist, artist + '</b>') if len(aralname) < 80 else aralname[:aralname[:80].rfind(' ') + 1].replace(artist, artist + '</b>') + '<br>' + aralname[aralname[:80].rfind(' ') + 1:]
                             if isMyArtist > 0:
@@ -839,7 +848,10 @@ def CS2NR():
             ym_result = ''
             zv_result = ''
             ym_result = search_album_ym(ym_zv_search_string, ym_year)
-            zv_result = search_album_zv(ym_zv_search_string)
+            if ZVUK_ERROR == '':
+                zv_result = search_album_zv(ym_zv_search_string)
+            else:
+                zv_result = ''
             # -------------------------------
             aralinsert = aralname.replace(row.iloc[0], row.iloc[0] + '</b>') if len(aralname) < 80 else aralname[:aralname[:80].rfind(' ') + 1].replace(row.iloc[0], row.iloc[0] + '</b>') + '<br>' + aralname[aralname[:80].rfind(' ') + 1:]
             writer.writerow({'date': dldDate, 
@@ -999,6 +1011,9 @@ else:
         send_message('New Releases', '\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F')
     if messageCS == 0:
         send_message('Coming Soon', '\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F')
+
+if ZVUK_ERROR != '':
+    print(f'{ZVUK_ERROR}')      
 
 nextWeekReleases_sender()
 
