@@ -1,77 +1,88 @@
-SCRIPT_NAME = "Apple Music Releases Cover Renamer"
-VERSION = "v.2.025.08 [Local]"
-
+import datetime
 import os
 import shutil
-import datetime
 
-# Логирование
-def logger(script_name, log_line):
-    """Запись лога в файл."""
-    with open(log_file, 'r+') as f:
-        content = f.read()
-        f.seek(0, 0)
-        f.write(str(datetime.datetime.now()) + ' - ' + script_name + ' - ' + log_line.rstrip('\r\n') + '\n' + content)
+# CONSTANTS
+SCRIPT_NAME = "Cover Renamer"
+VERSION = "v.2.025.10 [Local]"
 
-rootFolder = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
-log_file = os.path.join(rootFolder, 'status.log')
+ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
+LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
+ORIGINAL_COVERS_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/Проекты/_Covers/_BIG'
 
-# Original root folder path
-originalRootFolder = '/Users/mushroomoff/Yandex.Disk.localized/Проекты/_Covers/_BIG'
+# functions
+def logger(log_line, *args):
+    """Writing log line into log file
+    Only for Local scripts
+    print() without '▲','▼' and leading spaces
+    """
+    if log_line[0] not in ['▲','▼']:
+        log_line = f'  {log_line}'
+    with open(LOG_FILE, 'r+') as log_file:
+        log_file_content = log_file.read()
+        log_file.seek(0, 0)
+        log_file.write(f'{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')} [{SCRIPT_NAME}] {log_line.rstrip('\r\n')}\n{log_file_content}')
+        if 'cover_renamer' in args:
+            log_line = f'{log_line.replace(' >>> ', '\n')}\n'
+        print(log_line[2:])
 
-logMes = f"{VERSION} (c)&(p) 2022-{str(datetime.datetime.now())[0:4]} by Viktor 'MushroomOFF' Gribov"
-logger(f'[{SCRIPT_NAME}]', logMes)
+def main():
+    logger(f'▲ {VERSION}') # Begin
 
-# Prompt user for a path, if nothing is entered, use the original root folder
-rootFolder = input(f'Type me some path (Enter -> {originalRootFolder}): ')
-if rootFolder == '':
-    rootFolder = originalRootFolder
+    # Prompt user for a path, if nothing is entered, use the original covers folder
+    covers_folder = input(f'Path to big covers folder\nEnter -> {ORIGINAL_COVERS_FOLDER}:\n')
+    if covers_folder == '':
+        covers_folder = ORIGINAL_COVERS_FOLDER
 
-# Loop through all files in the root folder
-for checkFile in os.listdir(rootFolder):
-    # Check if the file is a JPG
-    if checkFile[len(checkFile)-3:] == 'jpg':
-        errorMark = 0
-        textBlockCount = checkFile.count(' - ')
+    # Loop through all files in the root folder
+    for check_file in os.listdir(covers_folder):
+        # Check if the file is a JPG or JPEG
+        is_jpg = '.jpg' in check_file.lower()
+        is_jpeg = '.jpeg' in check_file.lower()
+        if is_jpg or is_jpeg:
+            error_mark = False
+            text_block_count = check_file.count(' - ')
 
-        # If the file name contains 2 or 3 ' - ' split the file name into band, album, and other parts
-        if textBlockCount == 2:
-            nBand, nAlbum, nOther = checkFile.split(' - ')
-        elif textBlockCount == 3:
-            nBand, nAlbum, nType, nOther = checkFile.split(' - ')
-            nAlbum = nAlbum + ' [' + nType + ']'
-        else:
-            errorMark = 1
-            logMes = f'ERROR: {checkFile}'
-            logger(f'[{SCRIPT_NAME}]', logMes)  
-            print(f'{logMes}\n')
+            # If the file name contains 2 or 3 ' - ' split the file name into band, album, and other parts
+            if text_block_count == 2:
+                name_band, name_album, name_year = check_file.split(' - ')
+            elif text_block_count == 3:
+                name_band, name_album, name_type, name_year = check_file.split(' - ')
+                name_album = f'{name_album} [{name_type}]'
+            else:
+                error_mark = True
+                logger(f'ERROR: {check_file}')
 
-        # If no errors were found, proceed with the file renaming and moving
-        if errorMark == 0:
-            nBandLetter = str(nBand[0]).upper()
+            # If no errors were found, proceed with the file renaming and moving
+            if not error_mark:
+                name_band_folder = str(name_band[0]).upper()
 
-            # If the band name starts with a Cyrillic letter, set the band letter to 'Русское'
-            if ord(nBandLetter) >= 1025 and ord(nBandLetter) <= 1105:
-                nBandLetter = 'Русское'
-            # If the band name starts with a non-alphabetical character, set the band letter to '0'
-            elif ord(nBandLetter) < 65:
-                nBandLetter = '0'
+                # If the band name starts with a Cyrillic letter, set the band letter to 'Русское'
+                if 1025 <= ord(name_band_folder) <= 1105:
+                    name_band_folder = 'Русское'
+                # If the band name starts with a non-alphabetical character, set the band letter to '0'
+                elif ord(name_band_folder) < 65:
+                    name_band_folder = '0'
 
-            nOutput = str(nOther[:4]) + ' ' + str(nAlbum) + '.jpg'
-            nDirectory = os.path.join(rootFolder, nBandLetter, nBand)
-            cFile = os.path.join(rootFolder, checkFile)
-            nFile = os.path.join(nDirectory, nOutput)
+                if is_jpg:
+                    new_filename_extension = '.jpg'
+                elif is_jpeg:
+                    new_filename_extension = '.jpeg'
 
-            # If the directory does not exist, create it
-            if not os.path.exists(nDirectory):
-                os.makedirs(nDirectory)
+                new_filename = f'{name_year[:4]} {name_album}{new_filename_extension}'
+                new_directory = os.path.join(covers_folder, name_band_folder, name_band)
+                current_file = os.path.join(covers_folder, check_file)
+                new_file = os.path.join(new_directory, new_filename)
 
-            # Move the file to the new directory
-            shutil.move(cFile, nFile)
-            logMes = f'FILE: {checkFile} -> GOTO: {nBandLetter}/{nBand}/{nOutput}'
-            logger(f'[{SCRIPT_NAME}]', logMes)  
-            print(f'FILE: {checkFile}\nGOTO: {nBandLetter}/{nBand}/{nOutput}\n')
+                # If the directory does not exist, create it
+                if not os.path.exists(new_directory):
+                    os.makedirs(new_directory)
 
-logMes = '[V] Done!'
-logger(f'[{SCRIPT_NAME}]', logMes)
-print(logMes)
+                # Move the file to the new directory
+                shutil.move(current_file, new_file)
+                logger(f'FILE: {check_file} >>> GOTO: {name_band_folder}/{name_band}/{new_filename}', 'cover_renamer')
+
+    logger(f'▼ DONE') # End
+
+if __name__ == "__main__":
+    main()

@@ -2,7 +2,6 @@ SCRIPT_NAME = "Apple Music Releases Yandex.Music & Zvuk Lookup"
 VERSION = "v.2.025.10 [Local]"
 # Python 3.12 & Pandas 2.2 ready
 # Zvuk availability check & multiparameters
-# CONTANT_NAME, function_name, variable_name, everything_name!
 
 import os
 import json
