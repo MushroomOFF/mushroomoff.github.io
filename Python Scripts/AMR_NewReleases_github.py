@@ -35,6 +35,7 @@ type_to_name = {'track': 'трек', 'artist': 'исполнитель', 'album'
 BASE_URL = "https://zvuk.com"
 API_ENDPOINTS = {"lyrics": f"{BASE_URL}/api/tiny/lyrics", "stream": f"{BASE_URL}/api/tiny/track/stream", "graphql": f"{BASE_URL}/api/v1/graphql", "profile": f"{BASE_URL}/api/tiny/profile"}
 ZVUK_TOKEN = os.environ['zv_token'] ## GitHub Secrets
+ZVUK_ERROR = ''
 # ZVUK_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36", "Content-Type": "application/json",}
 
 # Establishing session -------------------
