@@ -3,11 +3,11 @@ name: Test run
 on:
   workflow_dispatch:  # Позволяет запускать вручную из веб-интерфейса
 
-env:
-  tg_channel_id: ${{ secrets.TG_CHANNEL_ID }}
-  tg_token: ${{ secrets.TG_TOKEN }}
-  ym_token: ${{ secrets.YM_TOKEN }}
-  zv_token: ${{ secrets.ZV_TOKEN }}
+# env:
+#   tg_channel_id: ${{ secrets.TG_CHANNEL_ID }}
+#   tg_token: ${{ secrets.TG_TOKEN }}
+#   ym_token: ${{ secrets.YM_TOKEN }}
+#   zv_token: ${{ secrets.ZV_TOKEN }}
 
 jobs:
   run-script:
@@ -29,15 +29,15 @@ jobs:
       - name: Execute py script
         run: python 'Python Scripts/AMR_Test_run.py'
 
-      - name: Commit files
-        run: |
-          git config --local user.email "mushroomoff@mail.ru"
-          git config --local user.name "MushroomOFF"
-          git add -A
-          git commit -a -m "Test run"
+      # - name: Commit files
+      #   run: |
+      #     git config --local user.email "mushroomoff@mail.ru"
+      #     git config --local user.name "MushroomOFF"
+      #     git add -A
+      #     git commit -a -m "Test run"
 
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main 
+      # - name: Push changes
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     branch: main 
