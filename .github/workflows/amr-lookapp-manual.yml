@@ -1,8 +1,7 @@
-name: AMR LookApp
+name: AMR LookApp (Manual)
 
 on:
-  schedule:
-    - cron: '39 3 * * 5' # Every Friday at 3:39 UTC (+/- 15 min). 3:39 UTC is 6:39 in Moscow.
+  workflow_dispatch:  # Позволяет запускать вручную из веб-интерфейса
 
 env:
   tg_channel_id: ${{ secrets.TG_CHANNEL_ID }}
@@ -35,7 +34,7 @@ jobs:
           git config --local user.email "mushroomoff@mail.ru"
           git config --local user.name "MushroomOFF"
           git add -A
-          git commit -a -m "AMR LookApp autoupdate"
+          git commit -a -m "AMR LookApp manual run"
 
       - name: Push changes
         uses: ad-m/github-push-action@master

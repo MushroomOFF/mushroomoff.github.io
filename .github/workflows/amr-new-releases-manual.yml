@@ -10,7 +10,7 @@ env:
   zv_token: ${{ secrets.ZV_TOKEN }}
 
 jobs:
-  build:
+  run-script:
 
     runs-on: ubuntu-latest
 
