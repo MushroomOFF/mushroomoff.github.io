@@ -245,6 +245,7 @@ Dream Widow                          | Thrash Metal
 Drowning Pool                        | Alternative
 Dua Lipa                             | Pop
 DVSR                                 | Rap Metal
+Dying Wish                           | Metalcore
 Dynazty                              | Heavy Metal
 E-Rotic                              | Pop
 Eclipse                              | Hard Rock
@@ -255,6 +256,7 @@ Electric Callboy                     | Metalcore
 Element Eighty                       | Nu Metal
 Ellefson                             | Metal
 Eluveitie                            | Folk Metal
+Elwood Stray                         | Metalcore
 Emigrate                             | Industrial Metal
 Emil Bulls                           | Alternative
 Eminem                               | Rap
@@ -358,6 +360,7 @@ Incubus                              | Alternative
 Infant Annihilator                   | Deathcore
 Ingested                             | Technical Death Metal
 Inna                                 | Pop
+Inna Syberia                         | Folk Metal
 Inon Zur                             | Score
 Insomnium                            | Melodic Death Metal
 Interloper                           | Progressive Metal
@@ -466,6 +469,7 @@ Methods of Mayhem                    | Rap Metal
 Michael Jackson                      | Pop
 Mick Gordon                          | Industrial Metal
 Miley Cyrus                          | Pop
+Misanthrope                          | Metal
 Miseration                           | Melodic Death Metal
 Misfire                              | Thrash Metal
 Miss Fortune                         | Alternative
@@ -571,6 +575,7 @@ Red                                  | Alternative
 Red Hot Chili Peppers                | Alternative
 Refuge                               | Power Metal
 ReinXeed                             | Power Metal
+Renunciation                         | Symphonic Black Metal
 Repentance                           | Metalcore
 Return to Dust                       | Alternative
 Revolution Harmony                   | Metal
@@ -606,6 +611,7 @@ Shadow of Intent                     | Melodic Death Metal
 Shokran                              | Progressive Metal
 Sia                                  | Pop
 Siamese                              | Alternative
+Silly Goose                          | Rap Metal
 Sinsaenum                            | Death Metal
 Sion                                 | Metalcore
 Six Feet Under                       | Death Metal
@@ -617,6 +623,7 @@ Slaughter to Prevail                 | Deathcore
 Slayer                               | Thrash Metal
 Sleep Token                          | Metal
 Slipknot                             | Nu Metal
+Slope                                | Alternative
 Smackbound                           | Alternative
 Snoop Dogg                           | Rap
 Snoop Lion                           | Rap

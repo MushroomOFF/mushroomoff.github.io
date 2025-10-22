@@ -3,7 +3,7 @@ import os
 import shutil
 
 # CONSTANTS
-SCRIPT_NAME = "Cover Renamer"
+SCRIPT_NAME = "Covers Renamer"
 VERSION = "v.2.025.10 [Local]"
 
 ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
@@ -13,18 +13,28 @@ ORIGINAL_COVERS_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/Проект�
 # functions
 def logger(log_line, *args):
     """Writing log line into log file
-    Only for Local scripts
-    print() without '▲','▼' and leading spaces
+    * For GitHub Actions use parameter 'github':
+      - add +3 hours to datetime
+      - no print()
+    * For Local scripts without 'github' parameter:
+      - print() without '▲','▼' and leading spaces
+      - additional conditions for print() without logging
     """
     if log_line[0] not in ['▲','▼']:
         log_line = f'  {log_line}'
     with open(LOG_FILE, 'r+') as log_file:
         log_file_content = log_file.read()
         log_file.seek(0, 0)
-        log_file.write(f'{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')} [{SCRIPT_NAME}] {log_line.rstrip('\r\n')}\n{log_file_content}')
-        if 'cover_renamer' in args:
-            log_line = f'{log_line.replace(' >>> ', '\n')}\n'
-        print(log_line[2:])
+        log_date = datetime.datetime.now()
+        if 'github' in args: 
+            log_date = log_date + datetime.timedelta(hours=3)
+        log_file.write(f'{log_date.strftime('%Y-%m-%d %H:%M:%S')} [{SCRIPT_NAME}] {log_line.rstrip('\r\n')}\n{log_file_content}')
+        # Additional conditions for print() without logging
+        # For Local scripts only
+        if 'github' not in args: 
+            if 'covers_renamer' in args:
+                log_line = f'{log_line.replace(' >>> ', '\n')}\n'
+            print(log_line[2:])
 
 def main():
     logger(f'▲ {VERSION}') # Begin
@@ -80,7 +90,7 @@ def main():
 
                 # Move the file to the new directory
                 shutil.move(current_file, new_file)
-                logger(f'FILE: {check_file} >>> GOTO: {name_band_folder}/{name_band}/{new_filename}', 'cover_renamer')
+                logger(f'FILE: {check_file} >>> GOTO: {name_band_folder}/{name_band}/{new_filename}', 'covers_renamer')
 
     logger(f'▼ DONE') # End
 
