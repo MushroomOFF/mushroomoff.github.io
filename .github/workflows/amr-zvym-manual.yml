@@ -14,15 +14,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
-          python-version: "3.13.1"
+          python-version: "3.14.0"
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f 'Python Scripts/requirements.txt' ]; then pip install -r 'Python Scripts/requirements.txt'; fi
+          if [ -f 'Python Scripts/requirements_fresh.txt' ]; then pip install -r 'Python Scripts/requirements_fresh.txt'; fi
       - name: Execute py script
         run: python 'Python Scripts/AMR_ZVYM_github.py'
       - name: Commit files
