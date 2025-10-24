@@ -13,10 +13,10 @@ ORIGINAL_COVERS_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/Проект�
 # functions
 def logger(log_line, *args):
     """Writing log line into log file
-    * For GitHub Actions use parameter 'github':
+    * For GitHub Actions:
       - add +3 hours to datetime
       - no print()
-    * For Local scripts without 'github' parameter:
+    * For Local scripts:
       - print() without '▲','▼' and leading spaces
       - additional conditions for print() without logging
     """
@@ -26,12 +26,12 @@ def logger(log_line, *args):
         log_file_content = log_file.read()
         log_file.seek(0, 0)
         log_date = datetime.datetime.now()
-        if 'github' in args: 
+        if os.getenv("GITHUB_ACTIONS") == "true":
             log_date = log_date + datetime.timedelta(hours=3)
         log_file.write(f'{log_date.strftime('%Y-%m-%d %H:%M:%S')} [{SCRIPT_NAME}] {log_line.rstrip('\r\n')}\n{log_file_content}')
+        # print() for Local scripts only
         # Additional conditions for print() without logging
-        # For Local scripts only
-        if 'github' not in args: 
+        if not os.getenv("GITHUB_ACTIONS"):
             if 'covers_renamer' in args:
                 log_line = f'{log_line.replace(' >>> ', '\n')}\n'
             print(log_line[2:])
