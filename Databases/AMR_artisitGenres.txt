@@ -33,6 +33,7 @@ Alien Ant Farm                       | Alternative
 All for Metal                        | Power Metal
 All Shall Perish                     | Deathcore
 All That Remains                     | Metalcore
+Allt                                 | Metalcore
 Almanac                              | Power Metal
 Alpha Kenny Buddy                    | Nu Metal
 Alphamega                            | Alternative
@@ -104,6 +105,7 @@ Black Stone Cherry                   | Hard Rock
 Black Veil Brides                    | Hard Rock
 Blackbraid                           | Black Metal
 Blackbriar                           | Symphonic Metal
+Blackgold                            | Nu Metal
 Blackmore's Night                    | Rock
 Bleed the Sky                        | Metalcore
 Blind Guardian                       | Power Metal
