@@ -338,6 +338,7 @@ Heart of a Coward                    | Metalcore
 Heaven & Hell                        | Heavy Metal
 Heaven Shall Burn                    | Metalcore
 Hedras                               | Progressive Metal
+Heljareyga                           | Folk Metal
 Hellyeah                             | Groove Metal
 Herman Rarebell                      | Hard Rock
 HIM                                  | Alternative
@@ -387,6 +388,7 @@ John 5                               | Alternative
 John Fogerty                         | Rock
 John Garcia and The Band of Gold     | Stoner Metal
 John Petrucci                        | Progressive Metal
+John Powell                          | Score
 John Williams                        | Score
 Josh Turner                          | Country
 Judicator                            | Power Metal
