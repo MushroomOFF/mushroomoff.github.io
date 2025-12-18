@@ -237,6 +237,7 @@ DJ Pimp & MC Hustla                  | Hip-Hop
 Doja Cat                             | Pop
 Dominum                              | Power Metal
 Don Broco                            | Alternative
+Dorothy                              | Hard Rock
 Downset                              | Rap Metal
 Dr. Dre                              | Rap
 Draconian                            | Gothic Metal
@@ -550,6 +551,8 @@ Pendulum                             | EDM
 Pentakill                            | Heavy Metal
 Perimeter                            | Industrial Metal
 Periphery                            | Progressive Metal
+Persefone                            | Progressive Metal
+Peyton Parrish                       | Metal
 Phil Campbell                        | Hard Rock
 Philippe Charron                     | Score
 Pink                                 | Pop
@@ -705,6 +708,7 @@ The Oath                             | Heavy Metal
 The Offering                         | Groove Metal
 The Offspring                        | Punk Rock
 The Old Dead Tree                    | Progressive Metal
+The Pretty Wild                      | Alternative
 The Prodigy                          | Rave
 The Raven Age                        | Metal
 The Showdown                         | Groove Metal
