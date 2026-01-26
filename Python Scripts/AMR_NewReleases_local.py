@@ -249,7 +249,7 @@ def collect_albums(caLink, caText, caGrad):
     htmlHead = """<head>
   <meta charset="utf-8">
   <title>Apple Music Releases</title>
-  <link rel="stylesheet" type="text/css" href="../Resources/styles.css" />
+  <link rel="stylesheet" type="text/css" href="../../Resources/styles.css" />
   <SCRIPT language=JavaScript type=text/JavaScript>
     <!--
     function show(id) {
@@ -291,7 +291,7 @@ def collect_albums(caLink, caText, caGrad):
   <input id="bX" type="button" value="O" onclick="show_tr('o');" class="bO" />
   <input id="bX" type="button" value="X" onclick="show_tr('x');" class="bX" />
   <input id="bE" type="button" value="  " onclick="show_tr('');" class="bE" />
-  <input type="button" onclick="location.href='../index.html';" value="Index"  class="bI"/>
+  <input type="button" onclick="location.href='../../index.html';" value="Index"  class="bI"/>
   <hr>
 """
 
@@ -434,7 +434,8 @@ def collect_albums(caLink, caText, caGrad):
     monthTextNOW = datetime.datetime.strptime(dldDate, '%Y-%m-%d').strftime('%B')    
     HTMLFile = open(rootFolder + "index.html", "r")
     index = HTMLFile.read()
-    monthDB = index[index.find('<a href="AMRs/AMR ') + len('<a href="AMRs/AMR '):index.find('.html">')]
+    monthDBslice = index[index.find('<a href="AMRs'):index.find('</a><br>')]
+    monthDB = monthDBslice[monthDBslice.rfind(' ') + 1:monthDBslice.rfind('.html">')]
     HTMLFile.close()
     monthTextDB = datetime.datetime.strptime(monthDB, '%Y-%m').strftime('%B')
     yearDB = monthDB[0:4]
@@ -445,8 +446,8 @@ def collect_albums(caLink, caText, caGrad):
         newYear = 1
         with open(rootFolder + 'index.html', 'r+') as idx:
             idxContent = idx.read()
-            idxContent = idxContent.replace('\n    <h2 class="title svelte-hprj71" data-testid="header-title">' + yearDB + ':</h2>',
-                                            '\n    <h2 class="title svelte-hprj71" data-testid="header-title">' + yearNOW + ':</h2>\n        <a href="AMRs/AMR ' + monthNOW + '.html">' + monthTextNOW + '</a><br>\n    <h2 class="title svelte-hprj71" data-testid="header-title">' + yearDB + ':</h2>')
+            idxContent = idxContent.replace(f'\n    <h2 class="title svelte-hprj71" data-testid="header-title">{yearDB}:</h2>',
+                                            f'\n    <h2 class="title svelte-hprj71" data-testid="header-title">{yearNOW}:</h2>\n        <a href="AMRs/{yearNOW}/AMR {monthNOW}.html">{monthTextNOW}</a><br>\n    <h2 class="title svelte-hprj71" data-testid="header-title">{yearDB}:</h2>')
             idx.seek(0, 0)
             idx.write(idxContent)
         idx.close()
@@ -455,19 +456,19 @@ def collect_albums(caLink, caText, caGrad):
             newMonth = 1
             with open(rootFolder + 'index.html', 'r+') as idx:
                 idxContent = idx.read()
-                idxContent = idxContent.replace('\n        <a href="AMRs/AMR ' + monthDB + '.html">' + monthTextDB + '</a>',
-                                                '\n        <a href="AMRs/AMR ' + monthNOW + '.html">' + monthTextNOW + '</a> | \n        <a href="AMRs/AMR ' + monthDB + '.html">' + monthTextDB + '</a>')
+                idxContent = idxContent.replace(f'\n        <a href="AMRs/{yearDB}/AMR {monthDB}.html">{monthTextDB}</a><br>',
+                                                f'\n        <a href="AMRs/{yearDB}/AMR {monthDB}.html">{monthTextDB}</a> | \n        <a href="AMRs/{yearNOW}/AMR {monthNOW}.html">{monthTextNOW}</a><br>')
                 idx.seek(0, 0)
                 idx.write(idxContent)
             idx.close()
 
     if htmlText != '':
         if newMonth == 1 or newYear == 1:
-            with open(amrsFolder + 'AMR ' + monthNOW + '.html', 'w') as h2r:
+            with open(f'{amrsFolder}{yearNOW}/AMR {monthNOW}.html', 'w') as h2r:
                 h2r.write(htmlHead + '\n' + htmlStart + htmlText + htmlEnd + '\n' + htmlFinal)
             h2r.close()            
         else:
-            with open(amrsFolder + 'AMR '+monthNOW + '.html', 'r+') as h2r:
+            with open(f'{amrsFolder}{yearNOW}/AMR {monthNOW}.html', 'r+') as h2r:
                 h2rContent = h2r.read()
                 h2rContent = h2rContent.replace(htmlHead, '')
                 h2r.seek(0, 0)
@@ -765,7 +766,7 @@ def CS2NR():
         htmlHead = """<head>
   <meta charset="utf-8">
   <title>Apple Music Releases</title>
-  <link rel="stylesheet" type="text/css" href="../Resources/styles.css" />
+  <link rel="stylesheet" type="text/css" href="../../Resources/styles.css" />
   <SCRIPT language=JavaScript type=text/JavaScript>
     <!--
     function show(id) {
@@ -807,7 +808,7 @@ def CS2NR():
   <input id="bX" type="button" value="O" onclick="show_tr('o');" class="bO" />
   <input id="bX" type="button" value="X" onclick="show_tr('x');" class="bX" />
   <input id="bE" type="button" value="  " onclick="show_tr('');" class="bE" />
-  <input type="button" onclick="location.href='../index.html';" value="Index"  class="bI"/>
+  <input type="button" onclick="location.href='../../index.html';" value="Index"  class="bI"/>
   <hr>
 """
 
@@ -883,7 +884,8 @@ def CS2NR():
         monthTextNOW = datetime.datetime.strptime(dldDate, '%Y-%m-%d').strftime('%B')    
         HTMLFile = open(rootFolder + "index.html", "r")
         index = HTMLFile.read()
-        monthDB = index[index.find('<a href="AMRs/AMR ') + len('<a href="AMRs/AMR '):index.find('.html">')]
+        monthDBslice = index[index.find('<a href="AMRs'):index.find('</a><br>')] # THIS
+        monthDB = monthDBslice[monthDBslice.rfind(' ') + 1:monthDBslice.rfind('.html">')] # THIS
         HTMLFile.close()
         monthTextDB = datetime.datetime.strptime(monthDB, '%Y-%m').strftime('%B')
         yearDB = monthDB[0:4]
@@ -894,8 +896,8 @@ def CS2NR():
             newYear = 1
             with open(rootFolder + 'index.html', 'r+') as idx:
                 idxContent = idx.read()
-                idxContent = idxContent.replace('\n    <h2 class="title svelte-hprj71" data-testid="header-title">' + yearDB + ':</h2>',
-                                              '\n    <h2 class="title svelte-hprj71" data-testid="header-title">' + yearNOW + ':</h2>\n        <a href="AMRs/AMR ' + monthNOW + '.html">' + monthTextNOW + '</a><br>\n    <h2 class="title svelte-hprj71" data-testid="header-title">' + yearDB + ':</h2>')
+                idxContent = idxContent.replace(f'\n    <h2 class="title svelte-hprj71" data-testid="header-title">{yearDB}:</h2>',
+                                                f'\n    <h2 class="title svelte-hprj71" data-testid="header-title">{yearNOW}:</h2>\n        <a href="AMRs/{yearNOW}/AMR {monthNOW}.html">{monthTextNOW}</a><br>\n    <h2 class="title svelte-hprj71" data-testid="header-title">{yearDB}:</h2>')
                 idx.seek(0, 0)
                 idx.write(idxContent)
             idx.close()
@@ -904,19 +906,19 @@ def CS2NR():
                 newMonth = 1
                 with open(rootFolder + 'index.html', 'r+') as idx:
                     idxContent = idx.read()
-                    idxContent = idxContent.replace('\n        <a href="AMRs/AMR ' + monthDB + '.html">' + monthTextDB + '</a>',
-                                                    '\n        <a href="AMRs/AMR ' + monthNOW + '.html">' + monthTextNOW + '</a> | \n        <a href="AMRs/AMR ' + monthDB + '.html">' + monthTextDB + '</a>')
+                    idxContent = idxContent.replace(f'\n        <a href="AMRs/{yearDB}/AMR {monthDB}.html">{monthTextDB}</a><br>',
+                                                    f'\n        <a href="AMRs/{yearDB}/AMR {monthDB}.html">{monthTextDB}</a> | \n        <a href="AMRs/{yearNOW}/AMR {monthNOW}.html">{monthTextNOW}</a><br>')
                     idx.seek(0, 0)
                     idx.write(idxContent)
                 idx.close()
 
         if htmlText != '':
             if newMonth == 1 or newYear == 1:
-                with open(amrsFolder + 'AMR ' + monthNOW + '.html', 'w') as h2r:
+                with open(f'{amrsFolder}{yearNOW}/AMR {monthNOW}.html', 'w') as h2r:
                     h2r.write(htmlHead + '\n' + htmlStart + htmlText + htmlEnd + '\n' + htmlFinal)
                 h2r.close()            
             else:
-                with open(amrsFolder + 'AMR '+monthNOW + '.html', 'r+') as h2r:
+                with open(f'{amrsFolder}{yearNOW}/AMR {monthNOW}.html', 'r+') as h2r:
                     h2rContent = h2r.read()
                     h2rContent = h2rContent.replace(htmlHead, '')
                     h2r.seek(0, 0)

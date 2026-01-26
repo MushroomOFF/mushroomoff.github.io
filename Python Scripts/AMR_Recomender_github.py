@@ -56,7 +56,7 @@ oks = 0
 ers = 0
 emp = 0
 for index, row in pdNR[pdNR['Best_Fav_New_OK'].isna()].iterrows():
-    amrLink = f'{amrsFolder}AMR {row.iloc[0][0:7]}.html'
+    amrLink = f'{amrsFolder}{row.loc['date'][0:4]}/AMR {row.loc['date'][0:7]}.html'
     htmlFile = open(amrLink, 'r', encoding='utf-8')
     source_code = htmlFile.read()
     str2find = f'<!-- {row.iloc[2]} - {row.iloc[3]} -->'

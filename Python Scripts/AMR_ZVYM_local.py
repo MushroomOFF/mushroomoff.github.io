@@ -232,7 +232,7 @@ def change_amr_button(chstr, sepstr, chlink, zvorym):
     return chstr
 
 def do_amr_file(new_link, zvorym):
-    amrLink = f'{amrsFolder}AMR {row.loc['date'][0:7]}.html'
+    amrLink = f'{amrsFolder}{row.loc['date'][0:4]}/AMR {row.loc['date'][0:7]}.html'
     htmlFile = open(amrLink, 'r', encoding='utf-8')
     source_code = htmlFile.read()
     linksplit = row.loc['link'].split('/')

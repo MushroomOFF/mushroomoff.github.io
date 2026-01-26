@@ -24,7 +24,7 @@ def init_html_head():
     return """<head>
   <meta charset="utf-8">
   <title>Apple Music Releases</title>
-  <link rel="stylesheet" type="text/css" href="../Resources/styles.css" />
+  <link rel="stylesheet" type="text/css" href="../../Resources/styles.css" />
   <script language="JavaScript" type="text/JavaScript">
     <!--
     function show(id) {
@@ -47,7 +47,7 @@ def init_html_head():
   <input id="bO" type="button" value="O" onclick="show_tr('o');" class="bO" />
   <input id="bX" type="button" value="X" onclick="show_tr('x');" class="bX" />
   <input id="bE" type="button" value="  " onclick="show_tr('');" class="bE" />
-  <input type="button" onclick="location.href='../index.html';" value="Index"  class="bI"/>
+  <input type="button" onclick="location.href='../../index.html';" value="Index"  class="bI"/>
   <hr>
 """
 
