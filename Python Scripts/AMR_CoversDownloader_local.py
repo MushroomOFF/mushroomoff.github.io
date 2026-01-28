@@ -5,7 +5,10 @@ import requests
 
 # CONSTANTS
 SCRIPT_NAME = "Covers Downloader"
-VERSION = "v.2.025.10 [Local]"
+VERSION = "2.026.01"
+ENV = 'Local'
+if os.getenv("GITHUB_ACTIONS") == "true":
+    ENV = 'GitHub'
 
 ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
 DB_FOLDER = 'Databases/'
@@ -43,29 +46,15 @@ def main():
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'
     })
 
-    print(f"""
-    ###########################################################
-         _                _        __  __           _         
-        / \\   _ __  _ __ | | ___  |  \\/  |_   _ ___(_) ___    
-       / _ \\ | '_ \\| '_ \\| |/ _ \\ | |\\/| | | | / __| |/ __|   
-      / ___ \\| |_) | |_) | |  __/ | |  | | |_| \\__ \\ | (__    
-     /_/   \\_\\ .__/| .__/|_|\\___| |_|  |_|\\__,_|___/_|\\___|   
-             |_|   |_|  _ \\ ___| | ___  __ _ ___  ___  ___    
-                     | |_) / _ \\ |/ _ \\/ _` / __|/ _ \\/ __|   
-       ____          |  _ <  __/ |  __/ (_| \\__ \\  __/\\__ \\   
-      / ___|_____   _|_|_\\_\\___|_|\\___|\\__,_|___/\\___||___/   
-     | |   / _ \\ \\ / / _ \\ '__/ __|                           
-     | |__| (_) \\ V /  __/ |  \\__ \\                           
-      \\____\\___/ \\_/ \\___|_|  |___/               _           
-     |  _ \\  _____      ___ __ | | ___   __ _  __| | ___ _ __ 
-     | | | |/ _ \\ \\ /\\ / / '_ \\| |/ _ \\ / _` |/ _` |/ _ \\ '__|
-     | |_| | (_) \\ V  V /| | | | | (_) | (_| | (_| |  __/ |   
-     |____/ \\___/ \\_/\\_/ |_| |_|_|\\___/ \\__,_|\\__,_|\\___|_|   
-
-     {VERSION}
-     (c)&(p) 2022-{datetime.datetime.now().strftime("%Y")} by Viktor 'MushroomOFF' Gribov
-    ###########################################################
-    """)
+    if ENV == 'Local': 
+        print_line = f'{SCRIPT_NAME} v.{VERSION}'
+        print_line_len = 30
+        if len(print_line) > 28:
+            print_line_len = len(print_line) + 2
+        print(f"\n{'':{'='}^{print_line_len}}")
+        print(f"{'\033[1m'}{'Alternative & Metal Releases':{' '}^{print_line_len}}{'\033[0m'}")
+        print(f"{print_line:{' '}^{print_line_len}}")
+        print(f"{'':{'='}^{print_line_len}}\n")
 
     while True:
         releases_df = pd.read_csv(RELEASES_DB, sep=";")
@@ -97,7 +86,7 @@ def main():
         releases_df.at[row_index, 'downloadedCover'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         releases_df.to_csv(RELEASES_DB, sep=';', index=False)
 
-    print("\n[V] All Done!")
+    print("\nDONE")
 
 if __name__ == "__main__":
     main()

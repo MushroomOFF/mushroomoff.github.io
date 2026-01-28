@@ -4,7 +4,10 @@ import shutil
 
 # CONSTANTS
 SCRIPT_NAME = "Covers Renamer"
-VERSION = "v.2.025.10 [Local]"
+VERSION = "2.026.01"
+ENV = 'Local'
+if os.getenv("GITHUB_ACTIONS") == "true":
+    ENV = 'GitHub'
 
 ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
 LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
@@ -20,7 +23,7 @@ def logger(log_line, *args):
       - print() without '▲','▼' and leading spaces
       - additional conditions for print() without logging
     """
-    if log_line[0] not in ['▲','▼']:
+    if log_line[0] not in ['▲', '▼']:
         log_line = f'  {log_line}'
     with open(LOG_FILE, 'r+') as log_file:
         log_file_content = log_file.read()
@@ -31,16 +34,27 @@ def logger(log_line, *args):
         log_file.write(f'{log_date.strftime('%Y-%m-%d %H:%M:%S')} [{SCRIPT_NAME}] {log_line.rstrip('\r\n')}\n{log_file_content}')
         # print() for Local scripts only
         # Additional conditions for print() without logging
+        # 'noprint' parameter if no need to print() 
         if not os.getenv("GITHUB_ACTIONS"):
             if 'covers_renamer' in args:
                 log_line = f'{log_line.replace(' >>> ', '\n')}\n'
-            print(log_line[2:])
+            if 'noprint' not in args:
+                print(log_line[2:])
 
 def main():
-    logger(f'▲ {VERSION}') # Begin
+    if ENV == 'Local': 
+        print_line = f'{SCRIPT_NAME} v.{VERSION}'
+        print_line_len = 30
+        if len(print_line) > 28:
+            print_line_len = len(print_line) + 2
+        print(f"\n{'':{'='}^{print_line_len}}")
+        print(f"{'\033[1m'}{'Alternative & Metal Releases':{' '}^{print_line_len}}{'\033[0m'}")
+        print(f"{print_line:{' '}^{print_line_len}}")
+        print(f"{'':{'='}^{print_line_len}}\n")
+    logger(f'▲ v.{VERSION} [{ENV}]', 'noprint') # Begin
 
     # Prompt user for a path, if nothing is entered, use the original covers folder
-    covers_folder = input(f'Path to big covers folder\nEnter -> {ORIGINAL_COVERS_FOLDER}:\n')
+    covers_folder = input(f'Path to big covers folder:\nEnter -> {ORIGINAL_COVERS_FOLDER}\n')
     if covers_folder == '':
         covers_folder = ORIGINAL_COVERS_FOLDER
 
