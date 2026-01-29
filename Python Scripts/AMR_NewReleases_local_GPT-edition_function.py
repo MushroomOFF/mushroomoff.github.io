@@ -23,7 +23,7 @@ def get_download_category(caText):
 def init_html_head():
     return """<head>
   <meta charset="utf-8">
-  <title>Apple Music Releases</title>
+  <title>Alternative & Metal Releases</title>
   <link rel="stylesheet" type="text/css" href="../../Resources/styles.css" />
   <script language="JavaScript" type="text/JavaScript">
     <!--

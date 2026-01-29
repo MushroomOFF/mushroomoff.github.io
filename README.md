@@ -1,4 +1,4 @@
-# [Apple Music New Releases](https://mushroomoff.github.io)
+# [Alternative & Metal Releases](https://mushroomoff.github.io)
 There will be some description... soon!
 
 ## Index
@@ -8,8 +8,8 @@ There will be some description... soon!
 - *status.log* - GitHub Actions log
 
 ### /.github/workflows
-- *AMR_LookApp.yml* - YAML to run GitHub Action "Apple Music Releases LookApp" on schedule: Every Friday at 3:39 UTC (+/- 15 min). 3:39 UTC is 6:39 in Moscow
-- *AMR_NewReleases.yml* - YAML to run GitHub Action "Apple Music New Releases" on schedule: Every Friday at 5:09 UTC (+/- 15 min). 5:09 UTC is 8:09 in Moscow.
+- *AMR_LookApp.yml* - YAML to run GitHub Action "AMR LookApp" on schedule: Every Friday at 3:39 UTC (+/- 15 min). 3:39 UTC is 6:39 in Moscow
+- *AMR_NewReleases.yml* - YAML to run GitHub Action "AMR New Releases" on schedule: Every Friday at 5:09 UTC (+/- 15 min). 5:09 UTC is 8:09 in Moscow.
 
 ### /AMRs
 - *AMR YYYY-MM.html* - HTMLs for each month with new releases (YYYY - year, MM - month)

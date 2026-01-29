@@ -247,7 +247,7 @@ def collect_albums(caLink, caText, caGrad):
     dldDate = str(datetime.datetime.now())[0:10]
     htmlHead = """<head>
   <meta charset="utf-8">
-  <title>Apple Music Releases</title>
+  <title>Alternative & Metal Releases</title>
   <link rel="stylesheet" type="text/css" href="../../Resources/styles.css" />
   <SCRIPT language=JavaScript type=text/JavaScript>
     <!--
@@ -764,7 +764,7 @@ def CS2NR():
         dldDate = str(datetime.datetime.now())[0:10]
         htmlHead = """<head>
   <meta charset="utf-8">
-  <title>Apple Music Releases</title>
+  <title>Alternative & Metal Releases</title>
   <link rel="stylesheet" type="text/css" href="../../Resources/styles.css" />
   <SCRIPT language=JavaScript type=text/JavaScript>
     <!--

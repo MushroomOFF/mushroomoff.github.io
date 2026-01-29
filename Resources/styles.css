@@ -4,6 +4,14 @@ a:link, a:visited {color: rgba(0, 0, 0, 0.85);}
 a:hover {text-decoration: underline;}
 .preview {font-size: 13px;font-weight: 200;}
 .album_name {padding: 5px;}
+
+a.nolink {
+	color: rgba(128, 128, 128);
+}
+a.nolink:hover {
+	color: rgba(128, 128, 128);
+	text-decoration: none;
+}
 table {
   border-collapse: collapse;
   border: 1px;
@@ -31,6 +39,7 @@ div.hdr{
 	margin-left: 40px;
 	margin-right: 40px;
 	padding-top: 32px;
+	vertical-align: middle;
 }
 
 div.main {
