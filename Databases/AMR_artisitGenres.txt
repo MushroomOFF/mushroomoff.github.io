@@ -97,7 +97,7 @@ Beyond Creation                   | Technical Death Metal
 Beyond the Black                  | Symphonic Metal
 Billie Eilish                     | Pop
 Billy Morrison                    | Hard Rock
-Bilmiru                           | Alternative
+Bilmuri                           | Alternative
 Black Crown Initiate              | Progressive Metal
 Black Earth                       | Melodic Death Metal
 Black Eyed Peas                   | Hip-Hop
@@ -115,6 +115,7 @@ Blindside                         | Alternative
 Blink-182                         | Punk Rock
 Bloodbath                         | Death Metal
 Bloodhound Gang                   | Alternative
+Bloodred Hourglass                | Melodic Death Metal
 Bloody Hammers                    | Hard Rock
 Bloodywood                        | Nu Metal
 Blotted Science                   | Progressive Metal
@@ -185,6 +186,7 @@ Cryptopsy                         | Technical Death Metal
 Cyhra                             | Metal
 Cypress Hill                      | Rap Metal
 Daath                             | Melodic Death Metal
+Dagger Threat                     | Metalcore
 Damageplan                        | Groove Metal
 Dan Forden                        | Soundtrack
 Daniel Licht                      | Score
@@ -218,7 +220,6 @@ Dethklok                          | Melodic Death Metal
 Dev                               | Pop
 Devil You Know                    | Metalcore
 Devilment                         | Gothic Metal
-Devin Townsend                    | Country
 Devin Townsend                    | Progressive Metal
 DGM                               | Progressive Metal
 Diabulus in Musica                | Symphonic Metal
