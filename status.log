@@ -1,3 +1,6 @@
+2026-01-31 09:56:53.831671 - [Apple Music Releases Yandex.Music & Zvuk Lookup] - [V] Done!
+2026-01-31 09:56:53.828896 - [Apple Music Releases Yandex.Music & Zvuk Lookup] - Zvuk Error: HTTPSConnectionPool(host='zvuk.com', port=443): Max retries exceeded with url: /api/v1/graphql (Caused by ConnectTimeoutError(<HTTPSConnection(host='zvuk.com', port=443) at 0x7fba272dd1d0>, 'Connection to zvuk.com timed out. (connect timeout=None)'))
+2026-01-31 09:54:30.893032 - [Apple Music Releases Yandex.Music & Zvuk Lookup] - v.2.025.10 [GitHub] (c)&(p) 2022-2026 by Viktor 'MushroomOFF' Gribov
 2026-01-30 14:13:14.484054 - [Apple Music Releases Recomender] - [V] Done!
 2026-01-30 14:13:14.481403 - [Apple Music Releases Recomender] - New Releases: 0; Top Releases: 0
 2026-01-30 14:13:14.441831 - [Apple Music Releases Recomender] - OK: 0; Emptys: 44; Errors: 0
