@@ -118,7 +118,6 @@ def logger(log_line, *args):
             if 'noprint' not in args:
                 print(log_line[2:])
 
-# Процедура Поиска релизов исполнителя в базе iTunes  
 def find_releases(find_artist_id, artist_print_name):
     global message_to_send, message_empty, message_error, message_bad_id, session, countries_list
 
@@ -143,7 +142,7 @@ def find_releases(find_artist_id, artist_print_name):
             logger(f'{artist_print_name} - {find_artist_id} - {country} - ERROR ({response.status_code})')
             message_error += f'\n{EMOJI_DICT[country]} *{replace_symbols_markdown_v2(artist_print_name.replace('&amp;','and'))}*'
 
-        # Anti-blocking
+        # Pause to bypass iTunes server blocking
         time.sleep(1) 
 
     # Remove duplicates via 'artworkUrl100'
@@ -165,7 +164,7 @@ def find_releases(find_artist_id, artist_print_name):
             new_release_counter = 0
             new_cover_counter = 0
 
-            for index, row in export_df.iterrows():
+            for _, row in export_df.iterrows():
                 collection_id = row['collectionId']
                 artwork_url_d = row['artworkUrl100'].replace('100x100bb', '100000x100000-999')
 
@@ -173,7 +172,7 @@ def find_releases(find_artist_id, artist_print_name):
                     update_reason = 'New release'
                     new_release_counter += 1
                 elif itunes_db_df[itunes_db_df['artworkUrlD'].str[40:] == artwork_url_d[40:]].empty:
-                    # .str[40:] ------------------------------V check cover link duplicates, no matter the server address
+                    # .str[40:] ------------------------------V The link matching check will start from here, since identical covers can be located on different servers
                     # https://is2-ssl.mzstatic.com/image/thumb/Music/v4/b2/cc/64/b2cc645c-9f18-db02-d0ab-69e296ea4d70/source/100000x100000-999.jpg            
                     update_reason = 'New cover'
                     new_cover_counter += 1
@@ -285,7 +284,8 @@ def main():
         artist_id_df.at[row_index, 'downloaded'] = date_of_update
         artist_id_df.to_csv(ARTIST_ID_DB, sep=';', index=False)
 
-        time.sleep(1.5) # anti-blocking
+        # Pause to bypass iTunes server blocking
+        time.sleep(1.5) 
 
     print(f'{'':55}')
 

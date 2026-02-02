@@ -5,186 +5,191 @@ import csv
 import time
 import datetime
 
-SCRIPT_NAME = "Apple Music Releases LookApp Errors"
-VERSION = "v.2.024.8 [Local]"
+# CONSTANTS
+SCRIPT_NAME = "LookApp Errors"
+VERSION = "2.026.02"
+ENV = 'Local'
+if os.getenv("GITHUB_ACTIONS") == "true":
+    ENV = 'GitHub'
 
-# Инициализация переменных
-root_folder = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io'
-db_folder = 'Databases'
-releases_db = os.path.join(root_folder, db_folder, 'AMR_releases_DB.csv')
-artist_id_db = os.path.join(root_folder, db_folder, 'AMR_artisitIDs.csv')
-log_file = os.path.join(root_folder, 'status.log')
-field_names = ['dateUpdate', 'downloadedRelease', 'mainArtist', 'artistName', 'collectionName', 
+if ENV == 'Local':
+    ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
+elif ENV == 'GitHub':
+    ROOT_FOLDER = ''
+DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
+RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_releases_DB.csv')
+ARTIST_ID_DB = os.path.join(DB_FOLDER, 'AMR_artisitIDs.csv')
+LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
+FIELDNAMES_DICT = ['dateUpdate', 'downloadedRelease', 'mainArtist', 'artistName', 'collectionName', 
                'trackCount', 'releaseDate', 'releaseYear', 'mainId', 'artistId', 'collectionId', 
                'country', 'artworkUrlD', 'downloadedCover', 'updReason']
-session = requests.Session() 
-session.headers.update({
-    'Referer': 'https://itunes.apple.com',
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'
-})
-key_logger = ''
 
-# Функции
-def logger(script_name, log_line):
-    """Запись лога в файл."""
-    with open(log_file, 'r+') as f:
-        content = f.read()
-        f.seek(0, 0)
-        f.write(str(datetime.datetime.now()) + ' - ' + script_name + ' - ' + log_line.rstrip('\r\n') + '\n' + content)
+session = requests.Session() 
+session.headers.update({'Referer': 'https://itunes.apple.com', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'})
+
+# functions
+def print_name():
+    print_line = f'{SCRIPT_NAME} v.{VERSION}'
+    print_line_len = 30
+    if len(print_line) > 28:
+        print_line_len = len(print_line) + 2
+    print(f"\n{'':{'='}^{print_line_len}}")
+    print(f"{'\033[1m'}{'Alternative & Metal Releases':{' '}^{print_line_len}}{'\033[0m'}")
+    print(f"{print_line:{' '}^{print_line_len}}")
+    print(f"{'':{'='}^{print_line_len}}\n")
+
+def logger(log_line, *args):
+    """Writing log line into log file
+    * For GitHub Actions:
+      - add +3 hours to datetime
+      - no print()
+    * For Local scripts:
+      - print() without '▲','▼' and leading spaces
+      - additional conditions for print() without logging
+      - arguments is optional
+      
+      example - begin message:  logger(f'▲ v.{VERSION} [{ENV}]', 'noprint') # Begin
+      example - normal message: logger(f'ERROR: {check_file}')
+      example - end message:    logger(f'▼ DONE') # End
+    """
+    if log_line[0] not in ['▲', '▼']:
+        log_line = f'  {log_line}'
+    with open(LOG_FILE, 'r+') as log_file:
+        log_file_content = log_file.read()
+        log_file.seek(0, 0)
+        log_date = datetime.datetime.now()
+        if os.getenv("GITHUB_ACTIONS") == "true":
+            log_date = log_date + datetime.timedelta(hours=3)
+        log_file.write(f'{log_date.strftime('%Y-%m-%d %H:%M:%S')} [{SCRIPT_NAME}] {log_line.rstrip('\r\n')}\n{log_file_content}')
+        # print() for Local scripts only
+        # Additional conditions for print() without logging
+        # 'noprint' parameter if no need to print() 
+        if not os.getenv("GITHUB_ACTIONS"):
+            if 'covers_renamer' in args:
+                log_line = f'{log_line.replace(' >>> ', '\n')}\n'
+            if 'noprint' not in args:
+                print(log_line[2:])
 
 def find_errors():
-    """Поиск в логе ошибок последнего запуска Apple Music Releases LookApp через GitHub Actions."""
-    with open(log_file, 'r') as lf:
+    """Finding errors in the AMR LookApp last run log"""
+    with open(LOG_FILE, 'r') as lf:
         log_lines = lf.readlines()
 
-    # Ищем индексы первой и последней записи свежей отработки Apple Music Releases LookApp
-    start_idx = next((i for i, line in enumerate(log_lines) 
+    # Looking for the indexes of the first and last recording of AMR LookApp run
+    begin_idx = next((i for i, line in enumerate(log_lines) 
                       if '[LookApp] ▼' in line), None)
 
     end_idx = next((i for i, line in enumerate(log_lines) 
                     if '[LookApp] ▲' in line), None)
     
-    if start_idx is None or end_idx is None or start_idx >= end_idx:
+    if begin_idx is None or end_idx is None or begin_idx >= end_idx:
         print("There's no errors in last AMR LookApp run")
         return []
 
     suffix = ('ERROR (503)\n', 'ERROR (502)\n')
-    # Собираем группы и страны, которые необходимо повторно проверить
+    # List of Artists, IDs and Countries to check
     error_list = [
-        line.split(' - ')[0:3] # режем строку лога и берём 2, 3 и 4 куски
-        for line in log_lines[start_idx:end_idx] # смотрим только строки между начальным и конечным индексами
-        if line.endswith(suffix) # берём только строки, где есть ошибка 503
+        line.split(' - ')[0:3]
+        for line in log_lines[begin_idx:end_idx]
+        if line.endswith(suffix)
     ]
     for error_line in error_list:
         error_line[0] = error_line[0].split('   ')[1]
 
-    print(f'Найдено ошибок: {len(error_list)}')
+    print(f'Errors found: {len(error_list)}')
     return error_list
 
-def find_releases(artist_id, country, artist_print_name):
-    """
-    Собирает релизы определенных Исполнителей в конкретных Странах из базы iTunes.
+def find_releases(find_artist_id, artist_print_name, country):
+    # All releases of one Artist (all countries)
+    all_releases_df = pd.DataFrame()
+    # Unique releases of one Artist
+    export_df = pd.DataFrame()
 
-    :param artist_id: ID Исполнителя для поиска.
-    :param country: Текстовый код страны для поиска.
-    :param artist_print_name: Название Исполнителя для отображения и логирования.
-    """
-    all_data = pd.DataFrame()
-    df_export = pd.DataFrame()
-    # errors_found = False
-
-    url = f'https://itunes.apple.com/lookup?id={artist_id}&country={country}&entity=album&limit=200'
+    url = f'https://itunes.apple.com/lookup?id={find_artist_id}&country={country}&entity=album&limit=200'
     response = session.get(url)
 
     if response.status_code == 200:
-        data = response.json()
-        if data['resultCount'] > 1:
-            df_temp = pd.DataFrame(data['results'])
-            all_data = pd.concat([all_data, df_temp[[
+        json_parsed = response.json()
+        if json_parsed['resultCount'] > 1:
+            temp_df = pd.DataFrame(json_parsed['results'])
+            all_releases_df = pd.concat([all_releases_df, temp_df[[
                 'artistName', 'artistId', 'collectionId', 'collectionName',
                 'artworkUrl100', 'trackCount', 'country', 'releaseDate'
             ]]], ignore_index=True)
         else:
-            print(f'\n {country} - EMPTY')
-            logger(f'[{SCRIPT_NAME}]', f'{artist_print_name} - {artist_id} - {country} - EMPTY')
-            # errors_found = True
+            logger(f'{artist_print_name} - {find_artist_id} - {country} - EMPTY')
     else:
-        print(f'\n {country} - ERROR ({response.status_code})')
-        logger(f'[{SCRIPT_NAME}]', f'{artist_print_name} - {artist_id} - {country} - ERROR ({response.status_code})')
-        # errors_found = True
+        logger(f'{artist_print_name} - {find_artist_id} - {country} - ERROR ({response.status_code})')
 
-    # Пауза для обхода блокировки сервера iTunes
+    # Pause to bypass iTunes server blocking
     time.sleep(1)
 
-    # Убираем дубликаты по ссылке на обложку 'artworkUrl100'
-    all_data.drop_duplicates(subset='artworkUrl100', keep='first', inplace=True, ignore_index=True)
+    # Remove duplicates via 'artworkUrl100'
+    all_releases_df.drop_duplicates(subset='artworkUrl100', keep='first', inplace=True, ignore_index=True)
 
-#     # Отбираем для сохранения записи с заполненным 'collectionName'
-    if not all_data.empty:
-        df_export = all_data.loc[all_data['collectionName'].notna()]
-#     else:
-#         print(f'\n Bad ID: {artist_id}', end='', flush=True)
-#         logger(f'[{SCRIPT_NAME}]', f'{artist_print_name} - {artist_id} - Bad ID')
-#         errors_found = True
-    
-#     # ! ПРОВЕРЬ нужно ли это?
-#     if errors_found:
-#         print('')
+    # Select the rows with the filled 'collectionName'
+    if not all_releases_df.empty:
+        export_df = all_releases_df.loc[all_releases_df['collectionName'].notna()]
 
-    if not df_export.empty:
-        pdi_tunes_db = pd.read_csv(releases_db, sep=";")
+    if not export_df.empty:
+        itunes_db_df = pd.read_csv(RELEASES_DB, sep=";")
 
-        with open(releases_db, 'a+', newline='') as csvfile:
-            writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=field_names)
+        with open(RELEASES_DB, 'a+', newline='') as csv_file:
+            writer = csv.DictWriter(csv_file, delimiter=';', fieldnames=FIELDNAMES_DICT)
 
             date_update = datetime.datetime.now().strftime('%Y-%m-%d')
-            new_rel_counter = 0
-            new_cov_counter = 0
+            new_release_counter = 0
+            new_cover_counter = 0
 
-            for _, row in df_export.iterrows():
+            for _, row in export_df.iterrows():
                 collection_id = row['collectionId']
-                # artwork_url = row['artworkUrl100']
                 artwork_url_d = row['artworkUrl100'].replace('100x100bb', '100000x100000-999')
 
-                if pdi_tunes_db[pdi_tunes_db['collectionId'] == collection_id].empty:
-                    upd_reason = 'New release'
-                    new_rel_counter += 1
-                elif pdi_tunes_db[pdi_tunes_db['artworkUrlD'].str[40:] == artwork_url_d[40:]].empty:
-                    # .str[40:] ------------------------------V проверка ссылок на совпадение пойдет отсюда, т.к. одиннаковые обложки могут лежать на разных серверах
+                if itunes_db_df[itunes_db_df['collectionId'] == collection_id].empty:
+                    update_reason = 'New release'
+                    new_release_counter += 1
+                elif itunes_db_df[itunes_db_df['artworkUrlD'].str[40:] == artwork_url_d[40:]].empty:
+                    # .str[40:] ------------------------------V The link matching check will start from here, since identical covers can be located on different servers
                     # https://is2-ssl.mzstatic.com/image/thumb/Music/v4/b2/cc/64/b2cc645c-9f18-db02-d0ab-69e296ea4d70/source/100000x100000-999.jpg            
-                    upd_reason = 'New cover'
-                    new_cov_counter += 1
+                    update_reason = 'New cover'
+                    new_cover_counter += 1
                 else:
                     continue
 
                 writer.writerow({
-                    'dateUpdate': date_update, 'downloadedRelease': '', 'mainArtist': artist_print_name,
+                    'dateUpdate': update_date, 'downloadedRelease': '', 'mainArtist': artist_print_name,
                     'artistName': row['artistName'], 'collectionName': row['collectionName'], 
                     'trackCount': row['trackCount'], 'releaseDate': row['releaseDate'][:10], 
-                    'releaseYear': row['releaseDate'][:4], 'mainId': artist_id, 'artistId': row['artistId'], 
-                    'collectionId': collection_id, 'country': row['country'], 'artworkUrlD': artwork_url_d, 
-                    'downloadedCover': '', 'updReason': upd_reason
+                    'releaseYear': row['releaseDate'][:4], 'mainId': find_artist_id, 'artistId': row['artistId'], 
+                    'collectionId': collectionId, 'country': row['country'], 'artworkUrlD': artwork_url_d, 
+                    'downloadedCover': '', 'updReason': update_reason
                     })
 
-        del pdi_tunes_db
+        del itunes_db_df
         
-        if new_rel_counter + new_cov_counter > 0:
-            print(f'\n^ {new_rel_counter + new_cov_counter} new records: {new_rel_counter} releases, {new_cov_counter} covers')
-            logger(f'[{SCRIPT_NAME}]', f'{artist_print_name} - {artist_id} - {country} - {new_rel_counter + new_cov_counter} new records: {new_rel_counter} releases, {new_cov_counter} covers')
+        if new_release_counter + new_cover_counter > 0:
+            logger(f'{artist_print_name} - {find_artist_id} - {new_release_counter + new_cover_counter} new records: {new_release_counter} releases, {new_cover_counter} covers')
 
-# Основной код
-print("########################################################")
-print("""     _    __  __ ____                        
-    / \\  |  \\/  |  _ \\                       
-   / _ \\ | |\\/| | |_) |                      
-  / ___ \\| |  | |  _ <                       
- /_/   \\_\\_|  |_|_|_\\_\\     _                
- | |    ___   ___ | | __   / \\   _ __  _ __  
- | |   / _ \\ / _ \\| |/ /  / _ \\ | '_ \\| '_ \\ 
- | |__| (_) | (_) |   <  / ___ \\| |_) | |_) |
- |_____\\___/ \\___/|_|\\_\\/_/   \\_\\ .__/| .__/ 
- | ____|_ __ _ __ ___  _ __ ___ |_|   |_|    
- |  _| | '__| '__/ _ \\| '__/ __|             
- | |___| |  | | | (_) | |  \\__ \\             
- |_____|_|  |_|  \\___/|_|  |___/
- """)
-print(f" {VERSION}")
-print(f" (c)&(p) 2022-{datetime.datetime.now().strftime('%Y')} by Viktor 'MushroomOFF' Gribov")
-print("########################################################")
-print('')
-logger(f'[{SCRIPT_NAME}]', f"{VERSION} (c)&(p) 2022-{datetime.datetime.now().strftime('%Y')} by Viktor 'MushroomOFF' Gribov")
+def main():
 
-artist_list = find_errors()
-key_logger = input("Продолжить - Enter ")
+    if ENV == 'Local': 
+        print_name()
+    logger(f'▲ v.{VERSION} [{ENV}]', 'noprint') # Begin
 
-if key_logger == '':
-    for artist_name, artist_id, country in artist_list:
-        print(f'{(artist_name + ' - ' + str(artist_id) + ' - ' + country):55}', end='\r')
-        find_releases(artist_id, country, artist_name)
+    artist_list = find_errors()
+    key_logger = input("[Enter] to continue: ")
 
-print(f'{'':55}')
- 
-if key_logger == '':
-    logger(f'[{SCRIPT_NAME}]', '[V] Done!')
-else:
-    logger(f'[{SCRIPT_NAME}]', '[X] Aborted!')
+    if key_logger == '':
+        for artist_print_name, find_artist_id, country in artist_list:
+            print(f'{(artist_print_name + ' - ' + str(find_artist_id) + ' - ' + country):55}', end='\r')
+            find_releases(find_artist_id, artist_print_name, country)
+
+    print(f'{'':55}')
+     
+    if key_logger == '':
+        logger(f'▼ DONE') # Good end
+    else:
+        logger(f'▼ DONE [canceled]') # Bad end
+
+if __name__ == "__main__":
+    main()
