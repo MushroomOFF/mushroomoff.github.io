@@ -61,8 +61,8 @@ def send_message(topic, text):
     """Sending Telegram message 
     """    
     method = f"{URL}{TOKEN}/sendMessage"
-    request = requests.post(method, data={"message_thread_id": THREAD_ID_DICT[topic], "chat_id": CHAT_ID, "parse_mode": 'MarkdownV2', "text": text})
-    json_response = json.loads(request.text)
+    response = requests.post(method, data={"message_thread_id": THREAD_ID_DICT[topic], "chat_id": CHAT_ID, "parse_mode": 'MarkdownV2', "text": text})
+    json_response = json.loads(response.text)
     result_message_id = json_response['result']['message_id']   
     return result_message_id
 
@@ -121,96 +121,78 @@ def logger(log_line, *args):
 # Процедура Поиска релизов исполнителя в базе iTunes  
 def find_releases(find_artist_id, artist_print_name):
     global message_to_send, message_empty, message_error, message_bad_id, session, countries_list
-    all_releases_df = pd.DataFrame() #All releases of one Artist (all countries)
-    export_df = pd.DataFrame() #Unique releases of one Artist
-    is_error = False
+
+    # All releases of one Artist (all countries)
+    all_releases_df = pd.DataFrame()
+    # Unique releases of one Artist
+    export_df = pd.DataFrame()
+
     for country in countries_list:
         url = f'https://itunes.apple.com/lookup?id={find_artist_id}&country={country}&entity=album&limit=200'
-        request = session.get(url)
-        if request.status_code == 200:     
-            json_parsed = json.loads(request.text)
+        response = session.get(url)
+
+        if response.status_code == 200:     
+            json_parsed = response.json()
             if json_parsed['resultCount'] > 1:
                 temp_df = pd.DataFrame(json_parsed['results'])
                 all_releases_df = pd.concat([all_releases_df, temp_df[['artistName', 'artistId', 'collectionId', 'collectionName', 'artworkUrl100', 'trackCount', 'country', 'releaseDate']]], ignore_index=True)
             else:
-                if not is_error and ENV == 'Local':
-                    print('\n', end='')
-                print(f' {country} - EMPTY |', sep=' ', end='', flush=True)
-                logger(f'{artist_print_name} - {find_artist_id} - {country} - EMPTY', 'noprint')
+                logger(f'{artist_print_name} - {find_artist_id} - {country} - EMPTY')
                 message_empty += f'\n{EMOJI_DICT[country]} *{replace_symbols_markdown_v2(artist_print_name.replace('&amp;','and'))}*'
-                is_error = True
         else:
-            if not is_error and ENV == 'Local':
-                print('\n', end='')
-            print(f' {country} - ERROR ({request.status_code}) |', sep=' ', end='', flush=True)
-            logger(f'{artist_print_name} - {find_artist_id} - {country} - ERROR ({request.status_code})', 'noprint')
+            logger(f'{artist_print_name} - {find_artist_id} - {country} - ERROR ({response.status_code})')
             message_error += f'\n{EMOJI_DICT[country]} *{replace_symbols_markdown_v2(artist_print_name.replace('&amp;','and'))}*'
-            is_error = True
-        time.sleep(1) # anti-blocking
+
+        # Anti-blocking
+        time.sleep(1) 
+
+    # Remove duplicates via 'artworkUrl100'
     all_releases_df.drop_duplicates(subset='artworkUrl100', keep='first', inplace=True, ignore_index=True)
+
     if not all_releases_df.empty:
         export_df = all_releases_df.loc[all_releases_df['collectionName'].notna()]
     elif len(countries_list) > 1:
-        if not is_error and ENV == 'Local':
-            print('\n', end='')
-        print(f' Bad ID: {find_artist_id}', sep=' ', end='', flush=True)
-        logger(f'{artist_print_name} - {find_artist_id} - Bad ID', 'noprint')
+        logger(f'{artist_print_name} - {find_artist_id} - Bad ID')
         message_bad_id += f'\n{EMOJI_DICT['no']} *{replace_symbols_markdown_v2(artist_print_name.replace('&amp;','and'))}*'
-        is_error = True
-
-    if is_error and ENV == 'Local':
-        print ('') 
 
     if not export_df.empty:
         itunes_db_df = pd.read_csv(RELEASES_DB, sep=";")
-        csv_file = open(RELEASES_DB, 'a+', newline='')
-        writer = csv.DictWriter(csv_file, delimiter=';', fieldnames=FIELDNAMES_DICT)
 
-        dateUpdate = datetime.datetime.now().strftime('%Y-%m-%d')        
-        mainArtist = artist_print_name
-        mainId = find_artist_id
-        updReason = ''
-        new_release_counter = 0
-        new_cover_counter = 0
+        with open(RELEASES_DB, 'a+', newline='') as csv_file:
+            writer = csv.DictWriter(csv_file, delimiter=';', fieldnames=FIELDNAMES_DICT)
 
-        for index, row in export_df.iterrows():
-            artistName = row.iloc[0]
-            artistId = row.iloc[1]
-            collectionId = row.iloc[2]
-            collectionName = row.iloc[3]
-            artworkUrl100 = row.iloc[4]
-            trackCount = row.iloc[5]
-            countryCode = row.iloc[6]
-            releaseDate = row.iloc[7][:10]
-            releaseYear = row.iloc[7][:4]
-            artworkUrlD = row.iloc[4].replace('100x100bb', '100000x100000-999')
-            downloadedCover = ''
-            downloadedRelease = ''
-            updReason = ''
-            if len(itunes_db_df.loc[itunes_db_df['collectionId']  == export_df.iloc[index-1]['collectionId']]) == 0:
-                updReason = 'New release'
-                new_release_counter += 1
-            elif len(itunes_db_df[itunes_db_df['artworkUrlD'].str[40:] == export_df.iloc[index-1]['artworkUrl100'].replace('100x100bb', '100000x100000-999')[40:]]) == 0:
-                updReason = 'New cover'
-                new_cover_counter += 1
-                #.str[40] -------------------------------V
-                #https://is2-ssl.mzstatic.com/image/thumb/Music/v4/b2/cc/64/b2cc645c-9f18-db02-d0ab-69e296ea4d70/source/100000x100000-999.jpg
+            update_date = datetime.datetime.now().strftime('%Y-%m-%d')
+            new_release_counter = 0
+            new_cover_counter = 0
 
-            if updReason:
+            for index, row in export_df.iterrows():
+                collection_id = row['collectionId']
+                artwork_url_d = row['artworkUrl100'].replace('100x100bb', '100000x100000-999')
+
+                if itunes_db_df[itunes_db_df['collectionId'] == collection_id].empty:
+                    update_reason = 'New release'
+                    new_release_counter += 1
+                elif itunes_db_df[itunes_db_df['artworkUrlD'].str[40:] == artwork_url_d[40:]].empty:
+                    # .str[40:] ------------------------------V check cover link duplicates, no matter the server address
+                    # https://is2-ssl.mzstatic.com/image/thumb/Music/v4/b2/cc/64/b2cc645c-9f18-db02-d0ab-69e296ea4d70/source/100000x100000-999.jpg            
+                    update_reason = 'New cover'
+                    new_cover_counter += 1
+                else:
+                    continue
+
                 writer.writerow({
-                    'dateUpdate': dateUpdate, 'downloadedRelease': downloadedRelease, 'mainArtist': mainArtist,
-                    'artistName': artistName, 'collectionName': collectionName, 'trackCount': trackCount, 
-                    'releaseDate': releaseDate, 'releaseYear': releaseYear, 'mainId': mainId, 'artistId': artistId, 
-                    'collectionId': collectionId, 'country': countryCode, 'artworkUrlD': artworkUrlD, 
-                    'downloadedCover': downloadedCover, 'updReason': updReason
+                    'dateUpdate': update_date, 'downloadedRelease': '', 'mainArtist': artist_print_name,
+                    'artistName': row['artistName'], 'collectionName': row['collectionName'], 
+                    'trackCount': row['trackCount'], 'releaseDate': row['releaseDate'][:10], 
+                    'releaseYear': row['releaseDate'][:4], 'mainId': find_artist_id, 'artistId': row['artistId'], 
+                    'collectionId': collectionId, 'country': row['country'], 'artworkUrlD': artwork_url_d, 
+                    'downloadedCover': '', 'updReason': update_reason
                     })
 
-        csv_file.close()
-        itunes_db_df = pd.DataFrame()
+        del itunes_db_df
         
-        if (new_release_counter + new_cover_counter) > 0:
-            print(f'\n^ {new_release_counter + new_cover_counter} new records: {new_release_counter} releases, {new_cover_counter} covers')
-            logger(f'{artist_print_name} - {find_artist_id} - {new_release_counter + new_cover_counter} new records: {new_release_counter} releases, {new_cover_counter} covers', 'noprint')
+        if new_release_counter + new_cover_counter > 0:
+            logger(f'{artist_print_name} - {find_artist_id} - {new_release_counter + new_cover_counter} new records: {new_release_counter} releases, {new_cover_counter} covers')
             if new_release_counter > 0 :
                 iconka = 'album'
             else:
@@ -261,7 +243,7 @@ def main():
 
     artist_id_df = pd.read_csv(ARTIST_ID_DB, sep=';')
     if ENV == 'Local':
-        artist_to_find = artist_id_df['mainArtist'][artist_id_df['downloaded'].isna() & artist_id_df['mainId'] > 0].head(1)
+        artist_to_find = artist_id_df['mainArtist'][(artist_id_df['downloaded'].isna()) & (artist_id_df['mainId'] > 0)].head(1)
         if artist_to_find.empty:
             key_logger = input("All done. [Enter] to start over: ")
             if not key_logger:
@@ -282,7 +264,7 @@ def main():
 
     while True:
         artist_id_df = pd.read_csv(ARTIST_ID_DB, sep=';')
-        artist_to_find = artist_id_df[artist_id_df['downloaded'].isna() & artist_id_df['mainId'] > 0].head(1)
+        artist_to_find = artist_id_df[(artist_id_df['downloaded'].isna()) & (artist_id_df['mainId'] > 0)].head(1)
         if artist_to_find.empty:
             break
         

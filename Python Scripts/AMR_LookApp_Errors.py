@@ -32,29 +32,31 @@ def logger(script_name, log_line):
         f.seek(0, 0)
         f.write(str(datetime.datetime.now()) + ' - ' + script_name + ' - ' + log_line.rstrip('\r\n') + '\n' + content)
 
-def find_errors(log_file):
+def find_errors():
     """Поиск в логе ошибок последнего запуска Apple Music Releases LookApp через GitHub Actions."""
     with open(log_file, 'r') as lf:
         log_lines = lf.readlines()
 
     # Ищем индексы первой и последней записи свежей отработки Apple Music Releases LookApp
     start_idx = next((i for i, line in enumerate(log_lines) 
-                      if '[Apple Music Releases LookApp] - [V] Done!' in line), None)
+                      if '[LookApp] ▼' in line), None)
 
     end_idx = next((i for i, line in enumerate(log_lines) 
-                    if '[Apple Music Releases LookApp] - v.' in line), None)
+                    if '[LookApp] ▲' in line), None)
     
     if start_idx is None or end_idx is None or start_idx >= end_idx:
-        print("При последнем запуске Apple Music Releases LookApp ошибок не возникало.")
+        print("There's no errors in last AMR LookApp run")
         return []
 
     suffix = ('ERROR (503)\n', 'ERROR (502)\n')
     # Собираем группы и страны, которые необходимо повторно проверить
     error_list = [
-        line.split(' - ')[2:5] # режем строку лога и берём 2, 3 и 4 куски
+        line.split(' - ')[0:3] # режем строку лога и берём 2, 3 и 4 куски
         for line in log_lines[start_idx:end_idx] # смотрим только строки между начальным и конечным индексами
         if line.endswith(suffix) # берём только строки, где есть ошибка 503
     ]
+    for error_line in error_list:
+        error_line[0] = error_line[0].split('   ')[1]
 
     print(f'Найдено ошибок: {len(error_list)}')
     return error_list
@@ -172,7 +174,7 @@ print("########################################################")
 print('')
 logger(f'[{SCRIPT_NAME}]', f"{VERSION} (c)&(p) 2022-{datetime.datetime.now().strftime('%Y')} by Viktor 'MushroomOFF' Gribov")
 
-artist_list = find_errors(log_file)
+artist_list = find_errors()
 key_logger = input("Продолжить - Enter ")
 
 if key_logger == '':
