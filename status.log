@@ -1,10 +1,48 @@
+2026-02-01 10:19:19 [LookApp] ▼ DONE
+2026-02-01 10:19:15 [LookApp]   The Shredderz - 1678040383 - ru - EMPTY
+2026-02-01 10:19:12 [LookApp] ▲ v.2.026.02 [Local]
 2026-02-02 10:15:19.558108 - [Apple Music Releases Yandex.Music & Zvuk Lookup] - [V] Done!
 2026-02-02 10:15:01.801990 - [Apple Music Releases Yandex.Music & Zvuk Lookup] - v.2.025.10 [GitHub] (c)&(p) 2022-2026 by Viktor 'MushroomOFF' Gribov
+2026-02-01 09:40:43 [LookApp] ▼ DONE
+2026-02-01 09:40:39 [LookApp]   The Shredderz - 1678040383 - ru - EMPTY
+2026-02-01 09:40:36 [LookApp]   Stratovarius - 6557658 - 2 new records: 2 releases, 0 covers
+2026-02-01 09:40:25 [LookApp] ▲ v.2.026.02 [Local]
 2026-02-01 10:02:38.584775 - [Apple Music Releases Yandex.Music & Zvuk Lookup] - [V] Done!
 2026-02-01 10:02:23.720498 - [Apple Music Releases Yandex.Music & Zvuk Lookup] - v.2.025.10 [GitHub] (c)&(p) 2022-2026 by Viktor 'MushroomOFF' Gribov
 2026-01-31 09:56:53.831671 - [Apple Music Releases Yandex.Music & Zvuk Lookup] - [V] Done!
 2026-01-31 09:56:53.828896 - [Apple Music Releases Yandex.Music & Zvuk Lookup] - Zvuk Error: HTTPSConnectionPool(host='zvuk.com', port=443): Max retries exceeded with url: /api/v1/graphql (Caused by ConnectTimeoutError(<HTTPSConnection(host='zvuk.com', port=443) at 0x7fba272dd1d0>, 'Connection to zvuk.com timed out. (connect timeout=None)'))
 2026-01-31 09:54:30.893032 - [Apple Music Releases Yandex.Music & Zvuk Lookup] - v.2.025.10 [GitHub] (c)&(p) 2022-2026 by Viktor 'MushroomOFF' Gribov
+2026-01-30 22:35:18 [Covers Renamer] ▼ DONE
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Goldfinger - NINE LIVES - 2026-01-23 [38061].jpg >>> GOTO: G/Goldfinger/2026 NINE LIVES.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Akira Yamaoka - Return to Silent Hill (Original Motion Picture Soundtrack) - 2026-01-23 [38130].jpg >>> GOTO: A/Akira Yamaoka/2026 Return to Silent Hill (Original Motion Picture Soundtrack).jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: AK-47 & Triagrutrika - АКТГК - 2022-06-17 [38181].jpg >>> GOTO: A/AK-47 & Triagrutrika/2022 АКТГК.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Alter Bridge - Alter Bridge - 2026-01-09 [36468].jpg >>> GOTO: A/Alter Bridge/2026 Alter Bridge.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Vitya AK - Жирный - 2012-06-01 [38183].jpg >>> GOTO: V/Vitya AK/2012 Жирный.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: The Butcher Sisters - Das Schwarze Album - 2026-01-23 [38232].jpg >>> GOTO: T/The Butcher Sisters/2026 Das Schwarze Album.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Ov Sulfur - Endless - 2026-01-16 [36874].jpg >>> GOTO: O/Ov Sulfur/2026 Endless.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Dagger Threat - Gestaltzerfall - 2019-05-17 [38227].jpg >>> GOTO: D/Dagger Threat/2019 Gestaltzerfall.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Jason Derulo - The Last Dance (Part 1) - 2026-01-23 [38144].jpg >>> GOTO: J/Jason Derulo/2026 The Last Dance (Part 1).jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: For My Pain... - Buried Blue - 2026-01-09 [38060].jpg >>> GOTO: F/For My Pain.../2026 Buried Blue.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: AK-47 - ПЯТЫЙ - 2024-10-25 [38176].jpg >>> GOTO: A/AK-47/2024 ПЯТЫЙ.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Upiór - Forefathers' Eve (Redemption) - 2026-01-02 [38159].jpg >>> GOTO: U/Upiór/2026 Forefathers' Eve (Redemption).jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Dagger Threat - bleed___reboot - 2026-01-23 [38221].jpg >>> GOTO: D/Dagger Threat/2026 bleed___reboot.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Upiór - The Forest That Grieves - 2022-03-21 [38158].jpg >>> GOTO: U/Upiór/2022 The Forest That Grieves.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Dagger Threat - Weltschmerz - 2022-06-03 [38222].jpg >>> GOTO: D/Dagger Threat/2022 Weltschmerz.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Beyond The Black - Break The Silence - 2026-01-09 [35435].jpg >>> GOTO: B/Beyond The Black/2026 Break The Silence.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Therion - Con Orquesta (Live in Mexico) - 2026-01-30 [38308].jpg >>> GOTO: T/Therion/2026 Con Orquesta (Live in Mexico).jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Glamour of the Kill - Resurrection - Single - 2019-01-04 [11267].jpg >>> GOTO: G/Glamour of the Kill/2019 Resurrection [Single].jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Ektomorf - Eternal Mayhem - Single - 2018-10-24 [10331].jpg >>> GOTO: E/Ektomorf/2018 Eternal Mayhem [Single].jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Poppy - Empty Hands - 2026-01-23 [37512].jpg >>> GOTO: P/Poppy/2026 Empty Hands.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Upiór - Predator of Fear - EP - 2024-10-25 [38160].jpg >>> GOTO: U/Upiór/2024 Predator of Fear [EP].jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: The Butcher Sisters - Alpha & Opfah - 2019-05-24 [38233].jpg >>> GOTO: T/The Butcher Sisters/2019 Alpha & Opfah.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Elwood Stray - Descending - 2026-01-23 [37167].jpg >>> GOTO: E/Elwood Stray/2026 Descending.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Soen - Reliance - 2026-01-16 [36741].jpg >>> GOTO: S/Soen/2026 Reliance.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Glamour of the Kill - Vengeance - 2026-01-22 [36940].jpg >>> GOTO: G/Glamour of the Kill/2026 Vengeance.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: The Butcher Sisters - Das Weiße Album - 2025-01-17 [38231].jpg >>> GOTO: T/The Butcher Sisters/2025 Das Weiße Album.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Vitya AK - Лакшери Андеграунд - 2022-04-29 [38185].jpg >>> GOTO: V/Vitya AK/2022 Лакшери Андеграунд.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Megadeth - Megadeth - 2026-01-23 [36952].jpg >>> GOTO: M/Megadeth/2026 Megadeth.jpg
+2026-01-30 22:35:18 [Covers Renamer]   FILE: Genus Ordinis Dei - The Land East Of Eden - 2026-01-16 [37402].jpg >>> GOTO: G/Genus Ordinis Dei/2026 The Land East Of Eden.jpg
+2026-01-30 22:35:13 [Covers Renamer] ▲ v.2.026.01 [Local]
 2026-01-30 14:13:14.484054 - [Apple Music Releases Recomender] - [V] Done!
 2026-01-30 14:13:14.481403 - [Apple Music Releases Recomender] - New Releases: 0; Top Releases: 0
 2026-01-30 14:13:14.441831 - [Apple Music Releases Recomender] - OK: 0; Emptys: 44; Errors: 0

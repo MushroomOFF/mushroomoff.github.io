@@ -147,6 +147,7 @@ Carach Angren                     | Symphonic Black Metal
 Carcass                           | Death Metal
 Carnifex                          | Deathcore
 Casandra's Crossing               | Hard Rock
+Cat Stevens                       | Rock
 Cavalera Conspiracy               | Groove Metal
 Cellar Darling                    | Folk Metal
 Centr                             | Hip-Hop
@@ -503,6 +504,7 @@ My Dying Bride                    | Doom Metal
 Myles Kennedy                     | Hard Rock
 Myrath                            | Progressive Metal
 Nailed to Obscurity               | Doom Metal
+Native James                      | Rap Metal
 Necrophagist                      | Technical Death Metal
 Nero                              | EDM
 New Years Day                     | Alternative
@@ -517,6 +519,7 @@ Nik Nocturnal                     | Metalcore
 Nile                              | Technical Death Metal
 Nintendo                          | Hip-Hop
 Nirvana                           | Grunge
+Nita Strauss                      | Metal
 No One                            | Nu Metal
 Noize MC                          | Alternative
 Nonpoint                          | Nu Metal
@@ -696,6 +699,7 @@ The Apex Theory                   | Alternative
 The Beatles                       | Rock & Roll
 The Black Dahlia Murder           | Melodic Death Metal
 The Bones of J.R. Jones           | Alternative
+The Butcher Sisters               | Rap Metal
 The Buzzhorn                      | Alternative
 The Cost                          | Alternative
 The Dark Element                  | Symphonic Metal
@@ -781,9 +785,11 @@ Wolfgang Gartner                  | EDM
 Wolves at the Gate                | Metalcore
 Wovenwar                          | Alternative
 Xandria                           | Symphonic Metal
+Xion                              | Thrash Metal
 Year of the Cobra                 | Stoner Metal
 Years & Years                     | Pop
 Yelawolf                          | Hip-Hop
+Zakk Sabbath                      | Heavy Metal
 Zebrahead                         | Punk Rock
 АК-47                             | Rap
 Александр Розенбаум               | Acoustic

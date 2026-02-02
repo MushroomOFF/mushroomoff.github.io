@@ -4,7 +4,7 @@ import shutil
 
 # CONSTANTS
 SCRIPT_NAME = "Covers Renamer"
-VERSION = "2.026.01"
+VERSION = "2.026.02"
 ENV = 'Local'
 if os.getenv("GITHUB_ACTIONS") == "true":
     ENV = 'GitHub'
@@ -14,6 +14,16 @@ LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
 ORIGINAL_COVERS_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/Проекты/_Covers/_BIG'
 
 # functions
+def print_name():
+    print_line = f'{SCRIPT_NAME} v.{VERSION}'
+    print_line_len = 30
+    if len(print_line) > 28:
+        print_line_len = len(print_line) + 2
+    print(f"\n{'':{'='}^{print_line_len}}")
+    print(f"{'\033[1m'}{'Alternative & Metal Releases':{' '}^{print_line_len}}{'\033[0m'}")
+    print(f"{print_line:{' '}^{print_line_len}}")
+    print(f"{'':{'='}^{print_line_len}}\n")
+    
 def logger(log_line, *args):
     """Writing log line into log file
     * For GitHub Actions:
@@ -22,6 +32,11 @@ def logger(log_line, *args):
     * For Local scripts:
       - print() without '▲','▼' and leading spaces
       - additional conditions for print() without logging
+      - arguments is optional
+      
+      example - begin message:  logger(f'▲ v.{VERSION} [{ENV}]', 'noprint') # Begin
+      example - normal message: logger(f'ERROR: {check_file}')
+      example - end message:    logger(f'▼ DONE') # End
     """
     if log_line[0] not in ['▲', '▼']:
         log_line = f'  {log_line}'
@@ -43,14 +58,7 @@ def logger(log_line, *args):
 
 def main():
     if ENV == 'Local': 
-        print_line = f'{SCRIPT_NAME} v.{VERSION}'
-        print_line_len = 30
-        if len(print_line) > 28:
-            print_line_len = len(print_line) + 2
-        print(f"\n{'':{'='}^{print_line_len}}")
-        print(f"{'\033[1m'}{'Alternative & Metal Releases':{' '}^{print_line_len}}{'\033[0m'}")
-        print(f"{print_line:{' '}^{print_line_len}}")
-        print(f"{'':{'='}^{print_line_len}}\n")
+        print_name()
     logger(f'▲ v.{VERSION} [{ENV}]', 'noprint') # Begin
 
     # Prompt user for a path, if nothing is entered, use the original covers folder
