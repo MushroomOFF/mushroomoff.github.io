@@ -63,7 +63,7 @@ def main():
 
     # Prompt user for a path, if nothing is entered, use the original covers folder
     covers_folder = input(f'Path to big covers folder:\nEnter -> {ORIGINAL_COVERS_FOLDER}\n')
-    if covers_folder == '':
+    if not covers_folder:
         covers_folder = ORIGINAL_COVERS_FOLDER
 
     # Loop through all files in the root folder

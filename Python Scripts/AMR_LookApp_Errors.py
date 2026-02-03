@@ -167,7 +167,7 @@ def find_releases(find_artist_id, artist_print_name, country):
 
         del itunes_db_df
         
-        if new_release_counter + new_cover_counter > 0:
+        if (new_release_counter + new_cover_counter) > 0:
             logger(f'{artist_print_name} - {find_artist_id} - {new_release_counter + new_cover_counter} new records: {new_release_counter} releases, {new_cover_counter} covers')
 
 def main():
@@ -181,7 +181,7 @@ def main():
 
     if key_logger == '':
         for artist_print_name, find_artist_id, country in artist_list:
-            print(f'{(artist_print_name + ' - ' + str(find_artist_id) + ' - ' + country):55}', end='\r')
+            print(f'{f'{artist_print_name} - {find_artist_id} - {country}':55}', end='\r')
             find_releases(find_artist_id, artist_print_name, country)
 
     print(f'{'':55}')

@@ -47,9 +47,8 @@ THREAD_ID_DICT = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New R
 
 # functions
 def replace_symbols_markdown_v2(text_line):
-    """Replacing Markdown v2 unused 
-    characters in Telegram message 
-    text line 
+    """Replacing Markdown v2 unused characters 
+    in Telegram message text line 
     """
     symbols_to_replace = """'_*[]",()~`>#+-=|{}.!"""
     for symbol in symbols_to_replace:
@@ -58,8 +57,7 @@ def replace_symbols_markdown_v2(text_line):
 
 def send_message(topic, text):
     global TOKEN, CHAT_ID
-    """Sending Telegram message 
-    """    
+    """Sending Telegram message"""    
     method = f"{URL}{TOKEN}/sendMessage"
     response = requests.post(method, data={"message_thread_id": THREAD_ID_DICT[topic], "chat_id": CHAT_ID, "parse_mode": 'MarkdownV2', "text": text})
     json_response = json.loads(response.text)
@@ -190,9 +188,9 @@ def find_releases(find_artist_id, artist_print_name):
 
         del itunes_db_df
         
-        if new_release_counter + new_cover_counter > 0:
+        if (new_release_counter + new_cover_counter) > 0:
             logger(f'{artist_print_name} - {find_artist_id} - {new_release_counter + new_cover_counter} new records: {new_release_counter} releases, {new_cover_counter} covers')
-            if new_release_counter > 0 :
+            if new_release_counter:
                 iconka = 'album'
             else:
                 iconka = 'cover'
@@ -230,9 +228,9 @@ def main():
 
     message_to_send = ''
     message_error_part = replace_symbols_markdown_v2('======== ERRORS ========')
-    message_error = EMOJI_DICT['error'] + ' 503 Service Unavailable ' + EMOJI_DICT['error']
-    message_empty = EMOJI_DICT['empty'] + ' Not available in country ' + EMOJI_DICT['empty']
-    message_bad_id = EMOJI_DICT['badid'] + '               Bad ID                ' + EMOJI_DICT['badid']
+    message_error = f'{EMOJI_DICT['error']} 503 Service Unavailable {EMOJI_DICT['error']}'
+    message_empty = f'{EMOJI_DICT['empty']} Not available in country {EMOJI_DICT['empty']}'
+    message_bad_id = f'{EMOJI_DICT['badid']}               Bad ID                {EMOJI_DICT['badid']}'
     check_mes_send_len = len(message_to_send)
     check_mes_error_len = len(message_error)
     check_mes_empty_len = len(message_empty)
@@ -290,19 +288,19 @@ def main():
     print(f'{'':55}')
 
     if not TOKEN or not CHAT_ID:
-        print('Message not sent! No TOKEN or CHAT_ID')
+        logger('Message not sent! No TOKEN or CHAT_ID')
     else:
         if check_mes_send_len == len(message_to_send):
-            message_to_send += '\n' + EMOJI_DICT['wtf']
+            message_to_send += f'\n{EMOJI_DICT['wtf']}'
 
         if check_mes_error_len != len(message_error) or check_mes_empty_len != len(message_empty) or check_mes_badid_len != len(message_bad_id):
-            message_to_send += '\n\n' + message_error_part
+            message_to_send += f'\n\n{message_error_part}'
             if check_mes_badid_len != len(message_bad_id):
-                message_to_send += '\n\n' + message_bad_id
+                message_to_send += f'\n\n{message_bad_id}'
             if check_mes_error_len != len(message_error):
-                message_to_send += '\n\n' + message_error
+                message_to_send += f'\n\n{message_error}'
             if check_mes_empty_len != len(message_empty):
-                message_to_send += '\n\n' + message_empty
+                message_to_send += f'\n\n{message_empty}'
         
         send_message('New Updates', message_to_send)
 

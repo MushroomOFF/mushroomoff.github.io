@@ -25,7 +25,7 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f 'Python Scripts/requirements.txt' ]; then pip install -r 'Python Scripts/requirements.txt'; fi
       - name: Execute py script
-        run: python 'Python Scripts/AMR_ZVYM_github.py'
+        run: python 'Python Scripts/AMR_ZVYM.py'
       - name: Commit files
         run: |
           git config --local user.email "mushroomoff@mail.ru"
