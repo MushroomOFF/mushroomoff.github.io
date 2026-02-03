@@ -1,10 +1,10 @@
-import requests
+import csv
+import datetime
+import json
 import os
 import pandas as pd
-import csv
+import requests
 import time
-import json
-import datetime
 from math import nan
 
 # CONSTANTS

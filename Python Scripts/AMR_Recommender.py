@@ -1,9 +1,9 @@
-import os
-import json
-import datetime
-import requests
-import pandas as pd
 import csv
+import datetime
+import json
+import os
+import pandas as pd
+import requests
 
 # CONSTANTS
 SCRIPT_NAME = "Recommender"

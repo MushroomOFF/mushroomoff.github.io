@@ -1,9 +1,9 @@
-import requests
+import csv
+import datetime
 import os
 import pandas as pd
-import csv
+import requests
 import time
-import datetime
 
 # CONSTANTS
 SCRIPT_NAME = "LookApp Errors"
