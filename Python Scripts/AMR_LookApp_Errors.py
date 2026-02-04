@@ -4,6 +4,7 @@ import os
 import pandas as pd
 import requests
 import time
+import amr_functions as amr
 
 # CONSTANTS
 SCRIPT_NAME = "LookApp Errors"
@@ -28,48 +29,6 @@ session = requests.Session()
 session.headers.update({'Referer': 'https://itunes.apple.com', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'})
 
 # functions
-def print_name():
-    print_line = f'{SCRIPT_NAME} v.{VERSION}'
-    print_line_len = 30
-    if len(print_line) > 28:
-        print_line_len = len(print_line) + 2
-    print(f"\n{'':{'='}^{print_line_len}}")
-    print(f"{'\033[1m'}{'Alternative & Metal Releases':{' '}^{print_line_len}}{'\033[0m'}")
-    print(f"{print_line:{' '}^{print_line_len}}")
-    print(f"{'':{'='}^{print_line_len}}\n")
-
-def logger(log_line, *args):
-    """Writing log line into log file
-    * For GitHub Actions:
-      - add +3 hours to datetime
-      - no print()
-    * For Local scripts:
-      - print() without '▲','▼' and leading spaces
-      - additional conditions for print() without logging
-      - arguments is optional
-      
-      example - begin message:  logger(f'▲ v.{VERSION} [{ENV}]', 'noprint') # Begin
-      example - normal message: logger(f'ERROR: {check_file}')
-      example - end message:    logger(f'▼ DONE') # End
-    """
-    if log_line[0] not in ['▲', '▼']:
-        log_line = f'  {log_line}'
-    with open(LOG_FILE, 'r+') as log_file:
-        log_file_content = log_file.read()
-        log_file.seek(0, 0)
-        log_date = datetime.datetime.now()
-        if os.getenv("GITHUB_ACTIONS") == "true":
-            log_date = log_date + datetime.timedelta(hours=3)
-        log_file.write(f'{log_date.strftime('%Y-%m-%d %H:%M:%S')} [{SCRIPT_NAME}] {log_line.rstrip('\r\n')}\n{log_file_content}')
-        # print() for Local scripts only
-        # Additional conditions for print() without logging
-        # 'noprint' parameter if no need to print() 
-        if not os.getenv("GITHUB_ACTIONS"):
-            if 'covers_renamer' in args:
-                log_line = f'{log_line.replace(' >>> ', '\n')}\n'
-            if 'noprint' not in args:
-                print(log_line[2:])
-
 def find_errors():
     """Finding errors in the AMR LookApp last run log"""
     with open(LOG_FILE, 'r') as lf:
@@ -117,9 +76,9 @@ def find_releases(find_artist_id, artist_print_name, country):
                 'artworkUrl100', 'trackCount', 'country', 'releaseDate'
             ]]], ignore_index=True)
         else:
-            logger(f'{artist_print_name} - {find_artist_id} - {country} - EMPTY')
+            amr.logger(f'{artist_print_name} - {find_artist_id} - {country} - EMPTY', LOG_FILE, SCRIPT_NAME)
     else:
-        logger(f'{artist_print_name} - {find_artist_id} - {country} - ERROR ({response.status_code})')
+        amr.logger(f'{artist_print_name} - {find_artist_id} - {country} - ERROR ({response.status_code})', LOG_FILE, SCRIPT_NAME)
 
     # Pause to bypass iTunes server blocking
     time.sleep(1)
@@ -168,13 +127,13 @@ def find_releases(find_artist_id, artist_print_name, country):
         del itunes_db_df
         
         if (new_release_counter + new_cover_counter) > 0:
-            logger(f'{artist_print_name} - {find_artist_id} - {new_release_counter + new_cover_counter} new records: {new_release_counter} releases, {new_cover_counter} covers')
+            amr.logger(f'{artist_print_name} - {find_artist_id} - {new_release_counter + new_cover_counter} new records: {new_release_counter} releases, {new_cover_counter} covers', LOG_FILE, SCRIPT_NAME)
 
 def main():
 
     if ENV == 'Local': 
-        print_name()
-    logger(f'▲ v.{VERSION} [{ENV}]', 'noprint') # Begin
+        amr.print_name(SCRIPT_NAME, VERSION)
+    amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
 
     artist_list = find_errors()
     key_logger = input("[Enter] to continue: ")
@@ -187,9 +146,9 @@ def main():
     print(f'{'':55}')
      
     if key_logger == '':
-        logger(f'▼ DONE') # Good end
+        amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # Good end
     else:
-        logger(f'▼ DONE [canceled]') # Bad end
+        amr.logger(f'▼ DONE [canceled]', LOG_FILE, SCRIPT_NAME) # Bad end
 
 if __name__ == "__main__":
     main()

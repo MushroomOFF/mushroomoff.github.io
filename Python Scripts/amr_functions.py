@@ -1,9 +1,20 @@
+""" 
+# How to import from the same directory:
+import amr_functions as amr
+
+# functions usage example:
+amr.print_name(SCRIPT_NAME, VERSION)
+amr.logger(log_line, LOG_FILE, SCRIPT_NAME, *args)
+amr.replace_symbols_markdown_v2(text_line)
+amr.send_message(topic, text, TOKEN, CHAT_ID)
+amr.send_photo(topic, text, image_url, TOKEN, CHAT_ID)
+"""
+
 import datetime
 import json
 import os
 import requests
 
-# functions
 def print_name(script_name, version):
     print_line = f'{script_name} v.{version}'
     print_line_len = 30

@@ -6,6 +6,7 @@ import pandas as pd
 import requests
 import sys # for Zvuk
 from yandex_music import Client # for YM
+import amr_functions as amr
 
 # CONSTANTS
 SCRIPT_NAME = "Yandex.Music & Zvuk Lookup"
@@ -43,47 +44,7 @@ HEADERS = {'Referer':'https://music.apple.com', 'User-Agent':'Mozilla/5.0 (Macin
 session = requests.Session() 
 session.headers.update(HEADERS)
 
-def print_name():
-    print_line = f'{SCRIPT_NAME} v.{VERSION}'
-    print_line_len = 30
-    if len(print_line) > 28:
-        print_line_len = len(print_line) + 2
-    print(f"\n{'':{'='}^{print_line_len}}")
-    print(f"{'\033[1m'}{'Alternative & Metal Releases':{' '}^{print_line_len}}{'\033[0m'}")
-    print(f"{print_line:{' '}^{print_line_len}}")
-    print(f"{'':{'='}^{print_line_len}}\n")
-
-def logger(log_line, *args):
-    """Writing log line into log file
-    * For GitHub Actions:
-      - add +3 hours to datetime
-      - no print()
-    * For Local scripts:
-      - print() without '▲','▼' and leading spaces
-      - additional conditions for print() without logging
-      - arguments is optional
-      
-      example - begin message:  logger(f'▲ v.{VERSION} [{ENV}]', 'noprint') # Begin
-      example - normal message: logger(f'ERROR: {check_file}')
-      example - end message:    logger(f'▼ DONE') # End
-    """
-    if log_line[0] not in ['▲', '▼']:
-        log_line = f'  {log_line}'
-    with open(LOG_FILE, 'r+') as log_file:
-        log_file_content = log_file.read()
-        log_file.seek(0, 0)
-        log_date = datetime.datetime.now()
-        if os.getenv("GITHUB_ACTIONS") == "true":
-            log_date = log_date + datetime.timedelta(hours=3)
-        log_file.write(f'{log_date.strftime('%Y-%m-%d %H:%M:%S')} [{SCRIPT_NAME}] {log_line.rstrip('\r\n')}\n{log_file_content}')
-        # print() for Local scripts only
-        # Additional conditions for print() without logging
-        # 'noprint' parameter if no need to print() 
-        if not os.getenv("GITHUB_ACTIONS"):
-            if 'covers_renamer' in args:
-                log_line = f'{log_line.replace(' >>> ', '\n')}\n'
-            if 'noprint' not in args:
-                print(log_line[2:])
+# functions
 
 # Yandex.Music ---------------------------
 def send_search_request_ym(query, year):
@@ -218,26 +179,8 @@ def search_album_zv(query):
         ZVUK_ERROR = f'Zvuk {zv_releases}' 
     elif zv_releases is None:
         # if search_command_zv return None
-        logger(f"Zvuk didn't find {query}")
+        amr.logger(f"Zvuk didn't find {query}", LOG_FILE, SCRIPT_NAME)
 #-----------------------------------------
-
-def replace_symbols_markdown_v2(text_line):
-    """Replacing Markdown v2 unused characters 
-    in Telegram message text line 
-    """
-    symbols_to_replace = """'_*[]",()~`>#+-=|{}.!"""
-    for symbol in symbols_to_replace:
-        text_line = text_line.replace(symbol, f'\\{symbol}')
-    return text_line
-
-def send_photo(topic, text, image_url):
-    global TOKEN, CHAT_ID
-    """Sending Telegram message with photo"""
-    method = f"{URL}{TOKEN}/sendPhoto"
-    response = requests.post(method, data={"message_thread_id": THREAD_ID_DICT[topic], "chat_id": CHAT_ID, "photo": image_url, "parse_mode": 'MarkdownV2', "caption": text})
-    json_response = json.loads(response.text)
-    result_message_id = json_response['result']['message_id']    
-    return result_message_id
 
 def change_amr_button(source_code, separator, new_link, zvorym): 
     """Changing button state in AMR html files
@@ -270,14 +213,14 @@ def main():
     global TOKEN, CHAT_ID, YM_TOKEN, YM_CLIENT, ZVUK_TOKEN, ZVUK_ERROR
 
     if ENV == 'Local': 
-        print_name()
-    logger(f'▲ v.{VERSION} [{ENV}]', 'noprint') # Begin
+        amr.print_name(SCRIPT_NAME, VERSION)
+    amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
 
     if ENV == 'Local':
         PARAMS = input("[IMPORTANT!] TOKEN CHAT_ID YM_TOKEN ZV_TOKEN: ").split(' ')
         if len(PARAMS) < 4:
-            logger('Error: not enough parameters!')
-            logger(f'▼ DONE') # End
+            amr.logger('Error: not enough parameters!', LOG_FILE, SCRIPT_NAME)
+            amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
             sys.exit()
         TOKEN = PARAMS[0] # input("Telegram Bot TOKEN: ")
         CHAT_ID = PARAMS[1] # input("Telegram Bot CHAT_ID: ")
@@ -309,7 +252,7 @@ def main():
 
         # Printing Artist and Album if found something
         if ((ym_result is not None) and (ym_result != '')) or ((zv_result is not None) and (zv_result != '')):
-            logger(f'{index}. {row.loc['artist']} - {row.loc['album']}')
+            amr.logger(f'{index}. {row.loc['artist']} - {row.loc['album']}', LOG_FILE, SCRIPT_NAME)
 
         # Changing links for YM and Zvuk
         if (ym_result is not None) and (ym_result != ''):    
@@ -331,19 +274,19 @@ def main():
             elif row.loc['Best_Fav_New_OK'] == 'o':
                 thread_name = 'Top Releases'
             image_url = row.loc['imga'].replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
-            image_caption = f'*{replace_symbols_markdown_v2(row.loc['artist'].replace('&amp;','&'))}* \\- [{replace_symbols_markdown_v2(row.loc['album'].replace('&amp;','&'))}]({row.loc['link'].replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({row.loc['link']}){'' if pd.isna(row.loc['link_ym']) else f'\n\U0001F4A5 [Яндекс\\.Музыка]({row.loc['link_ym']})'}{'' if pd.isna(row.loc['link_zv']) else f'\n\U0001F50A [Звук]({row.loc['link_zv']})'}'
-            message_to_send = send_photo(thread_name, image_caption, image_url)
+            image_caption = f'*{amr.replace_symbols_markdown_v2(row.loc['artist'].replace('&amp;','&'))}* \\- [{amr.replace_symbols_markdown_v2(row.loc['album'].replace('&amp;','&'))}]({row.loc['link'].replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({row.loc['link']}){'' if pd.isna(row.loc['link_ym']) else f'\n\U0001F4A5 [Яндекс\\.Музыка]({row.loc['link_ym']})'}{'' if pd.isna(row.loc['link_zv']) else f'\n\U0001F50A [Звук]({row.loc['link_zv']})'}'
+            message_to_send = amr.send_photo(thread_name, image_caption, image_url, TOKEN, CHAT_ID)
             row.loc['TGmsgID'] = message_to_send
             new_releases_df.loc[index,'TGmsgID'] = message_to_send
             
     if (new_ym_links + new_zv_links):
         new_releases_df.to_csv(NEW_RELEASES_DB, sep=';', index=False)
-        logger(f'New links: {new_ym_links} Yandex.Music, {new_zv_links} Zvuk')
+        amr.logger(f'New links: {new_ym_links} Yandex.Music, {new_zv_links} Zvuk', LOG_FILE, SCRIPT_NAME)
 
     if ZVUK_ERROR:
-        logger(f'{ZVUK_ERROR}')
+        amr.logger(f'{ZVUK_ERROR}', LOG_FILE, SCRIPT_NAME)
 
-    logger(f'▼ DONE') # End
+    amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
 
 if __name__ == "__main__":
     main()

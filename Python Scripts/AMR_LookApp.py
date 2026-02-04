@@ -6,6 +6,7 @@ import pandas as pd
 import requests
 import time
 from math import nan
+import amr_functions as amr
 
 # CONSTANTS
 SCRIPT_NAME = "LookApp"
@@ -46,24 +47,6 @@ THREAD_ID_DICT = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New R
 #-----------------------------------------
 
 # functions
-def replace_symbols_markdown_v2(text_line):
-    """Replacing Markdown v2 unused characters 
-    in Telegram message text line 
-    """
-    symbols_to_replace = """'_*[]",()~`>#+-=|{}.!"""
-    for symbol in symbols_to_replace:
-        text_line = text_line.replace(symbol, f'\\{symbol}')
-    return text_line
-
-def send_message(topic, text):
-    global TOKEN, CHAT_ID
-    """Sending Telegram message"""    
-    method = f"{URL}{TOKEN}/sendMessage"
-    response = requests.post(method, data={"message_thread_id": THREAD_ID_DICT[topic], "chat_id": CHAT_ID, "parse_mode": 'MarkdownV2', "text": text})
-    json_response = json.loads(response.text)
-    result_message_id = json_response['result']['message_id']   
-    return result_message_id
-
 def create_db():
     """Creating database 
     (if there's no database)
@@ -73,48 +56,6 @@ def create_db():
             writer = csv.DictWriter(csv_file, delimiter=';', fieldnames=FIELDNAMES_DICT)
             writer.writeheader()
         print('New database created\n')
-
-def print_name():
-    print_line = f'{SCRIPT_NAME} v.{VERSION}'
-    print_line_len = 30
-    if len(print_line) > 28:
-        print_line_len = len(print_line) + 2
-    print(f"\n{'':{'='}^{print_line_len}}")
-    print(f"{'\033[1m'}{'Alternative & Metal Releases':{' '}^{print_line_len}}{'\033[0m'}")
-    print(f"{print_line:{' '}^{print_line_len}}")
-    print(f"{'':{'='}^{print_line_len}}\n")
-
-def logger(log_line, *args):
-    """Writing log line into log file
-    * For GitHub Actions:
-      - add +3 hours to datetime
-      - no print()
-    * For Local scripts:
-      - print() without '▲','▼' and leading spaces
-      - additional conditions for print() without logging
-      - arguments is optional
-      
-      example - begin message:  logger(f'▲ v.{VERSION} [{ENV}]', 'noprint') # Begin
-      example - normal message: logger(f'ERROR: {check_file}')
-      example - end message:    logger(f'▼ DONE') # End
-    """
-    if log_line[0] not in ['▲', '▼']:
-        log_line = f'  {log_line}'
-    with open(LOG_FILE, 'r+') as log_file:
-        log_file_content = log_file.read()
-        log_file.seek(0, 0)
-        log_date = datetime.datetime.now()
-        if os.getenv("GITHUB_ACTIONS") == "true":
-            log_date = log_date + datetime.timedelta(hours=3)
-        log_file.write(f'{log_date.strftime('%Y-%m-%d %H:%M:%S')} [{SCRIPT_NAME}] {log_line.rstrip('\r\n')}\n{log_file_content}')
-        # print() for Local scripts only
-        # Additional conditions for print() without logging
-        # 'noprint' parameter if no need to print() 
-        if not os.getenv("GITHUB_ACTIONS"):
-            if 'covers_renamer' in args:
-                log_line = f'{log_line.replace(' >>> ', '\n')}\n'
-            if 'noprint' not in args:
-                print(log_line[2:])
 
 def find_releases(find_artist_id, artist_print_name):
     global message_to_send, message_empty, message_error, message_bad_id, session, countries_list
@@ -134,11 +75,11 @@ def find_releases(find_artist_id, artist_print_name):
                 temp_df = pd.DataFrame(json_parsed['results'])
                 all_releases_df = pd.concat([all_releases_df, temp_df[['artistName', 'artistId', 'collectionId', 'collectionName', 'artworkUrl100', 'trackCount', 'country', 'releaseDate']]], ignore_index=True)
             else:
-                logger(f'{artist_print_name} - {find_artist_id} - {country} - EMPTY')
-                message_empty += f'\n{EMOJI_DICT[country]} *{replace_symbols_markdown_v2(artist_print_name.replace('&amp;','and'))}*'
+                amr.logger(f'{artist_print_name} - {find_artist_id} - {country} - EMPTY', LOG_FILE, SCRIPT_NAME)
+                message_empty += f'\n{EMOJI_DICT[country]} *{amr.replace_symbols_markdown_v2(artist_print_name.replace('&amp;','and'))}*'
         else:
-            logger(f'{artist_print_name} - {find_artist_id} - {country} - ERROR ({response.status_code})')
-            message_error += f'\n{EMOJI_DICT[country]} *{replace_symbols_markdown_v2(artist_print_name.replace('&amp;','and'))}*'
+            amr.logger(f'{artist_print_name} - {find_artist_id} - {country} - ERROR ({response.status_code})', LOG_FILE, SCRIPT_NAME)
+            message_error += f'\n{EMOJI_DICT[country]} *{amr.replace_symbols_markdown_v2(artist_print_name.replace('&amp;','and'))}*'
 
         # Pause to bypass iTunes server blocking
         time.sleep(1) 
@@ -149,8 +90,8 @@ def find_releases(find_artist_id, artist_print_name):
     if not all_releases_df.empty:
         export_df = all_releases_df.loc[all_releases_df['collectionName'].notna()]
     elif len(countries_list) > 1:
-        logger(f'{artist_print_name} - {find_artist_id} - Bad ID')
-        message_bad_id += f'\n{EMOJI_DICT['no']} *{replace_symbols_markdown_v2(artist_print_name.replace('&amp;','and'))}*'
+        amr.logger(f'{artist_print_name} - {find_artist_id} - Bad ID', LOG_FILE, SCRIPT_NAME)
+        message_bad_id += f'\n{EMOJI_DICT['no']} *{amr.replace_symbols_markdown_v2(artist_print_name.replace('&amp;','and'))}*'
 
     if not export_df.empty:
         itunes_db_df = pd.read_csv(RELEASES_DB, sep=";")
@@ -189,19 +130,19 @@ def find_releases(find_artist_id, artist_print_name):
         del itunes_db_df
         
         if (new_release_counter + new_cover_counter) > 0:
-            logger(f'{artist_print_name} - {find_artist_id} - {new_release_counter + new_cover_counter} new records: {new_release_counter} releases, {new_cover_counter} covers')
+            amr.logger(f'{artist_print_name} - {find_artist_id} - {new_release_counter + new_cover_counter} new records: {new_release_counter} releases, {new_cover_counter} covers', LOG_FILE, SCRIPT_NAME)
             if new_release_counter:
                 iconka = 'album'
             else:
                 iconka = 'cover'
-            message_to_send += f'\n{EMOJI_DICT[iconka]} *{replace_symbols_markdown_v2(artist_print_name.replace('&amp;','and'))}*: {new_release_counter + new_cover_counter}'
+            message_to_send += f'\n{EMOJI_DICT[iconka]} *{amr.replace_symbols_markdown_v2(artist_print_name.replace('&amp;','and'))}*: {new_release_counter + new_cover_counter}'
 
 def main():
     global TOKEN, CHAT_ID, message_to_send, message_empty, message_error, message_bad_id, session, countries_list
 
     if ENV == 'Local': 
-        print_name()
-    logger(f'▲ v.{VERSION} [{ENV}]', 'noprint') # Begin
+        amr.print_name(SCRIPT_NAME, VERSION)
+    amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
 
     if ENV == 'Local':
         PARAMS = input("(optional) TOKEN CHAT_ID YM_TOKEN ZV_TOKEN: ").split(' ')
@@ -227,7 +168,7 @@ def main():
         countries_list = ['us', 'ru']
 
     message_to_send = ''
-    message_error_part = replace_symbols_markdown_v2('======== ERRORS ========')
+    message_error_part = amr.replace_symbols_markdown_v2('======== ERRORS ========')
     message_error = f'{EMOJI_DICT['error']} 503 Service Unavailable {EMOJI_DICT['error']}'
     message_empty = f'{EMOJI_DICT['empty']} Not available in country {EMOJI_DICT['empty']}'
     message_bad_id = f'{EMOJI_DICT['badid']}               Bad ID                {EMOJI_DICT['badid']}'
@@ -288,7 +229,7 @@ def main():
     print(f'{'':55}')
 
     if not TOKEN or not CHAT_ID:
-        logger('Message not sent! No TOKEN or CHAT_ID')
+        amr.logger('Message not sent! No TOKEN or CHAT_ID', LOG_FILE, SCRIPT_NAME)
     else:
         if check_mes_send_len == len(message_to_send):
             message_to_send += f'\n{EMOJI_DICT['wtf']}'
@@ -302,9 +243,9 @@ def main():
             if check_mes_empty_len != len(message_empty):
                 message_to_send += f'\n\n{message_empty}'
         
-        send_message('New Updates', message_to_send)
+        amr.send_message('New Updates', message_to_send, TOKEN, CHAT_ID)
 
-    logger(f'▼ DONE') # End
+    amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
 
 if __name__ == "__main__":
     main()

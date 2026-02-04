@@ -2,6 +2,7 @@ import datetime
 import os
 import pandas as pd
 import requests
+import amr_functions as amr
 
 # CONSTANTS
 SCRIPT_NAME = "Covers Downloader"
@@ -17,16 +18,6 @@ RELEASES_DB = os.path.join(ROOT_FOLDER, DB_FOLDER, 'AMR_releases_DB.csv')
 LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
 
 # functions
-def print_name():
-    print_line = f'{SCRIPT_NAME} v.{VERSION}'
-    print_line_len = 30
-    if len(print_line) > 28:
-        print_line_len = len(print_line) + 2
-    print(f"\n{'':{'='}^{print_line_len}}")
-    print(f"{'\033[1m'}{'Alternative & Metal Releases':{' '}^{print_line_len}}{'\033[0m'}")
-    print(f"{print_line:{' '}^{print_line_len}}")
-    print(f"{'':{'='}^{print_line_len}}\n")
-
 def replace_symbols(text_line):
     """Replacing unused characters 
     in file names and folder paths
@@ -51,7 +42,7 @@ def image_download(file_name, folder, link):
 
 def main():
     if ENV == 'Local': 
-        print_name()
+        amr.print_name(SCRIPT_NAME, VERSION)
 
     session = requests.Session() 
     session.headers.update({
