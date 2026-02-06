@@ -1,252 +1,58 @@
-ver = "v.2.025.10 [Local]"
-# Python 3.12 & Pandas 2.2 ready
-# Zvuk availability check & multiparameters
-
-import os
-import json
-import datetime
-import requests
-import pandas as pd
 import csv
+import datetime
+import json
+import os
+import pandas as pd
+import requests
 import sys # for Zvuk
 from yandex_music import Client # for YM
+import amr_functions as amr
 
+# CONSTANTS
+SCRIPT_NAME = "New Releases"
+VERSION = "2.026.02"
+ENV = 'Local'
+if os.getenv("GITHUB_ACTIONS") == "true":
+    ENV = 'GitHub'
+    # GitHub version will always run complete list of artists
 
-rootFolder = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
-amrsFolder = rootFolder + 'AMRs/'
-dbFolder = rootFolder + 'Databases/'
-newReleasesDB = dbFolder + 'AMR_newReleases_DB.csv' # This Week New Releases 
-csReleasesDB = dbFolder + 'AMR_csReleases_DB.csv' # Coomin Soon Releases
-artistIDsDB = dbFolder + 'AMR_artisitIDs.csv' # ArtistID
-ReleasesDB = dbFolder + 'AMR_releases_DB.csv' # Releases
+if ENV == 'Local':
+    ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
+elif ENV == 'GitHub':
+    ROOT_FOLDER = ''
+AMR_FOLDER = os.path.join(ROOT_FOLDER, 'AMRs/')
+DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
+NEW_RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_newReleases_DB.csv')
+CS_RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_csReleases_DB.csv')
+RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_releases_DB.csv')
+ARTIST_ID_DB = os.path.join(DB_FOLDER, 'AMR_artisitIDs.csv')
+LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
 
-PARAMS = input("IMPORTANT! TOKEN chat_id YM_TOKEN ZV_TOKEN: ").split(' ')
-if len(PARAMS) < 4:
-    sys.exit('Error: not enough parameters')
-TOKEN = PARAMS[0] # input("Telegram Bot TOKEN: ")
-chat_id = PARAMS[1] # input("Telegram Bot chat_id: ")
-YM_TOKEN = PARAMS[2] # input("Yandex.Music TOKEN: ")
-ZVUK_TOKEN = PARAMS[3] # input("Zvuk TOKEN: ")
+message_new_releases = '' 
+message_cs_releases = '' 
+
+HEADERS = {'Referer':'https://music.apple.com', 'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'}
+session = requests.Session() 
+session.headers.update(HEADERS)
 
 # Telegram -------------------------------
+TOKEN = ''
+CHAT_ID = ''
 URL = 'https://api.telegram.org/bot'
-thread_id = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80}
-#chat_id = '-1001939128351' #Test channel
+THREAD_ID_DICT = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80}
+
 # Yandex.Music ---------------------------
-search_result = ''
-client = Client(YM_TOKEN).init()
-type_to_name = {'track': 'трек', 'artist': 'исполнитель', 'album': 'альбом', 'playlist': 'плейлист', 'video': 'видео', 'user': 'пользователь', 'podcast': 'подкаст', 'podcast_episode': 'эпизод подкаста'}
+YM_TOKEN = ''
+YM_CLIENT = ''
 
 # Zvuk -----------------------------------
-BASE_URL = "https://zvuk.com"
-API_ENDPOINTS = {"lyrics": f"{BASE_URL}/api/tiny/lyrics", "stream": f"{BASE_URL}/api/tiny/track/stream", "graphql": f"{BASE_URL}/api/v1/graphql", "profile": f"{BASE_URL}/api/tiny/profile"}
+ZVUK_BASE_URL = "https://zvuk.com"
+ZVUK_API_ENDPOINTS = {"lyrics": f"{ZVUK_BASE_URL}/api/tiny/lyrics", "stream": f"{ZVUK_BASE_URL}/api/tiny/track/stream", "graphql": f"{ZVUK_BASE_URL}/api/v1/graphql", "profile": f"{ZVUK_BASE_URL}/api/tiny/profile"}
+ZVUK_TOKEN = ''
 ZVUK_ERROR = ''
-# ZVUK_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36", "Content-Type": "application/json",}
 
-# Establishing session -------------------
-HEADERS = {'Referer':'https://music.apple.com', 'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'}
-s = requests.Session() 
-s.headers.update(HEADERS)
-#-----------------------------------------
-
-# YM -------------------------------------
-def send_search_request_ym(query, year):
-    global search_result
-    search_result = client.search(query)
-    if search_result.albums:
-        for line in search_result.albums.results:
-            artists = ""
-            for artline in line.artists:
-                if len(artists) == 0:
-                    artists += f'{artline.name}'
-                    frstartst = artline.name
-                else:
-                    artists += f', {artline.name}'
-            # print(f'{line.id} - {line.title} ({line.year}) of {artists}  =>  https://music.yandex.ru/album/{line.id}')
-            if str(line.year) == str(year):
-                return f'https://music.yandex.ru/album/{line.id}'
-
-def search_album_ym(query, year):
-    result = ''
-    result = send_search_request_ym(query, year)
-    if result is None:
-        query_error = ''
-        if query.find('(') > -1:
-            query_error = query[0:query.find(' (')]
-        elif query.find('[') > -1:
-            query_error = query[0:query.find(' [')]
-        elif query.find(' - EP') > -1:
-            query_error = query[0:query.find(' - EP')]
-        elif query.find(' - Single') > -1:
-            query_error = query[0:query.find(' - Single')]
-        if query_error != '':
-            result = send_search_request_ym(query_error, year)
-    return result
-#-----------------------------------------
-
-# Zvuk -----------------------------------
-def get_anonymous_token():
-    try:
-        response = requests.get(API_ENDPOINTS["profile"], headers=HEADERS)
-        response.raise_for_status()
-
-        data = response.json()
-        if "result" in data and "token" in data["result"]:
-            return data["result"]["token"]
-
-        raise ValueError("Token not found in API response")
-    except Exception as e:
-        raise Exception(f"Failed to retrieve anonymous token: {e}")
-
-def get_auth_cookies():
-# To get a token: Log in to Zvuk.com in your browser. Visit https://zvuk.com/api/v2/tiny/profile. Copy the token value from the response
-    global ZVUK_TOKEN
-    if not ZVUK_TOKEN:
-        ZVUK_TOKEN = get_anonymous_token()
-    return {"auth": ZVUK_TOKEN}
-
-def search_tracks_zv(query):
-    graphql_query = """
-    query getSearchReleases($query: String) {
-      search(query: $query) {
-        releases(limit: 10) {
-          items {
-            id
-            title
-            type
-            date
-            artists {
-              id
-              title
-            }
-            image {
-              src
-            }
-          }
-        }
-      }
-    }
-    """
-    payload = {"query": graphql_query, "variables": {"query": query}, "operationName": "getSearchReleases"}
-    response = requests.post(API_ENDPOINTS["graphql"], json=payload, headers=HEADERS, cookies=get_auth_cookies())
-    response.raise_for_status()
-    data = response.json()
-    if (
-        "data" in data
-        and "search" in data["data"]
-        and "releases" in data["data"]["search"]
-    ):
-        return data["data"]["search"]["releases"]["items"]
-    return []
-
-def search_command_zv(arg_query):
-    releases_list = []
-    try:
-        releases = search_tracks_zv(arg_query)
-        if not releases:
-            # print("No releases found")
-            return
-        # print(f"Found {len(releases)} releases:")
-        for i, release in enumerate(releases, 1):
-            artists = ", ".join([artist["title"] for artist in release["artists"]])
-            urllen = len(release["image"]["src"])
-            releases_list.append({
-                "artist": artists,
-                "release": release['title'],
-                "type": release['type'],
-                "date": release['date'][0:10],
-                "id": release['id'],
-                "hash": release["image"]["src"][urllen - 36:urllen]
-            })
-            # print(f"{i}. {artists} - {release['title']} [{release['type']}] ({release['date'][0:10]}) [ID: {release['id']} | HASH: {release["image"]["src"][urllen - 36:urllen]}]")
-        return releases_list
-    except Exception as e:
-        print(f"Error: {e}")
-        return f"Error: {e}"
-
-def search_album_zv(query):
-    global ZVUK_ERROR
-    sArtist = ""
-    sRelease = ""
-    sType = ""    
-    search_split = query.split(" - ")
-    if len(search_split) == 1:
-        if len(search_split[0]) == 0:
-            print("Empty search")
-        else:
-            sArtist = search_split[0]
-    else:
-        sArtist = search_split[0]
-        if search_split[len(search_split) - 1] in ['Single']:
-            sRelease = ' - '.join(search_split[1:len(search_split) - 1])
-            sType = search_split[len(search_split) - 1]
-        elif search_split[len(search_split) - 1] in ['EP']:
-            sRelease = ' - '.join(search_split[1:len(search_split) - 1])
-            sType = "Album"
-        else:
-            sRelease = ' - '.join(search_split[1:])
-            sType = "Album"
-    # print(f'Search for: \nArtist: {sArtist}\nRelease: {sRelease}\nRelease type: {sType}')
-    releases = search_command_zv(query)
-    if type(releases) is list:
-        for rel in releases:
-            if (sArtist.lower() == rel['artist'].lower()) and (sRelease.lower() == rel['release'].lower()) and (sType.lower() == rel['type']):
-                return f'https://zvuk.com/release/{rel['id']}'
-    elif type(releases) is str:
-        ZVUK_ERROR = f'Zvuk {releases}' # if search_command_zv return Error
-#-----------------------------------------
-
-# Процедура Замены символов для Markdown v2
-def ReplaceSymbols(rsTxt):
-    rsTmplt = """'_*[]",()~`>#+-=|{}.!"""
-    for rsf in range(len(rsTmplt)):
-        rsTxt = rsTxt.replace(rsTmplt[rsf], '\\' + rsTmplt[rsf])
-    return rsTxt
-
-# Процедура Отправки сообщения ботом в канал
-def send_message(topic, text):
-    method = URL + TOKEN + "/sendMessage"
-    r = requests.post(method, data={"message_thread_id": thread_id[topic], "chat_id": chat_id, "parse_mode": 'MarkdownV2', "text": text})
-    json_response = json.loads(r.text)
-    rmi = json_response['result']['message_id']   
-    return rmi
-
-# Процедура Отправки изображения ботом в канал
-def send_photo_url(topic, img_url, img_caption):
-    method = URL + TOKEN + "/sendPhoto"
-    r = requests.post(method, data={"message_thread_id": thread_id[topic], "chat_id": chat_id, "photo": img_url, "parse_mode": 'MarkdownV2', "caption": img_caption})
-    json_response = json.loads(r.text)
-    rmi = json_response['result']['message_id']    
-    return rmi
-
-# Процедура поиска актуальной ссылки на раздел
-def find_link(catLink, catName):
-    request = s.get(catLink)
-    request.encoding = 'UTF-8'
-    res = request.text
-    strt = res.find('{"title":"' + catName + '"')
-    pos_id_0 = res.find('"id":"', strt) + len('"id":"')
-    pos_id_1 = res.find('"', pos_id_0)
-    catID = res[pos_id_0:pos_id_1].strip()
-    roomLink = catLink[:catLink.find('/curator')] + '/room/' + str(catID)
-    return roomLink
-
-def collect_albums(caLink, caText, caGrad):
-    global message2send
-    request = s.get(caLink)
-    request.encoding = 'UTF-8'
-
-    if caText == 'METAL':
-        dldCategory = 'M'
-    elif caText == 'HARD ROCK':
-        dldCategory = 'HR'
-    elif caText == 'METAL - RU':
-        dldCategory = 'MRU'
-    elif caText == 'HARD ROCK - RU':
-        dldCategory = 'HRRU'
-    
-    dldDate = str(datetime.datetime.now())[0:10]
-    htmlHead = """<head>
+# HTML -----------------------------------
+HTML_HEAD = """<head>
   <meta charset="utf-8">
   <title>Alternative & Metal Releases</title>
   <link rel="stylesheet" type="text/css" href="../../Resources/styles.css" />
@@ -295,18 +101,11 @@ def collect_albums(caLink, caText, caGrad):
   <hr>
 """
 
-    htmlStart = """  <table border="1">
-    <tr id=""" + ('\"' + dldDate + '_' + caText + '\"').lower().replace(' ','_') +  """><th colspan="2" style="background: linear-gradient(to right, """ + caGrad + """);">""" + dldDate + """ | """ + caText + """</th></tr>
-    <tr><th width="100px">Cover</th><th width="600px">Album</th></tr>
-"""
-
-    htmlText = ''
-
-    htmlEnd = """  </table>
+HTML_END = """  </table>
   <hr>
 """
 
-    htmlFinal = """  <!-- End of File -->
+HTML_FINAL = """  <!-- End of File -->
   <script id="rendered-js" >
     [...document.querySelectorAll('[data-frame-load]')].forEach(button => {
       button.addEventListener('click', () => {
@@ -321,10 +120,188 @@ def collect_albums(caLink, caText, caGrad):
 </body>
 """
 
+# functions
+
+# Yandex.Music ---------------------------
+def send_search_request_ym(query, year):
+    global YM_CLIENT
+    ym_search_result = YM_CLIENT.search(query)
+    if ym_search_result.albums:
+        for ym_line in ym_search_result.albums.results:
+            if str(ym_line.year) == str(year):
+                return f'https://music.yandex.ru/album/{ym_line.id}'
+
+def search_album_ym(query, year):
+    ym_result = send_search_request_ym(query, year)
+    if ym_result is None:
+        query_error = ''
+        if ' (' in query:
+            query_error = query[0:query.find(' (')]
+        elif ' [' in query:
+            query_error = query[0:query.find(' [')]
+        elif ' - EP' in query:
+            query_error = query[0:query.find(' - EP')]
+        elif ' - Single' in query:
+            query_error = query[0:query.find(' - Single')]
+        if query_error:
+            ym_result = send_search_request_ym(query_error, year)
+    return ym_result
+#-----------------------------------------
+
+# Zvuk -----------------------------------
+def get_anonymous_token_zv():
+    try:
+        response = session.get(ZVUK_API_ENDPOINTS["profile"], headers=HEADERS)
+        response.raise_for_status()
+
+        zv_data = response.json()
+        if ("result" in zv_data) and ("token" in zv_data["result"]):
+            return zv_data["result"]["token"]
+
+        raise ValueError("Token not found in API response")
+    except Exception as zv_error:
+        raise Exception(f"Failed to retrieve anonymous token: {zv_error}")
+
+def get_auth_cookies_zv():
+    """To get a token: 
+    Log in to Zvuk.com in your browser. 
+    Visit https://zvuk.com/api/v2/tiny/profile. 
+    Copy the token value from the response
+    """
+    global ZVUK_TOKEN
+    if not ZVUK_TOKEN:
+        ZVUK_TOKEN = get_anonymous_token_zv()
+    return {"auth": ZVUK_TOKEN}
+
+def search_tracks_zv(query):
+    graphql_query = """
+    query getSearchReleases($query: String) {
+      search(query: $query) {
+        releases(limit: 10) {
+          items {
+            id
+            title
+            type
+            date
+            artists {
+              id
+              title
+            }
+            image {
+              src
+            }
+          }
+        }
+      }
+    }
+    """
+    payload = {"query": graphql_query, "variables": {"query": query}, "operationName": "getSearchReleases"}
+    response = session.post(ZVUK_API_ENDPOINTS["graphql"], json=payload, headers=HEADERS, cookies=get_auth_cookies_zv())
+    response.raise_for_status()
+    zv_data = response.json()
+    if (
+        ("data" in zv_data)
+        and ("search" in zv_data["data"])
+        and ("releases" in zv_data["data"]["search"])
+    ):
+        return zv_data["data"]["search"]["releases"]["items"]
+    return []
+
+def search_command_zv(arg_query):
+    releases_list = []
+    try:
+        zv_releases = search_tracks_zv(arg_query)
+        if not zv_releases:
+            return
+        for i, release in enumerate(zv_releases, 1):
+            artists = ", ".join([artist["title"] for artist in release["artists"]])
+            urllen = len(release["image"]["src"])
+            releases_list.append({
+                "artist": artists,
+                "release": release['title'],
+                "type": release['type'],
+                "date": release['date'][0:10],
+                "id": release['id'],
+                "hash": release["image"]["src"][urllen - 36:urllen]
+            })
+        return releases_list
+    except Exception as zv_error:
+        return f"Error: {zv_error}"
+
+def search_album_zv(query):
+    global ZVUK_ERROR
+    sArtist = ""
+    sRelease = ""
+    sType = ""    
+    search_split = query.split(" - ")
+    if len(search_split) > 1:
+        sArtist = search_split[0]
+        if search_split[len(search_split) - 1] in ['Single']:
+            sRelease = ' - '.join(search_split[1:len(search_split) - 1])
+            sType = search_split[len(search_split) - 1]
+        elif search_split[len(search_split) - 1] in ['EP']:
+            sRelease = ' - '.join(search_split[1:len(search_split) - 1])
+            sType = "Album"
+        else:
+            sRelease = ' - '.join(search_split[1:])
+            sType = "Album"
+    zv_releases = search_command_zv(query)
+    if type(zv_releases) is list:
+        for zv_release in zv_releases:
+            if (sArtist.lower() == zv_release['artist'].lower()) and (sRelease.lower() == zv_release['release'].lower()) and (sType.lower() == zv_release['type']):
+                return f'https://zvuk.com/release/{zv_release['id']}'
+    elif type(zv_releases) is str:
+        # if search_command_zv return Error
+        ZVUK_ERROR = f'Zvuk {zv_releases}' 
+    elif zv_releases is None:
+        # if search_command_zv return None
+        amr.logger(f"Zvuk didn't find {query}", LOG_FILE, SCRIPT_NAME)
+#-----------------------------------------
+
+def make_html_start(update_date, category_name, category_color):
+    tr_id = f'"{update_date}_{category_name}"'.lower().replace(' ','_')
+    html_start = f"""  <table border="1">
+    <tr id={tr_id}><th colspan="2" style="background: linear-gradient(to right, {category_color});">{update_date} | {category_name}</th></tr>
+    <tr><th width="100px">Cover</th><th width="600px">Album</th></tr>
+"""    
+    return html_start
+
+def make_html_text(artist, album, imga, link, aralinsert, ym_result, zv_result):
+    html_text = f"""  <!-- {artist.replace('&amp;','&')} - {album.replace('&amp;','&')} -->
+    <tr style="display:;" id=''>
+      <td><a href="{imga.replace('296x296bb.webp', '100000x100000-999.jpg').replace('296x296bf.webp', '100000x100000-999.jpg')}" target="_blank"><img src="{imga}" height="100px"></a></td>
+      <td class="album_name"><a href="{link}" target="_blank"><b>{aralinsert}</a><br><br><button data-frame-load="{link[link.rfind('/') + 1:]}">Preview</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{ym_result if ym_result is not None else ''}" target="_blank"><button{' disabled' if ym_result is None or ym_result == '' else ''}>Яндекс.Музыка</button></a>&nbsp;<a href="{zv_result if zv_result is not None else ''}" target="_blank"><button{' disabled' if zv_result is None or zv_result == '' else ''}>Звук</button></a></td>
+    </tr> 
+    <tr style="display:none;" id="show{link[link.rfind('/') + 1:]}_"><td colspan="2"><iframe id="embedPlayer" data-frame-group="{link[link.rfind('/') + 1:]}" data-frame-src="{link.replace('://', '://embed.')}?app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=light" height="450px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *; clipboard-write" style="width: 100%; overflow: hidden; border-radius: 10px; transform: translateZ(0px); animation: 2s ease 0s 6 normal none running loading-indicator; background-color: rgb(228, 228, 228);"></iframe></td></tr>
+"""
+    return html_text
+
+def find_room_link(category_link, category_name):
+    """ Searching correct link to room genre
+    """
+    request = session.get(category_link)
+    request.encoding = 'UTF-8'
+    response = request.text
+    start_position = response.find(f'{"title":"{category_name}"')
+    begin_position = response.find('"id":"', start_position) + len('"id":"')
+    end_position = response.find('"', begin_position)
+    category_id = response[begin_position:end_position].strip()
+    room_link = f'{category_link[:category_link.find('/curator')]}/room/{category_id}'
+    return room_link
+
+def collect_new_releases(category_link, category_name, category_color, category_abbr):
+    global message_new_releases
+    request = session.get(category_link)
+    request.encoding = 'UTF-8'
+    
+    update_date = datetime.datetime.now().strftime('%Y-%m-%d')
+    html_start = make_html_start(update_date, category_name, category_color)
+    html_text = ''
+
     fieldNames = ['date', 'category', 'artist', 'album', 'Best_Fav_New_OK', 'rec_send2TG', 'link', 'link_ym', 'link_zv', 'imga', 'send2TG', 'TGmsgID']
-    pdDB = pd.read_csv(newReleasesDB, sep=";")
-    pdAIDDB = pd.read_csv(artistIDsDB, sep=";")
-    csvfile = open(newReleasesDB, 'a+', newline='')
+    pdDB = pd.read_csv(NEW_RELEASES_DB, sep=";")
+    pdAIDDB = pd.read_csv(ARTIST_ID_DB, sep=";")
+    csvfile = open(NEW_RELEASES_DB, 'a+', newline='')
     writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=fieldNames)
 
     res = request.text
@@ -388,7 +365,7 @@ def collect_albums(caLink, caText, caGrad):
                             aralname = artist + ' - ' + album
                             # YM & Zvuk search --------------
                             ym_zv_search_string = f'{artist.replace('&amp;','&')} - {album.replace('&amp;','&')}' 
-                            ym_year = dldDate[0:4]
+                            ym_year = update_date[0:4]
                             ym_result = ''
                             zv_result = ''
                             ym_result = search_album_ym(ym_zv_search_string, ym_year)
@@ -400,11 +377,11 @@ def collect_albums(caLink, caText, caGrad):
                             aralinsert = aralname.replace(artist, artist + '</b>') if len(aralname) < 80 else aralname[:aralname[:80].rfind(' ') + 1].replace(artist, artist + '</b>') + '<br>' + aralname[aralname[:80].rfind(' ') + 1:]
                             if isMyArtist > 0:
                                 img_url = imga.replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
-                                img_caption = f'*{ReplaceSymbols(artist.replace('&amp;','&'))}* \\- [{ReplaceSymbols(album.replace('&amp;','&'))}]({link.replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({link}){f'\n\U0001F4A5 [Яндекс\\.Музыка]({ym_result})' if ym_result is not None and ym_result != '' else ''}{f'\n\U0001F50A [Звук]({zv_result})' if zv_result is not None and zv_result != '' else ''}'
-                                message2send = send_photo_url('New Releases', img_url, img_caption)
+                                img_caption = f'*{amr.replace_symbols_markdown_v2(artist.replace('&amp;','&'))}* \\- [{amr.replace_symbols_markdown_v2(album.replace('&amp;','&'))}]({link.replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({link}){f'\n\U0001F4A5 [Яндекс\\.Музыка]({ym_result})' if ym_result is not None and ym_result != '' else ''}{f'\n\U0001F50A [Звук]({zv_result})' if zv_result is not None and zv_result != '' else ''}'
+                                message_new_releases = amr.send_photo_url('New Releases', img_caption, img_url, TOKEN, CHAT_ID)
 
-                            writer.writerow({'date': dldDate, 
-                                             'category': dldCategory, 
+                            writer.writerow({'date': update_date, 
+                                             'category': category_abbr, 
                                              'artist': artist.replace('&amp;','&'), 
                                              'album': album.replace('&amp;','&'), 
                                              'Best_Fav_New_OK': '', 
@@ -414,25 +391,26 @@ def collect_albums(caLink, caText, caGrad):
                                              'link_zv': zv_result if zv_result is not None else '', # YM & Zvuk search
                                              'imga': imga, 
                                              'send2TG': '', 
-                                             'TGmsgID': message2send if message2send > 1 else ''})
-                            message2send = 1 if message2send > 0 else 0
-                            htmlText += f"""  <!-- {artist.replace('&amp;','&')} - {album.replace('&amp;','&')} -->
-    <tr style="display:;" id=''>
-      <td><a href="{imga.replace('296x296bb.webp', '100000x100000-999.jpg').replace('296x296bf.webp', '100000x100000-999.jpg')}" target="_blank"><img src="{imga}" height="100px"></a></td>
-      <td class="album_name"><a href="{link}" target="_blank"><b>{aralinsert}</a><br><br><button data-frame-load="{link[link.rfind('/') + 1:]}">Preview</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{ym_result if ym_result is not None else ''}" target="_blank"><button{' disabled' if ym_result is None or ym_result == '' else ''}>Яндекс.Музыка</button></a>&nbsp;<a href="{zv_result if zv_result is not None else ''}" target="_blank"><button{' disabled' if zv_result is None or zv_result == '' else ''}>Звук</button></a></td>
-    </tr> 
-    <tr style="display:none;" id="show{link[link.rfind('/') + 1:]}_"><td colspan="2"><iframe id="embedPlayer" data-frame-group="{link[link.rfind('/') + 1:]}" data-frame-src="{link.replace('://', '://embed.')}?app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=light" height="450px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *; clipboard-write" style="width: 100%; overflow: hidden; border-radius: 10px; transform: translateZ(0px); animation: 2s ease 0s 6 normal none running loading-indicator; background-color: rgb(228, 228, 228);"></iframe></td></tr>
-"""
+                                             'TGmsgID': message_new_releases if message_new_releases > 1 else ''})
+                            message_new_releases = 1 if message_new_releases > 0 else 0
+                            html_text += make_html_text(artist, album, imga, link, aralinsert, ym_result, zv_result)
+#                             html_text += f"""  <!-- {artist.replace('&amp;','&')} - {album.replace('&amp;','&')} -->
+#     <tr style="display:;" id=''>
+#       <td><a href="{imga.replace('296x296bb.webp', '100000x100000-999.jpg').replace('296x296bf.webp', '100000x100000-999.jpg')}" target="_blank"><img src="{imga}" height="100px"></a></td>
+#       <td class="album_name"><a href="{link}" target="_blank"><b>{aralinsert}</a><br><br><button data-frame-load="{link[link.rfind('/') + 1:]}">Preview</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{ym_result if ym_result is not None else ''}" target="_blank"><button{' disabled' if ym_result is None or ym_result == '' else ''}>Яндекс.Музыка</button></a>&nbsp;<a href="{zv_result if zv_result is not None else ''}" target="_blank"><button{' disabled' if zv_result is None or zv_result == '' else ''}>Звук</button></a></td>
+#     </tr> 
+#     <tr style="display:none;" id="show{link[link.rfind('/') + 1:]}_"><td colspan="2"><iframe id="embedPlayer" data-frame-group="{link[link.rfind('/') + 1:]}" data-frame-src="{link.replace('://', '://embed.')}?app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=light" height="450px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *; clipboard-write" style="width: 100%; overflow: hidden; border-radius: 10px; transform: translateZ(0px); animation: 2s ease 0s 6 normal none running loading-indicator; background-color: rgb(228, 228, 228);"></iframe></td></tr>
+# """
                     i += 1
                 i += 1
         i += 1
 
     csvfile.close()
 
-    yearNOW = dldDate[0:4]
-    monthNOW = dldDate[0:7]
-    monthTextNOW = datetime.datetime.strptime(dldDate, '%Y-%m-%d').strftime('%B')    
-    HTMLFile = open(rootFolder + "index.html", "r")
+    yearNOW = update_date[0:4]
+    monthNOW = update_date[0:7]
+    monthTextNOW = datetime.datetime.strptime(update_date, '%Y-%m-%d').strftime('%B')    
+    HTMLFile = open(ROOT_FOLDER + "index.html", "r")
     index = HTMLFile.read()
     monthDBslice = index[index.find('<a href="AMRs'):index.find('</a><br>')]
     monthDB = monthDBslice[monthDBslice.rfind(' ') + 1:monthDBslice.rfind('.html">')]
@@ -444,7 +422,7 @@ def collect_albums(caLink, caText, caGrad):
 
     if yearNOW != yearDB:
         newYear = 1
-        with open(rootFolder + 'index.html', 'r+') as idx:
+        with open(ROOT_FOLDER + 'index.html', 'r+') as idx:
             idxContent = idx.read()
             idxContent = idxContent.replace(f'\n    <h2 class="title svelte-hprj71" data-testid="header-title">{yearDB}:</h2>',
                                             f'\n    <h2 class="title svelte-hprj71" data-testid="header-title">{yearNOW}:</h2>\n        <a href="AMRs/{yearNOW}/AMR {monthNOW}.html">{monthTextNOW}</a><br>\n    <h2 class="title svelte-hprj71" data-testid="header-title">{yearDB}:</h2>')
@@ -454,7 +432,7 @@ def collect_albums(caLink, caText, caGrad):
     else:
         if monthNOW != monthDB:
             newMonth = 1
-            with open(rootFolder + 'index.html', 'r+') as idx:
+            with open(ROOT_FOLDER + 'index.html', 'r+') as idx:
                 idxContent = idx.read()
                 idxContent = idxContent.replace(f'\n        <a href="AMRs/{yearDB}/AMR {monthDB}.html">{monthTextDB}</a><br>',
                                                 f'\n        <a href="AMRs/{yearDB}/AMR {monthDB}.html">{monthTextDB}</a> | \n        <a href="AMRs/{yearNOW}/AMR {monthNOW}.html">{monthTextNOW}</a><br>')
@@ -462,23 +440,23 @@ def collect_albums(caLink, caText, caGrad):
                 idx.write(idxContent)
             idx.close()
 
-    if htmlText != '':
+    if html_text != '':
         if newMonth == 1 or newYear == 1:
-            with open(f'{amrsFolder}{yearNOW}/AMR {monthNOW}.html', 'w') as h2r:
-                h2r.write(htmlHead + '\n' + htmlStart + htmlText + htmlEnd + '\n' + htmlFinal)
+            with open(f'{AMR_FOLDER}{yearNOW}/AMR {monthNOW}.html', 'w') as h2r:
+                h2r.write(HTML_HEAD + '\n' + htmlStart + html_text + HTML_END + '\n' + HTML_FINAL)
             h2r.close()            
         else:
-            with open(f'{amrsFolder}{yearNOW}/AMR {monthNOW}.html', 'r+') as h2r:
+            with open(f'{AMR_FOLDER}{yearNOW}/AMR {monthNOW}.html', 'r+') as h2r:
                 h2rContent = h2r.read()
-                h2rContent = h2rContent.replace(htmlHead, '')
+                h2rContent = h2rContent.replace(HTML_HEAD, '')
                 h2r.seek(0, 0)
-                h2r.write(htmlHead + '\n' + htmlStart + htmlText + htmlEnd + '\n' + h2rContent)
+                h2r.write(HTML_HEAD + '\n' + htmlStart + html_text + HTML_END + '\n' + h2rContent)
             h2r.close()
 #----------------------------------------------------------------------------------------------------
 
-def coming_soon(caLink):
-    global messageCS
-    CS_request = s.get(caLink)
+def coming_soon(category_link):
+    global message_cs_releases
+    CS_request = session.get(category_link)
     CS_request.encoding = 'UTF-8'
     CS_res = CS_request.text
 
@@ -593,7 +571,7 @@ def coming_soon(caLink):
 
                 i += 1
 
-            CS2_request = s.get(a_product_lockup__title_href)
+            CS2_request = session.get(a_product_lockup__title_href)
             CS2_request.encoding = 'UTF-8'
             CS2_res = CS2_request.text
 
@@ -641,13 +619,13 @@ def coming_soon(caLink):
 '''
             AMRelDate = row.iloc[12]
 
-        pdCS = pd.read_csv(csReleasesDB, sep=";")
-        pdAIDDB = pd.read_csv(artistIDsDB, sep=";")
+        pdCS = pd.read_csv(CS_RELEASES_DB, sep=";")
+        pdAIDDB = pd.read_csv(ARTIST_ID_DB, sep=";")
         if len(pdCS.loc[pdCS['album__href'] == row.iloc[7]]) == 0:
             row.iloc[13] = 1
 
             fieldNamesCS = ['update__date', 'album_cover__jpeg', 'album__href', 'album__name', 'artist__href', 'artist__name', 'release__date', 'release__date_text']
-            csvCS = open(csReleasesDB, 'a+', newline='') 
+            csvCS = open(CS_RELEASES_DB, 'a+', newline='') 
             writerCS = csv.DictWriter(csvCS, delimiter=';', fieldnames=fieldNamesCS)
 
             writerCS.writerow({'update__date': str(datetime.datetime.now())[0:10],
@@ -661,8 +639,8 @@ def coming_soon(caLink):
 
             if float(row.iloc[9][row.iloc[9].rfind('/', 0, len(row.iloc[9])) + 1:]) in pdAIDDB['mainId'].values:
                 img_url = row.iloc[5][0:row.iloc[5].find(' ')].replace('296x296bb-60.jpg', '632x632bb.webp').replace('296x296bf-60.jpg', '632x632bf.webp')
-                img_caption = f'*{ReplaceSymbols(row.iloc[10].replace('&amp;','&'))}* \\- [{ReplaceSymbols(row.iloc[8].replace('&amp;','&'))}]({row.iloc[7].replace('://','://embed.')})\n{ReplaceSymbols(str(row.iloc[11])[0:10])}'
-                messageCS = send_photo_url('Coming Soon', img_url, img_caption)
+                img_caption = f'*{amr.replace_symbols_markdown_v2(row.iloc[10].replace('&amp;','&'))}* \\- [{amr.replace_symbols_markdown_v2(row.iloc[8].replace('&amp;','&'))}]({row.iloc[7].replace('://','://embed.')})\n{amr.replace_symbols_markdown_v2(str(row.iloc[11])[0:10])}'
+                message_cs_releases = amr.send_photo_url('Coming Soon', img_caption, img_url, TOKEN, CHAT_ID)
 
         css_newRelease = '<a class="product-lockup__title svelte-21e67y"'
         if row.iloc[13] == 1:
@@ -717,7 +695,7 @@ def coming_soon(caLink):
 </body>
 '''
 
-    with open(rootFolder + 'index.html', 'r+') as idx2:
+    with open(ROOT_FOLDER + 'index.html', 'r+') as idx2:
         idx2Content = idx2.read()
         ul_idx_r = idx2Content.find('      <div class="main-date">')
         ul_idx_string = idx2Content[ul_idx_r:]
@@ -731,14 +709,14 @@ def coming_soon(caLink):
 def CS2NR():
 # Coming soon to New Releases  
 
-    pdNR = pd.read_csv(newReleasesDB, sep=";")
-    pdCS = pd.read_csv(csReleasesDB, sep=";")
+    pdNR = pd.read_csv(NEW_RELEASES_DB, sep=";")
+    pdCS = pd.read_csv(CS_RELEASES_DB, sep=";")
     pdCSNR = pd.DataFrame(columns=['artist', 'album', 'link', 'image'])
 
     for index, row in pdCS.iterrows():
         if datetime.datetime.strptime(row.iloc[6], "%Y-%m-%d %H:%M:%S") <= datetime.datetime.now():
             if len(pdNR.loc[pdNR['link'] == row.iloc[2]]) == 0:
-                CS2_request = s.get(row.iloc[2])
+                CS2_request = session.get(row.iloc[2])
                 CS2_request.encoding = 'UTF-8'
                 CS2_res = CS2_request.text
                 bigstring = 'data-testid="tracklist-footer-description">'
@@ -753,17 +731,17 @@ def CS2NR():
                     pdCSNR.loc[len(pdCSNR.index)] = [row.iloc[5], row.iloc[3], row.iloc[2], row.iloc[1]]
 
     # !!! ЗАПИСЬ В БД !!!
-    pdCS.to_csv(csReleasesDB, sep=';', index=False)
+    pdCS.to_csv(CS_RELEASES_DB, sep=';', index=False)
     pdNR = pd.DataFrame()
     pdCS = pd.DataFrame()
 
     if len(pdCSNR) > 0:
-        dldCategory = 'CS'
-        caText = 'METAL - CS'
-        caGrad = '#81BB98, #9AD292'
+        category_abbr = 'CS'
+        category_name = 'METAL - CS'
+        category_color = '#81BB98, #9AD292'
 
-        dldDate = str(datetime.datetime.now())[0:10]
-        htmlHead = """<head>
+        update_date = str(datetime.datetime.now())[0:10]
+        HTML_HEAD = """<head>
   <meta charset="utf-8">
   <title>Alternative & Metal Releases</title>
   <link rel="stylesheet" type="text/css" href="../../Resources/styles.css" />
@@ -813,40 +791,27 @@ def CS2NR():
 """
 
         htmlStart = """  <table border="1">
-    <tr id=""" + ('\"' + dldDate + '_' + caText + '\"').lower().replace(' ','_') +  """><th colspan="2" style="background: linear-gradient(to right, """ + caGrad + """);">""" + dldDate + """ | """ + caText + """</th></tr>
+    <tr id=""" + ('\"' + update_date + '_' + category_name + '\"').lower().replace(' ','_') +  """><th colspan="2" style="background: linear-gradient(to right, """ + category_color + """);">""" + update_date + """ | """ + category_name + """</th></tr>
     <tr><th width="100px">Cover</th><th width="600px">Album</th></tr>
 """
 
-        htmlText = ''
+        html_text = ''
 
-        htmlEnd = """  </table>
+        HTML_END = """  </table>
   <hr>
 """
 
-        htmlFinal = """  <!-- End of File -->
-  <script id="rendered-js" >
-    [...document.querySelectorAll('[data-frame-load]')].forEach(button => {
-      button.addEventListener('click', () => {
-        const group = button.getAttribute('data-frame-load');
-        [...document.querySelectorAll(`[data-frame-group="${group}"]`)].forEach(frame => {
-          javascript:show(frame.getAttribute('data-frame-group') + '_');
-          frame.setAttribute('src', frame.getAttribute('data-frame-src'));
-        });
-      });
-    });
-  </script>
-</body>
-"""
+
 
         fieldNames = ['date', 'category', 'artist', 'album', 'Best_Fav_New_OK', 'rec_send2TG', 'link', 'link_ym', 'link_zv', 'imga', 'send2TG', 'TGmsgID']
-        csvfile = open(newReleasesDB, 'a+', newline='')
+        csvfile = open(NEW_RELEASES_DB, 'a+', newline='')
         writer = csv.DictWriter(csvfile, delimiter=';', fieldnames=fieldNames)
 
         for index, row in pdCSNR.iterrows():
             aralname = row.iloc[0] + ' - ' + row.iloc[1]
             # YM & Zvuk search --------------
             ym_zv_search_string = f'{row.iloc[0].replace('&amp;','&')} - {row.iloc[1].replace('&amp;','&')}' 
-            ym_year = dldDate[0:4]
+            ym_year = update_date[0:4]
             ym_result = ''
             zv_result = ''
             ym_result = search_album_ym(ym_zv_search_string, ym_year)
@@ -856,8 +821,8 @@ def CS2NR():
                 zv_result = ''
             # -------------------------------
             aralinsert = aralname.replace(row.iloc[0], row.iloc[0] + '</b>') if len(aralname) < 80 else aralname[:aralname[:80].rfind(' ') + 1].replace(row.iloc[0], row.iloc[0] + '</b>') + '<br>' + aralname[aralname[:80].rfind(' ') + 1:]
-            writer.writerow({'date': dldDate, 
-                          'category': dldCategory, 
+            writer.writerow({'date': update_date, 
+                          'category': category_abbr, 
                           'artist': row.iloc[0], 
                           'album': row.iloc[1], 
                           'Best_Fav_New_OK': '', 
@@ -869,20 +834,29 @@ def CS2NR():
                           'send2TG': '', 
                           'TGmsgID': ''})
 
-            htmlText += f"""  <!-- {row.iloc[0]} - {row.iloc[1]} -->
-    <tr style="display:;" id=''>
-      <td><a href="{row.iloc[3].replace('296x296bb.webp', '100000x100000-999.jpg').replace('296x296bf.webp', '100000x100000-999.jpg').replace('296x296bf-60.jpg', '100000x100000-999.jpg')}" target="_blank"><img src="{row.iloc[3]}" height="100px"></a></td>
-      <td class="album_name"><a href="{row.iloc[2]}" target="_blank"><b>{aralinsert}</a><br><br><button data-frame-load="{row.iloc[2][row.iloc[2].rfind('/') + 1:]}">Preview</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{ym_result if ym_result is not None else ''}" target="_blank"><button{' disabled' if ym_result is None or ym_result == '' else ''}>Яндекс.Музыка</button></a>&nbsp;<a href="{zv_result if zv_result is not None else ''}" target="_blank"><button{' disabled' if zv_result is None or zv_result == '' else ''}>Звук</button></a></td>
-    </tr> 
-    <tr style="display:none;" id="show{row.iloc[2][row.iloc[2].rfind('/') + 1:]}_"><td colspan="2"><iframe id="embedPlayer" data-frame-group="{row.iloc[2][row.iloc[2].rfind('/') + 1:]}" data-frame-src="{row.iloc[2].replace('://', '://embed.')}?app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=light" height="450px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *; clipboard-write" style="width: 100%; overflow: hidden; border-radius: 10px; transform: translateZ(0px); animation: 2s ease 0s 6 normal none running loading-indicator; background-color: rgb(228, 228, 228);"></iframe></td></tr>
-"""
+            # !!! CHANGE names TO row.iloc[#] !!!
+            html_text += make_html_text(artist, album, imga, link, aralinsert, ym_result, zv_result)
+#             html_text += f"""  <!-- {row.iloc[0]} - {row.iloc[1]} -->
+#     <tr style="display:;" id=''>
+#       <td><a href="{row.iloc[3].replace('296x296bb.webp', '100000x100000-999.jpg').replace('296x296bf.webp', '100000x100000-999.jpg').replace('296x296bf-60.jpg', '100000x100000-999.jpg')}" target="_blank"><img src="{row.iloc[3]}" height="100px"></a></td>
+#       <td class="album_name"><a href="{row.iloc[2]}" target="_blank"><b>{aralinsert}</a><br><br><button data-frame-load="{row.iloc[2][row.iloc[2].rfind('/') + 1:]}">Preview</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{ym_result if ym_result is not None else ''}" target="_blank"><button{' disabled' if ym_result is None or ym_result == '' else ''}>Яндекс.Музыка</button></a>&nbsp;<a href="{zv_result if zv_result is not None else ''}" target="_blank"><button{' disabled' if zv_result is None or zv_result == '' else ''}>Звук</button></a></td>
+#     </tr> 
+#     <tr style="display:none;" id="show{row.iloc[2][row.iloc[2].rfind('/') + 1:]}_"><td colspan="2"><iframe id="embedPlayer" data-frame-group="{row.iloc[2][row.iloc[2].rfind('/') + 1:]}" data-frame-src="{row.iloc[2].replace('://', '://embed.')}?app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=light" height="450px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *; clipboard-write" style="width: 100%; overflow: hidden; border-radius: 10px; transform: translateZ(0px); animation: 2s ease 0s 6 normal none running loading-indicator; background-color: rgb(228, 228, 228);"></iframe></td></tr>
+# """
 
+#     html_text = f"""  <!-- {artist.replace('&amp;','&')} - {album.replace('&amp;','&')} -->
+#     <tr style="display:;" id=''>
+#       <td><a href="{imga.replace('296x296bb.webp', '100000x100000-999.jpg').replace('296x296bf.webp', '100000x100000-999.jpg')}" target="_blank"><img src="{imga}" height="100px"></a></td>
+#       <td class="album_name"><a href="{link}" target="_blank"><b>{aralinsert}</a><br><br><button data-frame-load="{link[link.rfind('/') + 1:]}">Preview</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{ym_result if ym_result is not None else ''}" target="_blank"><button{' disabled' if ym_result is None or ym_result == '' else ''}>Яндекс.Музыка</button></a>&nbsp;<a href="{zv_result if zv_result is not None else ''}" target="_blank"><button{' disabled' if zv_result is None or zv_result == '' else ''}>Звук</button></a></td>
+#     </tr> 
+#     <tr style="display:none;" id="show{link[link.rfind('/') + 1:]}_"><td colspan="2"><iframe id="embedPlayer" data-frame-group="{link[link.rfind('/') + 1:]}" data-frame-src="{link.replace('://', '://embed.')}?app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=light" height="450px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *; clipboard-write" style="width: 100%; overflow: hidden; border-radius: 10px; transform: translateZ(0px); animation: 2s ease 0s 6 normal none running loading-indicator; background-color: rgb(228, 228, 228);"></iframe></td></tr>
+# """
         csvfile.close()
 
-        yearNOW = dldDate[0:4]
-        monthNOW = dldDate[0:7]
-        monthTextNOW = datetime.datetime.strptime(dldDate, '%Y-%m-%d').strftime('%B')    
-        HTMLFile = open(rootFolder + "index.html", "r")
+        yearNOW = update_date[0:4]
+        monthNOW = update_date[0:7]
+        monthTextNOW = datetime.datetime.strptime(update_date, '%Y-%m-%d').strftime('%B')    
+        HTMLFile = open(ROOT_FOLDER + "index.html", "r")
         index = HTMLFile.read()
         monthDBslice = index[index.find('<a href="AMRs'):index.find('</a><br>')] # THIS
         monthDB = monthDBslice[monthDBslice.rfind(' ') + 1:monthDBslice.rfind('.html">')] # THIS
@@ -894,7 +868,7 @@ def CS2NR():
 
         if yearNOW != yearDB:
             newYear = 1
-            with open(rootFolder + 'index.html', 'r+') as idx:
+            with open(ROOT_FOLDER + 'index.html', 'r+') as idx:
                 idxContent = idx.read()
                 idxContent = idxContent.replace(f'\n    <h2 class="title svelte-hprj71" data-testid="header-title">{yearDB}:</h2>',
                                                 f'\n    <h2 class="title svelte-hprj71" data-testid="header-title">{yearNOW}:</h2>\n        <a href="AMRs/{yearNOW}/AMR {monthNOW}.html">{monthTextNOW}</a><br>\n    <h2 class="title svelte-hprj71" data-testid="header-title">{yearDB}:</h2>')
@@ -904,7 +878,7 @@ def CS2NR():
         else:
             if monthNOW != monthDB:
                 newMonth = 1
-                with open(rootFolder + 'index.html', 'r+') as idx:
+                with open(ROOT_FOLDER + 'index.html', 'r+') as idx:
                     idxContent = idx.read()
                     idxContent = idxContent.replace(f'\n        <a href="AMRs/{yearDB}/AMR {monthDB}.html">{monthTextDB}</a><br>',
                                                     f'\n        <a href="AMRs/{yearDB}/AMR {monthDB}.html">{monthTextDB}</a> | \n        <a href="AMRs/{yearNOW}/AMR {monthNOW}.html">{monthTextNOW}</a><br>')
@@ -912,21 +886,21 @@ def CS2NR():
                     idx.write(idxContent)
                 idx.close()
 
-        if htmlText != '':
+        if html_text != '':
             if newMonth == 1 or newYear == 1:
-                with open(f'{amrsFolder}{yearNOW}/AMR {monthNOW}.html', 'w') as h2r:
-                    h2r.write(htmlHead + '\n' + htmlStart + htmlText + htmlEnd + '\n' + htmlFinal)
+                with open(f'{AMR_FOLDER}{yearNOW}/AMR {monthNOW}.html', 'w') as h2r:
+                    h2r.write(HTML_HEAD + '\n' + htmlStart + html_text + HTML_END + '\n' + HTML_FINAL)
                 h2r.close()            
             else:
-                with open(f'{amrsFolder}{yearNOW}/AMR {monthNOW}.html', 'r+') as h2r:
+                with open(f'{AMR_FOLDER}{yearNOW}/AMR {monthNOW}.html', 'r+') as h2r:
                     h2rContent = h2r.read()
-                    h2rContent = h2rContent.replace(htmlHead, '')
+                    h2rContent = h2rContent.replace(HTML_HEAD, '')
                     h2r.seek(0, 0)
-                    h2r.write(htmlHead + '\n' + htmlStart + htmlText + htmlEnd + '\n' + h2rContent)
+                    h2r.write(HTML_HEAD + '\n' + htmlStart + html_text + HTML_END + '\n' + h2rContent)
                 h2r.close()
 
 def nextWeekReleases_sender():
-    pdR = pd.read_csv(ReleasesDB, sep=";")
+    pdR = pd.read_csv(RELEASES_DB, sep=";")
 
     msg2snd = ''
     msg2snd_nw = ''
@@ -935,7 +909,7 @@ def nextWeekReleases_sender():
     msg2snd += '\U0001F50E This week releases:'
     if len(pdR[(pdR['downloadedRelease'] == 'd') & (pdR['releaseDate'] <= nowDate)]) > 0:
         for index, row in pdR[(pdR['downloadedRelease'] == 'd') & (pdR['releaseDate'] <= nowDate)].sort_values(by=['releaseDate','mainArtist'], ascending=[True, True]).iterrows():
-            msg2snd += f'\n*{ReplaceSymbols(row.iloc[3].replace('&amp;','&'))}* \\- {ReplaceSymbols(row.iloc[4].replace('&amp;','&'))}'
+            msg2snd += f'\n*{amr.replace_symbols_markdown_v2(row.iloc[3].replace('&amp;','&'))}* \\- {amr.replace_symbols_markdown_v2(row.iloc[4].replace('&amp;','&'))}'
     else:
         msg2snd += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
 
@@ -945,79 +919,132 @@ def nextWeekReleases_sender():
         for index, row in pdR[(pdR['downloadedRelease'] == 'd') & (pdR['releaseDate'] > nowDate)].sort_values(by=['releaseDate','mainArtist'], ascending=[True, True]).iterrows():
             if week_date != row.iloc[6]:
                 week_date = row.iloc[6]
-                msg2snd_nw += f'\n\n__{ReplaceSymbols(week_date)}__'
-            msg2snd_nw += f'\n*{ReplaceSymbols(row.iloc[3].replace('&amp;','&'))}* \\- {ReplaceSymbols(row.iloc[4].replace('&amp;','&'))}'
+                msg2snd_nw += f'\n\n__{amr.replace_symbols_markdown_v2(week_date)}__'
+            msg2snd_nw += f'\n*{amr.replace_symbols_markdown_v2(row.iloc[3].replace('&amp;','&'))}* \\- {amr.replace_symbols_markdown_v2(row.iloc[4].replace('&amp;','&'))}'
     else:
         msg2snd_nw += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
 
 
-    send_message('Next Week Releases', msg2snd_nw)
-    send_message('Next Week Releases', msg2snd)    
+    amr.send_message('Next Week Releases', msg2snd_nw, TOKEN, CHAT_ID)
+    amr.send_message('Next Week Releases', msg2snd, TOKEN, CHAT_ID)    
 
     pdR = pd.DataFrame()
-#----------------------------------------------------------------------------------------------------
 
-print("##############################################################")
-print("""     _                _        __  __           _            
-    / \\   _ __  _ __ | | ___  |  \\/  |_   _ ___(_) ___       
-   / _ \\ | '_ \\| '_ \\| |/ _ \\ | |\\/| | | | / __| |/ __|      
-  / ___ \\| |_) | |_) | |  __/ | |  | | |_| \\__ \\ | (__       
- /_/  _\\_\\ .__/| .__/|_|\\___| |_| _|_|\\__,_|___/_|\\___|      
- | \\ | | |_|__ |_|  __ |  _ \\ ___| | ___  __ _ ___  ___  ___ 
- |  \\| |/ _ \\ \\ /\\ / / | |_) / _ \\ |/ _ \\/ _` / __|/ _ \\/ __|
- | |\\  |  __/\\ V  V /  |  _ <  __/ |  __/ (_| \\__ \\  __/\\__ \\
- |_| \\_|\\___| \\_/\\_/   |_| \\_\\___|_|\\___|\\__,_|___/\\___||___/
-""")
-print(" " + ver)
-print(" (c)&(p) 2022-" + str(datetime.datetime.now())[0:4] + " by Viktor 'MushroomOFF' Gribov")
-print("##############################################################")
-print('')
+def main():
+    global TOKEN, CHAT_ID, YM_TOKEN, YM_CLIENT, ZVUK_TOKEN, ZVUK_ERROR, message_new_releases, message_cs_releases
 
-message2send = 0
-messageCS = 0
+    if ENV == 'Local': 
+        amr.print_name(SCRIPT_NAME, VERSION)
+    amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
 
-caLink = find_link('https://music.apple.com/us/curator/apple-music-metal/976439543', 'New Releases')
-caText = 'METAL'
-caGrad = '#81BB98, #9AD292'
-collect_albums(caLink, caText, caGrad)
-print('Metal [US]     - OK')
+    if ENV == 'Local':
+        PARAMS = input("[IMPORTANT!] TOKEN CHAT_ID YM_TOKEN ZV_TOKEN: ").split(' ')
+        if len(PARAMS) < 4:
+            amr.logger('Error: not enough parameters!', LOG_FILE, SCRIPT_NAME)
+            amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
+            sys.exit()
+        TOKEN = PARAMS[0] # input("Telegram Bot TOKEN: ")
+        CHAT_ID = PARAMS[1] # input("Telegram Bot CHAT_ID: ")
+        YM_TOKEN = PARAMS[2] # input("Yandex.Music TOKEN: ")
+        ZVUK_TOKEN = PARAMS[3] # input("Zvuk TOKEN: ")        
+    elif ENV == 'GitHub': 
+        TOKEN = os.environ['tg_token']
+        CHAT_ID = os.environ['tg_channel_id']
+        YM_TOKEN = os.environ['ym_token']
+        ZVUK_TOKEN = os.environ['zv_token']
 
-caLink = find_link('https://music.apple.com/us/curator/apple-music-hard-rock/979231690', 'New Releases')
-caText = 'HARD ROCK'
-caGrad = '#EE702E, #F08933'
-collect_albums(caLink, caText, caGrad)
-print('Hard Rock [US] - OK')
+    YM_CLIENT = Client(YM_TOKEN).init()
 
-caLink = 'https://music.apple.com/ru/room/1118077423'
-caText = 'METAL - RU'
-caGrad = '#81BB98, #9AD292'
-collect_albums(caLink, caText, caGrad)
-print('Metal [RU]     - OK')
+# ---------------N_E_W-------------------------------------------------------------
+    # album_categories = [
+    #     {
+    #         "category_type": 'New Releases',
+    #         "category_link": 'https://music.apple.com/us/room/993297832',
+    #         "category_name": 'METAL',
+    #         "category_color": '#81BB98, #9AD292',
+    #         "category_abbr": 'M'
+    #     },
+    #     {
+    #         "category_type": 'New Releases',
+    #         "category_link": 'https://music.apple.com/us/room/1184023815',
+    #         "category_name": 'ALTERNATIVE & HARD ROCK',
+    #         "category_color": '#EE702E, #F08933',
+    #         "category_abbr": 'HR'
+    #     },
+    #     {
+    #         "category_type": 'New Releases',
+    #         "category_link": 'https://music.apple.com/ru/room/1118077423',
+    #         "category_name": 'METAL - RU',
+    #         "category_color": '#81BB98, #9AD292',
+    #         "category_abbr": 'MRU'
+    #     },
+    #     {
+    #         "category_type": 'New Releases',
+    #         "category_link": 'https://music.apple.com/ru/room/1532200949',
+    #         "category_name": 'ALTERNATIVE & HARD ROCK - RU',
+    #         "category_color": '#EE702E, #F08933',
+    #         "category_abbr": 'HRRU'
+    #     },
+    #     {
+    #         "category_type": 'Coming Soon',
+    #         "category_link": 'https://music.apple.com/ru/room/1532200949',
+    #         "category_name": 'METAL - CS',
+    #         "category_color": '#81BB98, #9AD292',
+    #         "category_abbr": 'MCS'
+    #     }
+    # ]
 
-caLink = 'https://music.apple.com/ru/room/1532200949'
-caText = 'HARD ROCK - RU'
-caGrad = '#EE702E, #F08933'
-collect_albums(caLink, caText, caGrad)
-print('Hard Rock [RU] - OK')
+    # for category in album_categories:
+    #     collect_albums(category["category_link"], category["category_name"], category["category_color"], category["category_abbr"])
+    #     print(category["category_name"])
+# ---------------------------------------------------------------------------------
 
-caLink = find_link('https://music.apple.com/us/curator/apple-music-metal/976439543', 'Coming Soon')
-coming_soon(caLink)
-print('Comming Soon   - OK')
+    category_link = find_room_link('https://music.apple.com/us/curator/apple-music-metal/976439543', 'New Releases')
+    category_name = 'METAL'
+    category_color = '#81BB98, #9AD292'
+    collect_new_releases(category_link, category_name, category_color)
+    print('Metal [US]     - OK')
 
-CS2NR()
-print('Metal [CS]     - OK')
+    category_link = find_room_link('https://music.apple.com/us/curator/apple-music-hard-rock/979231690', 'New Releases')
+    category_name = 'HARD ROCK'
+    category_color = '#EE702E, #F08933'
+    collect_new_releases(category_link, category_name, category_color)
+    print('Hard Rock [US] - OK')
 
-if TOKEN == '' or chat_id == '':
-    print('Message not sent! No TOKEN or CHAT_ID')
-else:
-    if message2send == 0:
-        send_message('New Releases', '\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F')
-    if messageCS == 0:
-        send_message('Coming Soon', '\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F')
+    category_link = 'https://music.apple.com/ru/room/1118077423'
+    category_name = 'METAL - RU'
+    category_color = '#81BB98, #9AD292'
+    collect_new_releases(category_link, category_name, category_color)
+    print('Metal [RU]     - OK')
 
-if ZVUK_ERROR != '':
-    print(f'{ZVUK_ERROR}')      
+    category_link = 'https://music.apple.com/ru/room/1532200949'
+    category_name = 'HARD ROCK - RU'
+    category_color = '#EE702E, #F08933'
+    collect_new_releases(category_link, category_name, category_color)
+    print('Hard Rock [RU] - OK')
 
-nextWeekReleases_sender()
+    category_link = find_room_link('https://music.apple.com/us/curator/apple-music-metal/976439543', 'Coming Soon')
+    coming_soon(category_link)
+    print('Comming Soon   - OK')
 
-print('[V] All Done!')
+    CS2NR()
+    print('Metal [CS]     - OK')
+
+    if TOKEN == '' or CHAT_ID == '':
+        print('Message not sent! No TOKEN or CHAT_ID')
+    else:
+        if message_new_releases == '':
+            amr.send_message('New Releases', '\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F', TOKEN, CHAT_ID)
+        if message_cs_releases == '':
+            amr.send_message('Coming Soon', '\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F', TOKEN, CHAT_ID)
+
+    if ZVUK_ERROR:
+        amr.logger(f'{ZVUK_ERROR}', LOG_FILE, SCRIPT_NAME)    
+
+    nextWeekReleases_sender()
+
+    amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
+
+if __name__ == "__main__":
+    main()
+
