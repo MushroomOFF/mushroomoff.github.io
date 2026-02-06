@@ -5,7 +5,7 @@ import os
 import pandas as pd
 import requests
 import time
-from math import nan
+# from math import nan
 import amr_functions as amr
 
 # CONSTANTS
@@ -123,7 +123,7 @@ def find_releases(find_artist_id, artist_print_name):
                     'artistName': row['artistName'], 'collectionName': row['collectionName'], 
                     'trackCount': row['trackCount'], 'releaseDate': row['releaseDate'][:10], 
                     'releaseYear': row['releaseDate'][:4], 'mainId': find_artist_id, 'artistId': row['artistId'], 
-                    'collectionId': collectionId, 'country': row['country'], 'artworkUrlD': artwork_url_d, 
+                    'collectionId': collection_id, 'country': row['country'], 'artworkUrlD': artwork_url_d, 
                     'downloadedCover': '', 'updReason': update_reason
                     })
 
@@ -186,22 +186,26 @@ def main():
             key_logger = input("All done. [Enter] to start over: ")
             if not key_logger:
                 artist_id_df.drop('downloaded', axis=1, inplace=True)
-                artist_id_df.insert(4, "downloaded", nan)
+                artist_id_df.insert(4, "downloaded", pd.NA)
+                artist_id_df = artist_id_df.astype({"downloaded": "string"})
                 artist_id_df.to_csv(ARTIST_ID_DB, sep=';', index=False)
         else:
             key_logger = input(f"Stopped at {artist_to_find[artist_to_find.index[0]]}. [Enter] to continue. Anything else to start over: ")
             if key_logger:
                 artist_id_df.drop('downloaded', axis=1, inplace=True)
-                artist_id_df.insert(4, "downloaded", nan)
+                artist_id_df.insert(4, "downloaded", pd.NA)
+                artist_id_df = artist_id_df.astype({"downloaded": "string"})
                 artist_id_df.to_csv(ARTIST_ID_DB, sep=';', index=False)
         print('')
     elif ENV == 'GitHub':
         artist_id_df.drop('downloaded', axis=1, inplace=True)
-        artist_id_df.insert(4, "downloaded", nan)
+        artist_id_df.insert(4, "downloaded", pd.NA)
+        artist_id_df = artist_id_df.astype({"downloaded": "string"})
         artist_id_df.to_csv(ARTIST_ID_DB, sep=';', index=False)
 
     while True:
         artist_id_df = pd.read_csv(ARTIST_ID_DB, sep=';')
+        artist_id_df = artist_id_df.astype({"downloaded": "string"})
         artist_to_find = artist_id_df[(artist_id_df['downloaded'].isna()) & (artist_id_df['mainId'] > 0)].head(1)
         if artist_to_find.empty:
             break

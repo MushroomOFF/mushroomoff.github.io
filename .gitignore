@@ -2,6 +2,6 @@
 *DS_Store*
 .ipynb_checkpoints/
 Covers/
-Python Notebooks/.ipynb_checkpoints/
+Python Scripts/__pycache__/
 Python Scripts/.ipynb_checkpoints/
 secret.mff
