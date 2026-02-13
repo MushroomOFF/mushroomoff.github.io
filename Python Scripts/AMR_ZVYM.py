@@ -240,7 +240,7 @@ def main():
     previous_date = datetime.datetime.strftime(datetime.datetime.now() - datetime.timedelta(days=15), '%Y-%m-%d')
     new_ym_links = 0
     new_zv_links = 0
-    for index, row in new_releases_df[(new_releases_df['Best_Fav_New_OK'].isin(['v','d','o'])) & (new_releases_df['link_ym'].isnull() | new_releases_df['link_zv'].isnull()) & (new_releases_df['date'] > previous_date)].iterrows():
+    for index, row in new_releases_df[(new_releases_df['best_fav_new_ok'].isin(['v','d','o'])) & (new_releases_df['link_ym'].isnull() | new_releases_df['link_zv'].isnull()) & (new_releases_df['date'] > previous_date)].iterrows():
         ym_result = ''
         zv_result = ''
         is_message = False
@@ -269,15 +269,15 @@ def main():
             is_message = True
 
         if is_message:
-            if (row.loc['Best_Fav_New_OK'] == 'v') or (row.loc['Best_Fav_New_OK'] == 'd'):
+            if (row.loc['best_fav_new_ok'] == 'v') or (row.loc['best_fav_new_ok'] == 'd'):
                 thread_name = 'New Releases'
-            elif row.loc['Best_Fav_New_OK'] == 'o':
+            elif row.loc['best_fav_new_ok'] == 'o':
                 thread_name = 'Top Releases'
-            image_url = row.loc['imga'].replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
+            image_url = row.loc['image_link'].replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
             image_caption = f'*{amr.replace_symbols_markdown_v2(row.loc['artist'].replace('&amp;','&'))}* \\- [{amr.replace_symbols_markdown_v2(row.loc['album'].replace('&amp;','&'))}]({row.loc['link'].replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({row.loc['link']}){'' if pd.isna(row.loc['link_ym']) else f'\n\U0001F4A5 [Яндекс\\.Музыка]({row.loc['link_ym']})'}{'' if pd.isna(row.loc['link_zv']) else f'\n\U0001F50A [Звук]({row.loc['link_zv']})'}'
             message_to_send = amr.send_photo(thread_name, image_caption, image_url, TOKEN, CHAT_ID)
-            row.loc['TGmsgID'] = message_to_send
-            new_releases_df.loc[index,'TGmsgID'] = message_to_send
+            row.loc['tg_message_id'] = message_to_send
+            new_releases_df.loc[index,'tg_message_id'] = message_to_send
             
     if (new_ym_links + new_zv_links):
         new_releases_df.to_csv(NEW_RELEASES_DB, sep=';', index=False)
