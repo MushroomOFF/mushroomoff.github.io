@@ -101,7 +101,7 @@ def find_releases(find_artist_id, artist_print_name, country):
             new_cover_counter = 0
 
             for _, row in export_df.iterrows():
-                collection_id = row['collectionId']
+                collection_id = int(row['collectionId'])
                 artwork_url_d = row['artworkUrl100'].replace('100x100bb', '100000x100000-999')
 
                 if itunes_db_df[itunes_db_df['collectionId'] == collection_id].empty:
@@ -118,7 +118,7 @@ def find_releases(find_artist_id, artist_print_name, country):
                 writer.writerow({
                     'dateUpdate': update_date, 'downloadedRelease': '', 'mainArtist': artist_print_name,
                     'artistName': row['artistName'], 'collectionName': row['collectionName'], 
-                    'trackCount': row['trackCount'], 'releaseDate': row['releaseDate'][:10], 
+                    'trackCount': int(row['trackCount']), 'releaseDate': row['releaseDate'][:10], 
                     'releaseYear': row['releaseDate'][:4], 'mainId': find_artist_id, 'artistId': row['artistId'], 
                     'collectionId': collectionId, 'country': row['country'], 'artworkUrlD': artwork_url_d, 
                     'downloadedCover': '', 'updReason': update_reason
