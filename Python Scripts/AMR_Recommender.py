@@ -75,7 +75,7 @@ def main():
 
     top_release_counter = 0
     # Sending to Top Releases (O)
-    for index, row in new_releases_df[(new_releases_df['best_fav_new_ok'] == 'o') & (new_releases_df['tg_message_id'].isna())].iterrows():
+    for index, row in new_releases_df[(new_releases_df['best_fav_new_ok'] == 'o') & (new_releases_df['tg_message_id'] == '0')].iterrows():
         image_url = row.loc['image_link'].replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
         text = f'*{amr.replace_symbols_markdown_v2(row.loc['artist'].replace('&amp;','&'))}* \\- [{amr.replace_symbols_markdown_v2(row.loc['album'].replace('&amp;','&'))}]({row.loc['link'].replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({row.loc['link']}){'' if pd.isna(row.loc['link_ym']) else f'\n\U0001F4A5 [Яндекс\\.Музыка]({row.loc['link_ym']})'}{'' if pd.isna(row.loc['link_zv']) else f'\n\U0001F50A [Звук]({row.loc['link_zv']})'}'
         message_to_send = amr.send_photo('Top Releases', text, image_url, TOKEN, CHAT_ID)
@@ -85,7 +85,7 @@ def main():
 
     new_release_counter = 0
     # Sending to New Releases (V, D)
-    for index, row in new_releases_df[(new_releases_df['best_fav_new_ok'].isin(['v','d'])) & (new_releases_df['tg_message_id'].isna())].iterrows():
+    for index, row in new_releases_df[(new_releases_df['best_fav_new_ok'].isin(['v','d'])) & (new_releases_df['tg_message_id'] == '0')].iterrows():
         image_url = row.loc['image_link'].replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
         text = f'*{amr.replace_symbols_markdown_v2(row.loc['artist'].replace('&amp;','&'))}* \\- [{amr.replace_symbols_markdown_v2(row.loc['album'].replace('&amp;','&'))}]({row.loc['link'].replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({row.loc['link']}){'' if pd.isna(row.loc['link_ym']) else f'\n\U0001F4A5 [Яндекс\\.Музыка]({row.loc['link_ym']})'}{'' if pd.isna(row.loc['link_zv']) else f'\n\U0001F50A [Звук]({row.loc['link_zv']})'}'
         message_to_send = amr.send_photo('New Releases', text, image_url, TOKEN, CHAT_ID)
