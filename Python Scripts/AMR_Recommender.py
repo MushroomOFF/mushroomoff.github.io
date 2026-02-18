@@ -80,7 +80,7 @@ def main():
         text = f'*{amr.replace_symbols_markdown_v2(row.loc['artist'].replace('&amp;','&'))}* \\- [{amr.replace_symbols_markdown_v2(row.loc['album'].replace('&amp;','&'))}]({row.loc['link'].replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({row.loc['link']}){'' if pd.isna(row.loc['link_ym']) else f'\n\U0001F4A5 [Яндекс\\.Музыка]({row.loc['link_ym']})'}{'' if pd.isna(row.loc['link_zv']) else f'\n\U0001F50A [Звук]({row.loc['link_zv']})'}'
         message_to_send = amr.send_photo('Top Releases', text, image_url, TOKEN, CHAT_ID)
         if TOKEN and CHAT_ID:
-            new_releases_df.loc[index,'TGmsgID'] = message_to_send
+            new_releases_df.loc[index,'tg_message_id'] = message_to_send
         top_release_counter += 1
 
     new_release_counter = 0
