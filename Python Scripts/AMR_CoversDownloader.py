@@ -39,6 +39,9 @@ def image_download(file_name, folder, link):
     if response.status_code == 200:
         with open(os.path.join(folder_path, f"{file_name}.jpg"), "wb") as file:
             file.write(response.content)
+    else:
+        with open(os.path.join(folder_path, f"{file_name}.txt"), "wb") as file:
+            file.write(response.content)
 
 def main():
     if ENV == 'Local': 

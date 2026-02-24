@@ -102,14 +102,14 @@ def find_releases(find_artist_id, artist_print_name, country):
 
             for _, row in export_df.iterrows():
                 collection_id = int(row['collectionId'])
-                artwork_url_d = row['artworkUrl100'].replace('100x100bb', '100000x100000-999')
+                artwork_url_d = row['artworkUrl100'].replace('100x100bb', '10000x10000-999')
 
                 if itunes_db_df[itunes_db_df['collectionId'] == collection_id].empty:
                     update_reason = 'New release'
                     new_release_counter += 1
                 elif itunes_db_df[itunes_db_df['artworkUrlD'].str[40:] == artwork_url_d[40:]].empty:
                     # .str[40:] ------------------------------V The link matching check will start from here, since identical covers can be located on different servers
-                    # https://is2-ssl.mzstatic.com/image/thumb/Music/v4/b2/cc/64/b2cc645c-9f18-db02-d0ab-69e296ea4d70/source/100000x100000-999.jpg            
+                    # https://is2-ssl.mzstatic.com/image/thumb/Music/v4/b2/cc/64/b2cc645c-9f18-db02-d0ab-69e296ea4d70/source/10000x10000-999.jpg            
                     update_reason = 'New cover'
                     new_cover_counter += 1
                 else:
