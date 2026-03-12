@@ -2,7 +2,7 @@ name: AMR LookApp
 
 on:
   schedule:
-    - cron: '39 3 * * 5' # Every Friday at 3:39 UTC (+/- 15 min). 3:39 UTC is 6:39 in Moscow.
+    - cron: '0 3 * * 5' # At 03:00 UTC on Friday (+/- 15 min). 03:00 UTC is 06:30 in Moscow.
 
 env:
   tg_channel_id: ${{ secrets.TG_CHANNEL_ID }}
