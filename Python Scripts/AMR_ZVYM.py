@@ -156,30 +156,35 @@ def search_album_zv(query):
     global ZVUK_ERROR
     sArtist = ""
     sRelease = ""
-    sType = ""    
+    sTypes = []
     search_split = query.split(" - ")
     if len(search_split) > 1:
         sArtist = search_split[0]
-        if search_split[len(search_split) - 1] in ['Single']:
-            sRelease = ' - '.join(search_split[1:len(search_split) - 1])
-            sType = search_split[len(search_split) - 1]
-        elif search_split[len(search_split) - 1] in ['EP']:
-            sRelease = ' - '.join(search_split[1:len(search_split) - 1])
-            sType = "Album"
-        else:
+        if search_split[len(search_split) - 1] not in ['Single', 'EP']:
             sRelease = ' - '.join(search_split[1:])
-            sType = "Album"
-    zv_releases = search_command_zv(query)
-    if type(zv_releases) is list:
-        for zv_release in zv_releases:
-            if (sArtist.lower() == zv_release['artist'].lower()) and (sRelease.lower() == zv_release['release'].lower()) and (sType.lower() == zv_release['type']):
-                return f'https://zvuk.com/release/{zv_release['id']}'
-    elif type(zv_releases) is str:
-        # if search_command_zv return Error
-        ZVUK_ERROR = f'Zvuk {zv_releases}' 
-    elif zv_releases is None:
-        # if search_command_zv return None
-        amr.logger(f"Zvuk didn't find {query}", LOG_FILE, SCRIPT_NAME)
+            sTypes.append('album')
+        else:
+            sRelease = ' - '.join(search_split[1:len(search_split) - 1])
+            if search_split[len(search_split) - 1] == 'EP':
+                sTypes.append('album')
+                sTypes.append('single')
+            elif search_split[len(search_split) - 1] == 'Single':
+                sTypes.append('single')
+
+    search_query = [f"{sArtist} - {sRelease}", sRelease]
+    for one_query in search_query:
+        zv_releases = search_command_zv(one_query)
+        if type(zv_releases) is list:
+            for sType in sTypes:
+                for zv_release in zv_releases:
+                        if (sArtist.lower() in zv_release['artist'].lower().replace("’","'")) and (sRelease.lower() in zv_release['release'].lower().replace("’","'")) and (sType.lower() == zv_release['type']):
+                            return f"https://zvuk.com/release/{zv_release['id']}"
+        elif zv_releases is None:
+            # if search_command_zv return None
+            amr.logger(f"Zvuk didn't find {one_query}", LOG_FILE, SCRIPT_NAME)
+        elif type(zv_releases) is str:
+            # if search_command_zv return Error
+            ZVUK_ERROR = f'Zvuk {zv_releases}' 
 #-----------------------------------------
 
 def change_amr_button(source_code, separator, new_link, zvorym): 
