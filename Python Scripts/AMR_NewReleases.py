@@ -39,7 +39,6 @@ session.headers.update(HEADERS)
 TOKEN = ''
 CHAT_ID = ''
 URL = 'https://api.telegram.org/bot'
-THREAD_ID_DICT = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80}
 
 # Yandex.Music ---------------------------
 YM_TOKEN = ''
