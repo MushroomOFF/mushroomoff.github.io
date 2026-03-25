@@ -46,9 +46,6 @@ def main():
         TOKEN = os.environ['tg_token']
         CHAT_ID = os.environ['tg_channel_id']
 
-    amr.send_message('General', f'🔽 {SCRIPT_NAME}', TOKEN, CHAT_ID)
-    message = ''
-
     new_releases_df = pd.read_csv(NEW_RELEASES_DB, sep=";")
 
     # Check AMR files for recomendations
@@ -73,7 +70,6 @@ def main():
                 new_releases_df.loc[index,'best_fav_new_ok'] = 'E'
                 error_counter += 1
 
-    message += f'OK: {ok_counter}; Emptys: {empty_counter}; Errors: {error_counter}\n'
     amr.logger(f'OK: {ok_counter}; Emptys: {empty_counter}; Errors: {error_counter}', LOG_FILE, SCRIPT_NAME)
 
     top_release_counter = 0
@@ -99,14 +95,11 @@ def main():
     # Attenition: Write to file (!)
     new_releases_df.to_csv(NEW_RELEASES_DB, sep=';', index=False)
     del new_releases_df
-    message += f'New Releases: {new_release_counter}; Top Releases: {top_release_counter}\n'
     amr.logger(f'New Releases: {new_release_counter}; Top Releases: {top_release_counter}', LOG_FILE, SCRIPT_NAME)
 
     if not TOKEN or not CHAT_ID:
         amr.logger('Message not sent! No TOKEN or CHAT_ID', LOG_FILE, SCRIPT_NAME)
 
-    message += f'\n🔼 DONE'
-    amr.send_message('General', message, TOKEN, CHAT_ID)
     amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
 
 if __name__ == "__main__":

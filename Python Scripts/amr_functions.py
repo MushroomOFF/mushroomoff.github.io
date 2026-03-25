@@ -68,7 +68,7 @@ def replace_symbols_markdown_v2(text_line):
 
 def send_message(topic, text, token, chat_id):
     """Sending Telegram message""" 
-    thread_id_dict = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80, 'General': 1}
+    thread_id_dict = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80, 'General': 0}
     method = f"https://api.telegram.org/bot{token}/sendMessage"
     response = requests.post(method, data={"message_thread_id": thread_id_dict[topic], "chat_id": chat_id, "parse_mode": 'MarkdownV2', "text": text})
     json_response = json.loads(response.text)
@@ -77,7 +77,7 @@ def send_message(topic, text, token, chat_id):
 
 def send_photo(topic, text, image_url, token, chat_id):
     """Sending Telegram message with photo"""
-    thread_id_dict = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80, 'General': 1}
+    thread_id_dict = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80, 'General': 0}
     method = f"https://api.telegram.org/bot{token}/sendPhoto"
     response = requests.post(method, data={"message_thread_id": thread_id_dict[topic], "chat_id": chat_id, "photo": image_url, "parse_mode": 'MarkdownV2', "caption": text})
     json_response = json.loads(response.text)
