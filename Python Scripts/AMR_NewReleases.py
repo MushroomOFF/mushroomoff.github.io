@@ -833,9 +833,6 @@ def main():
         # amr.logger(f'{ZVUK_ERROR}', LOG_FILE, SCRIPT_NAME)    
         status_message += f'\n⚠️ {replace_symbols_markdown_v2(ZVUK_ERROR)}'
     
-    if status_message:
-        status_message += f'\n\n📥 Fetch and Pull'
-
     amr.send_message(status_message, TOKEN, LOGGER_ID, None, None)
 
     next_week_releases_sender()

@@ -68,7 +68,7 @@ def main():
 
     # amr.logger(f'OK: {ok_counter}; Emptys: {empty_counter}; Errors: {error_counter}', LOG_FILE, SCRIPT_NAME)
     logger_message = f'🟢 OK: {ok_counter}\n⭕️ Emptys: {empty_counter}\n❌ Errors: {error_counter}'
-    amr.send_message(logger_message, TOKEN, LOGGER_ID, None, None)
+    # amr.send_message(logger_message, TOKEN, LOGGER_ID, None, None)
 
     top_release_counter = 0
     # Sending to Top Releases (O)
@@ -94,7 +94,7 @@ def main():
     new_releases_df.to_csv(NEW_RELEASES_DB, sep=';', index=False)
     del new_releases_df
     # amr.logger(f'New Releases: {new_release_counter}; Top Releases: {top_release_counter}', LOG_FILE, SCRIPT_NAME)
-    logger_message = f'🔥 New Releases: {new_release_counter}\n🔝 Top Releases: {top_release_counter}\n\n📥 Fetch and Pull'
+    logger_message += f'\n\n🔥 New Releases: {new_release_counter}\n🔝 Top Releases: {top_release_counter}'
     amr.send_message(logger_message, TOKEN, LOGGER_ID, None, None)
 
     # amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
