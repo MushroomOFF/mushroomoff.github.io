@@ -4,50 +4,51 @@ import json
 import os
 import pandas as pd
 import requests
-import sys # for Zvuk
 from yandex_music import Client # for YM
+from dotenv import load_dotenv
 import amr_functions as amr
 
-# CONSTANTS
+# ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "New Releases"
-VERSION = "2.026.02"
+VERSION = "2.026.04"
 ENV = 'Local'
 if os.getenv("GITHUB_ACTIONS") == "true":
     ENV = 'GitHub'
-    # GitHub version will always run complete list of artists
 
 if ENV == 'Local':
     ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
+    load_dotenv(os.path.join(ROOT_FOLDER, '.env'))
 elif ENV == 'GitHub':
     ROOT_FOLDER = ''
+
+TOKEN = os.environ['tg_token']
+CHAT_ID = os.environ['tg_channel_id']
+LOGGER_ID = os.environ['tg_logger_id']
+YM_TOKEN = os.environ['ym_token']
+ZVUK_TOKEN = os.environ['zv_token']
+
 AMR_FOLDER = os.path.join(ROOT_FOLDER, 'AMRs/')
 DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
 NEW_RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_newReleases_DB.csv')
 CS_RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_csReleases_DB.csv')
 RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_releases_DB.csv')
 ARTIST_ID_DB = os.path.join(DB_FOLDER, 'AMR_artisitIDs.csv')
-LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
+# LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
 
 message_new_releases = False
 message_cs_releases = False
+status_message = ''
 
 HEADERS = {'Referer':'https://music.apple.com', 'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'}
 session = requests.Session() 
 session.headers.update(HEADERS)
 
-# Telegram -------------------------------
-TOKEN = ''
-CHAT_ID = ''
-URL = 'https://api.telegram.org/bot'
-
 # Yandex.Music ---------------------------
-YM_TOKEN = ''
-YM_CLIENT = ''
+YM_CLIENT = Client(YM_TOKEN).init()
 
 # Zvuk -----------------------------------
 ZVUK_BASE_URL = "https://zvuk.com"
 ZVUK_API_ENDPOINTS = {"lyrics": f"{ZVUK_BASE_URL}/api/tiny/lyrics", "stream": f"{ZVUK_BASE_URL}/api/tiny/track/stream", "graphql": f"{ZVUK_BASE_URL}/api/v1/graphql", "profile": f"{ZVUK_BASE_URL}/api/tiny/profile"}
-ZVUK_TOKEN = ''
 ZVUK_ERROR = ''
 
 # HTML -----------------------------------
@@ -116,16 +117,16 @@ HTML_FINAL = """  <!-- End of File -->
   </script>
 </body>\n"""
 
-# functions
+# ================= FUNCTIONS =================
 
 # Yandex.Music ---------------------------
 def send_search_request_ym(query, year):
-    global YM_CLIENT
     ym_search_result = YM_CLIENT.search(query)
     if ym_search_result.albums:
         for ym_line in ym_search_result.albums.results:
             if str(ym_line.year) == str(year):
                 return f'https://music.yandex.ru/album/{ym_line.id}'
+
 
 def search_album_ym(query, year):
     ym_result = send_search_request_ym(query, year)
@@ -144,6 +145,7 @@ def search_album_ym(query, year):
     return ym_result
 #-----------------------------------------
 
+
 # Zvuk -----------------------------------
 def get_anonymous_token_zv():
     try:
@@ -158,6 +160,7 @@ def get_anonymous_token_zv():
     except Exception as zv_error:
         raise Exception(f"Failed to retrieve anonymous token: {zv_error}")
 
+
 def get_auth_cookies_zv():
     """To get a token: 
     Log in to Zvuk.com in your browser. 
@@ -168,6 +171,7 @@ def get_auth_cookies_zv():
     if not ZVUK_TOKEN:
         ZVUK_TOKEN = get_anonymous_token_zv()
     return {"auth": ZVUK_TOKEN}
+
 
 def search_tracks_zv(query):
     graphql_query = """
@@ -203,6 +207,7 @@ def search_tracks_zv(query):
         return zv_data["data"]["search"]["releases"]["items"]
     return []
 
+
 def search_command_zv(arg_query):
     releases_list = []
     try:
@@ -224,8 +229,9 @@ def search_command_zv(arg_query):
     except Exception as zv_error:
         return f"Error: {zv_error}"
 
+
 def search_album_zv(query):
-    global ZVUK_ERROR
+    global ZVUK_ERROR, status_message
     sArtist = ""
     sRelease = ""
     sTypes = []
@@ -253,11 +259,13 @@ def search_album_zv(query):
                             return f"https://zvuk.com/release/{zv_release['id']}"
         elif zv_releases is None:
             # if search_command_zv return None
-            amr.logger(f"Zvuk didn't find {one_query}", LOG_FILE, SCRIPT_NAME)
+            # amr.logger(f"Zvuk didn't find {one_query}", LOG_FILE, SCRIPT_NAME)
+            status_message += f"\n⚠️ Zvuk didn't find {replace_symbols_markdown_v2(one_query)}"
         elif type(zv_releases) is str:
             # if search_command_zv return Error
             ZVUK_ERROR = f'Zvuk {zv_releases}' 
 #-----------------------------------------
+
 
 def make_html_start(update_date, category_name, category_color):
     tr_id = f'"{update_date}_{category_name}"'.lower().replace(' ','_')
@@ -266,14 +274,16 @@ def make_html_start(update_date, category_name, category_color):
     <tr><th width="100px">Cover</th><th width="600px">Album</th></tr>\n"""    
     return html_start
 
+
 def make_html_text(artist, album, image_link, album_link, artist_album_name, album_id, ym_result, zv_result):
     html_text = f"""  <!-- {artist.replace('&amp;','&')} - {album.replace('&amp;','&')} -->
     <tr style="display:;" id=''>
-      <td><a href="{image_link.replace('296x296bb.webp', '10000x10000-999.jpg').replace('296x296bf.webp', '10000x10000-999.jpg')}" target="_blank"><img src="{image_link}" height="100px"></a></td>
+      <td><a href="{image_link.replace('296x296bb.webp', '10000x10000-999.jpg').replace('296x296bf.webp', '10000x10000-999.jpg').replace('296x296bf-60.jpg', '10000x10000-999.jpg')}" target="_blank"><img src="{image_link}" height="100px"></a></td>
       <td class="album_name"><a href="{album_link}" target="_blank"><b>{artist_album_name}</a><br><br><button data-frame-load="{album_id}">Preview</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{ym_result if ym_result is not None else ''}" target="_blank"><button{' disabled' if ym_result is None or ym_result == '' else ''}>Яндекс.Музыка</button></a>&nbsp;<a href="{zv_result if zv_result is not None else ''}" target="_blank"><button{' disabled' if zv_result is None or zv_result == '' else ''}>Звук</button></a></td>
     </tr> 
     <tr style="display:none;" id="show{album_id}_"><td colspan="2"><iframe id="embedPlayer" data-frame-group="{album_id}" data-frame-src="{album_link.replace('://', '://embed.')}?app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=light" height="450px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *; clipboard-write" style="width: 100%; overflow: hidden; border-radius: 10px; transform: translateZ(0px); animation: 2s ease 0s 6 normal none running loading-indicator; background-color: rgb(228, 228, 228);"></iframe></td></tr>\n"""
     return html_text
+
 
 def make_artist_a_block(artist_list, artist_link_list):
     html_a_list = []
@@ -283,6 +293,7 @@ def make_artist_a_block(artist_list, artist_link_list):
               {artist}</a>''')
     artist_a_block = ',  '.join(html_a_list)
     return artist_a_block
+
 
 def make_html_li_text(aria_label, artwork_bg_color, picture_srcset_webp, picture_srcset_jpeg, artist_list, artist_link_list, album, album_link, new_cs_release_css):
     artist_a_block = make_artist_a_block(artist_list, artist_link_list)
@@ -321,12 +332,14 @@ def make_html_li_text(aria_label, artwork_bg_color, picture_srcset_webp, picture
        </li>\n'''
     return html_li
 
+
 def make_html_li_final(date_of_update):
     html_li = f'''
       </ul>
     </div> 
   </div>\n</div>\n<div class="main">\n  <i>Updated: {date_of_update}</i>\n</div>\n</body>\n'''
     return html_li
+
 
 def write_to_html(update_date, html_text, html_start):
     current_year = update_date[0:4]
@@ -372,9 +385,9 @@ def write_to_html(update_date, html_text, html_start):
                 html_file.seek(0, 0)
                 html_file.write(HTML_HEAD + '\n' + html_start + html_text + HTML_END + '\n' + html_content)
 
+
 def find_room_link(category_link, category_name):
-    """ Searching correct link to room genre
-    """
+    """ Searching correct link to room genre"""
     request = session.get(category_link)
     request.encoding = 'UTF-8'
     response = request.text
@@ -385,8 +398,9 @@ def find_room_link(category_link, category_name):
     room_link = f'{category_link[:category_link.find('/curator')]}/room/{category_id}'
     return room_link
 
+
 def write_to_csv(artist, album, update_date, is_my_artist, image_link, album_link, category_abbr, album_id):
-    global ZVUK_ERROR, TOKEN, CHAT_ID, message_new_releases
+    global message_new_releases
     
     field_names = ['date', 'category', 'artist', 'album', 'best_fav_new_ok', 'link', 'link_ym', 'link_zv', 'image_link', 'album_id', 'tg_message_id']
     artist_album_name = f'{artist} - {album}'
@@ -407,7 +421,8 @@ def write_to_csv(artist, album, update_date, is_my_artist, image_link, album_lin
     if is_my_artist:
         image_url = image_link.replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
         image_caption = f'*{amr.replace_symbols_markdown_v2(artist.replace('&amp;','&'))}* \\- [{amr.replace_symbols_markdown_v2(album.replace('&amp;','&'))}]({album_link.replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({album_link}){f'\n\U0001F4A5 [Яндекс\\.Музыка]({ym_result})' if ym_result is not None and ym_result != '' else ''}{f'\n\U0001F50A [Звук]({zv_result})' if zv_result is not None and zv_result != '' else ''}'
-        message_id = amr.send_photo('New Releases', image_caption, image_url, TOKEN, CHAT_ID)
+        message_id = amr.send_message(image_caption, TOKEN, CHAT_ID, image_url, 'New Releases')
+
         message_new_releases = True
 
     with open(NEW_RELEASES_DB, 'a+', newline='') as csv_file:
@@ -426,9 +441,8 @@ def write_to_csv(artist, album, update_date, is_my_artist, image_link, album_lin
     
     return artist_album_name, ym_result, zv_result
 
-def collect_new_releases(category_link, category_name, category_color, category_abbr):
-    global message_new_releases
 
+def collect_new_releases(category_link, category_name, category_color, category_abbr):
     request = session.get(category_link)
     request.encoding = 'UTF-8'
     
@@ -490,9 +504,9 @@ def collect_new_releases(category_link, category_name, category_color, category_
     del new_releases_df
     del artist_id_df
 
+
 def collect_cs_releases(category_name, category_color, category_abbr):
-    """ Moving delayed Coming soon releases to New Releases  
-    """
+    """ Moving delayed Coming soon releases to New Releases"""
     field_names = ['date', 'category', 'artist', 'album', 'best_fav_new_ok', 'link', 'link_ym', 'link_zv', 'image_link', 'album_id', 'tg_message_id']
     
     # Preparation
@@ -547,6 +561,7 @@ def collect_cs_releases(category_name, category_color, category_abbr):
         write_to_html(update_date, html_text, html_start)
         
         del cs_to_new_releases_df
+
 
 def coming_soon(category_link):
     global message_cs_releases
@@ -682,7 +697,7 @@ def coming_soon(category_link):
             if is_my_artist:
                 image_url = image_link_jpeg.replace('296x296bb-60.jpg', '632x632bb.webp').replace('296x296bf-60.jpg', '632x632bf.webp')
                 image_caption = f'*{amr.replace_symbols_markdown_v2(artist.replace('&amp;','&'))}* \\- [{amr.replace_symbols_markdown_v2(row['album'].replace('&amp;','&'))}]({row['album_link'].replace('://','://embed.')})\n{amr.replace_symbols_markdown_v2(str(row['apple_music_release_date'])[0:10])}'
-                message_id = amr.send_photo('Coming Soon', image_caption, image_url, TOKEN, CHAT_ID)
+                message_id = amr.send_message(image_caption, TOKEN, CHAT_ID, image_url, 'Coming Soon')
                 message_cs_releases = True
 
         new_cs_release_css = '<a class="product-lockup__title svelte-21e67y"'
@@ -705,8 +720,8 @@ def coming_soon(category_link):
         html_file.truncate(0)
         html_file.write(html_content)
 
+
 def next_week_releases_sender():
-    global TOKEN, CHAT_ID
     itunes_db_df = pd.read_csv(RELEASES_DB, sep=";")
 
     this_week_message = ''
@@ -731,35 +746,22 @@ def next_week_releases_sender():
     else:
         next_week_message += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
 
-    amr.send_message('Next Week Releases', next_week_message, TOKEN, CHAT_ID)
-    amr.send_message('Next Week Releases', this_week_message, TOKEN, CHAT_ID)
+    amr.send_message(next_week_message, TOKEN, CHAT_ID, None, 'Next Week Releases')
+    amr.send_message(this_week_message, TOKEN, CHAT_ID, None, 'Next Week Releases')
 
     del itunes_db_df
 
+
 def main():
-    global TOKEN, CHAT_ID, YM_TOKEN, YM_CLIENT, ZVUK_TOKEN, ZVUK_ERROR, message_new_releases, message_cs_releases
+    global status_message
 
     if ENV == 'Local': 
         amr.print_name(SCRIPT_NAME, VERSION)
-    amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
+    # amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
 
-    if ENV == 'Local':
-        PARAMS = input("[IMPORTANT!] TOKEN CHAT_ID YM_TOKEN ZV_TOKEN: ").split(' ')
-        if len(PARAMS) < 4:
-            amr.logger('Error: not enough parameters!', LOG_FILE, SCRIPT_NAME)
-            amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
-            sys.exit()
-        TOKEN = PARAMS[0] # input("Telegram Bot TOKEN: ")
-        CHAT_ID = PARAMS[1] # input("Telegram Bot CHAT_ID: ")
-        YM_TOKEN = PARAMS[2] # input("Yandex.Music TOKEN: ")
-        ZVUK_TOKEN = PARAMS[3] # input("Zvuk TOKEN: ")        
-    elif ENV == 'GitHub': 
-        TOKEN = os.environ['tg_token']
-        CHAT_ID = os.environ['tg_channel_id']
-        YM_TOKEN = os.environ['ym_token']
-        ZVUK_TOKEN = os.environ['zv_token']
-
-    YM_CLIENT = Client(YM_TOKEN).init()
+    app_version = amr.replace_symbols_markdown_v2(f'v.{VERSION} [{ENV}]')
+    welcome_message = f'🚀 *{SCRIPT_NAME}*\n{app_version}'
+    amr.send_message(welcome_message, TOKEN, LOGGER_ID, None, None)
 
     album_categories = [
         {
@@ -808,28 +810,37 @@ def main():
 
         if category["category_type"] == 'New Releases':
             collect_new_releases(category_link, category["category_name"], category["category_color"], category["category_abbr"])
-            amr.logger(logger_category, LOG_FILE, SCRIPT_NAME)
+            # amr.logger(logger_category, LOG_FILE, SCRIPT_NAME)
+            status_message += f'\n✅ {replace_symbols_markdown_v2(logger_category)}'
         elif category["category_type"] == 'Coming Soon':
             coming_soon(category_link)
-            amr.logger('Coming Soon', LOG_FILE, SCRIPT_NAME)
+            # amr.logger('Coming Soon', LOG_FILE, SCRIPT_NAME)
+            status_message += f'\n✅ Coming Soon'
 
             collect_cs_releases(category["category_name"], category["category_color"], category["category_abbr"])
-            amr.logger(logger_category, LOG_FILE, SCRIPT_NAME)
+            # amr.logger(logger_category, LOG_FILE, SCRIPT_NAME)
+            status_message += f'\n✅ {replace_symbols_markdown_v2(logger_category)}'
 
-    if not TOKEN or not CHAT_ID:
-        print('Message not sent! No TOKEN or CHAT_ID')
-    else:
-        if not message_new_releases:
-            amr.send_message('New Releases', '\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F', TOKEN, CHAT_ID)
-        if not message_cs_releases:
-            amr.send_message('Coming Soon', '\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F', TOKEN, CHAT_ID)
+    # if not TOKEN or not CHAT_ID:
+    #     print('Message not sent! No TOKEN or CHAT_ID')
+    # else:
+    if not message_new_releases:
+        amr.send_message('\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F', TOKEN, CHAT_ID, None, 'New Releases')
+    if not message_cs_releases:
+        amr.send_message('\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F', TOKEN, CHAT_ID, None, 'Coming Soon')
 
     if ZVUK_ERROR:
-        amr.logger(f'{ZVUK_ERROR}', LOG_FILE, SCRIPT_NAME)    
+        # amr.logger(f'{ZVUK_ERROR}', LOG_FILE, SCRIPT_NAME)    
+        status_message += f'\n⚠️ {replace_symbols_markdown_v2(ZVUK_ERROR)}'
+    
+    if status_message:
+        status_message += f'\n\n📥 Fetch and Pull'
+
+    amr.send_message(status_message, TOKEN, LOGGER_ID, None, None)
 
     next_week_releases_sender()
 
-    amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
+    # amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
 
 if __name__ == "__main__":
     main()

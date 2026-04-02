@@ -6,17 +6,19 @@ import requests
 import time
 import amr_functions as amr
 
-# CONSTANTS
+# ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "LookApp Errors"
-VERSION = "2.026.02"
-ENV = 'Local'
-if os.getenv("GITHUB_ACTIONS") == "true":
-    ENV = 'GitHub'
+VERSION = "2.026.04"
+# ENV = 'Local'
+# if os.getenv("GITHUB_ACTIONS") == "true":
+#     ENV = 'GitHub'
 
-if ENV == 'Local':
-    ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
-elif ENV == 'GitHub':
-    ROOT_FOLDER = ''
+# if ENV == 'Local':
+#     ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
+# elif ENV == 'GitHub':
+#     ROOT_FOLDER = ''
+
+ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
 DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
 RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_releases_DB.csv')
 ARTIST_ID_DB = os.path.join(DB_FOLDER, 'AMR_artisitIDs.csv')
@@ -28,7 +30,8 @@ FIELDNAMES_DICT = ['dateUpdate', 'downloadedRelease', 'mainArtist', 'artistName'
 session = requests.Session() 
 session.headers.update({'Referer': 'https://itunes.apple.com', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'})
 
-# functions
+
+# ================= FUNCTIONS =================
 def find_errors():
     """Finding errors in the AMR LookApp last run log"""
     with open(LOG_FILE, 'r') as lf:
@@ -58,6 +61,7 @@ def find_errors():
     print(f'Errors found: {len(error_list)}')
     return error_list
 
+
 def find_releases(find_artist_id, artist_print_name, country):
     # All releases of one Artist (all countries)
     all_releases_df = pd.DataFrame()
@@ -76,9 +80,11 @@ def find_releases(find_artist_id, artist_print_name, country):
                 'artworkUrl100', 'trackCount', 'country', 'releaseDate'
             ]]], ignore_index=True)
         else:
-            amr.logger(f'{artist_print_name} - {find_artist_id} - {country} - EMPTY', LOG_FILE, SCRIPT_NAME)
+            # amr.logger(f'{artist_print_name} - {find_artist_id} - {country} - EMPTY', LOG_FILE, SCRIPT_NAME)
+            print(f'{artist_print_name} - {find_artist_id} - {country} - EMPTY')
     else:
-        amr.logger(f'{artist_print_name} - {find_artist_id} - {country} - ERROR ({response.status_code})', LOG_FILE, SCRIPT_NAME)
+        # amr.logger(f'{artist_print_name} - {find_artist_id} - {country} - ERROR ({response.status_code})', LOG_FILE, SCRIPT_NAME)
+        print(f'{artist_print_name} - {find_artist_id} - {country} - ERROR ({response.status_code})')
 
     # Pause to bypass iTunes server blocking
     time.sleep(1)
@@ -127,13 +133,15 @@ def find_releases(find_artist_id, artist_print_name, country):
         del itunes_db_df
         
         if (new_release_counter + new_cover_counter) > 0:
-            amr.logger(f'{artist_print_name} - {find_artist_id} - {new_release_counter + new_cover_counter} new records: {new_release_counter} releases, {new_cover_counter} covers', LOG_FILE, SCRIPT_NAME)
+            # amr.logger(f'{artist_print_name} - {find_artist_id} - {new_release_counter + new_cover_counter} new records: {new_release_counter} releases, {new_cover_counter} covers', LOG_FILE, SCRIPT_NAME)
+            print(f'{artist_print_name} - {find_artist_id} - {new_release_counter + new_cover_counter} new records: {new_release_counter} releases, {new_cover_counter} covers')
+
 
 def main():
-
-    if ENV == 'Local': 
-        amr.print_name(SCRIPT_NAME, VERSION)
-    amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
+    # if ENV == 'Local': 
+    #     amr.print_name(SCRIPT_NAME, VERSION)
+    # amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
+    amr.print_name(SCRIPT_NAME, VERSION)
 
     artist_list = find_errors()
     key_logger = input("[Enter] to continue: ")
@@ -145,10 +153,10 @@ def main():
 
     print(f'{'':55}')
      
-    if key_logger == '':
-        amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # Good end
-    else:
-        amr.logger(f'▼ DONE [canceled]', LOG_FILE, SCRIPT_NAME) # Bad end
+    # if key_logger == '':
+    #     amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # Good end
+    # else:
+    #     amr.logger(f'▼ DONE [canceled]', LOG_FILE, SCRIPT_NAME) # Bad end
 
 if __name__ == "__main__":
     main()

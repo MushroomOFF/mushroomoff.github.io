@@ -3,21 +3,23 @@ import os
 import shutil
 import amr_functions as amr
 
-# CONSTANTS
+# ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "Covers Renamer"
-VERSION = "2.026.02"
-ENV = 'Local'
-if os.getenv("GITHUB_ACTIONS") == "true":
-    ENV = 'GitHub'
+VERSION = "2.026.04"
+# ENV = 'Local'
+# if os.getenv("GITHUB_ACTIONS") == "true":
+#     ENV = 'GitHub'
 
 ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
-LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
+# LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
 ORIGINAL_COVERS_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/Проекты/_Covers/_BIG'
 
+
 def main():
-    if ENV == 'Local': 
-        amr.print_name(SCRIPT_NAME, VERSION)
-    amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
+    # if ENV == 'Local': 
+    #     amr.print_name(SCRIPT_NAME, VERSION)
+    amr.print_name(SCRIPT_NAME, VERSION)
+    # amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
 
     # Prompt user for a path, if nothing is entered, use the original covers folder
     covers_folder = input(f'Path to big covers folder:\nEnter -> {ORIGINAL_COVERS_FOLDER}\n')
@@ -41,7 +43,8 @@ def main():
                 name_album = f'{name_album} [{name_type}]'
             else:
                 error_mark = True
-                amr.logger(f'ERROR: {check_file}', LOG_FILE, SCRIPT_NAME)
+                # amr.logger(f'ERROR: {check_file}', LOG_FILE, SCRIPT_NAME)
+                print(f'ERROR: {check_file}')
 
             # If no errors were found, proceed with the file renaming and moving
             if not error_mark:
@@ -70,9 +73,11 @@ def main():
 
                 # Move the file to the new directory
                 shutil.move(current_file, new_file)
-                amr.logger(f'FILE: {check_file} >>> GOTO: {name_band_folder}/{name_band}/{new_filename}', LOG_FILE, SCRIPT_NAME, 'covers_renamer')
+                # amr.logger(f'FILE: {check_file} >>> GOTO: {name_band_folder}/{name_band}/{new_filename}', LOG_FILE, SCRIPT_NAME, 'covers_renamer')
+                print(f'FILE: {check_file} >>> GOTO: {name_band_folder}/{name_band}/{new_filename}')
 
-    amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
+    # amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
+
 
 if __name__ == "__main__":
     main()

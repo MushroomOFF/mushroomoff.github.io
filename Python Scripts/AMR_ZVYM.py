@@ -4,55 +4,59 @@ import json
 import os
 import pandas as pd
 import requests
-import sys # for Zvuk
 from yandex_music import Client # for YM
+from dotenv import load_dotenv
 import amr_functions as amr
 
-# CONSTANTS
+# ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "Yandex.Music & Zvuk Lookup"
-VERSION = "2.026.02"
+VERSION = "2.026.04"
 ENV = 'Local'
 if os.getenv("GITHUB_ACTIONS") == "true":
     ENV = 'GitHub'
 
 if ENV == 'Local':
     ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
+    load_dotenv(os.path.join(ROOT_FOLDER, '.env'))
 elif ENV == 'GitHub':
     ROOT_FOLDER = ''
+
+TOKEN = os.environ['tg_token']
+CHAT_ID = os.environ['tg_channel_id']
+LOGGER_ID = os.environ['tg_logger_id']
+YM_TOKEN = os.environ['ym_token']
+ZVUK_TOKEN = os.environ['zv_token']
+
 AMR_FOLDER = os.path.join(ROOT_FOLDER, 'AMRs/')
 DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
 NEW_RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_newReleases_DB.csv')
-LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
+# LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
 
-# Telegram -------------------------------
-TOKEN = ''
-CHAT_ID = ''
-URL = 'https://api.telegram.org/bot'
-
-# Yandex.Music ---------------------------
-YM_TOKEN = ''
-YM_CLIENT = ''
-
-# Zvuk -----------------------------------
-ZVUK_BASE_URL = "https://zvuk.com"
-ZVUK_API_ENDPOINTS = {"lyrics": f"{ZVUK_BASE_URL}/api/tiny/lyrics", "stream": f"{ZVUK_BASE_URL}/api/tiny/track/stream", "graphql": f"{ZVUK_BASE_URL}/api/v1/graphql", "profile": f"{ZVUK_BASE_URL}/api/tiny/profile"}
-ZVUK_TOKEN = ''
-ZVUK_ERROR = ''
+status_message = ''
 
 HEADERS = {'Referer':'https://music.apple.com', 'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'}
 session = requests.Session() 
 session.headers.update(HEADERS)
 
-# functions
+# Yandex.Music ---------------------------
+YM_CLIENT = Client(YM_TOKEN).init()
+
+# Zvuk -----------------------------------
+ZVUK_BASE_URL = "https://zvuk.com"
+ZVUK_API_ENDPOINTS = {"lyrics": f"{ZVUK_BASE_URL}/api/tiny/lyrics", "stream": f"{ZVUK_BASE_URL}/api/tiny/track/stream", "graphql": f"{ZVUK_BASE_URL}/api/v1/graphql", "profile": f"{ZVUK_BASE_URL}/api/tiny/profile"}
+ZVUK_ERROR = ''
+
+
+# ================= FUNCTIONS =================
 
 # Yandex.Music ---------------------------
 def send_search_request_ym(query, year):
-    global YM_CLIENT
     ym_search_result = YM_CLIENT.search(query)
     if ym_search_result.albums:
         for ym_line in ym_search_result.albums.results:
             if str(ym_line.year) == str(year):
                 return f'https://music.yandex.ru/album/{ym_line.id}'
+
 
 def search_album_ym(query, year):
     ym_result = send_search_request_ym(query, year)
@@ -71,6 +75,7 @@ def search_album_ym(query, year):
     return ym_result
 #-----------------------------------------
 
+
 # Zvuk -----------------------------------
 def get_anonymous_token_zv():
     try:
@@ -85,6 +90,7 @@ def get_anonymous_token_zv():
     except Exception as zv_error:
         raise Exception(f"Failed to retrieve anonymous token: {zv_error}")
 
+
 def get_auth_cookies_zv():
     """To get a token: 
     Log in to Zvuk.com in your browser. 
@@ -95,6 +101,7 @@ def get_auth_cookies_zv():
     if not ZVUK_TOKEN:
         ZVUK_TOKEN = get_anonymous_token_zv()
     return {"auth": ZVUK_TOKEN}
+
 
 def search_tracks_zv(query):
     graphql_query = """
@@ -130,6 +137,7 @@ def search_tracks_zv(query):
         return zv_data["data"]["search"]["releases"]["items"]
     return []
 
+
 def search_command_zv(arg_query):
     releases_list = []
     try:
@@ -151,8 +159,9 @@ def search_command_zv(arg_query):
     except Exception as zv_error:
         return f"Error: {zv_error}"
 
+
 def search_album_zv(query):
-    global ZVUK_ERROR
+    global ZVUK_ERROR, status_message
     sArtist = ""
     sRelease = ""
     sTypes = []
@@ -180,11 +189,13 @@ def search_album_zv(query):
                             return f"https://zvuk.com/release/{zv_release['id']}"
         elif zv_releases is None:
             # if search_command_zv return None
-            amr.logger(f"Zvuk didn't find {one_query}", LOG_FILE, SCRIPT_NAME)
+            # amr.logger(f"Zvuk didn't find {one_query}", LOG_FILE, SCRIPT_NAME)
+            status_message += f"\n⚠️ Zvuk didn't find {replace_symbols_markdown_v2(one_query)}"
         elif type(zv_releases) is str:
             # if search_command_zv return Error
             ZVUK_ERROR = f'Zvuk {zv_releases}' 
 #-----------------------------------------
+
 
 def change_amr_button(source_code, separator, new_link, zvorym): 
     """Changing button state in AMR html files
@@ -198,6 +209,7 @@ def change_amr_button(source_code, separator, new_link, zvorym):
     str_tuple = tuple(str_list)
     source_code = ''.join(str_tuple)
     return source_code
+
 
 def change_amr_file(new_link, zvorym, amr_date, link):
     """Changing links in AMR html files
@@ -213,30 +225,17 @@ def change_amr_file(new_link, zvorym, amr_date, link):
     with open(amr_link, 'w') as html_file:
         html_file.write(source_code)
 
+
 def main():
-    global TOKEN, CHAT_ID, YM_TOKEN, YM_CLIENT, ZVUK_TOKEN, ZVUK_ERROR
+    global status_message
 
     if ENV == 'Local': 
         amr.print_name(SCRIPT_NAME, VERSION)
-    amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
+    # amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
 
-    if ENV == 'Local':
-        PARAMS = input("[IMPORTANT!] TOKEN CHAT_ID YM_TOKEN ZV_TOKEN: ").split(' ')
-        if len(PARAMS) < 4:
-            amr.logger('Error: not enough parameters!', LOG_FILE, SCRIPT_NAME)
-            amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
-            sys.exit()
-        TOKEN = PARAMS[0] # input("Telegram Bot TOKEN: ")
-        CHAT_ID = PARAMS[1] # input("Telegram Bot CHAT_ID: ")
-        YM_TOKEN = PARAMS[2] # input("Yandex.Music TOKEN: ")
-        ZVUK_TOKEN = PARAMS[3] # input("Zvuk TOKEN: ")        
-    elif ENV == 'GitHub': 
-        TOKEN = os.environ['tg_token']
-        CHAT_ID = os.environ['tg_channel_id']
-        YM_TOKEN = os.environ['ym_token']
-        ZVUK_TOKEN = os.environ['zv_token']
-
-    YM_CLIENT = Client(YM_TOKEN).init()
+    app_version = amr.replace_symbols_markdown_v2(f'v.{VERSION} [{ENV}]')
+    welcome_message = f'🚀 *{SCRIPT_NAME}*\n{app_version}'
+    amr.send_message(welcome_message, TOKEN, LOGGER_ID, None, None)
 
     new_releases_df = pd.read_csv(NEW_RELEASES_DB, sep=";")
 
@@ -256,7 +255,9 @@ def main():
 
         # Printing Artist and Album if found something
         if ((ym_result is not None) and (ym_result != '')) or ((zv_result is not None) and (zv_result != '')):
-            amr.logger(f'{index}. {row.loc['artist']} - {row.loc['album']}', LOG_FILE, SCRIPT_NAME)
+            # amr.logger(f'{index}. {row.loc['artist']} - {row.loc['album']}', LOG_FILE, SCRIPT_NAME)
+            logger_message = f'{index}. {row.loc['artist']} - {row.loc['album']}'
+            status_message += f'\n{replace_symbols_markdown_v2(logger_message)}'
 
         # Changing links for YM and Zvuk
         if (ym_result is not None) and (ym_result != ''):    
@@ -279,18 +280,23 @@ def main():
                 thread_name = 'Top Releases'
             image_url = row.loc['image_link'].replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
             image_caption = f'*{amr.replace_symbols_markdown_v2(row.loc['artist'].replace('&amp;','&'))}* \\- [{amr.replace_symbols_markdown_v2(row.loc['album'].replace('&amp;','&'))}]({row.loc['link'].replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({row.loc['link']}){'' if pd.isna(row.loc['link_ym']) else f'\n\U0001F4A5 [Яндекс\\.Музыка]({row.loc['link_ym']})'}{'' if pd.isna(row.loc['link_zv']) else f'\n\U0001F50A [Звук]({row.loc['link_zv']})'}'
-            message_to_send = amr.send_photo(thread_name, image_caption, image_url, TOKEN, CHAT_ID)
+            message_to_send = amr.send_message(image_caption, TOKEN, CHAT_ID, image_url, thread_name)
             row.loc['tg_message_id'] = message_to_send
             new_releases_df.loc[index,'tg_message_id'] = message_to_send
+
+    if ZVUK_ERROR:
+        status_message += f'\n⚠️ {replace_symbols_markdown_v2(ZVUK_ERROR)}'
             
     if (new_ym_links + new_zv_links):
         new_releases_df.to_csv(NEW_RELEASES_DB, sep=';', index=False)
-        amr.logger(f'New links: {new_ym_links} Yandex.Music, {new_zv_links} Zvuk', LOG_FILE, SCRIPT_NAME)
+        # amr.logger(f'New links: {new_ym_links} Yandex.Music, {new_zv_links} Zvuk', LOG_FILE, SCRIPT_NAME)
+        logger_message = f'New links:\n💥 {new_ym_links} Yandex.Music\n🔊 {new_zv_links} Zvuk'
+        amr.send_message(f'{logger_message}\n{status_message}\n\n📥 Fetch and Pull', TOKEN, LOGGER_ID, None, None)
+    else:
+        logger_message = f'🤷‍♂️ No new links'
+        amr.send_message(f'{logger_message}{f'\n{status_message}' if status_message else ''}', TOKEN, LOGGER_ID, None, None)
 
-    if ZVUK_ERROR:
-        amr.logger(f'{ZVUK_ERROR}', LOG_FILE, SCRIPT_NAME)
-
-    amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
+    # amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
 
 if __name__ == "__main__":
     main()

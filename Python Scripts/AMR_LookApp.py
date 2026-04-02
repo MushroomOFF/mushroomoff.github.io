@@ -5,12 +5,12 @@ import os
 import pandas as pd
 import requests
 import time
-# from math import nan
+from dotenv import load_dotenv
 import amr_functions as amr
 
-# CONSTANTS
+# ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "LookApp"
-VERSION = "2.026.02"
+VERSION = "2.026.04"
 ENV = 'Local'
 if os.getenv("GITHUB_ACTIONS") == "true":
     ENV = 'GitHub'
@@ -18,8 +18,13 @@ if os.getenv("GITHUB_ACTIONS") == "true":
 
 if ENV == 'Local':
     ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
+    load_dotenv(os.path.join(ROOT_FOLDER, '.env'))
 elif ENV == 'GitHub':
     ROOT_FOLDER = ''
+
+TOKEN = os.environ['tg_token']
+LOGGER_ID = os.environ['tg_logger_id']
+
 DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
 RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_releases_DB.csv')
 ARTIST_ID_DB = os.path.join(DB_FOLDER, 'AMR_artisitIDs.csv')
@@ -30,22 +35,18 @@ FIELDNAMES_DICT = ['dateUpdate', 'downloadedRelease', 'mainArtist', 'artistName'
 EMOJI_DICT = {'us': '\U0001F1FA\U0001F1F8', 'ru': '\U0001F1F7\U0001F1FA', 'jp': '\U0001F1EF\U0001F1F5', 'no': '\U0001F3F3\U0000FE0F', 
               'wtf': '\U0001F914', 'album': '\U0001F4BF', 'cover': '\U0001F3DE\U0000FE0F', 'error': '\U00002757\U0000FE0F', 
               'empty': '\U0001F6AB', 'badid': '\U0000274C'}
+
 countries_list = []
 message_to_send = '' 
 message_empty = '' 
 message_error = '' 
 message_bad_id = '' 
+log_in_file = False
 
 session = requests.Session() 
 session.headers.update({'Referer': 'https://itunes.apple.com', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'})
 
-# Telegram -------------------------------
-TOKEN = ''
-CHAT_ID = ''
-URL = 'https://api.telegram.org/bot'
-#-----------------------------------------
-
-# functions
+# ================= FUNCTIONS =================
 def create_db():
     """Creating database 
     (if there's no database)
@@ -56,8 +57,9 @@ def create_db():
             writer.writeheader()
         print('New database created\n')
 
+
 def find_releases(find_artist_id, artist_print_name):
-    global message_to_send, message_empty, message_error, message_bad_id, session, countries_list
+    global message_to_send, message_empty, message_error, message_bad_id, log_in_file
 
     # All releases of one Artist (all countries)
     all_releases_df = pd.DataFrame()
@@ -74,9 +76,13 @@ def find_releases(find_artist_id, artist_print_name):
                 temp_df = pd.DataFrame(json_parsed['results'])
                 all_releases_df = pd.concat([all_releases_df, temp_df[['artistName', 'artistId', 'collectionId', 'collectionName', 'artworkUrl100', 'trackCount', 'country', 'releaseDate']]], ignore_index=True)
             else:
-                amr.logger(f'{artist_print_name} - {find_artist_id} - {country} - EMPTY', LOG_FILE, SCRIPT_NAME)
+                # amr.logger(f'{artist_print_name} - {find_artist_id} - {country} - EMPTY', LOG_FILE, SCRIPT_NAME)
+                print(f'{artist_print_name} - {find_artist_id} - {country} - EMPTY')
                 message_empty += f'\n{EMOJI_DICT[country]} *{amr.replace_symbols_markdown_v2(artist_print_name.replace('&amp;','and'))}*'
         else:
+            if not log_in_file:
+                amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
+                log_in_file = True
             amr.logger(f'{artist_print_name} - {find_artist_id} - {country} - ERROR ({response.status_code})', LOG_FILE, SCRIPT_NAME)
             message_error += f'\n{EMOJI_DICT[country]} *{amr.replace_symbols_markdown_v2(artist_print_name.replace('&amp;','and'))}*'
 
@@ -89,7 +95,8 @@ def find_releases(find_artist_id, artist_print_name):
     if not all_releases_df.empty:
         export_df = all_releases_df.loc[all_releases_df['collectionName'].notna()]
     elif len(countries_list) > 1:
-        amr.logger(f'{artist_print_name} - {find_artist_id} - Bad ID', LOG_FILE, SCRIPT_NAME)
+        # amr.logger(f'{artist_print_name} - {find_artist_id} - Bad ID', LOG_FILE, SCRIPT_NAME)
+        print(f'{artist_print_name} - {find_artist_id} - Bad ID')
         message_bad_id += f'\n{EMOJI_DICT['no']} *{amr.replace_symbols_markdown_v2(artist_print_name.replace('&amp;','and'))}*'
 
     if not export_df.empty:
@@ -129,30 +136,21 @@ def find_releases(find_artist_id, artist_print_name):
         del itunes_db_df
         
         if (new_release_counter + new_cover_counter) > 0:
-            amr.logger(f'{artist_print_name} - {find_artist_id} - {new_release_counter + new_cover_counter} new records: {new_release_counter} releases, {new_cover_counter} covers', LOG_FILE, SCRIPT_NAME)
+            # amr.logger(f'{artist_print_name} - {find_artist_id} - {new_release_counter + new_cover_counter} new records: {new_release_counter} releases, {new_cover_counter} covers', LOG_FILE, SCRIPT_NAME)
+            print(f'{artist_print_name} - {find_artist_id} - {new_release_counter + new_cover_counter} new records: {new_release_counter} releases, {new_cover_counter} covers')
             if new_release_counter:
                 iconka = 'album'
             else:
                 iconka = 'cover'
             message_to_send += f'\n{EMOJI_DICT[iconka]} *{amr.replace_symbols_markdown_v2(artist_print_name.replace('&amp;','and'))}*: {new_release_counter + new_cover_counter}'
 
+
 def main():
-    global TOKEN, CHAT_ID, message_to_send, message_empty, message_error, message_bad_id, session, countries_list
+    global message_to_send, message_empty, message_error, message_bad_id, countries_list
 
     if ENV == 'Local': 
         amr.print_name(SCRIPT_NAME, VERSION)
-    amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
-
-    if ENV == 'Local':
-        PARAMS = input("(optional) TOKEN CHAT_ID YM_TOKEN ZV_TOKEN: ").split(' ')
-        if len(PARAMS) > 1:
-            TOKEN = PARAMS[0] # input("Telegram Bot TOKEN: ")
-            CHAT_ID = PARAMS[1] # input("Telegram Bot CHAT_ID: ")
-        else:
-            print('Not enough parameters! Message will not be sent!\n')
-    elif ENV == 'GitHub': 
-        TOKEN = os.environ['tg_token']
-        CHAT_ID = os.environ['tg_channel_id']
+    # amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
 
     if ENV == 'Local':
         countries_input = input("\nChoose countries to check:\nEnter: [us, ru, jp]\n2:     [us, ru]\njp:    [jp]\n")
@@ -165,6 +163,10 @@ def main():
         print(f'{countries_list}\n')
     elif ENV == 'GitHub':
         countries_list = ['us', 'ru']
+
+    app_version = amr.replace_symbols_markdown_v2(f'v.{VERSION} [{ENV}]')
+    welcome_message = f'🚀 *{SCRIPT_NAME}*\n{app_version}'
+    amr.send_message(welcome_message, TOKEN, LOGGER_ID, None, None)
 
     message_to_send = ''
     message_error_part = amr.replace_symbols_markdown_v2('======== ERRORS ========')
@@ -231,8 +233,9 @@ def main():
 
     print(f'{'':55}')
 
-    if not TOKEN or not CHAT_ID:
-        amr.logger('Message not sent! No TOKEN or CHAT_ID', LOG_FILE, SCRIPT_NAME)
+    if not TOKEN or not LOGGER_ID:
+        # amr.logger('Message not sent! No TOKEN or LOGGER_ID', LOG_FILE, SCRIPT_NAME)
+        print('Message not sent! No TOKEN or LOGGER_ID')
     else:
         if check_mes_send_len == len(message_to_send):
             message_to_send += f'\n{EMOJI_DICT['wtf']}'
@@ -246,9 +249,13 @@ def main():
             if check_mes_empty_len != len(message_empty):
                 message_to_send += f'\n\n{message_empty}'
         
-        amr.send_message('New Updates', message_to_send, TOKEN, CHAT_ID)
+        # amr.send_message('New Updates', message_to_send, TOKEN, LOGGER_ID)
+        amr.send_message(message_to_send, TOKEN, LOGGER_ID, None, None)
 
-    amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
+
+    if log_in_file:
+        amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME, 'noprint') # End
+
 
 if __name__ == "__main__":
     main()

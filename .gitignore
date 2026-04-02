@@ -5,3 +5,5 @@ Covers/
 Python Scripts/__pycache__/
 Python Scripts/.ipynb_checkpoints/
 secret.mff
+*.env
+.env

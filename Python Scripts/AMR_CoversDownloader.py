@@ -4,28 +4,28 @@ import pandas as pd
 import requests
 import amr_functions as amr
 
-# CONSTANTS
+# ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "Covers Downloader"
-VERSION = "2.026.02"
-ENV = 'Local'
-if os.getenv("GITHUB_ACTIONS") == "true":
-    ENV = 'GitHub'
+VERSION = "2.026.04"
+# ENV = 'Local'
+# if os.getenv("GITHUB_ACTIONS") == "true":
+#     ENV = 'GitHub'
 
 ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
 DB_FOLDER = 'Databases/'
 COVERS_FOLDER = os.path.join(ROOT_FOLDER, 'Covers/Fresh Covers to Check/')
 RELEASES_DB = os.path.join(ROOT_FOLDER, DB_FOLDER, 'AMR_releases_DB.csv')
-LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
+# LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
 
-# functions
+
+# ================= FUNCTIONS =================
 def replace_symbols(text_line):
-    """Replacing unused characters 
-    in file names and folder paths
-    """
+    """Replacing unused characters in file names and folder paths"""
     symbols_to_replace = '\\/*:?<>|`"'
     for symbol in symbols_to_replace:
         text_line = text_line.replace(symbol, '_')
     return text_line
+
 
 def image_download(file_name, folder, link):
     """Image downloading"""
@@ -43,9 +43,9 @@ def image_download(file_name, folder, link):
         with open(os.path.join(folder_path, f"{file_name}.txt"), "wb") as file:
             file.write(response.content)
 
+
 def main():
-    if ENV == 'Local': 
-        amr.print_name(SCRIPT_NAME, VERSION)
+    amr.print_name(SCRIPT_NAME, VERSION)
 
     session = requests.Session() 
     session.headers.update({
@@ -84,6 +84,7 @@ def main():
         releases_df.to_csv(RELEASES_DB, sep=';', index=False)
 
     print("\nDONE")
+
 
 if __name__ == "__main__":
     main()
