@@ -760,7 +760,7 @@ def main():
     # amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
 
     app_version = amr.mdv2(f'v.{VERSION} [{ENV}]')
-    welcome_message = f'🚀 *{amr.mdv2(SCRIPT_NAME)}*\n{amr.mdv2(app_version)}'
+    welcome_message = f'🚀 *{amr.mdv2(SCRIPT_NAME)}*\n{app_version}'
     amr.send_message(welcome_message, TOKEN, LOGGER_ID, None, None)
 
     album_categories = [
@@ -811,14 +811,17 @@ def main():
         if category["category_type"] == 'New Releases':
             collect_new_releases(category_link, category["category_name"], category["category_color"], category["category_abbr"])
             # amr.logger(logger_category, LOG_FILE, SCRIPT_NAME)
+            print(logger_category)
             status_message += f'\n✅ {amr.mdv2(logger_category)}'
         elif category["category_type"] == 'Coming Soon':
             coming_soon(category_link)
             # amr.logger('Coming Soon', LOG_FILE, SCRIPT_NAME)
+            print('Coming Soon')
             status_message += f'\n✅ Coming Soon'
 
             collect_cs_releases(category["category_name"], category["category_color"], category["category_abbr"])
             # amr.logger(logger_category, LOG_FILE, SCRIPT_NAME)
+            print(logger_category)
             status_message += f'\n✅ {amr.mdv2(logger_category)}'
 
     # if not TOKEN or not CHAT_ID:

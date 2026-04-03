@@ -39,7 +39,7 @@ def main():
     # amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
 
     app_version = amr.mdv2(f'v.{VERSION} [{ENV}]')
-    welcome_message = f'🚀 *{amr.mdv2(SCRIPT_NAME)}*\n{amr.mdv2(app_version)}'
+    welcome_message = f'🚀 *{amr.mdv2(SCRIPT_NAME)}*\n{app_version}'
     amr.send_message(welcome_message, TOKEN, LOGGER_ID, None, None)
 
     new_releases_df = pd.read_csv(NEW_RELEASES_DB, sep=";")
