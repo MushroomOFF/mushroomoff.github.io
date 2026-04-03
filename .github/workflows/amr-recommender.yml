@@ -36,13 +36,21 @@ jobs:
         run: python 'Python Scripts/AMR_Recommender.py'
 
       - name: Commit files
+        id: git_commit
         run: |
           git config --local user.email "mushroomoff@mail.ru"
           git config --local user.name "MushroomOFF"
           git add -A
-          git commit -a -m "AMR Recommender autoupdate"
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Нет изменений для коммита, пропускаем."
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            git commit -m "AMR Recommender autoupdate"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
 
       - name: Push changes
+        if: steps.git_commit.outputs.has_changes == 'true'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -190,7 +190,7 @@ def search_album_zv(query):
         elif zv_releases is None:
             # if search_command_zv return None
             # amr.logger(f"Zvuk didn't find {one_query}", LOG_FILE, SCRIPT_NAME)
-            status_message += f"\n⚠️ Zvuk didn't find {replace_symbols_markdown_v2(one_query)}"
+            status_message += f"\n⚠️ Zvuk didn't find {amr.mdv2(one_query)}"
         elif type(zv_releases) is str:
             # if search_command_zv return Error
             ZVUK_ERROR = f'Zvuk {zv_releases}' 
@@ -233,8 +233,8 @@ def main():
         amr.print_name(SCRIPT_NAME, VERSION)
     # amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
 
-    app_version = amr.replace_symbols_markdown_v2(f'v.{VERSION} [{ENV}]')
-    welcome_message = f'🚀 *{SCRIPT_NAME}*\n{app_version}'
+    app_version = amr.mdv2(f'v.{VERSION} [{ENV}]')
+    welcome_message = f'🚀 *{amr.mdv2(SCRIPT_NAME)}*\n{amr.mdv2(app_version)}'
     amr.send_message(welcome_message, TOKEN, LOGGER_ID, None, None)
 
     new_releases_df = pd.read_csv(NEW_RELEASES_DB, sep=";")
@@ -257,7 +257,7 @@ def main():
         if ((ym_result is not None) and (ym_result != '')) or ((zv_result is not None) and (zv_result != '')):
             # amr.logger(f'{index}. {row.loc['artist']} - {row.loc['album']}', LOG_FILE, SCRIPT_NAME)
             logger_message = f'{index}. {row.loc['artist']} - {row.loc['album']}'
-            status_message += f'\n{replace_symbols_markdown_v2(logger_message)}'
+            status_message += f'\n{amr.mdv2(logger_message)}'
 
         # Changing links for YM and Zvuk
         if (ym_result is not None) and (ym_result != ''):    
@@ -279,13 +279,13 @@ def main():
             elif row.loc['best_fav_new_ok'] == 'o':
                 thread_name = 'Top Releases'
             image_url = row.loc['image_link'].replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
-            image_caption = f'*{amr.replace_symbols_markdown_v2(row.loc['artist'].replace('&amp;','&'))}* \\- [{amr.replace_symbols_markdown_v2(row.loc['album'].replace('&amp;','&'))}]({row.loc['link'].replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({row.loc['link']}){'' if pd.isna(row.loc['link_ym']) else f'\n\U0001F4A5 [Яндекс\\.Музыка]({row.loc['link_ym']})'}{'' if pd.isna(row.loc['link_zv']) else f'\n\U0001F50A [Звук]({row.loc['link_zv']})'}'
+            image_caption = f'*{amr.mdv2(row.loc['artist'].replace('&amp;','&'))}* \\- [{amr.mdv2(row.loc['album'].replace('&amp;','&'))}]({row.loc['link'].replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({row.loc['link']}){'' if pd.isna(row.loc['link_ym']) else f'\n\U0001F4A5 [Яндекс\\.Музыка]({row.loc['link_ym']})'}{'' if pd.isna(row.loc['link_zv']) else f'\n\U0001F50A [Звук]({row.loc['link_zv']})'}'
             message_to_send = amr.send_message(image_caption, TOKEN, CHAT_ID, image_url, thread_name)
             row.loc['tg_message_id'] = message_to_send
             new_releases_df.loc[index,'tg_message_id'] = message_to_send
 
     if ZVUK_ERROR:
-        status_message += f'\n⚠️ {replace_symbols_markdown_v2(ZVUK_ERROR)}'
+        status_message += f'\n⚠️ {amr.mdv2(ZVUK_ERROR)}'
             
     if (new_ym_links + new_zv_links):
         new_releases_df.to_csv(NEW_RELEASES_DB, sep=';', index=False)

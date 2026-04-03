@@ -5,7 +5,7 @@ import amr_functions as amr
 # functions usage example:
 amr.print_name(SCRIPT_NAME, VERSION)
 
-amr.replace_symbols_markdown_v2(text_line)
+amr.mdv2(text_line)
 
 amr.send_message(text, token, chat_id, image, topic)
 
@@ -30,7 +30,7 @@ def print_name(script_name, version):
     print(f"{'':{'='}^{print_line_len}}\n")
 
 
-def replace_symbols_markdown_v2(text_line):
+def mdv2(text_line):
     """Replacing Markdown v2 unused characters 
     in Telegram message text line 
     """
@@ -54,24 +54,6 @@ def send_message(text, token, chat_id, image, topic):
     json_response = json.loads(response.text)
     result_message_id = json_response['result']['message_id']   
     return result_message_id
-
-
-# def send_message(topic, text, token, chat_id):
-#     """Sending Telegram message""" 
-#     method = f"https://api.telegram.org/bot{token}/sendMessage"
-#     response = requests.post(method, data={"message_thread_id": THREAD_ID_DICT[topic], "chat_id": chat_id, "parse_mode": 'MarkdownV2', "text": text})
-#     json_response = json.loads(response.text)
-#     result_message_id = json_response['result']['message_id']   
-#     return result_message_id
-
-
-# def send_photo(topic, text, image_url, token, chat_id):
-#     """Sending Telegram message with photo"""
-#     method = f"https://api.telegram.org/bot{token}/sendPhoto"
-#     response = requests.post(method, data={"message_thread_id": THREAD_ID_DICT[topic], "chat_id": chat_id, "photo": image_url, "parse_mode": 'MarkdownV2', "caption": text})
-#     json_response = json.loads(response.text)
-#     result_message_id = json_response['result']['message_id']    
-#     return result_message_id
 
 
 def logger(log_line, log_file, script_name, *args):
