@@ -42,7 +42,7 @@ jobs:
           git config --local user.name "MushroomOFF"
           git add -A
           if [ -z "$(git status --porcelain)" ]; then
-            echo "Нет изменений для коммита, пропускаем."
+            echo "No changes to commit, skip."
             echo "has_changes=false" >> $GITHUB_OUTPUT
           else
             git commit -m "AMR Recommender autoupdate"

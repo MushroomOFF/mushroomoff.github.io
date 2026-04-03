@@ -14,26 +14,41 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
+
       - name: Checkout
         uses: actions/checkout@v5
+
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.14.0"
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           if [ -f 'Python Scripts/requirements.txt' ]; then pip install -r 'Python Scripts/requirements.txt'; fi
+
       - name: Execute py script
         run: python 'Python Scripts/AMR_ZVYM.py'
+
       - name: Commit files
+        id: git_commit
         run: |
           git config --local user.email "mushroomoff@mail.ru"
           git config --local user.name "MushroomOFF"
           git add -A
-          git commit -a -m "AMR YM & Zvuk Lookup autoupdate"
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes to commit, skip."
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            git commit -a -m "AMR YM & Zvuk Lookup autoupdate"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Push changes
+        if: steps.git_commit.outputs.has_changes == 'true'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
