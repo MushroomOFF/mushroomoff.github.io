@@ -290,11 +290,10 @@ def main():
     if (new_ym_links + new_zv_links):
         new_releases_df.to_csv(NEW_RELEASES_DB, sep=';', index=False)
         # amr.logger(f'New links: {new_ym_links} Yandex.Music, {new_zv_links} Zvuk', LOG_FILE, SCRIPT_NAME)
-        logger_message = f'New links:\n💥 {new_ym_links} Yandex.Music\n🔊 {new_zv_links} Zvuk'
-        amr.send_message(f'{logger_message}\n{status_message}', TOKEN, LOGGER_ID, None, None)
+        logger_message = f'New links:\n💥 {new_ym_links} Yandex\\.Music\n🔊 {new_zv_links} Zvuk'
     else:
         logger_message = f'🤷‍♂️ No new links'
-        amr.send_message(f'{logger_message}{f'\n{status_message}' if status_message else ''}', TOKEN, LOGGER_ID, None, None)
+    amr.send_message(f'{logger_message}{f'\n{status_message}' if status_message else ''}', TOKEN, LOGGER_ID, None, None)
 
     # amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
 
