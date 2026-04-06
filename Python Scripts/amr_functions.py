@@ -46,7 +46,7 @@ def send_message(text, token, chat_id, image, topic):
     data_arguments = {"text": text, "chat_id": chat_id, "parse_mode": 'MarkdownV2'}
     if image:
         send_method = 'sendPhoto'
-        data_arguments.update({"photo": image})
+        data_arguments.update({"photo": image, "caption": text})
     if topic:
         data_arguments.update({"message_thread_id": THREAD_ID_DICT[topic]})
     method = f"https://api.telegram.org/bot{token}/{send_method}"
