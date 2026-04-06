@@ -828,9 +828,9 @@ def main():
     #     print('Message not sent! No TOKEN or CHAT_ID')
     # else:
     if not message_new_releases:
-        amr.send_message('\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F', TOKEN, CHAT_ID, None, 'New Releases')
+        amr.send_message('New Releases: \U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F', TOKEN, LOGGER_ID, None, None)
     if not message_cs_releases:
-        amr.send_message('\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F', TOKEN, CHAT_ID, None, 'Coming Soon')
+        amr.send_message('Coming Soon: \U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F', TOKEN, LOGGER_ID, None, None)
 
     if ZVUK_ERROR:
         # amr.logger(f'{ZVUK_ERROR}', LOG_FILE, SCRIPT_NAME)    
