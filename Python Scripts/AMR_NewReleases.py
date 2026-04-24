@@ -526,7 +526,7 @@ def collect_cs_releases(category_name, category_color, category_abbr):
                 date_time_text = response[date_time_begin + len(date_time_string):date_time_end]
                 date_time = datetime.datetime.strptime(date_time_text, '%B %d, %Y')
                 if row['release__date'] != date_time and date_time > datetime.datetime.now():
-                    cs_releases_df.loc[index, 'release__date'] = date_time
+                    cs_releases_df.loc[index, 'release__date'] = str(date_time)
                     cs_releases_df.loc[index, 'release__date_text'] = date_time_text
                 else:
                     cs_to_new_releases_df.loc[len(cs_to_new_releases_df.index)] = [row['artist__name'], row['album__name'], row['album__href'], row['album_cover__jpeg']]
