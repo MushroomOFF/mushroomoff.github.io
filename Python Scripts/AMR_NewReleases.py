@@ -231,7 +231,7 @@ def search_command_zv(arg_query):
 
 
 def search_album_zv(query):
-    global ZVUK_ERROR, status_message
+    global ZVUK_ERROR
     sArtist = ""
     sRelease = ""
     sTypes = []
@@ -257,13 +257,13 @@ def search_album_zv(query):
                 for zv_release in zv_releases:
                         if (sArtist.lower() in zv_release['artist'].lower().replace("’","'")) and (sRelease.lower() in zv_release['release'].lower().replace("’","'")) and (sType.lower() == zv_release['type']):
                             return f"https://zvuk.com/release/{zv_release['id']}"
-        elif zv_releases is None:
-            # if search_command_zv return None
-            # amr.logger(f"Zvuk didn't find {one_query}", LOG_FILE, SCRIPT_NAME)
-            status_message += f"\n⚠️ Zvuk didn't find {amr.mdv2(one_query)}"
         elif type(zv_releases) is str:
             # if search_command_zv return Error
             ZVUK_ERROR = f'Zvuk {zv_releases}' 
+        # elif zv_releases is None:
+        #     # if search_command_zv return None
+        #     # amr.logger(f"Zvuk didn't find {one_query}", LOG_FILE, SCRIPT_NAME)
+        #     status_message += f"\n⚠️ Zvuk didn't find {amr.mdv2(one_query)}"
 #-----------------------------------------
 
 
