@@ -10,7 +10,7 @@ import amr_functions as amr
 
 # ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "LookApp"
-VERSION = "2.026.04"
+VERSION = "2.026.06"
 ENV = 'Local'
 if os.getenv("GITHUB_ACTIONS") == "true":
     ENV = 'GitHub'
@@ -27,7 +27,7 @@ LOGGER_ID = os.environ['tg_logger_id']
 
 DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
 RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_releases_DB.csv')
-ARTIST_ID_DB = os.path.join(DB_FOLDER, 'AMR_artisitIDs.csv')
+ARTIST_ID_DB = os.path.join(DB_FOLDER, 'AMR_artistIDs.csv')
 LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
 FIELDNAMES_DICT = ['dateUpdate', 'downloadedRelease', 'mainArtist', 'artistName', 'collectionName', 
                'trackCount', 'releaseDate', 'releaseYear', 'mainId', 'artistId', 'collectionId', 
@@ -78,13 +78,13 @@ def find_releases(find_artist_id, artist_print_name):
             else:
                 # amr.logger(f'{artist_print_name} - {find_artist_id} - {country} - EMPTY', LOG_FILE, SCRIPT_NAME)
                 print(f'{artist_print_name} - {find_artist_id} - {country} - EMPTY')
-                message_empty += f'\n{EMOJI_DICT[country]} *{amr.mdv2(artist_print_name.replace('&amp;','and'))}*'
+                message_empty += f'\n{EMOJI_DICT[country]} *{artist_print_name.replace('&amp;','and')}*'
         else:
             if not log_in_file:
                 amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
                 log_in_file = True
             amr.logger(f'{artist_print_name} - {find_artist_id} - {country} - ERROR ({response.status_code})', LOG_FILE, SCRIPT_NAME)
-            message_error += f'\n{EMOJI_DICT[country]} *{amr.mdv2(artist_print_name.replace('&amp;','and'))}*'
+            message_error += f'\n{EMOJI_DICT[country]} *{artist_print_name.replace('&amp;','and')}*'
 
         # Pause to bypass iTunes server blocking
         time.sleep(1) 
@@ -97,7 +97,7 @@ def find_releases(find_artist_id, artist_print_name):
     elif len(countries_list) > 1:
         # amr.logger(f'{artist_print_name} - {find_artist_id} - Bad ID', LOG_FILE, SCRIPT_NAME)
         print(f'{artist_print_name} - {find_artist_id} - Bad ID')
-        message_bad_id += f'\n{EMOJI_DICT['no']} *{amr.mdv2(artist_print_name.replace('&amp;','and'))}*'
+        message_bad_id += f'\n{EMOJI_DICT['no']} *{artist_print_name.replace('&amp;','and')}*'
 
     if not export_df.empty:
         itunes_db_df = pd.read_csv(RELEASES_DB, sep=";")
@@ -142,7 +142,7 @@ def find_releases(find_artist_id, artist_print_name):
                 iconka = 'album'
             else:
                 iconka = 'cover'
-            message_to_send += f'\n{EMOJI_DICT[iconka]} *{amr.mdv2(artist_print_name.replace('&amp;','and'))}*: {new_release_counter + new_cover_counter}'
+            message_to_send += f'\n{EMOJI_DICT[iconka]} *{artist_print_name.replace('&amp;','and')}*: {new_release_counter + new_cover_counter}'
 
 
 def main():
@@ -164,12 +164,12 @@ def main():
     elif ENV == 'GitHub':
         countries_list = ['us', 'ru']
 
-    app_version = amr.mdv2(f'v.{VERSION} [{ENV}]')
-    welcome_message = f'🚀 *{amr.mdv2(SCRIPT_NAME)}*\n{app_version}'
+    app_version = f'v.{VERSION} [{ENV}]'
+    welcome_message = f'🚀 *{SCRIPT_NAME}*\n{app_version}'
     amr.send_message(welcome_message, TOKEN, LOGGER_ID, None, None)
 
     message_to_send = ''
-    message_error_part = amr.mdv2('======== ERRORS ========')
+    message_error_part = '======== ERRORS ========'
     message_error = f'{EMOJI_DICT['error']} 503 Service Unavailable {EMOJI_DICT['error']}'
     message_empty = f'{EMOJI_DICT['empty']} Not available in country {EMOJI_DICT['empty']}'
     message_bad_id = f'{EMOJI_DICT['badid']}               Bad ID                {EMOJI_DICT['badid']}'
@@ -187,20 +187,20 @@ def main():
             key_logger = input("All done. [Enter] to start over: ")
             if not key_logger:
                 artist_id_df.drop('downloaded', axis=1, inplace=True)
-                artist_id_df.insert(4, "downloaded", pd.NA)
+                artist_id_df.insert(3, "downloaded", pd.NA)
                 artist_id_df = artist_id_df.astype({"downloaded": "string"})
                 artist_id_df.to_csv(ARTIST_ID_DB, sep=';', index=False)
         else:
             key_logger = input(f"Stopped at {artist_to_find[artist_to_find.index[0]]}. [Enter] to continue. Anything else to start over: ")
             if key_logger:
                 artist_id_df.drop('downloaded', axis=1, inplace=True)
-                artist_id_df.insert(4, "downloaded", pd.NA)
+                artist_id_df.insert(3, "downloaded", pd.NA)
                 artist_id_df = artist_id_df.astype({"downloaded": "string"})
                 artist_id_df.to_csv(ARTIST_ID_DB, sep=';', index=False)
         print('')
     elif ENV == 'GitHub':
         artist_id_df.drop('downloaded', axis=1, inplace=True)
-        artist_id_df.insert(4, "downloaded", pd.NA)
+        artist_id_df.insert(3, "downloaded", pd.NA)
         artist_id_df = artist_id_df.astype({"downloaded": "string"})
         artist_id_df.to_csv(ARTIST_ID_DB, sep=';', index=False)
 

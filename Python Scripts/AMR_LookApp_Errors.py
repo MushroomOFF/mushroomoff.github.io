@@ -21,7 +21,6 @@ VERSION = "2.026.04"
 ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
 DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
 RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_releases_DB.csv')
-ARTIST_ID_DB = os.path.join(DB_FOLDER, 'AMR_artisitIDs.csv')
 LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
 FIELDNAMES_DICT = ['dateUpdate', 'downloadedRelease', 'mainArtist', 'artistName', 'collectionName', 
                'trackCount', 'releaseDate', 'releaseYear', 'mainId', 'artistId', 'collectionId', 

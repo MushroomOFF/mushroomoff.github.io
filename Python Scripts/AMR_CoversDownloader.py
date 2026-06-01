@@ -6,7 +6,7 @@ import amr_functions as amr
 
 # ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "Covers Downloader"
-VERSION = "2.026.04"
+VERSION = "2.026.06"
 # ENV = 'Local'
 # if os.getenv("GITHUB_ACTIONS") == "true":
 #     ENV = 'GitHub'
@@ -19,6 +19,35 @@ RELEASES_DB = os.path.join(ROOT_FOLDER, DB_FOLDER, 'AMR_releases_DB.csv')
 
 
 # ================= FUNCTIONS =================
+def clean_folder_name(text: str) -> str:
+    forbidden = set('()/:.')
+    result = []
+    # Проходим по исходному тексту, чтобы соседи не "съехали" во время обработки
+    for i, char in enumerate(text):
+        if char in forbidden:
+            left = text[i-1] if i > 0 else None
+            right = text[i+1] if i < len(text) - 1 else None
+            
+            # Заменяем на пробел только если символ окружён не-пробелами с обеих сторон
+            if left is not None and right is not None and left != ' ' and right != ' ':
+                result.append(' ')
+            # В противном случае (начало/конец строки или рядом уже есть пробел) символ просто удаляется
+        else:
+            result.append(char)
+    # Собираем строку, схлопываем множественные пробелы в один и убираем пробелы по краям
+    return ' '.join(''.join(result).split())
+
+
+def is_jp_chars(text: str):
+    # Проверяем каждый символ по его Unicode-коду
+    if any(0x3040 <= ord(ch) <= 0x309F or  # Хирагана
+           0x30A0 <= ord(ch) <= 0x30FF or  # Катакана
+           0x4E00 <= ord(ch) <= 0x9FFF     # Кандзи (CJK Unified Ideographs)
+           for ch in text):
+        return True
+    return False
+
+
 def replace_symbols(text_line):
     """Replacing unused characters in file names and folder paths"""
     symbols_to_replace = '\\/*:?<>|`"'
@@ -66,11 +95,18 @@ def main():
         # row_index + 2 -> позиция строки в текстовом файле с учетом шапки и порядковым номером первой строки данных - 2  
         # row_index + 2 -> только для вывода    
 
+        # Убираем из имени Исполнителя символы, которые недопустимы в имени папки ('/', ':', '(', ')', '.' в конце)
+        artist_folder_name = clean_folder_name(cover_to_download['mainArtist'].loc[row_index])
+        # Проверяем на наличие японских символов. Если находим, мяеняем на "неочищенное" mainArtist
+        non_JP_artist_name = cover_to_download['artistName'].loc[row_index]
+        if is_jp_chars(non_JP_artist_name):
+            non_JP_artist_name = cover_to_download['mainArtist'].loc[row_index]
+
         image_download(
-            f"{cover_to_download['artistName'].loc[row_index]} - "
+            f"{non_JP_artist_name} - "
             f"{cover_to_download['collectionName'].loc[row_index][:100]} - "
             f"{cover_to_download['releaseDate'].loc[row_index]} [{row_index + 2}]",
-            cover_to_download['mainArtist'].loc[row_index],
+            artist_folder_name,
             cover_to_download['artworkUrlD'].loc[row_index]
         )
         

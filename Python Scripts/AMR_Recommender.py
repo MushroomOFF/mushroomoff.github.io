@@ -9,7 +9,7 @@ import amr_functions as amr
 
 # ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "Recommender"
-VERSION = "2.026.04"
+VERSION = "2.026.06"
 ENV = 'Local'
 if os.getenv("GITHUB_ACTIONS") == "true":
     ENV = 'GitHub'
@@ -38,8 +38,8 @@ def main():
         amr.print_name(SCRIPT_NAME, VERSION)
     # amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
 
-    app_version = amr.mdv2(f'v.{VERSION} [{ENV}]')
-    welcome_message = f'🚀 *{amr.mdv2(SCRIPT_NAME)}*\n{app_version}'
+    app_version = f'v.{VERSION} [{ENV}]'
+    welcome_message = f'🚀 *{SCRIPT_NAME}*\n{app_version}'
     amr.send_message(welcome_message, TOKEN, LOGGER_ID, None, None)
 
     new_releases_df = pd.read_csv(NEW_RELEASES_DB, sep=";")
@@ -74,7 +74,7 @@ def main():
     # Sending to Top Releases (O)
     for index, row in new_releases_df[(new_releases_df['best_fav_new_ok'] == 'o') & (new_releases_df['tg_message_id'] == 0)].iterrows():
         image_url = row.loc['image_link'].replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
-        text = f'*{amr.mdv2(row.loc['artist'].replace('&amp;','&'))}* \\- [{amr.mdv2(row.loc['album'].replace('&amp;','&'))}]({row.loc['link'].replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({row.loc['link']}){'' if pd.isna(row.loc['link_ym']) else f'\n\U0001F4A5 [Яндекс\\.Музыка]({row.loc['link_ym']})'}{'' if pd.isna(row.loc['link_zv']) else f'\n\U0001F50A [Звук]({row.loc['link_zv']})'}'
+        text = f'*{row.loc['artist'].replace('&amp;','&')}* \\- [{row.loc['album'].replace('&amp;','&')}]({row.loc['link'].replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({row.loc['link']}){'' if pd.isna(row.loc['link_ym']) else f'\n\U0001F4A5 [Яндекс\\.Музыка]({row.loc['link_ym']})'}{'' if pd.isna(row.loc['link_zv']) else f'\n\U0001F50A [Звук]({row.loc['link_zv']})'}'
         message_to_send = amr.send_message(text, TOKEN, CHAT_ID, image_url, 'Top Releases')
         if TOKEN and CHAT_ID:
             new_releases_df.loc[index,'tg_message_id'] = message_to_send
@@ -84,7 +84,7 @@ def main():
     # Sending to New Releases (V, D)
     for index, row in new_releases_df[(new_releases_df['best_fav_new_ok'].isin(['v','d'])) & (new_releases_df['tg_message_id'] == 0)].iterrows():
         image_url = row.loc['image_link'].replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
-        text = f'*{amr.mdv2(row.loc['artist'].replace('&amp;','&'))}* \\- [{amr.mdv2(row.loc['album'].replace('&amp;','&'))}]({row.loc['link'].replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({row.loc['link']}){'' if pd.isna(row.loc['link_ym']) else f'\n\U0001F4A5 [Яндекс\\.Музыка]({row.loc['link_ym']})'}{'' if pd.isna(row.loc['link_zv']) else f'\n\U0001F50A [Звук]({row.loc['link_zv']})'}'
+        text = f'*{row.loc['artist'].replace('&amp;','&')}* \\- [{row.loc['album'].replace('&amp;','&')}]({row.loc['link'].replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({row.loc['link']}){'' if pd.isna(row.loc['link_ym']) else f'\n\U0001F4A5 [Яндекс\\.Музыка]({row.loc['link_ym']})'}{'' if pd.isna(row.loc['link_zv']) else f'\n\U0001F50A [Звук]({row.loc['link_zv']})'}'
         message_to_send = amr.send_message(text, TOKEN, CHAT_ID, image_url, 'New Releases')
         if TOKEN and CHAT_ID:
             new_releases_df.loc[index,'tg_message_id'] = message_to_send

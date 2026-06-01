@@ -10,7 +10,7 @@ import amr_functions as amr
 
 # ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "New Releases"
-VERSION = "2.026.04"
+VERSION = "2.026.06"
 ENV = 'Local'
 if os.getenv("GITHUB_ACTIONS") == "true":
     ENV = 'GitHub'
@@ -32,7 +32,7 @@ DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
 NEW_RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_newReleases_DB.csv')
 CS_RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_csReleases_DB.csv')
 RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_releases_DB.csv')
-ARTIST_ID_DB = os.path.join(DB_FOLDER, 'AMR_artisitIDs.csv')
+ARTIST_ID_DB = os.path.join(DB_FOLDER, 'AMR_artistIDs.csv')
 # LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
 
 message_new_releases = False
@@ -263,7 +263,7 @@ def search_album_zv(query):
         # elif zv_releases is None:
         #     # if search_command_zv return None
         #     # amr.logger(f"Zvuk didn't find {one_query}", LOG_FILE, SCRIPT_NAME)
-        #     status_message += f"\n⚠️ Zvuk didn't find {amr.mdv2(one_query)}"
+        #     status_message += f"\n⚠️ Zvuk didn't find {one_query}"
 #-----------------------------------------
 
 
@@ -420,7 +420,7 @@ def write_to_csv(artist, album, update_date, is_my_artist, image_link, album_lin
     message_id = 0
     if is_my_artist:
         image_url = image_link.replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
-        image_caption = f'*{amr.mdv2(artist.replace('&amp;','&'))}* \\- [{amr.mdv2(album.replace('&amp;','&'))}]({album_link.replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({album_link}){f'\n\U0001F4A5 [Яндекс\\.Музыка]({ym_result})' if ym_result is not None and ym_result != '' else ''}{f'\n\U0001F50A [Звук]({zv_result})' if zv_result is not None and zv_result != '' else ''}'
+        image_caption = f'*{artist.replace('&amp;','&')}* \\- [{album.replace('&amp;','&')}]({album_link.replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({album_link}){f'\n\U0001F4A5 [Яндекс\\.Музыка]({ym_result})' if ym_result is not None and ym_result != '' else ''}{f'\n\U0001F50A [Звук]({zv_result})' if zv_result is not None and zv_result != '' else ''}'
         message_id = amr.send_message(image_caption, TOKEN, CHAT_ID, image_url, 'New Releases')
 
         message_new_releases = True
@@ -696,7 +696,7 @@ def coming_soon(category_link):
             message_id = 0
             if is_my_artist:
                 image_url = image_link_jpeg.replace('296x296bb-60.jpg', '632x632bb.webp').replace('296x296bf-60.jpg', '632x632bf.webp')
-                image_caption = f'*{amr.mdv2(artist.replace('&amp;','&'))}* \\- [{amr.mdv2(row['album'].replace('&amp;','&'))}]({row['album_link'].replace('://','://embed.')})\n{amr.mdv2(str(row['apple_music_release_date'])[0:10])}'
+                image_caption = f'*{artist.replace('&amp;','&')}* \\- [{row['album'].replace('&amp;','&')}]({row['album_link'].replace('://','://embed.')})\n{str(row['apple_music_release_date'][0:10])}'
                 message_id = amr.send_message(image_caption, TOKEN, CHAT_ID, image_url, 'Coming Soon')
                 message_cs_releases = True
 
@@ -731,7 +731,7 @@ def next_week_releases_sender():
     this_week_message += '\U0001F50E This week releases:'
     if len(itunes_db_df[(itunes_db_df['downloadedRelease'] == 'd') & (itunes_db_df['releaseDate'] <= current_date)]):
         for index, row in itunes_db_df[(itunes_db_df['downloadedRelease'] == 'd') & (itunes_db_df['releaseDate'] <= current_date)].sort_values(by=['releaseDate','mainArtist'], ascending=[True, True]).iterrows():
-            this_week_message += f'\n*{amr.mdv2(row['artistName'].replace('&amp;','&'))}* \\- {amr.mdv2(row['collectionName'].replace('&amp;','&'))}'
+            this_week_message += f'\n*{row['artistName'].replace('&amp;','&')}* \\- {row['collectionName'].replace('&amp;','&')}'
     else:
         this_week_message += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
 
@@ -741,8 +741,8 @@ def next_week_releases_sender():
         for index, row in itunes_db_df[(itunes_db_df['downloadedRelease'] == 'd') & (itunes_db_df['releaseDate'] > current_date)].sort_values(by=['releaseDate','mainArtist'], ascending=[True, True]).iterrows():
             if week_date != row['releaseDate']:
                 week_date = row['releaseDate']
-                next_week_message += f'\n\n__{amr.mdv2(week_date)}__'
-            next_week_message += f'\n*{amr.mdv2(row['artistName'].replace('&amp;','&'))}* \\- {amr.mdv2(row['collectionName'].replace('&amp;','&'))}'
+                next_week_message += f'\n\n__{week_date}__'
+            next_week_message += f'\n*{row['artistName'].replace('&amp;','&')}* \\- {row['collectionName'].replace('&amp;','&')}'
     else:
         next_week_message += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
 
@@ -759,8 +759,8 @@ def main():
         amr.print_name(SCRIPT_NAME, VERSION)
     # amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
 
-    app_version = amr.mdv2(f'v.{VERSION} [{ENV}]')
-    welcome_message = f'🚀 *{amr.mdv2(SCRIPT_NAME)}*\n{app_version}'
+    app_version = f'v.{VERSION} [{ENV}]'
+    welcome_message = f'🚀 *{SCRIPT_NAME}*\n{app_version}'
     amr.send_message(welcome_message, TOKEN, LOGGER_ID, None, None)
 
     album_categories = [
@@ -812,7 +812,7 @@ def main():
             collect_new_releases(category_link, category["category_name"], category["category_color"], category["category_abbr"])
             # amr.logger(logger_category, LOG_FILE, SCRIPT_NAME)
             print(logger_category)
-            status_message += f'\n✅ {amr.mdv2(logger_category)}'
+            status_message += f'\n✅ {logger_category}'
         elif category["category_type"] == 'Coming Soon':
             coming_soon(category_link)
             # amr.logger('Coming Soon', LOG_FILE, SCRIPT_NAME)
@@ -822,7 +822,7 @@ def main():
             collect_cs_releases(category["category_name"], category["category_color"], category["category_abbr"])
             # amr.logger(logger_category, LOG_FILE, SCRIPT_NAME)
             print(logger_category)
-            status_message += f'\n✅ {amr.mdv2(logger_category)}'
+            status_message += f'\n✅ {logger_category}'
 
     # if not TOKEN or not CHAT_ID:
     #     print('Message not sent! No TOKEN or CHAT_ID')
@@ -834,7 +834,7 @@ def main():
 
     if ZVUK_ERROR:
         # amr.logger(f'{ZVUK_ERROR}', LOG_FILE, SCRIPT_NAME)    
-        status_message += f'\n⚠️ {amr.mdv2(ZVUK_ERROR)}'
+        status_message += f'\n⚠️ {ZVUK_ERROR}'
     
     amr.send_message(status_message, TOKEN, LOGGER_ID, None, None)
 
