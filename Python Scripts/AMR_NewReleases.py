@@ -696,7 +696,7 @@ def coming_soon(category_link):
             message_id = 0
             if is_my_artist:
                 image_url = image_link_jpeg.replace('296x296bb-60.jpg', '632x632bb.webp').replace('296x296bf-60.jpg', '632x632bf.webp')
-                image_caption = f'*{artist.replace('&amp;','&')}* \\- [{row['album'].replace('&amp;','&')}]({row['album_link'].replace('://','://embed.')})\n{str(row['apple_music_release_date'][0:10])}'
+                image_caption = f'*{artist.replace('&amp;','&')}* \\- [{row['album'].replace('&amp;','&')}]({row['album_link'].replace('://','://embed.')})\n{str(row['apple_music_release_date'])[0:10]}'
                 message_id = amr.send_message(image_caption, TOKEN, CHAT_ID, image_url, 'Coming Soon')
                 message_cs_releases = True
 
