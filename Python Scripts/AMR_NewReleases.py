@@ -4,6 +4,7 @@ import json
 import os
 import pandas as pd
 import requests
+import urllib.parse
 from yandex_music import Client # for YM
 from dotenv import load_dotenv
 import amr_functions as amr
@@ -265,6 +266,10 @@ def search_album_zv(query):
         #     # amr.logger(f"Zvuk didn't find {one_query}", LOG_FILE, SCRIPT_NAME)
         #     status_message += f"\n⚠️ Zvuk didn't find {one_query}"
 #-----------------------------------------
+
+
+def uri_encode(text: str) -> str:
+    return urllib.parse.quote(text, safe="")
 
 
 def make_html_start(update_date, category_name, category_color):
@@ -724,6 +729,7 @@ def coming_soon(category_link):
 def next_week_releases_sender():
     itunes_db_df = pd.read_csv(RELEASES_DB, sep=";")
 
+    base_url = "https://rutracker.org/forum/tracker.php?nm="
     this_week_message = ''
     next_week_message = ''
     current_date = datetime.datetime.now().strftime('%Y-%m-%d')
@@ -731,7 +737,9 @@ def next_week_releases_sender():
     this_week_message += '\U0001F50E This week releases:'
     if len(itunes_db_df[(itunes_db_df['downloadedRelease'] == 'd') & (itunes_db_df['releaseDate'] <= current_date)]):
         for index, row in itunes_db_df[(itunes_db_df['downloadedRelease'] == 'd') & (itunes_db_df['releaseDate'] <= current_date)].sort_values(by=['releaseDate','mainArtist'], ascending=[True, True]).iterrows():
-            this_week_message += f'\n*{row['artistName'].replace('&amp;','&')}* \\- {row['collectionName'].replace('&amp;','&')}'
+            artist_name = row['artistName'].replace('&amp;','&')
+            base_line = f"{base_url}{uri_encode(artist_name)}"
+            this_week_message += f'\n*[{artist_name}]({base_line})* - {row['collectionName'].replace('&amp;','&')}'
     else:
         this_week_message += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
 
@@ -741,8 +749,10 @@ def next_week_releases_sender():
         for index, row in itunes_db_df[(itunes_db_df['downloadedRelease'] == 'd') & (itunes_db_df['releaseDate'] > current_date)].sort_values(by=['releaseDate','mainArtist'], ascending=[True, True]).iterrows():
             if week_date != row['releaseDate']:
                 week_date = row['releaseDate']
-                next_week_message += f'\n\n__{week_date}__'
-            next_week_message += f'\n*{row['artistName'].replace('&amp;','&')}* \\- {row['collectionName'].replace('&amp;','&')}'
+                next_week_message += f'\n\n*{week_date}*'
+            artist_name = row['artistName'].replace('&amp;','&')
+            base_line = f"{base_url}{uri_encode(artist_name)}"
+            next_week_message += f'\n*[{artist_name}]({base_line})* - {row['collectionName'].replace('&amp;','&')}'
     else:
         next_week_message += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
 

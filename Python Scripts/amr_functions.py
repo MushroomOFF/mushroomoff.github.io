@@ -15,7 +15,6 @@ amr.logger(log_line, LOG_FILE, SCRIPT_NAME, *args)
 import datetime
 import json
 import os
-import re
 import requests
 
 THREAD_ID_DICT = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80, 'General': 0}
@@ -52,8 +51,10 @@ def mdv2(text):
     result = []
     i = 0
     
+    is_bold_link = False
+
     while i < len(text):
-        # 🔹 Code block: `...` — сохраняем как есть, без экранирования
+        # Code block: `...` — сохраняем как есть, без экранирования
         if text[i] == '`':
             end = text.find('`', i + 1)
             if end != -1:
@@ -61,7 +62,7 @@ def mdv2(text):
                 i = end + 1
                 continue
         
-        # 🔹 Link: [text](url) — экранируем контент внутри, но не структурные скобки
+        # Link: [text](url) — экранируем контент внутри, но не структурные скобки
         if text[i] == '[':
             bracket_end = text.find(']', i + 1)
             if bracket_end != -1 and bracket_end + 1 < len(text) and text[bracket_end+1] == '(':
@@ -69,21 +70,30 @@ def mdv2(text):
                 if paren_end != -1:
                     link_text = text[i+1:bracket_end]
                     url = text[bracket_end+2:paren_end]
-                    result.append(f'[{escape_special(link_text)}]({escape_special(url)})')
-                    i = paren_end + 1
+                    if is_bold_link:
+                        result.append(f'*[{escape_special(link_text)}]({escape_special(url)})*')
+                        is_bold_link = False
+                        i = paren_end + 2
+                    else:
+                        result.append(f'[{escape_special(link_text)}]({escape_special(url)})')
+                        i = paren_end + 1
                     continue
         
-        # 🔹 Bold/italic/strike: *...*, _..._, ~...~ — экранируем контент внутри
+        # Bold/italic/strike: *...*, _..._, ~...~ — экранируем контент внутри, учитываем наличие ссылки внутри
         if text[i] in '*_~':
             marker = text[i]
             end = text.find(marker, i + 1)
             if end != -1:
                 content = text[i+1:end]
-                result.append(f'{marker}{escape_special(content)}{marker}')
-                i = end + 1
+                if content[0] != '[' and content[len(content)-1] != ')':
+                    result.append(f'{marker}{escape_special(content)}{marker}')
+                    i = end + 1
+                else:
+                    is_bold_link = True
+                    i += 1
                 continue
         
-        # 🔹 Обычный символ: экранируем, если это спецсимвол и он не уже экранирован
+        # Обычный символ: экранируем, если это спецсимвол и он ещё не экранирован
         c = text[i]
         if c in SPECIAL and (i == 0 or text[i-1] != '\\'):
             result.append('\\' + c)
