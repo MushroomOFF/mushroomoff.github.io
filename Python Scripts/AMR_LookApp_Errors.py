@@ -1,36 +1,93 @@
-import csv
 import datetime
+import json
 import os
 import pandas as pd
 import requests
+import sqlite3
 import time
+import traceback
 import amr_functions as amr
 
 # ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "LookApp Errors"
-VERSION = "2.026.04"
-# ENV = 'Local'
-# if os.getenv("GITHUB_ACTIONS") == "true":
-#     ENV = 'GitHub'
-
-# if ENV == 'Local':
-#     ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
-# elif ENV == 'GitHub':
-#     ROOT_FOLDER = ''
+VERSION = "2.026.07"
 
 ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
 DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
-RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_releases_DB.csv')
+DB_FILE = os.path.join(DB_FOLDER, 'music_releases.db')
 LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
-FIELDNAMES_DICT = ['dateUpdate', 'downloadedRelease', 'mainArtist', 'artistName', 'collectionName', 
-               'trackCount', 'releaseDate', 'releaseYear', 'mainId', 'artistId', 'collectionId', 
-               'country', 'artworkUrlD', 'downloadedCover', 'updReason']
 
 session = requests.Session() 
 session.headers.update({'Referer': 'https://itunes.apple.com', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'})
 
+# ================= DATABASE FUNCTIONS =================
+def check_collection_exists(album_id):
+    """Проверить, существует ли релиз в БД"""
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+        cursor.execute('SELECT COUNT(*) FROM my_releases WHERE album_id = ?', (album_id,))
+        result = cursor.fetchone()
+        conn.close()
+        return result[0] > 0
+    except Exception as e:
+        print(f'Error checking collection {album_id}: {e}')
+        return False
 
-# ================= FUNCTIONS =================
+
+def check_cover_exists(album_id, artwork_url):
+    """Проверить, совпадает ли обложка (сравнение с 40-го символа)"""
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+        cursor.execute('SELECT cover_link FROM my_releases WHERE album_id = ?', (album_id,))
+        result = cursor.fetchone()
+        conn.close()
+        if result and result[0] and len(result[0]) > 40 and len(artwork_url) > 40:
+            return result[0][40:] == artwork_url[40:]
+        return False
+    except Exception as e:
+        print(f'Error checking cover for {album_id}: {e}')
+        return False
+
+
+def insert_release(release_data):
+    """Вставить релиз в БД с явным преобразованием типов"""
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+        cursor.execute('''
+            INSERT INTO my_releases
+            (update_date, main_artist, artist, album, tracks, release_date, 
+             release_year, main_artist_id, artist_id, album_id, country, 
+             cover_link, update_reason)
+
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (
+            str(release_data['dateUpdate']),
+            str(release_data['mainArtist']),
+            str(release_data['artistName']),
+            str(release_data['collectionName']),
+            int(release_data['trackCount']),
+            str(release_data['releaseDate']),
+            int(release_data['releaseYear']),
+            int(release_data['mainId']),
+            int(release_data['artistId']),
+            int(release_data['collectionId']),
+            str(release_data['country']),
+            str(release_data['artworkUrlD']),
+            str(release_data['updReason'])
+        ))
+        conn.commit()
+        conn.close()
+        return True
+    except Exception as e:
+        print(f'Error inserting release {release_data.get("collectionId")}: {e}')
+        traceback.print_exc()
+        return False
+
+
+# ================= MAIN FUNCTIONS =================
 def find_errors():
     """Finding errors in the AMR LookApp last run log"""
     with open(LOG_FILE, 'r') as lf:
@@ -62,84 +119,101 @@ def find_errors():
 
 
 def find_releases(find_artist_id, artist_print_name, country):
+    """Поиск релизов одного артиста по всем странам"""
     # All releases of one Artist (all countries)
     all_releases_df = pd.DataFrame()
     # Unique releases of one Artist
     export_df = pd.DataFrame()
 
-    url = f'https://itunes.apple.com/lookup?id={find_artist_id}&country={country}&entity=album&limit=200'
-    response = session.get(url)
+    try:
+        url = f'https://itunes.apple.com/lookup?id={find_artist_id}&country={country}&entity=album&limit=200'
+        response = session.get(url, timeout=30)
 
-    if response.status_code == 200:
-        json_parsed = response.json()
-        if json_parsed['resultCount'] > 1:
-            temp_df = pd.DataFrame(json_parsed['results'])
-            all_releases_df = pd.concat([all_releases_df, temp_df[[
-                'artistName', 'artistId', 'collectionId', 'collectionName',
-                'artworkUrl100', 'trackCount', 'country', 'releaseDate'
-            ]]], ignore_index=True)
+        if response.status_code == 200:
+            try:
+                json_parsed = response.json()
+                if json_parsed.get('resultCount', 0) > 1:
+                    temp_df = pd.DataFrame(json_parsed['results'])
+                    temp_df = temp_df[['artistName', 'artistId', 'collectionId', 'collectionName',
+                                        'artworkUrl100', 'trackCount', 'country', 'releaseDate']].copy()
+                    all_releases_df = pd.concat([all_releases_df, temp_df], ignore_index=True)
+                else:
+                    print(f'{artist_print_name} - {find_artist_id} - {country} - EMPTY')
+            except json.JSONDecodeError as e:
+                print(f'JSON decode error for {artist_print_name} - {country}: {e}')
         else:
-            # amr.logger(f'{artist_print_name} - {find_artist_id} - {country} - EMPTY', LOG_FILE, SCRIPT_NAME)
-            print(f'{artist_print_name} - {find_artist_id} - {country} - EMPTY')
-    else:
-        # amr.logger(f'{artist_print_name} - {find_artist_id} - {country} - ERROR ({response.status_code})', LOG_FILE, SCRIPT_NAME)
-        print(f'{artist_print_name} - {find_artist_id} - {country} - ERROR ({response.status_code})')
+            print(f'{artist_print_name} - {find_artist_id} - {country} - ERROR ({response.status_code})')
+
+    except requests.exceptions.RequestException as e:
+        print(f'Request error for {artist_print_name} - {country}: {e}')
+    except Exception as e:
+        print(f'Unexpected error for {artist_print_name} - {country}: {e}')
+        traceback.print_exc()
 
     # Pause to bypass iTunes server blocking
     time.sleep(1)
 
     # Remove duplicates via 'artworkUrl100'
-    all_releases_df.drop_duplicates(subset='artworkUrl100', keep='first', inplace=True, ignore_index=True)
-
     # Select the rows with the filled 'collectionName'
     if not all_releases_df.empty:
-        export_df = all_releases_df.loc[all_releases_df['collectionName'].notna()]
+        all_releases_df.drop_duplicates(subset='artworkUrl100', keep='first', inplace=True, ignore_index=True)
+        export_df = all_releases_df.loc[all_releases_df['collectionName'].notna()].copy()
 
     if not export_df.empty:
-        itunes_db_df = pd.read_csv(RELEASES_DB, sep=";")
+        update_date = datetime.datetime.now().strftime('%Y-%m-%d')
+        new_release_counter = 0
+        new_cover_counter = 0
 
-        with open(RELEASES_DB, 'a+', newline='') as csv_file:
-            writer = csv.DictWriter(csv_file, delimiter=';', fieldnames=FIELDNAMES_DICT)
-
-            date_update = datetime.datetime.now().strftime('%Y-%m-%d')
-            new_release_counter = 0
-            new_cover_counter = 0
-
-            for _, row in export_df.iterrows():
+        for _, row in export_df.iterrows():
+            # Каждый релиз обрабатываем отдельно — если один упадет, продолжим со следующего
+            try:
                 collection_id = int(row['collectionId'])
-                artwork_url_d = row['artworkUrl100'].replace('100x100bb', '10000x10000-999')
+                artwork_url_d = str(row['artworkUrl100']).replace('100x100bb', '10000x10000-999')
 
-                if itunes_db_df[itunes_db_df['collectionId'] == collection_id].empty:
+                # Безопасное преобразование типов
+                track_count = int(row['trackCount']) if pd.notna(row.get('trackCount')) else 0
+                artist_id = int(row['artistId']) if pd.notna(row.get('artistId')) else 0
+                release_date_str = str(row.get('releaseDate', ''))
+
+                if not check_collection_exists(collection_id):
                     update_reason = 'New release'
                     new_release_counter += 1
-                elif itunes_db_df[itunes_db_df['artworkUrlD'].str[40:] == artwork_url_d[40:]].empty:
-                    # .str[40:] ------------------------------V The link matching check will start from here, since identical covers can be located on different servers
-                    # https://is2-ssl.mzstatic.com/image/thumb/Music/v4/b2/cc/64/b2cc645c-9f18-db02-d0ab-69e296ea4d70/source/10000x10000-999.jpg            
+                elif not check_cover_exists(collection_id, artwork_url_d):
                     update_reason = 'New cover'
                     new_cover_counter += 1
                 else:
                     continue
 
-                writer.writerow({
-                    'dateUpdate': update_date, 'downloadedRelease': '', 'mainArtist': artist_print_name,
-                    'artistName': row['artistName'], 'collectionName': row['collectionName'], 
-                    'trackCount': int(row['trackCount']), 'releaseDate': row['releaseDate'][:10], 
-                    'releaseYear': row['releaseDate'][:4], 'mainId': find_artist_id, 'artistId': row['artistId'], 
-                    'collectionId': collectionId, 'country': row['country'], 'artworkUrlD': artwork_url_d, 
-                    'downloadedCover': '', 'updReason': update_reason
-                    })
+                release_data = {
+                    'dateUpdate': update_date,
+                    'mainArtist': artist_print_name,
+                    'artistName': str(row.get('artistName', '')),
+                    'collectionName': str(row.get('collectionName', '')),
+                    'trackCount': track_count,
+                    'releaseDate': release_date_str[:10] if len(release_date_str) >= 10 else release_date_str,
+                    'releaseYear': int(release_date_str[:4]) if len(release_date_str) >= 4 else 0,
+                    'mainId': find_artist_id,
+                    'artistId': artist_id,
+                    'collectionId': collection_id,
+                    'country': str(row.get('country', '')),
+                    'artworkUrlD': artwork_url_d,
+                    'updReason': update_reason
+                }
 
-        del itunes_db_df
-        
+                if not insert_release(release_data):
+                    print(f'  ✗ Failed to insert: {release_data["collectionName"]}')
+
+            except Exception as e:
+                print(f'  ✗ Error processing release row: {e}')
+                traceback.print_exc()
+                continue  # Продолжаем со следующего релиза
+
         if (new_release_counter + new_cover_counter) > 0:
-            # amr.logger(f'{artist_print_name} - {find_artist_id} - {new_release_counter + new_cover_counter} new records: {new_release_counter} releases, {new_cover_counter} covers', LOG_FILE, SCRIPT_NAME)
-            print(f'{artist_print_name} - {find_artist_id} - {new_release_counter + new_cover_counter} new records: {new_release_counter} releases, {new_cover_counter} covers')
+            print(f'{artist_print_name} - {find_artist_id} - {new_release_counter + new_cover_counter} '
+                  f'new records: {new_release_counter} releases, {new_cover_counter} covers')
 
 
 def main():
-    # if ENV == 'Local': 
-    #     amr.print_name(SCRIPT_NAME, VERSION)
-    # amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
     amr.print_name(SCRIPT_NAME, VERSION)
 
     artist_list = find_errors()
@@ -151,11 +225,7 @@ def main():
             find_releases(find_artist_id, artist_print_name, country)
 
     print(f'{'':55}')
-     
-    # if key_logger == '':
-    #     amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # Good end
-    # else:
-    #     amr.logger(f'▼ DONE [canceled]', LOG_FILE, SCRIPT_NAME) # Bad end
+
 
 if __name__ == "__main__":
     main()

@@ -1,9 +1,9 @@
-import csv
 import datetime
-import json
 import os
 import pandas as pd
 import requests
+import sqlite3
+import traceback
 import urllib.parse
 from yandex_music import Client # for YM
 from dotenv import load_dotenv
@@ -11,7 +11,7 @@ import amr_functions as amr
 
 # ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "New Releases"
-VERSION = "2.026.06"
+VERSION = "2.026.07"
 ENV = 'Local'
 if os.getenv("GITHUB_ACTIONS") == "true":
     ENV = 'GitHub'
@@ -30,11 +30,7 @@ ZVUK_TOKEN = os.environ['zv_token']
 
 AMR_FOLDER = os.path.join(ROOT_FOLDER, 'AMRs/')
 DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
-NEW_RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_newReleases_DB.csv')
-CS_RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_csReleases_DB.csv')
-RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_releases_DB.csv')
-ARTIST_ID_DB = os.path.join(DB_FOLDER, 'AMR_artistIDs.csv')
-# LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
+DB_FILE = os.path.join(DB_FOLDER, 'music_releases.db')
 
 message_new_releases = False
 message_cs_releases = False
@@ -119,6 +115,9 @@ HTML_FINAL = """  <!-- End of File -->
 </body>\n"""
 
 # ================= FUNCTIONS =================
+
+def uri_encode(text: str) -> str:
+    return urllib.parse.quote(text, safe="")
 
 # Yandex.Music ---------------------------
 def send_search_request_ym(query, year):
@@ -267,10 +266,179 @@ def search_album_zv(query):
         #     status_message += f"\n⚠️ Zvuk didn't find {one_query}"
 #-----------------------------------------
 
+# ================= DATABASE FUNCTIONS =================
 
-def uri_encode(text: str) -> str:
-    return urllib.parse.quote(text, safe="")
+def insert_new_release(release_data):
+    """Вставить релиз в БД с явным преобразованием типов"""
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+        cursor.execute('''
+            INSERT INTO new_releases
+            (update_date, genre_category, artist, album, album_id, album_link, 
+            album_link_ym, album_link_zv, cover_link, tg_message_id)
 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (
+            str(release_data['update_date']),
+            str(release_data['genre_category']),
+            str(release_data['artist']),
+            str(release_data['album']),
+            int(release_data['album_id']),
+            str(release_data['album_link']),
+            str(release_data['album_link_ym']),
+            str(release_data['album_link_zv']),
+            str(release_data['cover_link']),
+            int(release_data['tg_message_id'])
+        ))
+        conn.commit()
+        conn.close()
+        return True
+    except Exception as e:
+        print(f'Error inserting release {release_data.get("album_id")}: {e}')
+        traceback.print_exc()
+        return False
+
+
+def check_new_release(album_id):
+    """If album_id exists in db, then it's NOT new release (False)"""
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+        cursor.execute('SELECT COUNT(*) FROM new_releases WHERE album_id = ?', (album_id,))
+        result = cursor.fetchone()
+        conn.close()
+        if int(result[0]) > 0:
+            return False
+        return True
+    except Exception as e:
+        print(f'Error checking cover for {album_id}: {e}')
+        return False
+
+
+def check_my_artist(artist_id):
+    """If artist_id exists in db, then it's my artist (True)"""
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+        cursor.execute('SELECT COUNT(*) FROM artists WHERE artist_id = ?', (artist_id,))
+        result = cursor.fetchone()
+        conn.close()
+        if int(result[0]) > 0:
+            return True
+        return False
+    except Exception as e:
+        print(f'Error checking cover for {artist_id}: {e}')
+        return False
+    
+
+def soon_to_new_releases(current_date):
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+        cursor.execute('''
+            SELECT sr.row_id, sr.artist_name, sr.album_name, sr.album_link, 
+            sr.cover_link, sr.release_date FROM soon_releases sr 
+            LEFT JOIN new_releases nr ON sr.album_link = nr.album_link 
+            WHERE nr.album_link IS NULL AND sr.release_date <= ?
+        ''', (current_date,))
+        result = cursor.fetchall()
+        conn.close()
+        return result
+    except Exception as e:
+        print(f'Error getting artist to find: {e}')
+        traceback.print_exc()
+        return None
+
+
+def update_soon_release(row_id, release_date, release_date_text):
+    """Обновить ???"""
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+        cursor.execute('UPDATE soon_releases SET release_date = ?, release_date_text = ? WHERE row_id = ?',
+                       (release_date, release_date_text, row_id))
+        conn.commit()
+        conn.close()
+        return True
+    except Exception as e:
+        print(f'Error updating ???: {e}')
+        traceback.print_exc()
+        return False
+
+
+def check_new_soon_on_this_week(album_link):
+    """If album_link exists in db, then it's NOT new release (False)"""
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+        cursor.execute('SELECT COUNT(*) FROM soon_releases WHERE album_link = ?', (album_link,))
+        result = cursor.fetchone()
+        conn.close()
+        if int(result[0]) > 0:
+            return False
+        return True
+    except Exception as e:
+        print(f'Error checking cover for {album_link}: {e}')
+        return False
+
+
+def insert_soon_release(release_data):
+    """Вставить релиз в БД с явным преобразованием типов"""
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+        cursor.execute('''
+            INSERT INTO soon_releases
+            (update_date, artist_name, album_name, artist_link, 
+            album_link, cover_link, release_date, release_date_text)
+
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (
+            str(release_data['update_date']),
+            str(release_data['artist_name']),
+            str(release_data['album_name']),
+            str(release_data['artist_link']),
+            str(release_data['album_link']),
+            str(release_data['cover_link']),
+            str(release_data['release_date']),
+            str(release_data['release_date_text'])
+        ))
+        conn.commit()
+        conn.close()
+        return True
+    except Exception as e:
+        print(f'Error inserting release {release_data.get("album_link")}: {e}')
+        traceback.print_exc()
+        return False    
+
+
+def next_week_releases(current_date):
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+        cursor.execute('''
+            SELECT DISTINCT artist, album, release_date FROM my_releases 
+            WHERE release_date <= ? AND rate_tag = 'd' 
+            ORDER BY release_date ASC, main_artist ASC
+        ''', (current_date,))
+        result_this = cursor.fetchall()
+        cursor = conn.cursor()
+        cursor.execute('''
+            SELECT DISTINCT artist, album, release_date FROM my_releases 
+            WHERE release_date > ? AND rate_tag = 'd' 
+            ORDER BY release_date ASC, main_artist ASC
+        ''', (current_date,))
+        result_next = cursor.fetchall()
+        conn.close()
+        return result_this, result_next
+    except Exception as e:
+        print(f'Error getting artist to find: {e}')
+        traceback.print_exc()
+        return None
+
+
+# ================= HTML FUNCTIONS =================
 
 def make_html_start(update_date, category_name, category_color):
     tr_id = f'"{update_date}_{category_name}"'.lower().replace(' ','_')
@@ -391,6 +559,8 @@ def write_to_html(update_date, html_text, html_start):
                 html_file.write(HTML_HEAD + '\n' + html_start + html_text + HTML_END + '\n' + html_content)
 
 
+# ================= MAIN FUNCTIONS =================
+
 def find_room_link(category_link, category_name):
     """ Searching correct link to room genre"""
     request = session.get(category_link)
@@ -402,14 +572,12 @@ def find_room_link(category_link, category_name):
     category_id = response[begin_position:end_position].strip()
     room_link = f'{category_link[:category_link.find('/curator')]}/room/{category_id}'
     return room_link
+    
 
-
-def write_to_csv(artist, album, update_date, is_my_artist, image_link, album_link, category_abbr, album_id):
+def write_to_db(artist, album, update_date, is_my_artist, image_link, album_link, category_abbr, album_id):
     global message_new_releases
     
-    field_names = ['date', 'category', 'artist', 'album', 'best_fav_new_ok', 'link', 'link_ym', 'link_zv', 'image_link', 'album_id', 'tg_message_id']
     artist_album_name = f'{artist} - {album}'
-
     ym_zv_search_string = f'{artist.replace('&amp;','&')} - {album.replace('&amp;','&')}' 
     ym_year = update_date[0:4]
     ym_result = ''
@@ -430,36 +598,34 @@ def write_to_csv(artist, album, update_date, is_my_artist, image_link, album_lin
 
         message_new_releases = True
 
-    with open(NEW_RELEASES_DB, 'a+', newline='') as csv_file:
-        writer = csv.DictWriter(csv_file, delimiter=';', fieldnames=field_names)
-        writer.writerow({'date': update_date, 
-                         'category': category_abbr, 
-                         'artist': artist.replace('&amp;','&'), 
-                         'album': album.replace('&amp;','&'), 
-                         'best_fav_new_ok': '', 
-                         'link': album_link, 
-                         'link_ym': ym_result if ym_result is not None else '', # YM & Zvuk search
-                         'link_zv': zv_result if zv_result is not None else '', # YM & Zvuk search
-                         'image_link': image_link, 
-                         'album_id': album_id, 
-                         'tg_message_id': message_id})
+    new_release_data = {
+        'update_date': update_date, 
+        'genre_category': category_abbr, 
+        'artist': artist.replace('&amp;','&'), 
+        'album': album.replace('&amp;','&'), 
+        'album_id': album_id, 
+        'album_link': album_link, 
+        'album_link_ym': ym_result if ym_result is not None else '', # YM & Zvuk search
+        'album_link_zv': zv_result if zv_result is not None else '', # YM & Zvuk search
+        'cover_link': image_link, 
+        'tg_message_id': message_id
+    }
+
+    if not insert_new_release(new_release_data):
+        print(f'  ✗ Failed to insert: {new_release_data["album"]}')
     
     return artist_album_name, ym_result, zv_result
 
 
 def collect_new_releases(category_link, category_name, category_color, category_abbr):
-    request = session.get(category_link)
-    request.encoding = 'UTF-8'
-    
     update_date = datetime.datetime.now().strftime('%Y-%m-%d') 
-
     html_start = make_html_start(update_date, category_name, category_color)
     html_text = ''
 
-    new_releases_df = pd.read_csv(NEW_RELEASES_DB, sep=";")
-    artist_id_df = pd.read_csv(ARTIST_ID_DB, sep=";")
-
+    request = session.get(category_link)
+    request.encoding = 'UTF-8'
     response = request.text
+
     li_list = response.split('<li class="grid-item ')
     for index, li in enumerate(li_list):
         if index > 0:  
@@ -473,10 +639,6 @@ def collect_new_releases(category_link, category_name, category_color, category_
             link_position_end = release_list.find('"', link_position_begin)
             album_link = release_list[link_position_begin:link_position_end].strip()
             album_id = album_link[album_link.rfind('/') + 1:]
-
-            is_new_release = True        
-            if int(album_id) in new_releases_df['album_id'].values:
-                is_new_release = False
 
             link_position_end = release_list.find('</a')
             link_position_begin = release_list.rfind('>', 0, link_position_end) + len('>')
@@ -493,77 +655,58 @@ def collect_new_releases(category_link, category_name, category_color, category_
                     artist_list.append(artist_line[link_position_begin:link_position_end].strip())
                     artist_id = artist_line_list[idx-1][artist_line_list[idx-1].rfind('/') + len('/'):]
                     artist_id_list.append(artist_id[artist_id.rfind('/') + len('/'):])
-                    if int(artist_id) in artist_id_df['mainId'].values:
-                        is_my_artist = True
+                    is_my_artist = check_my_artist(artist_id)
             artist = '; '.join(artist_list)
             
-            if is_new_release and artist:
+            if check_new_release(album_id) and artist:
                 # Write informtaion to CSV
-                artist_album_name, ym_result, zv_result = write_to_csv(artist, album, update_date, is_my_artist, image_link, album_link, category_abbr, album_id)
+                artist_album_name, ym_result, zv_result = write_to_db(artist, album, update_date, is_my_artist, image_link, album_link, category_abbr, album_id)
                 # Add information to HTML
                 html_text += make_html_text(artist, album, image_link, album_link, artist_album_name, album_id, ym_result, zv_result)
-
+    
     # Save HTML file
-    write_to_html(update_date, html_text, html_start)
-
-    del new_releases_df
-    del artist_id_df
+    if html_text:
+        write_to_html(update_date, html_text, html_start)
 
 
 def collect_cs_releases(category_name, category_color, category_abbr):
     """ Moving delayed Coming soon releases to New Releases"""
-    field_names = ['date', 'category', 'artist', 'album', 'best_fav_new_ok', 'link', 'link_ym', 'link_zv', 'image_link', 'album_id', 'tg_message_id']
-    
     # Preparation
-    new_releases_df = pd.read_csv(NEW_RELEASES_DB, sep=";")
-    cs_releases_df = pd.read_csv(CS_RELEASES_DB, sep=";")
     cs_to_new_releases_df = pd.DataFrame(columns=['artist', 'album', 'link', 'image_link'])
-
-    for index, row in cs_releases_df.iterrows():
-        if datetime.datetime.strptime(row['release__date'], "%Y-%m-%d %H:%M:%S") <= datetime.datetime.now():
-            if not len(new_releases_df.loc[new_releases_df['link'] == row['album__href']]):
-                request = session.get(row['album__href'])
-                request.encoding = 'UTF-8'
-                response = request.text
-                date_time_string = 'data-testid="tracklist-footer-description">'
-                date_time_begin = response.find(date_time_string)
-                date_time_end = response.find('\n', date_time_begin)
-                date_time_text = response[date_time_begin + len(date_time_string):date_time_end]
-                date_time = datetime.datetime.strptime(date_time_text, '%B %d, %Y')
-                if row['release__date'] != date_time and date_time > datetime.datetime.now():
-                    cs_releases_df.loc[index, 'release__date'] = str(date_time)
-                    cs_releases_df.loc[index, 'release__date_text'] = date_time_text
-                else:
-                    cs_to_new_releases_df.loc[len(cs_to_new_releases_df.index)] = [row['artist__name'], row['album__name'], row['album__href'], row['album_cover__jpeg']]
-
-    cs_releases_df.to_csv(CS_RELEASES_DB, sep=';', index=False)
-    del new_releases_df
-    del cs_releases_df
+    
+    current_date = datetime.datetime.now().strftime('%Y-%m-%d')
+    soon2new_releases = soon_to_new_releases(current_date)
+    # 0 - sr.row_id, 1 - sr.artist_name, 2 - sr.album_name, 
+    # 3 - sr.album_link, 4 - sr.cover_link, 5 - sr.release_date
+    if soon2new_releases:
+        for row in soon2new_releases:
+            request = session.get(row[3])
+            request.encoding = 'UTF-8'
+            response = request.text
+            date_time_string = 'data-testid="tracklist-footer-description">'
+            date_time_begin = response.find(date_time_string)
+            date_time_end = response.find('\n', date_time_begin)
+            date_time_text = response[date_time_begin + len(date_time_string):date_time_end]
+            date_time = datetime.datetime.strptime(date_time_text, '%B %d, %Y')
+            if row[5] != date_time and date_time > datetime.datetime.now():
+                update_soon_release(row[0], str(date_time), date_time_text)
+            else:
+                cs_to_new_releases_df.loc[len(cs_to_new_releases_df.index)] = [row[1], row[2], row[3], row[4]]
 
     # Main work
     if len(cs_to_new_releases_df):
-
-        update_date = datetime.datetime.now().strftime('%Y-%m-%d')
-
-        html_start = make_html_start(update_date, category_name, category_color)
+        html_start = make_html_start(current_date, category_name, category_color)
         html_text = ''
 
-        with open(NEW_RELEASES_DB, 'a+', newline='') as csv_file:
-            writer = csv.DictWriter(csv_file, delimiter=';', fieldnames=field_names)
-
-            for index, row in cs_to_new_releases_df.iterrows():
-
-                album_id = row['link'][row['link'].rfind('/') + 1:]
-
-                #                                                                                                is_my_artist
-                # Write informtaion to CSV                                                                       v
-                artist_album_name, ym_result, zv_result = write_to_csv(row['artist'], row['album'], update_date, '', row['image_link'], row['link'], category_abbr, album_id)
-                
-                # Add information to HTML
-                html_text += make_html_text(row['artist'], row['album'], row['image_link'], row['link'], artist_album_name, album_id, ym_result, zv_result)
-        
+        for _, row in cs_to_new_releases_df.iterrows():
+            album_id = row['link'][row['link'].rfind('/') + 1:]
+            # Write informtaion to CSV                                                                        is_my_artist
+            artist_album_name, ym_result, zv_result = write_to_db(row['artist'], row['album'], current_date, None, row['image_link'], row['link'], category_abbr, album_id)
+            # Add information to HTML
+            html_text += make_html_text(row['artist'], row['album'], row['image_link'], row['link'], artist_album_name, album_id, ym_result, zv_result)
+    
         # Save HTML file
-        write_to_html(update_date, html_text, html_start)
+        write_to_html(current_date, html_text, html_start)
         
         del cs_to_new_releases_df
 
@@ -571,13 +714,8 @@ def collect_cs_releases(category_name, category_color, category_abbr):
 def coming_soon(category_link):
     global message_cs_releases
     
-    request = session.get(category_link)
-    request.encoding = 'UTF-8'
-
     update_date = datetime.datetime.now().strftime('%Y-%m-%d') 
     html_li = ''
-
-    artist_id_df = pd.read_csv(ARTIST_ID_DB, sep=";")
 
     new_cs_releases_df = pd.DataFrame(columns=['apple_music_sort', 'aria_label', 'artwork_bg_color',
                                                'picture_srcset_webp', 'picture_srcset_jpeg',
@@ -585,6 +723,8 @@ def coming_soon(category_link):
                                                'apple_music_release_date', 'apple_music_release_date_text',
                                                'is_new_on_this_week'])
     
+    request = session.get(category_link)
+    request.encoding = 'UTF-8'
     response = request.text
     li_list = response.split('<li class="grid-item ')
     for li_index, li in enumerate(li_list):
@@ -652,7 +792,6 @@ def coming_soon(category_link):
                                                                      album_link, album, artist_list, artist_id_list, artist_link_list, 
                                                                      date_time, date_time_text, '']
             
-            # no logger here!
             print(f'Comming Soon [{li_index}]', end='\r')
     
     apple_music_release_date_text = 'Date 0, 9999'
@@ -672,30 +811,29 @@ def coming_soon(category_link):
             
             apple_music_release_date_text = row['apple_music_release_date_text']
 
-        # Always load new CS_RELEASES_DB, because later we write new rows into it
-        cs_releases_df = pd.read_csv(CS_RELEASES_DB, sep=";")
-
-        if not len(cs_releases_df.loc[cs_releases_df['album__href'] == row['album_link']]):
+        if check_new_soon_on_this_week(row['album_link']):
             row['is_new_on_this_week'] = 1
 
-            field_names = ['update__date', 'album_cover__jpeg', 'album__href', 'album__name', 'artist__href', 'artist__name', 'release__date', 'release__date_text']
             image_link_jpeg = row['picture_srcset_jpeg'][0:row['picture_srcset_jpeg'].find(' ')]
             artist = '; '.join(row['artist_list'])
 
-            with open(CS_RELEASES_DB, 'a+', newline='') as csv_file:
-                writer = csv.DictWriter(csv_file, delimiter=';', fieldnames=field_names)
-                writer.writerow({'update__date': update_date,
-                                 'album_cover__jpeg': image_link_jpeg,
-                                 'album__href': row['album_link'],
-                                 'album__name': row['album'].replace('&amp;','&'), 
-                                 'artist__href': row['artist_link_list'][0],
-                                 'artist__name': artist.replace('&amp;','&'), 
-                                 'release__date': row['apple_music_release_date'],
-                                 'release__date_text': row['apple_music_release_date_text']})
+            soon_release_data = {
+                'update_date': update_date,
+                'artist_name': artist.replace('&amp;','&'), 
+                'album_name': row['album'].replace('&amp;','&'), 
+                'artist_link': row['artist_link_list'][0],
+                'album_link': row['album_link'],
+                'cover_link': image_link_jpeg,
+                'release_date': row['apple_music_release_date'],
+                'release_date_text': row['apple_music_release_date_text']
+            }
+
+            if not insert_soon_release(soon_release_data):
+                print(f'  ✗ Failed to insert: {soon_release_data["album_name"]}')
 
             is_my_artist = False
             for artist_id in row['artist_id_list']:
-                if int(artist_id) in artist_id_df['mainId'].values:
+                if check_my_artist(artist_id):
                     is_my_artist = True
 
             message_id = 0
@@ -724,42 +862,40 @@ def coming_soon(category_link):
         html_file.seek(0, 0)
         html_file.truncate(0)
         html_file.write(html_content)
-
+    
 
 def next_week_releases_sender():
-    itunes_db_df = pd.read_csv(RELEASES_DB, sep=";")
-
     base_url = "https://rutracker.org/forum/tracker.php?nm="
     this_week_message = ''
     next_week_message = ''
     current_date = datetime.datetime.now().strftime('%Y-%m-%d')
+    tw_releases, nw_releases = next_week_releases(current_date)
+    # 0 - artist, 1 - album, 2 - release_date
 
     this_week_message += '\U0001F50E This week releases:'
-    if len(itunes_db_df[(itunes_db_df['downloadedRelease'] == 'd') & (itunes_db_df['releaseDate'] <= current_date)]):
-        for index, row in itunes_db_df[(itunes_db_df['downloadedRelease'] == 'd') & (itunes_db_df['releaseDate'] <= current_date)].sort_values(by=['releaseDate','mainArtist'], ascending=[True, True]).iterrows():
-            artist_name = row['artistName'].replace('&amp;','&')
+    if tw_releases:
+        for row in tw_releases:
+            artist_name = row[0].replace('&amp;','&')
             base_line = f"{base_url}{uri_encode(artist_name)}"
-            this_week_message += f'\n*[{artist_name}]({base_line})* - {row['collectionName'].replace('&amp;','&')}'
+            this_week_message += f"\n*[{artist_name}]({base_line})* - {row[1].replace('&amp;','&')}"
     else:
         this_week_message += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
 
     week_date = ''
     next_week_message += '\U000023F3 Next weeks releases:'
-    if len(itunes_db_df[(itunes_db_df['downloadedRelease'] == 'd') & (itunes_db_df['releaseDate'] > current_date)]):
-        for index, row in itunes_db_df[(itunes_db_df['downloadedRelease'] == 'd') & (itunes_db_df['releaseDate'] > current_date)].sort_values(by=['releaseDate','mainArtist'], ascending=[True, True]).iterrows():
-            if week_date != row['releaseDate']:
-                week_date = row['releaseDate']
+    if nw_releases:
+        for row in nw_releases:
+            if week_date != row[2]:
+                week_date = row[2]
                 next_week_message += f'\n\n*{week_date}*'
-            artist_name = row['artistName'].replace('&amp;','&')
+            artist_name = row[0].replace('&amp;','&')
             base_line = f"{base_url}{uri_encode(artist_name)}"
-            next_week_message += f'\n*[{artist_name}]({base_line})* - {row['collectionName'].replace('&amp;','&')}'
+            next_week_message += f"\n*[{artist_name}]({base_line})* - {row[1].replace('&amp;','&')}"
     else:
         next_week_message += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
 
     amr.send_message(next_week_message, TOKEN, CHAT_ID, None, 'Next Week Releases')
     amr.send_message(this_week_message, TOKEN, CHAT_ID, None, 'Next Week Releases')
-
-    del itunes_db_df
 
 
 def main():
@@ -767,7 +903,6 @@ def main():
 
     if ENV == 'Local': 
         amr.print_name(SCRIPT_NAME, VERSION)
-    # amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
 
     app_version = f'v.{VERSION} [{ENV}]'
     welcome_message = f'🚀 *{SCRIPT_NAME}*\n{app_version}'
@@ -820,38 +955,28 @@ def main():
 
         if category["category_type"] == 'New Releases':
             collect_new_releases(category_link, category["category_name"], category["category_color"], category["category_abbr"])
-            # amr.logger(logger_category, LOG_FILE, SCRIPT_NAME)
             print(logger_category)
             status_message += f'\n✅ {logger_category}'
         elif category["category_type"] == 'Coming Soon':
             coming_soon(category_link)
-            # amr.logger('Coming Soon', LOG_FILE, SCRIPT_NAME)
             print('Coming Soon')
             status_message += f'\n✅ Coming Soon'
 
             collect_cs_releases(category["category_name"], category["category_color"], category["category_abbr"])
-            # amr.logger(logger_category, LOG_FILE, SCRIPT_NAME)
             print(logger_category)
             status_message += f'\n✅ {logger_category}'
 
-    # if not TOKEN or not CHAT_ID:
-    #     print('Message not sent! No TOKEN or CHAT_ID')
-    # else:
     if not message_new_releases:
         amr.send_message('New Releases: \U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F', TOKEN, LOGGER_ID, None, None)
     if not message_cs_releases:
         amr.send_message('Coming Soon: \U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F', TOKEN, LOGGER_ID, None, None)
 
     if ZVUK_ERROR:
-        # amr.logger(f'{ZVUK_ERROR}', LOG_FILE, SCRIPT_NAME)    
         status_message += f'\n⚠️ {ZVUK_ERROR}'
     
     amr.send_message(status_message, TOKEN, LOGGER_ID, None, None)
 
     next_week_releases_sender()
 
-    # amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
-
 if __name__ == "__main__":
     main()
-

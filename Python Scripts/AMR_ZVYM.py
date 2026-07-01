@@ -1,16 +1,16 @@
-import csv
 import datetime
-import json
 import os
 import pandas as pd
 import requests
+import sqlite3
+import traceback
 from yandex_music import Client # for YM
 from dotenv import load_dotenv
 import amr_functions as amr
 
 # ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "Yandex.Music & Zvuk Lookup"
-VERSION = "2.026.06"
+VERSION = "2.026.07"
 ENV = 'Local'
 if os.getenv("GITHUB_ACTIONS") == "true":
     ENV = 'GitHub'
@@ -29,8 +29,8 @@ ZVUK_TOKEN = os.environ['zv_token']
 
 AMR_FOLDER = os.path.join(ROOT_FOLDER, 'AMRs/')
 DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
+DB_FILE = os.path.join(DB_FOLDER, 'music_releases.db')
 NEW_RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_newReleases_DB.csv')
-# LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
 
 status_message = ''
 
@@ -226,12 +226,66 @@ def change_amr_file(new_link, zvorym, amr_date, link):
         html_file.write(source_code)
 
 
+# ================= DATABASE FUNCTIONS =================
+
+def get_no_zvym_releases(previous_date):
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+        cursor.execute('''
+            SELECT row_id, artist, album, my_type, 
+            album_link, album_link_ym, album_link_zv, 
+            cover_link, update_date FROM new_releases
+            WHERE my_type IN ('v', 'd', 'o') 
+            AND (album_link_ym IS NULL OR album_link_zv IS NULL)
+            AND update_date >= ?
+        ''', (previous_date,))
+        result = cursor.fetchall()
+        conn.close()
+        return result
+    except Exception as e:
+        print(f'Error getting recommended releases: {e}')
+        traceback.print_exc()
+        return None
+
+
+def update_zvym_link(row_id, new_link, zvym):
+    """Обновить ???"""
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+        cursor.execute(f'UPDATE new_releases SET album_link_{zvym} = ? WHERE row_id = ?',
+                       (new_link, row_id))
+        conn.commit()
+        conn.close()
+        return True
+    except Exception as e:
+        print(f'Error updating ??? {row_id}: {e}')
+        traceback.print_exc()
+        return False
+
+
+def update_tg_message_id(row_id, tg_message_id):
+    """Обновить ???"""
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+        cursor.execute('UPDATE new_releases SET tg_message_id = ? WHERE row_id = ?',
+                       (tg_message_id, row_id))
+        conn.commit()
+        conn.close()
+        return True
+    except Exception as e:
+        print(f'Error updating tg_message_id in {row_id}: {e}')
+        traceback.print_exc()
+        return False
+    
+
 def main():
     global status_message
 
     if ENV == 'Local': 
         amr.print_name(SCRIPT_NAME, VERSION)
-    # amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint') # Begin
 
     app_version = f'v.{VERSION} [{ENV}]'
     welcome_message = f'🚀 *{SCRIPT_NAME}*\n{app_version}'
@@ -243,59 +297,62 @@ def main():
     previous_date = datetime.datetime.strftime(datetime.datetime.now() - datetime.timedelta(days=15), '%Y-%m-%d')
     new_ym_links = 0
     new_zv_links = 0
-    for index, row in new_releases_df[(new_releases_df['best_fav_new_ok'].isin(['v','d','o'])) & (new_releases_df['link_ym'].isnull() | new_releases_df['link_zv'].isnull()) & (new_releases_df['date'] > previous_date)].iterrows():
-        ym_result = ''
-        zv_result = ''
-        is_message = False
-        ym_zv_search_string = f'{row.loc['artist'].replace('&amp;','&')} - {row.loc['album'].replace('&amp;','&')}'
-        if pd.isna(row.loc['link_ym']): 
-            ym_result = search_album_ym(ym_zv_search_string, row.loc['date'][0:4])
-        if (pd.isna(row.loc['link_zv'])) and (not ZVUK_ERROR): 
-            zv_result = search_album_zv(ym_zv_search_string)
 
-        # Printing Artist and Album if found something
-        if ((ym_result is not None) and (ym_result != '')) or ((zv_result is not None) and (zv_result != '')):
-            # amr.logger(f'{index}. {row.loc['artist']} - {row.loc['album']}', LOG_FILE, SCRIPT_NAME)
-            logger_message = f'{index}. {row.loc['artist']} - {row.loc['album']}'
-            status_message += f'\n{logger_message}'
+    releases_to_zvym = get_no_zvym_releases(previous_date)
+    # 0 - row_id, 1 - artist, 2 - album, 3 - my_type, 
+    # 4 - album_link, 5 - album_link_ym, 6 - album_link_zv, 
+    # 7 - cover_link, 8 - update_date
+    if releases_to_zvym:
+        for row in releases_to_zvym:
+            ym_result = ''
+            zv_result = ''
+            is_message = False
+            ym_zv_search_string = f'{row[1].replace('&amp;','&')} - {row[2].replace('&amp;','&')}'
+            if not row[5]: 
+                ym_result = search_album_ym(ym_zv_search_string, row[8][0:4])
+            if (not row[6]) and (not ZVUK_ERROR): 
+                zv_result = search_album_zv(ym_zv_search_string)
 
-        # Changing links for YM and Zvuk
-        if (ym_result is not None) and (ym_result != ''):    
-            row.loc['link_ym'] = ym_result
-            new_releases_df.loc[index,'link_ym'] = ym_result
-            change_amr_file(ym_result, 'Яндекс.Музыка', row.loc['date'], row.loc['link'])
-            new_ym_links += 1
-            is_message = True
-        if (zv_result is not None) and (zv_result != ''):
-            row.loc['link_zv'] = zv_result
-            new_releases_df.loc[index,'link_zv'] = zv_result
-            change_amr_file(zv_result, 'Звук', row.loc['date'], row.loc['link'])
-            new_zv_links += 1
-            is_message = True
+            # Printing Artist and Album if found something
+            if ((ym_result is not None) and (ym_result != '')) or ((zv_result is not None) and (zv_result != '')):
+                logger_message = f'{row[0]}. {row[1]} - {row[2]}'
+                status_message += f'\n{logger_message}'
 
-        if is_message:
-            if (row.loc['best_fav_new_ok'] == 'v') or (row.loc['best_fav_new_ok'] == 'd'):
-                thread_name = 'New Releases'
-            elif row.loc['best_fav_new_ok'] == 'o':
-                thread_name = 'Top Releases'
-            image_url = row.loc['image_link'].replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
-            image_caption = f'*{row.loc['artist'].replace('&amp;','&')}* \\- [{row.loc['album'].replace('&amp;','&')}]({row.loc['link'].replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({row.loc['link']}){'' if pd.isna(row.loc['link_ym']) else f'\n\U0001F4A5 [Яндекс\\.Музыка]({row.loc['link_ym']})'}{'' if pd.isna(row.loc['link_zv']) else f'\n\U0001F50A [Звук]({row.loc['link_zv']})'}'
-            message_to_send = amr.send_message(image_caption, TOKEN, CHAT_ID, image_url, thread_name)
-            row.loc['tg_message_id'] = message_to_send
-            new_releases_df.loc[index,'tg_message_id'] = message_to_send
+            # Changing links for YM and Zvuk
+            if (ym_result is not None) and (ym_result != ''):    
+                update_zvym_link(row[0], ym_result, 'ym')
+                change_amr_file(ym_result, 'Яндекс.Музыка', row[8], row[4])
+                new_ym_links += 1
+                is_message = True
+            if (zv_result is not None) and (zv_result != ''):
+                update_zvym_link(row[0], zv_result, 'zv')
+                change_amr_file(zv_result, 'Звук', row[8], row[4])
+                new_zv_links += 1
+                is_message = True
+
+            if is_message:
+                if row[3].isin(['v','d']):
+                    thread_name = 'New Releases'
+                elif row[3] == 'o':
+                    thread_name = 'Top Releases'
+                image_url = row[7].replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
+                image_caption = (f'*{row[1].replace('&amp;','&')}* \\- '
+                                 f'[{row[2].replace('&amp;','&')}]({row[4].replace('://','://embed.')})'
+                                 f'\n\n\U0001F3B5 [Apple Music]({row[4]})'
+                                 f'{f'\n\U0001F4A5 [Яндекс\\.Музыка]({ym_result})' if ym_result else ''}'
+                                 f'{f'\n\U0001F50A [Звук]({zv_result})' if zv_result else ''}')
+                message_to_send = amr.send_message(image_caption, TOKEN, CHAT_ID, image_url, thread_name)
+                update_tg_message_id(row[0], message_to_send)
 
     if ZVUK_ERROR:
         status_message += f'\n⚠️ {ZVUK_ERROR}'
             
     if (new_ym_links + new_zv_links):
-        new_releases_df.to_csv(NEW_RELEASES_DB, sep=';', index=False)
-        # amr.logger(f'New links: {new_ym_links} Yandex.Music, {new_zv_links} Zvuk', LOG_FILE, SCRIPT_NAME)
         logger_message = f'New links:\n💥 {new_ym_links} Yandex\\.Music\n🔊 {new_zv_links} Zvuk'
     else:
         logger_message = f'🤷‍♂️ No new links'
     amr.send_message(f'{logger_message}{f'\n{status_message}' if status_message else ''}', TOKEN, LOGGER_ID, None, None)
 
-    # amr.logger(f'▼ DONE', LOG_FILE, SCRIPT_NAME) # End
 
 if __name__ == "__main__":
     main()
