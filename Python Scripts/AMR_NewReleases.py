@@ -57,7 +57,7 @@ HTML_HEAD = """<head>
     <!--
     function show(id) {
       if(document.getElementById("show" + id).style.display == 'none') {
-        document.getElementById("show" + id).style.display = '';
+        document.getElementById("show" + id).style.display = 'table-row';
       }else{
         document.getElementById("show" + id).style.display = 'none';
       }
@@ -78,7 +78,7 @@ HTML_HEAD = """<head>
       }
       for (var i = 0; i < elms.length; i++) {
         if (elms[i].style.display == 'none') {
-          elms[i].style.display = '';
+          elms[i].style.display = 'table-row';
         } else {
           elms[i].style.display = 'none';
         }
@@ -450,7 +450,7 @@ def make_html_start(update_date, category_name, category_color):
 
 def make_html_text(artist, album, image_link, album_link, artist_album_name, album_id, ym_result, zv_result):
     html_text = f"""  <!-- {artist.replace('&amp;','&')} - {album.replace('&amp;','&')} -->
-    <tr style="display:;" id=''>
+    <tr style="display:table-row;" id=''>
       <td><a href="{image_link.replace('296x296bb.webp', '10000x10000-999.jpg').replace('296x296bf.webp', '10000x10000-999.jpg').replace('296x296bf-60.jpg', '10000x10000-999.jpg')}" target="_blank"><img src="{image_link}" height="100px"></a></td>
       <td class="album_name"><a href="{album_link}" target="_blank"><b>{artist_album_name}</a><br><br><button data-frame-load="{album_id}">Preview</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{ym_result if ym_result is not None else ''}" target="_blank"><button{' disabled' if ym_result is None or ym_result == '' else ''}>Яндекс.Музыка</button></a>&nbsp;<a href="{zv_result if zv_result is not None else ''}" target="_blank"><button{' disabled' if zv_result is None or zv_result == '' else ''}>Звук</button></a></td>
     </tr> 

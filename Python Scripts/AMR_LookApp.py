@@ -101,14 +101,21 @@ def init_db():
         raise
 
 
-def get_artist_to_find():
+def get_artist_to_find(select_where):
     """Получить первого необработанного артиста"""
+    if select_where in ['2', '1']:
+        where_condition = f'AND update_type = {select_where}'
+    elif select_where == '0':
+        where_condition = ''
+    else:
+        where_condition = 'AND update_type IN (2, 1) '
+    
     try:
         conn = sqlite3.connect(DB_FILE)
         cursor = conn.cursor()
-        cursor.execute('''
-            SELECT artist_id, artist FROM artists
-            WHERE update_date IS NULL AND artist_id > 0
+        cursor.execute(f'''
+            SELECT artist_id, artist FROM artists 
+            WHERE update_date IS NULL AND artist_id > 0 {where_condition} 
             LIMIT 1
         ''')
         result = cursor.fetchone()
@@ -138,12 +145,19 @@ def update_artist_downloaded(main_id, date_of_update):
         return False
 
 
-def reset_artists_downloaded():
+def reset_artists_downloaded(select_where):
     """Сбросить прогресс обработки всех артистов"""
+    if select_where in ['2', '1']:
+        where_condition = f'WHERE update_type = {select_where}'
+    elif select_where == '0':
+        where_condition = ''
+    else:
+        where_condition = 'WHERE update_type IN (2, 1) '
+
     try:
         conn = sqlite3.connect(DB_FILE)
         cursor = conn.cursor()
-        cursor.execute('UPDATE artists SET update_date = NULL')
+        cursor.execute(f'UPDATE artists SET update_date = NULL {where_condition}')
         conn.commit()
         conn.close()
         print('Artists progress reset')
@@ -174,10 +188,13 @@ def check_cover_exists(album_id, artwork_url):
         conn = sqlite3.connect(DB_FILE)
         cursor = conn.cursor()
         cursor.execute('SELECT cover_link FROM my_releases WHERE album_id = ?', (album_id,))
-        result = cursor.fetchone()
+        result = cursor.fetchall()
         conn.close()
-        if result and result[0] and len(result[0]) > 40 and len(artwork_url) > 40:
-            return result[0][40:] == artwork_url[40:]
+        if result:
+            for row in result:
+                if len(row[0]) > 40 and len(artwork_url) > 40:
+                    if row[0][40:] == artwork_url[40:]:
+                        return True
         return False
     except Exception as e:
         print(f'Error checking cover for {album_id}: {e}')
@@ -340,17 +357,17 @@ def main():
 
     try:
         if ENV == 'Local':
-            try:
-                amr.print_name(SCRIPT_NAME, VERSION)
-            except Exception as e:
-                print(f'Error printing name: {e}')
+            amr.print_name(SCRIPT_NAME, VERSION)
 
         # Инициализация БД
         init_db()
 
         # Выбор стран
         if ENV == 'Local':
-            countries_input = input("\nChoose countries to check:\nEnter: [us, ru, jp]\n2:     [us, ru]\njp:    [jp]\n ")
+            countries_input = input("\nChoose countries to check:"
+                                    "\nEnter: [us, ru, jp]"
+                                    "\n2:     [us, ru]"
+                                    "\njp:    [jp]\n ")
             if countries_input == 'jp':
                 countries_list = ['jp']
             elif countries_input == '2':
@@ -358,8 +375,23 @@ def main():
             else:
                 countries_list = ['us', 'ru', 'jp']
             print(f'{countries_list}\n')
+
+            artists_input = input("\nChoose artists to check:"
+                                  "\nEnter:  [2, 1]"
+                                  "\n2 or 1: [2] or [1]]"
+                                  "\n0:      ! ALL [2, 1, 0]\n ")
+            if artists_input in ['2', '1']:
+                select_where = artists_input
+                print(f'Only: {select_where}')
+            elif artists_input == '0':
+                select_where = artists_input
+                print(f'ALL!')
+            else:
+                select_where = ''
+                print('2 and 1')
         elif ENV == 'GitHub':
             countries_list = ['us', 'ru']
+            select_where = '2'
 
         app_version = f'v.{VERSION} [{ENV}]'
         welcome_message = f'🚀 *{SCRIPT_NAME}*\n{app_version}'
@@ -382,25 +414,25 @@ def main():
 
         # Local режим: интерактивная проверка прогресса
         if ENV == 'Local':
-            artist_info = get_artist_to_find()
+            artist_info = get_artist_to_find(select_where)
             if not artist_info:
                 key_logger = input("All done. [Enter] to start over:  ")
                 if not key_logger:
-                    reset_artists_downloaded()
+                    reset_artists_downloaded(select_where)
             else:
                 key_logger = input(
                     f"Stopped at {artist_info['artist']}. [Enter] to continue. Anything else to start over:  ")
                 if key_logger:
-                    reset_artists_downloaded()
+                    reset_artists_downloaded(select_where)
             print('')
         elif ENV == 'GitHub':
             # В GitHub режиме сбрасываем прогресс перед каждым запуском (как в оригинале)
-            reset_artists_downloaded()
+            reset_artists_downloaded(select_where)
 
         # Основной цикл обработки артистов
         while True:
             try:
-                artist_info = get_artist_to_find()
+                artist_info = get_artist_to_find(select_where)
                 if not artist_info:
                     break
 

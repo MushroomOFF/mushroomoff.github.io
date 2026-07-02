@@ -30,7 +30,6 @@ ZVUK_TOKEN = os.environ['zv_token']
 AMR_FOLDER = os.path.join(ROOT_FOLDER, 'AMRs/')
 DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
 DB_FILE = os.path.join(DB_FOLDER, 'music_releases.db')
-NEW_RELEASES_DB = os.path.join(DB_FOLDER, 'AMR_newReleases_DB.csv')
 
 status_message = ''
 
@@ -290,8 +289,6 @@ def main():
     app_version = f'v.{VERSION} [{ENV}]'
     welcome_message = f'🚀 *{SCRIPT_NAME}*\n{app_version}'
     amr.send_message(welcome_message, TOKEN, LOGGER_ID, None, None)
-
-    new_releases_df = pd.read_csv(NEW_RELEASES_DB, sep=";")
 
     # Searchig for new link for releases within last 15 days
     previous_date = datetime.datetime.strftime(datetime.datetime.now() - datetime.timedelta(days=15), '%Y-%m-%d')

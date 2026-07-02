@@ -41,10 +41,13 @@ def check_cover_exists(album_id, artwork_url):
         conn = sqlite3.connect(DB_FILE)
         cursor = conn.cursor()
         cursor.execute('SELECT cover_link FROM my_releases WHERE album_id = ?', (album_id,))
-        result = cursor.fetchone()
+        result = cursor.fetchall()
         conn.close()
-        if result and result[0] and len(result[0]) > 40 and len(artwork_url) > 40:
-            return result[0][40:] == artwork_url[40:]
+        if result:
+            for row in result:
+                if len(row[0]) > 40 and len(artwork_url) > 40:
+                    if row[0][40:] == artwork_url[40:]:
+                        return True
         return False
     except Exception as e:
         print(f'Error checking cover for {album_id}: {e}')

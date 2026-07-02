@@ -10,7 +10,7 @@ SCRIPT_NAME = "Covers Downloader"
 VERSION = "2.026.07"
 
 ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
-DB_FOLDER = 'Databases/'
+DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
 DB_FILE = os.path.join(DB_FOLDER, 'music_releases.db')
 COVERS_FOLDER = os.path.join(ROOT_FOLDER, 'Covers/Fresh Covers to Check/')
 
