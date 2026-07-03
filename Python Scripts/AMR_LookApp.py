@@ -429,6 +429,10 @@ def main():
             # В GitHub режиме сбрасываем прогресс перед каждым запуском (как в оригинале)
             reset_artists_downloaded(select_where)
 
+        # TEST ONLY ######################################
+        start_date = datetime.datetime.now()
+        print(start_date.strftime('%Y-%m-%d %H:%M:%S'))
+
         # Основной цикл обработки артистов
         while True:
             try:
@@ -467,7 +471,12 @@ def main():
                 break
 
         print(''.ljust(55))
-
+        
+        # TEST ONLY ######################################
+        stop_date = datetime.datetime.now()
+        print(stop_date.strftime('%Y-%m-%d %H:%M:%S'))
+        print(f'TOTAL: {stop_date - start_date}')
+        
         # Отправка итогового сообщения
         if not TOKEN or not LOGGER_ID:
             print('Message not sent! No TOKEN or LOGGER_ID')
