@@ -321,11 +321,16 @@ def main():
                 change_amr_file(ym_result, 'Яндекс.Музыка', row[8], row[4])
                 new_ym_links += 1
                 is_message = True
+            elif row[5]:
+                ym_result = row[5]
+
             if (zv_result is not None) and (zv_result != ''):
                 update_zvym_link(row[0], zv_result, 'zv')
                 change_amr_file(zv_result, 'Звук', row[8], row[4])
                 new_zv_links += 1
                 is_message = True
+            elif row[6]:
+                zv_result = row[6]
 
             if is_message:
                 if row[3] == 'v' or row[3] == 'd':
