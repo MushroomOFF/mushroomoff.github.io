@@ -286,8 +286,8 @@ def insert_new_release(release_data):
             str(release_data['album']),
             int(release_data['album_id']),
             str(release_data['album_link']),
-            str(release_data['album_link_ym']),
-            str(release_data['album_link_zv']),
+            str(release_data['album_link_ym']) if release_data['album_link_ym'] else None,
+            str(release_data['album_link_zv']) if release_data['album_link_zv'] else None,
             str(release_data['cover_link']),
             int(release_data['tg_message_id'])
         ))

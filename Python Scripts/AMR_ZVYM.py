@@ -328,7 +328,7 @@ def main():
                 is_message = True
 
             if is_message:
-                if row[3].isin(['v','d']):
+                if row[3] == 'v' or row[3] == 'd':
                     thread_name = 'New Releases'
                 elif row[3] == 'o':
                     thread_name = 'Top Releases'
