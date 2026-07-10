@@ -1,6 +1,5 @@
 import sqlite3
 import json
-import csv
 import os
 
 # Настройки
