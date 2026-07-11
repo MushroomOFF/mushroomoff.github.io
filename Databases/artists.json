@@ -180,7 +180,7 @@
         "artist": "Грай",
         "artist_id": 569705781,
         "artist_genre": "Folk Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 12:58:27"
     },
     {
@@ -204,7 +204,7 @@
         "artist": "Карандаш",
         "artist_id": 352344842,
         "artist_genre": "Hip-Hop",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 12:58:41"
     },
     {
@@ -252,7 +252,7 @@
         "artist": "Лешак",
         "artist_id": 355823121,
         "artist_genre": "Folk Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 12:58:58"
     },
     {
@@ -340,7 +340,7 @@
         "artist": "A Perfect Circle",
         "artist_id": 652503,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 12:59:51"
     },
     {
@@ -428,7 +428,7 @@
         "artist": "After the Burial",
         "artist_id": 210642079,
         "artist_genre": "Progressive Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:00:50"
     },
     {
@@ -436,7 +436,7 @@
         "artist": "Airbourne",
         "artist_id": 258928125,
         "artist_genre": "Hard Rock",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:00:56"
     },
     {
@@ -468,7 +468,7 @@
         "artist": "Aliases",
         "artist_id": 453982764,
         "artist_genre": "Progressive Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:01:07"
     },
     {
@@ -532,7 +532,7 @@
         "artist": "Almanac",
         "artist_id": 1437554087,
         "artist_genre": "Power Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:01:55"
     },
     {
@@ -612,7 +612,7 @@
         "artist": "Anaal Nathrakh",
         "artist_id": 72869936,
         "artist_genre": "Black Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:02:43"
     },
     {
@@ -732,7 +732,7 @@
         "artist": "Arcane Roots",
         "artist_id": 368621510,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:03:52"
     },
     {
@@ -788,7 +788,7 @@
         "artist": "As Blood Runs Black",
         "artist_id": 156713594,
         "artist_genre": "Deathcore",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:04:36"
     },
     {
@@ -804,7 +804,7 @@
         "artist": "Ascension of the Watchers",
         "artist_id": 274296748,
         "artist_genre": "Progressive Rock",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:04:47"
     },
     {
@@ -828,7 +828,7 @@
         "artist": "Assemble Head in Sunburst Sound",
         "artist_id": 285623085,
         "artist_genre": "Progressive Rock",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:05:05"
     },
     {
@@ -964,7 +964,7 @@
         "artist": "Becoming the Archetype",
         "artist_id": 78682379,
         "artist_genre": "Melodic Death Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:06:39"
     },
     {
@@ -1012,7 +1012,7 @@
         "artist": "Beyond Creation",
         "artist_id": 431171265,
         "artist_genre": "Technical Death Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:07:18"
     },
     {
@@ -1068,7 +1068,7 @@
         "artist": "Black Eyed Peas",
         "artist_id": 360391,
         "artist_genre": "Hip-Hop",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:07:53"
     },
     {
@@ -1076,7 +1076,7 @@
         "artist": "Black Oak County",
         "artist_id": 1137940619,
         "artist_genre": "Hard Rock",
-        "update_type": 1,
+        "update_type": 2,
         "update_date": "2026-07-10 13:07:59"
     },
     {
@@ -1188,7 +1188,7 @@
         "artist": "Bloodhound Gang",
         "artist_id": 861350,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:09:23"
     },
     {
@@ -1244,7 +1244,7 @@
         "artist": "Bon Jovi",
         "artist_id": 122782,
         "artist_genre": "Hard Rock",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:10:05"
     },
     {
@@ -1284,7 +1284,7 @@
         "artist": "Brand of Sacrifice",
         "artist_id": 1348756444,
         "artist_genre": "Deathcore",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:10:28"
     },
     {
@@ -1388,7 +1388,7 @@
         "artist": "Cain's Offering",
         "artist_id": 326084432,
         "artist_genre": "Power Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:11:46"
     },
     {
@@ -1428,7 +1428,7 @@
         "artist": "Carcass",
         "artist_id": 42159435,
         "artist_genre": "Death Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:12:16"
     },
     {
@@ -1468,7 +1468,7 @@
         "artist": "Cellar Darling",
         "artist_id": 1448925855,
         "artist_genre": "Folk Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:12:38"
     },
     {
@@ -1492,7 +1492,7 @@
         "artist": "Charred Walls of the Damned",
         "artist_id": 339161543,
         "artist_genre": "Heavy Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:12:55"
     },
     {
@@ -1524,7 +1524,7 @@
         "artist": "Chimaira",
         "artist_id": 16638953,
         "artist_genre": "Groove Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:13:19"
     },
     {
@@ -1620,7 +1620,7 @@
         "artist": "Cold Slither",
         "artist_id": 1799247657,
         "artist_genre": "Heavy Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:14:24"
     },
     {
@@ -1716,7 +1716,7 @@
         "artist": "Crazy Town",
         "artist_id": 524819,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:15:29"
     },
     {
@@ -1724,7 +1724,7 @@
         "artist": "Creed",
         "artist_id": 2861519,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:15:35"
     },
     {
@@ -1852,7 +1852,7 @@
         "artist": "Darkane",
         "artist_id": 17249127,
         "artist_genre": "Melodic Death Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:16:39"
     },
     {
@@ -1860,7 +1860,7 @@
         "artist": "Darkwoods My Betrothed",
         "artist_id": 581951674,
         "artist_genre": "Symphonic Black Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:16:45"
     },
     {
@@ -1932,7 +1932,7 @@
         "artist": "Death",
         "artist_id": 17249530,
         "artist_genre": "Death Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:17:42"
     },
     {
@@ -2052,7 +2052,7 @@
         "artist": "Devilment",
         "artist_id": 913655238,
         "artist_genre": "Gothic Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:19:07"
     },
     {
@@ -2084,7 +2084,7 @@
         "artist": "Diabulus in Musica",
         "artist_id": 365991611,
         "artist_genre": "Symphonic Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:19:30"
     },
     {
@@ -2092,7 +2092,7 @@
         "artist": "Diamond Head",
         "artist_id": 7278795,
         "artist_genre": "Heavy Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:19:36"
     },
     {
@@ -2388,7 +2388,7 @@
         "artist": "Element Eighty",
         "artist_id": 3276488,
         "artist_genre": "Nu Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:22:59"
     },
     {
@@ -2420,7 +2420,7 @@
         "artist": "Emigrate",
         "artist_id": 261362717,
         "artist_genre": "Industrial Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:23:22"
     },
     {
@@ -2484,7 +2484,7 @@
         "artist": "Eva Under Fire",
         "artist_id": 1066053168,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:24:11"
     },
     {
@@ -2500,7 +2500,7 @@
         "artist": "Evans Blue",
         "artist_id": 102861586,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:24:23"
     },
     {
@@ -2532,7 +2532,7 @@
         "artist": "Exotype",
         "artist_id": 565644950,
         "artist_genre": "Nu Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:24:45"
     },
     {
@@ -2580,7 +2580,7 @@
         "artist": "Farmer Boys",
         "artist_id": 17508882,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:25:19"
     },
     {
@@ -2676,7 +2676,7 @@
         "artist": "Flyleaf",
         "artist_id": 27653104,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:26:29"
     },
     {
@@ -2724,7 +2724,7 @@
         "artist": "Freternia",
         "artist_id": 849321982,
         "artist_genre": "Power Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:26:58"
     },
     {
@@ -2732,7 +2732,7 @@
         "artist": "From First to Last",
         "artist_id": 28673455,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:27:03"
     },
     {
@@ -2796,7 +2796,7 @@
         "artist": "Gemini Syndrome",
         "artist_id": 416625995,
         "artist_genre": "Nu Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:27:48"
     },
     {
@@ -2916,7 +2916,7 @@
         "artist": "Green Day",
         "artist_id": 954266,
         "artist_genre": "Punk Rock",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:29:05"
     },
     {
@@ -2948,7 +2948,7 @@
         "artist": "Guano Apes",
         "artist_id": 558193,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:29:27"
     },
     {
@@ -2956,7 +2956,7 @@
         "artist": "Guns n' Roses",
         "artist_id": 106621,
         "artist_genre": "Hard Rock",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:29:33"
     },
     {
@@ -2972,7 +2972,7 @@
         "artist": "Hacktivist",
         "artist_id": 558489997,
         "artist_genre": "Rap Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:29:44"
     },
     {
@@ -3004,7 +3004,7 @@
         "artist": "Hammers of Misfortune",
         "artist_id": 80907270,
         "artist_genre": "Progressive Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:30:08"
     },
     {
@@ -3020,7 +3020,7 @@
         "artist": "Hatebreed",
         "artist_id": 90291,
         "artist_genre": "Metalcore",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:30:21"
     },
     {
@@ -3196,7 +3196,7 @@
         "artist": "ICS Vortex",
         "artist_id": 284534047,
         "artist_genre": "Progressive Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:32:17"
     },
     {
@@ -3220,7 +3220,7 @@
         "artist": "Ill Nino",
         "artist_id": 5570230,
         "artist_genre": "Nu Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:32:35"
     },
     {
@@ -3348,7 +3348,7 @@
         "artist": "Iron Horse",
         "artist_id": 125711666,
         "artist_genre": "Bluegrass",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:33:45"
     },
     {
@@ -3388,7 +3388,7 @@
         "artist": "Jared Dines",
         "artist_id": 957093644,
         "artist_genre": "Deathcore",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:34:11"
     },
     {
@@ -3492,7 +3492,7 @@
         "artist": "John Petrucci",
         "artist_id": 6910560,
         "artist_genre": "Progressive Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:35:10"
     },
     {
@@ -3540,7 +3540,7 @@
         "artist": "Kadinja",
         "artist_id": 908429460,
         "artist_genre": "Progressive Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:35:37"
     },
     {
@@ -3556,7 +3556,7 @@
         "artist": "Kaledon",
         "artist_id": 349837045,
         "artist_genre": "Power Metal",
-        "update_type": 1,
+        "update_type": 0,
         "update_date": "2026-07-10 13:35:42"
     },
     {
@@ -3564,7 +3564,7 @@
         "artist": "Kaosis",
         "artist_id": 1302714053,
         "artist_genre": "Nu Metal",
-        "update_type": 1,
+        "update_type": 0,
         "update_date": "2026-07-10 13:35:49"
     },
     {
@@ -3780,7 +3780,7 @@
         "artist": "League of Distortion",
         "artist_id": 1631608480,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:38:11"
     },
     {
@@ -3820,7 +3820,7 @@
         "artist": "Lifehouse",
         "artist_id": 3447393,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 0,
         "update_date": "2026-07-10 13:38:41"
     },
     {
@@ -3932,7 +3932,7 @@
         "artist": "Love and Death",
         "artist_id": 517704185,
         "artist_genre": "Nu Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:39:59"
     },
     {
@@ -4012,7 +4012,7 @@
         "artist": "Manowar",
         "artist_id": 157798,
         "artist_genre": "Heavy Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:40:56"
     },
     {
@@ -4092,7 +4092,7 @@
         "artist": "Me and That Man",
         "artist_id": 1185006747,
         "artist_genre": "Country",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:41:48"
     },
     {
@@ -4148,7 +4148,7 @@
         "artist": "Metal Allegiance",
         "artist_id": 1019310481,
         "artist_genre": "Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:42:29"
     },
     {
@@ -4228,7 +4228,7 @@
         "artist": "Mister Misery",
         "artist_id": 1469081126,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:43:16"
     },
     {
@@ -4268,7 +4268,7 @@
         "artist": "Monument of a Memory",
         "artist_id": 1013087052,
         "artist_genre": "Metalcore",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:43:46"
     },
     {
@@ -4308,7 +4308,7 @@
         "artist": "Motley Crue",
         "artist_id": 284113,
         "artist_genre": "Glam Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:44:09"
     },
     {
@@ -4324,7 +4324,7 @@
         "artist": "Mudvayne",
         "artist_id": 468521,
         "artist_genre": "Nu Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:44:23"
     },
     {
@@ -4348,7 +4348,7 @@
         "artist": "My Darkest Days",
         "artist_id": 377449574,
         "artist_genre": "Hard Rock",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:44:35"
     },
     {
@@ -4404,7 +4404,7 @@
         "artist": "Nero",
         "artist_id": 2897799,
         "artist_genre": "EDM",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:45:16"
     },
     {
@@ -4500,7 +4500,7 @@
         "artist": "Nirvana",
         "artist_id": 112018,
         "artist_genre": "Grunge",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:46:20"
     },
     {
@@ -4516,7 +4516,7 @@
         "artist": "No One",
         "artist_id": 1021580182,
         "artist_genre": "Nu Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:46:32"
     },
     {
@@ -4660,7 +4660,7 @@
         "artist": "Orphaned Land",
         "artist_id": 18243552,
         "artist_genre": "Folk Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:48:08"
     },
     {
@@ -4716,7 +4716,7 @@
         "artist": "Pain of Salvation",
         "artist_id": 188155872,
         "artist_genre": "Progressive Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:48:47"
     },
     {
@@ -4756,7 +4756,7 @@
         "artist": "Parkway Drive",
         "artist_id": 166667737,
         "artist_genre": "Metalcore",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:49:16"
     },
     {
@@ -4788,7 +4788,7 @@
         "artist": "Pentakill",
         "artist_id": 870541409,
         "artist_genre": "Heavy Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:49:28"
     },
     {
@@ -4828,7 +4828,7 @@
         "artist": "Phil Campbell",
         "artist_id": 1156839466,
         "artist_genre": "Hard Rock",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:49:59"
     },
     {
@@ -4852,7 +4852,7 @@
         "artist": "Pink Floyd",
         "artist_id": 487143,
         "artist_genre": "Progressive Rock",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:50:13"
     },
     {
@@ -4868,7 +4868,7 @@
         "artist": "Pomegranate Tiger",
         "artist_id": 595914612,
         "artist_genre": "Progressive Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:50:24"
     },
     {
@@ -4956,7 +4956,7 @@
         "artist": "Purson",
         "artist_id": 516682295,
         "artist_genre": "Progressive Rock",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:51:25"
     },
     {
@@ -4964,7 +4964,7 @@
         "artist": "Pustulant Flesh",
         "artist_id": 1826083930,
         "artist_genre": "Death Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:51:31"
     },
     {
@@ -5044,7 +5044,7 @@
         "artist": "Raunchy",
         "artist_id": 17511114,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:52:20"
     },
     {
@@ -5116,7 +5116,7 @@
         "artist": "Rihanna",
         "artist_id": 63346553,
         "artist_genre": "R&B",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:53:05"
     },
     {
@@ -5132,7 +5132,7 @@
         "artist": "Rise to Remain",
         "artist_id": 440770281,
         "artist_genre": "Metalcore",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:53:16"
     },
     {
@@ -5204,7 +5204,7 @@
         "artist": "Sanctity",
         "artist_id": 16054731,
         "artist_genre": "Thrash Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:54:10"
     },
     {
@@ -5212,7 +5212,7 @@
         "artist": "Sanguine Glacialis",
         "artist_id": 1330668835,
         "artist_genre": "Symphonic Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:54:16"
     },
     {
@@ -5236,7 +5236,7 @@
         "artist": "Savage Hands",
         "artist_id": 1334753645,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:54:28"
     },
     {
@@ -5260,7 +5260,7 @@
         "artist": "Scene Queen",
         "artist_id": 1563763617,
         "artist_genre": "Nu Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:54:45"
     },
     {
@@ -5412,7 +5412,7 @@
         "artist": "Sixx:A.M.",
         "artist_id": 257823434,
         "artist_genre": "Hard Rock",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:56:29"
     },
     {
@@ -5460,7 +5460,7 @@
         "artist": "Slayer",
         "artist_id": 414425,
         "artist_genre": "Thrash Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:57:08"
     },
     {
@@ -5524,7 +5524,7 @@
         "artist": "Soften the Glare",
         "artist_id": 1273280741,
         "artist_genre": "Progressive Rock",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:58:00"
     },
     {
@@ -5596,7 +5596,7 @@
         "artist": "Spineshank",
         "artist_id": 15772823,
         "artist_genre": "Nu Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:58:47"
     },
     {
@@ -5636,7 +5636,7 @@
         "artist": "Stardown",
         "artist_id": 447352078,
         "artist_genre": "Groove Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:59:15"
     },
     {
@@ -5652,7 +5652,7 @@
         "artist": "Static-X",
         "artist_id": 161690,
         "artist_genre": "Industrial Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:59:26"
     },
     {
@@ -5684,7 +5684,7 @@
         "artist": "Stigmata",
         "artist_id": 1003940079,
         "artist_genre": "Metalcore",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:59:49"
     },
     {
@@ -5692,7 +5692,7 @@
         "artist": "Stone Broken",
         "artist_id": 287105142,
         "artist_genre": "Hard Rock",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 13:59:55"
     },
     {
@@ -5700,7 +5700,7 @@
         "artist": "Stone Sour",
         "artist_id": 16643509,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:00:00"
     },
     {
@@ -5732,7 +5732,7 @@
         "artist": "Stuck Mojo",
         "artist_id": 36021999,
         "artist_genre": "Rap Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:00:23"
     },
     {
@@ -5756,7 +5756,7 @@
         "artist": "Sumatra",
         "artist_id": 1501307689,
         "artist_genre": "Deathcore",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:00:41"
     },
     {
@@ -5780,7 +5780,7 @@
         "artist": "Switched",
         "artist_id": 78030544,
         "artist_genre": "Nu Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:01:01"
     },
     {
@@ -5788,7 +5788,7 @@
         "artist": "Sworn In",
         "artist_id": 126384053,
         "artist_genre": "Metalcore",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:01:07"
     },
     {
@@ -5812,7 +5812,7 @@
         "artist": "System of a Down",
         "artist_id": 462715,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:01:24"
     },
     {
@@ -5820,7 +5820,7 @@
         "artist": "Takida",
         "artist_id": 128465509,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:01:31"
     },
     {
@@ -5876,7 +5876,7 @@
         "artist": "Tesseract",
         "artist_id": 279204661,
         "artist_genre": "Progressive Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:02:13"
     },
     {
@@ -5916,7 +5916,7 @@
         "artist": "The Agonist",
         "artist_id": 259346705,
         "artist_genre": "Melodic Death Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:02:43"
     },
     {
@@ -5932,7 +5932,7 @@
         "artist": "The Animal in Me",
         "artist_id": 579836835,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:02:56"
     },
     {
@@ -5996,7 +5996,7 @@
         "artist": "The Dark Element",
         "artist_id": 1271719224,
         "artist_genre": "Symphonic Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:03:42"
     },
     {
@@ -6004,7 +6004,7 @@
         "artist": "The Dark Side of the Moon",
         "artist_id": 1577812052,
         "artist_genre": "Symphonic Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:03:48"
     },
     {
@@ -6012,7 +6012,7 @@
         "artist": "The Faceless",
         "artist_id": 218291847,
         "artist_genre": "Technical Death Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:03:54"
     },
     {
@@ -6172,7 +6172,7 @@
         "artist": "The Violent Hour",
         "artist_id": 1802068825,
         "artist_genre": "Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:05:44"
     },
     {
@@ -6212,7 +6212,7 @@
         "artist": "Threshold",
         "artist_id": 99418200,
         "artist_genre": "Progressive Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:06:20"
     },
     {
@@ -6252,7 +6252,7 @@
         "artist": "Tonight Alive",
         "artist_id": 445594358,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:06:50"
     },
     {
@@ -6260,7 +6260,7 @@
         "artist": "Tool",
         "artist_id": 140870416,
         "artist_genre": "Progressive Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:06:56"
     },
     {
@@ -6372,7 +6372,7 @@
         "artist": "Upon Stone",
         "artist_id": 1589097908,
         "artist_genre": "Melodic Death Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:08:18"
     },
     {
@@ -6380,7 +6380,7 @@
         "artist": "Vader",
         "artist_id": 3563163,
         "artist_genre": "Death Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:08:25"
     },
     {
@@ -6444,7 +6444,7 @@
         "artist": "Vimic",
         "artist_id": 1109065921,
         "artist_genre": "Groove Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:09:14"
     },
     {
@@ -6516,7 +6516,7 @@
         "artist": "VV",
         "artist_id": 1605371692,
         "artist_genre": "Rock",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:10:12"
     },
     {
@@ -6532,7 +6532,7 @@
         "artist": "Walkways",
         "artist_id": 567438265,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:10:24"
     },
     {
@@ -6540,7 +6540,7 @@
         "artist": "War Curse",
         "artist_id": 1456170269,
         "artist_genre": "Thrash Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:10:30"
     },
     {
@@ -6564,7 +6564,7 @@
         "artist": "Weeping Wound",
         "artist_id": 1261130488,
         "artist_genre": "Metalcore",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:10:47"
     },
     {
@@ -6668,7 +6668,7 @@
         "artist": "Wovenwar",
         "artist_id": 867130324,
         "artist_genre": "Alternative",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:11:57"
     },
     {
@@ -6684,7 +6684,7 @@
         "artist": "Xion",
         "artist_id": 1647613236,
         "artist_genre": "Thrash Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:12:09"
     },
     {
@@ -6692,7 +6692,7 @@
         "artist": "Year of the Cobra",
         "artist_id": 1476455581,
         "artist_genre": "Stoner Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-07-10 14:12:15"
     },
     {
@@ -6750,5 +6750,85 @@
         "artist_genre": "Alternative Metal",
         "update_type": 2,
         "update_date": "2026-07-10 14:13:03"
+    },
+    {
+        "row_id": 846,
+        "artist": "Alyona Alyona",
+        "artist_id": 0,
+        "artist_genre": "Hip-Hop",
+        "update_type": 0,
+        "update_date": null
+    },
+    {
+        "row_id": 848,
+        "artist": "Bobby Prince",
+        "artist_id": 0,
+        "artist_genre": "Industrial Metal",
+        "update_type": 0,
+        "update_date": null
+    },
+    {
+        "row_id": 849,
+        "artist": "Buckethead",
+        "artist_id": 0,
+        "artist_genre": "Progressive Rock",
+        "update_type": 0,
+        "update_date": null
+    },
+    {
+        "row_id": 850,
+        "artist": "Chris Bacon",
+        "artist_id": 0,
+        "artist_genre": "Score",
+        "update_type": 0,
+        "update_date": null
+    },
+    {
+        "row_id": 851,
+        "artist": "Danny Elfman",
+        "artist_id": 0,
+        "artist_genre": "Score",
+        "update_type": 0,
+        "update_date": null
+    },
+    {
+        "row_id": 852,
+        "artist": "Finishing Move Inc.",
+        "artist_id": 0,
+        "artist_genre": "Industrial Metal",
+        "update_type": 0,
+        "update_date": null
+    },
+    {
+        "row_id": 853,
+        "artist": "James Paddock",
+        "artist_id": 0,
+        "artist_genre": "Industrial Metal",
+        "update_type": 0,
+        "update_date": null
+    },
+    {
+        "row_id": 854,
+        "artist": "Teenage Mutant Ninja Turtles",
+        "artist_id": 0,
+        "artist_genre": "Alternative",
+        "update_type": 0,
+        "update_date": null
+    },
+    {
+        "row_id": 855,
+        "artist": "Thorr",
+        "artist_id": 0,
+        "artist_genre": "Industrial Metal",
+        "update_type": 0,
+        "update_date": null
+    },
+    {
+        "row_id": 856,
+        "artist": "До потери сознания",
+        "artist_id": 0,
+        "artist_genre": "Nu Metal",
+        "update_type": 0,
+        "update_date": null
     }
 ]
