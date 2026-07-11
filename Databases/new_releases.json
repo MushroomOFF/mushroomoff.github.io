@@ -99307,13 +99307,13 @@
         "genre_category": "M",
         "artist": "Sigyn",
         "album": "From Nation to Chaos",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6768938121,
         "album_link": "https://music.apple.com/us/album/from-nation-to-chaos/6768938121",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f2/74/fb/f274fb68-50a8-699a-6043-401318e97e92/4070335087669.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1337
     },
     {
         "row_id": 7101,
