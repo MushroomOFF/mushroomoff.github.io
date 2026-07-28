@@ -671,6 +671,8 @@ def collect_new_releases(category_link, category_name, category_color, category_
 
 def collect_cs_releases(category_name, category_color, category_abbr):
     """ Moving delayed Coming soon releases to New Releases"""
+    global status_message
+    
     # Preparation
     cs_to_new_releases_df = pd.DataFrame(columns=['artist', 'album', 'link', 'image_link'])
     
@@ -685,13 +687,18 @@ def collect_cs_releases(category_name, category_color, category_abbr):
             response = request.text
             date_time_string = 'data-testid="tracklist-footer-description">'
             date_time_begin = response.find(date_time_string)
-            date_time_end = response.find('\n', date_time_begin)
-            date_time_text = response[date_time_begin + len(date_time_string):date_time_end]
-            date_time = datetime.datetime.strptime(date_time_text, '%B %d, %Y')
-            if row[5] != date_time and date_time > datetime.datetime.now():
-                update_soon_release(row[0], str(date_time), date_time_text)
+            if date_time_begin > -1:
+                date_time_end = response.find('\n', date_time_begin)
+                date_time_text = response[date_time_begin + len(date_time_string):date_time_end]
+                date_time = datetime.datetime.strptime(date_time_text, '%B %d, %Y')
+                if row[5] != date_time and date_time > datetime.datetime.now():
+                    update_soon_release(row[0], str(date_time)[0:10], date_time_text)
+                else:
+                    cs_to_new_releases_df.loc[len(cs_to_new_releases_df.index)] = [row[1], row[2], row[3], row[4]]
             else:
-                cs_to_new_releases_df.loc[len(cs_to_new_releases_df.index)] = [row[1], row[2], row[3], row[4]]
+                soon_db_error = f"⚠️ Coming Soon DB bad link: [{row[0]}] {row[1]} - {row[2]}"
+                print(soon_db_error)
+                status_message += f"\n{soon_db_error}"
 
     # Main work
     if len(cs_to_new_releases_df):
@@ -824,7 +831,7 @@ def coming_soon(category_link):
                 'artist_link': row['artist_link_list'][0],
                 'album_link': row['album_link'],
                 'cover_link': image_link_jpeg,
-                'release_date': row['apple_music_release_date'],
+                'release_date': row['apple_music_release_date'][0:10],
                 'release_date_text': row['apple_music_release_date_text']
             }
 
