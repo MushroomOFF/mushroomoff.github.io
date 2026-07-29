@@ -45,7 +45,11 @@ YM_CLIENT = Client(YM_TOKEN).init()
 
 # Zvuk -----------------------------------
 ZVUK_BASE_URL = "https://zvuk.com"
-ZVUK_API_ENDPOINTS = {"lyrics": f"{ZVUK_BASE_URL}/api/tiny/lyrics", "stream": f"{ZVUK_BASE_URL}/api/tiny/track/stream", "graphql": f"{ZVUK_BASE_URL}/api/v1/graphql", "profile": f"{ZVUK_BASE_URL}/api/tiny/profile"}
+ZVUK_API_ENDPOINTS = {"lyrics": f"{ZVUK_BASE_URL}/api/tiny/lyrics", 
+                      "stream": f"{ZVUK_BASE_URL}/api/tiny/track/stream", 
+                      "graphql": f"{ZVUK_BASE_URL}/api/v1/graphql", 
+                      "profile": f"{ZVUK_BASE_URL}/api/tiny/profile",
+                      "check_token": f"{ZVUK_BASE_URL}/api/v2/tiny/profile"}
 ZVUK_ERROR = ''
 
 # HTML -----------------------------------
@@ -171,6 +175,17 @@ def get_auth_cookies_zv():
     if not ZVUK_TOKEN:
         ZVUK_TOKEN = get_anonymous_token_zv()
     return {"auth": ZVUK_TOKEN}
+
+
+def is_token_anonymous_zv():
+    """Check if my ZVUK token is active:
+    False - token is not anonymous = my token is active
+    True - token is anonymous = my token disabled, need a new one
+    """
+    response = session.get(ZVUK_API_ENDPOINTS["check_token"], headers=HEADERS, cookies=get_auth_cookies_zv())
+    response.raise_for_status()
+    zv_data = response.json()
+    return zv_data['result']['profile']['is_anonymous']
 
 
 def search_tracks_zv(query):
@@ -914,6 +929,9 @@ def main():
     app_version = f'v.{VERSION} [{ENV}]'
     welcome_message = f'🚀 *{SCRIPT_NAME}*\n{app_version}'
     amr.send_message(welcome_message, TOKEN, LOGGER_ID, None, None)
+
+    if is_token_anonymous_zv():
+        status_message += f'\n⚠️ Zvuk token disabled'
 
     album_categories = [
         {

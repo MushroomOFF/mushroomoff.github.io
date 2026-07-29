@@ -21,7 +21,7 @@ def export_database():
     print(f"Начинаю экспорт из {DB_FILE}...\n")
 
     for table in TABLES:
-        json_filename = os.path.join(DB_FOLDER, f"{table}.json")
+        json_filename = os.path.join(DB_BACKUP_FOLDER, f"{table}.json")
 
         try:
             # --- ЧТЕНИЕ ДАННЫХ ИЗ БД (один раз на обе выгрузки) ---
@@ -35,7 +35,7 @@ def export_database():
             # ==========================================
             with open(json_filename, 'w', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)
-            print(f"[{table}][JSON] Экспортировано {len(data)} записей в '{json_filename}'.")
+            print(f"[{table}] Экспортировано {len(data)} записей в '{table}.json'")
 
         except sqlite3.Error as e:
             print(f"[{table}] Ошибка при работе с таблицей: {e}\n")

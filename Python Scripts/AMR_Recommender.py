@@ -20,8 +20,6 @@ elif ENV == 'GitHub':
 TOKEN = os.environ['tg_token']
 CHAT_ID = os.environ['tg_channel_id']
 LOGGER_ID = os.environ['tg_logger_id']
-YM_TOKEN = os.environ['ym_token']
-ZVUK_TOKEN = os.environ['zv_token']
 
 AMR_FOLDER = os.path.join(ROOT_FOLDER, 'AMRs/')
 DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
