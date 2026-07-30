@@ -168,6 +168,8 @@ def main():
         if not update_cover_downloaded(row_id, date_of_update):
             print(f'\n✗ Failed to update progress for cover № {row_id}')
 
+    amr.db_backup(DB_FILE)
+
     print("\nDONE")
 
 

@@ -429,10 +429,6 @@ def main():
             # В GitHub режиме сбрасываем прогресс перед каждым запуском (как в оригинале)
             reset_artists_downloaded(select_where)
 
-        # TEST ONLY ######################################
-        start_date = datetime.datetime.now()
-        print(start_date.strftime('%Y-%m-%d %H:%M:%S'))
-
         # Основной цикл обработки артистов
         while True:
             try:
@@ -472,33 +468,27 @@ def main():
 
         print(''.ljust(55))
         
-        # TEST ONLY ######################################
-        stop_date = datetime.datetime.now()
-        print(stop_date.strftime('%Y-%m-%d %H:%M:%S'))
-        print(f'TOTAL: {stop_date - start_date}')
-        
         # Отправка итогового сообщения
-        if not TOKEN or not LOGGER_ID:
-            print('Message not sent! No TOKEN or LOGGER_ID')
-        else:
-            try:
-                if check_mes_send_len == len(message_to_send):
-                    message_to_send += f'\n{EMOJI_DICT["wtf"]}'
+        try:
+            if check_mes_send_len == len(message_to_send):
+                message_to_send += f'\n{EMOJI_DICT["wtf"]}'
 
-                if (check_mes_error_len != len(message_error) or
-                        check_mes_empty_len != len(message_empty) or
-                        check_mes_badid_len != len(message_bad_id)):
-                    message_to_send += f'\n\n{message_error_part}'
-                    if check_mes_badid_len != len(message_bad_id):
-                        message_to_send += f'\n\n{message_bad_id}'
-                    if check_mes_error_len != len(message_error):
-                        message_to_send += f'\n\n{message_error}'
-                    if check_mes_empty_len != len(message_empty):
-                        message_to_send += f'\n\n{message_empty}'
+            if (check_mes_error_len != len(message_error) or
+                    check_mes_empty_len != len(message_empty) or
+                    check_mes_badid_len != len(message_bad_id)):
+                message_to_send += f'\n\n{message_error_part}'
+                if check_mes_badid_len != len(message_bad_id):
+                    message_to_send += f'\n\n{message_bad_id}'
+                if check_mes_error_len != len(message_error):
+                    message_to_send += f'\n\n{message_error}'
+                if check_mes_empty_len != len(message_empty):
+                    message_to_send += f'\n\n{message_empty}'
 
-                amr.send_message(message_to_send, TOKEN, LOGGER_ID, None, None)
-            except Exception as e:
-                print(f'Error sending final message: {e}')
+            amr.send_message(message_to_send, TOKEN, LOGGER_ID, None, None)
+        except Exception as e:
+            print(f'Error sending final message: {e}')
+
+        amr.db_backup(DB_FILE)
 
         if log_in_file:
             try:

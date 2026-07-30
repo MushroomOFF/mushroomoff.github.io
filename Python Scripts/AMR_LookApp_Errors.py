@@ -229,6 +229,7 @@ def main():
 
     print(f'{'':55}')
 
+    amr.db_backup(DB_FILE)
 
 if __name__ == "__main__":
     main()

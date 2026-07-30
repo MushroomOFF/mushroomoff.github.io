@@ -158,6 +158,7 @@ def main():
     logger_message += f'\n\n🔥 New Releases: {new_release_counter}\n🔝 Top Releases: {top_release_counter}'
     amr.send_message(logger_message, TOKEN, LOGGER_ID, None, None)
 
+    amr.db_backup(DB_FILE)
 
 if __name__ == "__main__":
     main()

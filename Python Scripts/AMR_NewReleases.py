@@ -982,14 +982,17 @@ def main():
             collect_new_releases(category_link, category["category_name"], category["category_color"], category["category_abbr"])
             print(logger_category)
             status_message += f'\n✅ {logger_category}'
+            amr.db_backup(DB_FILE)
         elif category["category_type"] == 'Coming Soon':
             coming_soon(category_link)
             print('Coming Soon')
             status_message += f'\n✅ Coming Soon'
+            amr.db_backup(DB_FILE)
 
             collect_cs_releases(category["category_name"], category["category_color"], category["category_abbr"])
             print(logger_category)
             status_message += f'\n✅ {logger_category}'
+            amr.db_backup(DB_FILE)
 
     if not message_new_releases:
         amr.send_message('New Releases: \U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F', TOKEN, LOGGER_ID, None, None)

@@ -10,14 +10,20 @@ amr.mdv2(text_line)
 amr.send_message(text, token, chat_id, image, topic)
 
 amr.logger(log_line, LOG_FILE, SCRIPT_NAME, *args)
+
+amr.db_backup(DB_FILE)
 """
 
 import datetime
 import json
 import os
 import requests
+import sqlite3
+
 
 THREAD_ID_DICT = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80, 'General': 0}
+TABLES = ['artists', 'my_releases', 'new_releases', 'soon_releases']
+
 
 def print_name(script_name, version):
     print_line = f'{script_name} v.{version}'
@@ -194,3 +200,36 @@ def logger(log_line, log_file, script_name, *args):
             print(log_line[2:])
 
 
+def db_backup(db_file):
+    """Backup DB as tables in JSON files"""
+    db_name = os.path.split(db_file)
+    db_backup_folder = os.path.join(db_name[0], 'Backups/')
+
+    print('')
+    if not os.path.exists(db_file):
+        print(f"Ошибка: база данных '{db_name[1]}' не найдена в папке'{db_name[0]}'.")
+        return
+
+    conn = sqlite3.connect(db_file)
+    cursor = conn.cursor()
+
+    for table in TABLES:
+        json_filename = os.path.join(db_backup_folder, f"{table}.json")
+
+        try:
+            cursor.execute(f"SELECT * FROM {table}")
+            rows = cursor.fetchall()
+            columns = [description[0] for description in cursor.description]
+            data = [dict(zip(columns, row)) for row in rows]
+
+            with open(json_filename, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=4)
+            print(f"[{table}] Экспортировано {len(data)} записей в '{table}.json'")
+
+        except sqlite3.Error as e:
+            print(f"[{table}] Ошибка при работе с таблицей: {e}\n")
+        except Exception as e:
+            print(f"[{table}] Непредвиденная ошибка: {e}\n")
+
+    conn.close()
+    print('')

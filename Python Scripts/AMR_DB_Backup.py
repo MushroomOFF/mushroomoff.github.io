@@ -24,15 +24,11 @@ def export_database():
         json_filename = os.path.join(DB_BACKUP_FOLDER, f"{table}.json")
 
         try:
-            # --- ЧТЕНИЕ ДАННЫХ ИЗ БД (один раз на обе выгрузки) ---
             cursor.execute(f"SELECT * FROM {table}")
             rows = cursor.fetchall()
             columns = [description[0] for description in cursor.description]
             data = [dict(zip(columns, row)) for row in rows]
 
-            # ==========================================
-            # ЭКСПОРТ В JSON
-            # ==========================================
             with open(json_filename, 'w', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)
             print(f"[{table}] Экспортировано {len(data)} записей в '{table}.json'")
