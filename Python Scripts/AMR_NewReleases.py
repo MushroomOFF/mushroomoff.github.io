@@ -839,6 +839,11 @@ def coming_soon(category_link):
             image_link_jpeg = row['picture_srcset_jpeg'][0:row['picture_srcset_jpeg'].find(' ')]
             artist = '; '.join(row['artist_list'])
 
+        if pd.notna(row['apple_music_release_date']):
+            release_date = row['apple_music_release_date'].strftime('%Y-%m-%d')
+        else:
+            release_date = None  # или ''
+
             soon_release_data = {
                 'update_date': update_date,
                 'artist_name': artist.replace('&amp;','&'), 
