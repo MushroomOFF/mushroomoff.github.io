@@ -839,10 +839,10 @@ def coming_soon(category_link):
             image_link_jpeg = row['picture_srcset_jpeg'][0:row['picture_srcset_jpeg'].find(' ')]
             artist = '; '.join(row['artist_list'])
 
-        if pd.notna(row['apple_music_release_date']):
-            release_date = row['apple_music_release_date'].strftime('%Y-%m-%d')
-        else:
-            release_date = None  # или ''
+            if pd.notna(row['apple_music_release_date']):
+                release_date = row['apple_music_release_date'].strftime('%Y-%m-%d')
+            else:
+                release_date = None  # или ''
 
             soon_release_data = {
                 'update_date': update_date,
@@ -851,7 +851,7 @@ def coming_soon(category_link):
                 'artist_link': row['artist_link_list'][0],
                 'album_link': row['album_link'],
                 'cover_link': image_link_jpeg,
-                'release_date': row['apple_music_release_date'][0:10],
+                'release_date': row['apple_music_release_date'],
                 'release_date_text': row['apple_music_release_date_text']
             }
 
