@@ -6830,5 +6830,21 @@
         "artist_genre": "Nu Metal",
         "update_type": 0,
         "update_date": null
+    },
+    {
+        "row_id": 857,
+        "artist": "Santa Cruz",
+        "artist_id": 2814978,
+        "artist_genre": "Hard Rock",
+        "update_type": 1,
+        "update_date": "2026-08-08 22:02:08"
+    },
+    {
+        "row_id": 858,
+        "artist": "Tim Montana",
+        "artist_id": 263068617,
+        "artist_genre": "Hard Rock",
+        "update_type": 2,
+        "update_date": "2026-08-08 22:02:14"
     }
 ]
