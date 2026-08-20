@@ -21228,5 +21228,71 @@
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f7/8c/54/f78c5456-a687-cea3-1ac0-9dbce866b880/885288116311.jpg/296x296bf-60.jpg",
         "release_date": "2026-11-13 00:00:00",
         "release_date_text": "November 13, 2026"
+    },
+    {
+        "row_id": 1949,
+        "update_date": "2026-08-20",
+        "artist_name": "Dreadnought",
+        "album_name": "Wars of Spirit // Wards of Light",
+        "artist_link": "https://music.apple.com/us/artist/dreadnought/450515552",
+        "album_link": "https://music.apple.com/us/album/wars-of-spirit-wards-of-light/6784840480",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/73/85/16/738516c5-9fc9-da61-468e-c25630b087c6/Dreadnought_-_Wars_of_Spirit_-_Wards_of_Light.jpg/296x296bf-60.jpg",
+        "release_date": "2026-09-11 00:00:00",
+        "release_date_text": "September 11, 2026"
+    },
+    {
+        "row_id": 1950,
+        "update_date": "2026-08-20",
+        "artist_name": "Set for the Fall",
+        "album_name": "I Said What I Said",
+        "artist_link": "https://music.apple.com/us/artist/set-for-the-fall/596173302",
+        "album_link": "https://music.apple.com/us/album/i-said-what-i-said/6778942383",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/99/ba/bc/99babc84-9ba0-67e8-0af9-7134c51f0860/1200214315580.jpg/296x296bf-60.jpg",
+        "release_date": "2026-09-18 00:00:00",
+        "release_date_text": "September 18, 2026"
+    },
+    {
+        "row_id": 1951,
+        "update_date": "2026-08-20",
+        "artist_name": "Fervence",
+        "album_name": "Constructs",
+        "artist_link": "https://music.apple.com/us/artist/fervence/1502668892",
+        "album_link": "https://music.apple.com/us/album/constructs/6783971196",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c2/19/49/c21949c4-1050-9888-56d8-8abaefb316cc/Fervence_-_Constructs.jpg/296x296bf-60.jpg",
+        "release_date": "2026-10-16 00:00:00",
+        "release_date_text": "October 16, 2026"
+    },
+    {
+        "row_id": 1952,
+        "update_date": "2026-08-20",
+        "artist_name": "Mental Cruelty",
+        "album_name": "Echoes of a Forlorn Land",
+        "artist_link": "https://music.apple.com/us/artist/mental-cruelty/1183485446",
+        "album_link": "https://music.apple.com/us/album/echoes-of-a-forlorn-land/6796362884",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/12/ad/da/12addacb-e2f0-1b9e-ae18-3ba1fa2d6216/196874003077.jpg/296x296bf-60.jpg",
+        "release_date": "2026-10-23 00:00:00",
+        "release_date_text": "October 23, 2026"
+    },
+    {
+        "row_id": 1953,
+        "update_date": "2026-08-20",
+        "artist_name": "Dragonland",
+        "album_name": "Prophecies",
+        "artist_link": "https://music.apple.com/us/artist/dragonland/64435733",
+        "album_link": "https://music.apple.com/us/album/prophecies/6790794263",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/60/75/10/6075106d-ca87-68cf-d525-40f521700a48/cover.jpg/296x296bf-60.jpg",
+        "release_date": "2026-10-23 00:00:00",
+        "release_date_text": "October 23, 2026"
+    },
+    {
+        "row_id": 1954,
+        "update_date": "2026-08-20",
+        "artist_name": "Hypno5e",
+        "album_name": "Trame Noire",
+        "artist_link": "https://music.apple.com/us/artist/hypno5e/165860602",
+        "album_link": "https://music.apple.com/us/album/trame-noire/6789316919",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/fb/f0/5e/fbf05e38-4aa1-ef6a-d1df-f848ac8230e1/820233588591.jpg/296x296bf-60.jpg",
+        "release_date": "2026-11-06 00:00:00",
+        "release_date_text": "November 6, 2026"
     }
 ]
