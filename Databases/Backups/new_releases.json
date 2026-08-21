@@ -101253,13 +101253,13 @@
         "genre_category": "M",
         "artist": "Darko US",
         "album": "CUCKOO - EP",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6798605468,
         "album_link": "https://music.apple.com/us/album/cuckoo-ep/6798605468",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/08/24/4f/08244f77-96d4-7c9b-3709-7e05a6b6dcfa/artwork.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1442
     },
     {
         "row_id": 7240,
@@ -101281,13 +101281,13 @@
         "genre_category": "M",
         "artist": "If Not for Me",
         "album": "Where The Light Begins To Fade",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6767593810,
         "album_link": "https://music.apple.com/us/album/where-the-light-begins-to-fade/6767593810",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0a/a6/01/0aa601b5-71b8-e561-292a-e13a6fdb9372/193436471299_CoverArtVcopy.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1443
     },
     {
         "row_id": 7242,
@@ -101295,7 +101295,7 @@
         "genre_category": "M",
         "artist": "Raunchy",
         "album": "Prisoner",
-        "my_type": null,
+        "my_type": "v",
         "album_id": 6777198648,
         "album_link": "https://music.apple.com/us/album/prisoner/6777198648",
         "album_link_ym": "https://music.yandex.ru/album/41130897",
@@ -101393,7 +101393,7 @@
         "genre_category": "HR",
         "artist": "Story of the Year",
         "album": "Live at Apple Music Radio",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6798715198,
         "album_link": "https://music.apple.com/us/album/live-at-apple-music-radio/6798715198",
         "album_link_ym": null,
@@ -101407,7 +101407,7 @@
         "genre_category": "HR",
         "artist": "Marilyn Manson",
         "album": "One Assassination Under God - Chapter 2",
-        "my_type": null,
+        "my_type": "v",
         "album_id": 6771390419,
         "album_link": "https://music.apple.com/us/album/one-assassination-under-god-chapter-2/6771390419",
         "album_link_ym": "https://music.yandex.ru/album/43503887",
@@ -101519,13 +101519,13 @@
         "genre_category": "MCS",
         "artist": "Xandria",
         "album": "Eclipse (Deluxe Version)",
-        "my_type": null,
+        "my_type": "v",
         "album_id": 6771424985,
         "album_link": "https://music.apple.com/us/album/eclipse-deluxe-version/6771424985",
         "album_link_ym": "https://music.yandex.ru/album/43302580",
         "album_link_zv": "https://zvuk.com/release/52070942",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/88/d4/86/88d48689-f767-ac63-4419-d04712cb67c3/810221171782.jpg/296x296bf-60.jpg",
-        "tg_message_id": 0
+        "tg_message_id": 1444
     },
     {
         "row_id": 7259,
@@ -101603,7 +101603,7 @@
         "genre_category": "M",
         "artist": "Mob Rules",
         "album": "Stories From The Verdant Vale - EP",
-        "my_type": null,
+        "my_type": "v",
         "album_id": 1882048439,
         "album_link": "https://music.apple.com/us/album/stories-from-the-verdant-vale-ep/1882048439",
         "album_link_ym": "https://music.yandex.ru/album/43442446",
@@ -101687,7 +101687,7 @@
         "genre_category": "M",
         "artist": "Dark Funeral",
         "album": "A Beast To Praise (Live in Stockholm)",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6776285299,
         "album_link": "https://music.apple.com/us/album/a-beast-to-praise-live-in-stockholm/6776285299",
         "album_link_ym": null,
@@ -101827,13 +101827,13 @@
         "genre_category": "M",
         "artist": "Untitled With Drums",
         "album": "Made Flesh",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 1895290461,
         "album_link": "https://music.apple.com/us/album/made-flesh/1895290461",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f9/94/b5/f994b55a-13d6-e5d6-71ad-bed13d70255a/822603020182.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1445
     },
     {
         "row_id": 7281,
