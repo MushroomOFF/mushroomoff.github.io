@@ -19774,8 +19774,8 @@
         "artist_link": "https://music.apple.com/us/artist/ocean-sleeper/1090647303",
         "album_link": "https://music.apple.com/us/album/peace-when-im-dead/6771125682",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/13/f7/a3/13f7a397-890f-4ddc-30e8-c8b809ba5237/4099964255263.jpg/296x296bf-60.jpg",
-        "release_date": "2026-08-21",
-        "release_date_text": "August 21, 2026"
+        "release_date": "2026-08-28",
+        "release_date_text": "August 28, 2026"
     },
     {
         "row_id": 1800,
@@ -21294,5 +21294,27 @@
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/fb/f0/5e/fbf05e38-4aa1-ef6a-d1df-f848ac8230e1/820233588591.jpg/296x296bf-60.jpg",
         "release_date": "2026-11-06 00:00:00",
         "release_date_text": "November 6, 2026"
+    },
+    {
+        "row_id": 1955,
+        "update_date": "2026-08-21",
+        "artist_name": "The Linda Lindas",
+        "album_name": "GOTTA GET OUT",
+        "artist_link": "https://music.apple.com/us/artist/the-linda-lindas/1525944355",
+        "album_link": "https://music.apple.com/us/album/gotta-get-out/6784842664",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/44/d4/c2/44d4c2cb-e88a-1c62-9c9a-0b196541f8e1/093624818267.jpg/296x296bf-60.jpg",
+        "release_date": "2026-08-28 00:00:00",
+        "release_date_text": "August 28, 2026"
+    },
+    {
+        "row_id": 1956,
+        "update_date": "2026-08-21",
+        "artist_name": "Sarcator",
+        "album_name": "The Ones We Follow",
+        "artist_link": "https://music.apple.com/us/artist/sarcator/1456292763",
+        "album_link": "https://music.apple.com/us/album/the-ones-we-follow/6780537035",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/8d/ed/e0/8dede00a-0754-db61-353d-cd1d2a0f90f0/4251981718378.jpg/296x296bf-60.jpg",
+        "release_date": "2026-10-30 00:00:00",
+        "release_date_text": "October 30, 2026"
     }
 ]
