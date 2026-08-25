@@ -101729,13 +101729,13 @@
         "genre_category": "M",
         "artist": "Oddland",
         "album": "Unilluminate To Illuminate",
-        "my_type": null,
+        "my_type": "v",
         "album_id": 6770641102,
         "album_link": "https://music.apple.com/us/album/unilluminate-to-illuminate/6770641102",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/9b/aa/32/9baa32e1-7b67-c97b-9ba1-e5371f46fb5e/820233503266.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1450
     },
     {
         "row_id": 7274,
@@ -101757,13 +101757,13 @@
         "genre_category": "M",
         "artist": "Fen",
         "album": "ELEMENTAL Part One: MOURNING EARTH",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6766456280,
         "album_link": "https://music.apple.com/us/album/elemental-part-one-mourning-earth/6766456280",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/04/5a/3c/045a3ce4-6cb9-9fa6-6f57-4a4aef55c341/2890.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1451
     },
     {
         "row_id": 7276,
