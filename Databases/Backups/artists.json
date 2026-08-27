@@ -6846,5 +6846,13 @@
         "artist_genre": "Hard Rock",
         "update_type": 2,
         "update_date": "2026-08-21 08:13:48"
+    },
+    {
+        "row_id": 859,
+        "artist": "Oddland",
+        "artist_id": 515530562,
+        "artist_genre": "Progressive Metal",
+        "update_type": 2,
+        "update_date": "2026-08-28 00:44:57"
     }
 ]
