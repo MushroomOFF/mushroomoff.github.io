@@ -101855,13 +101855,13 @@
         "genre_category": "HR",
         "artist": "Weezer",
         "album": "Weezer",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6772364953,
         "album_link": "https://music.apple.com/us/album/weezer/6772364953",
         "album_link_ym": null,
         "album_link_zv": "https://zvuk.com/release/1948213",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/7b/4f/c6/7b4fc6dc-bb2a-4b73-0c58-fb1bd3e21102/093624819394.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1457
     },
     {
         "row_id": 7283,
@@ -101883,13 +101883,13 @@
         "genre_category": "HR",
         "artist": "Kiss",
         "album": "Destroys Anaheim '76 (Live At Anaheim Stadium, Anaheim, California - August 20, 1976)",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 1895747566,
         "album_link": "https://music.apple.com/us/album/destroys-anaheim-76-live-at-anaheim-stadium-anaheim/1895747566",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/c5/50/05/c55005a0-8e48-cb9c-1475-861333559ae9/26UMGIM48143.rgb.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1458
     },
     {
         "row_id": 7285,
@@ -101911,7 +101911,7 @@
         "genre_category": "HR",
         "artist": "Sakoya",
         "album": "World Gone Crazy - EP",
-        "my_type": null,
+        "my_type": "v",
         "album_id": 6791868006,
         "album_link": "https://music.apple.com/us/album/world-gone-crazy-ep/6791868006",
         "album_link_ym": "https://music.yandex.ru/album/43119811",
@@ -101981,7 +101981,7 @@
         "genre_category": "HR",
         "artist": "Staind",
         "album": "Break The Cycle (25th Anniversary Live)",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6773898233,
         "album_link": "https://music.apple.com/us/album/break-the-cycle-25th-anniversary-live/6773898233",
         "album_link_ym": null,
