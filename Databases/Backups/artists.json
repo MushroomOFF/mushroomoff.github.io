@@ -5,7 +5,7 @@
         "artist_id": 590327453,
         "artist_genre": "Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:42:43"
+        "update_date": "2026-08-28 09:17:36"
     },
     {
         "row_id": 2,
@@ -13,7 +13,7 @@
         "artist_id": 101604,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 13:46:01"
+        "update_date": "2026-08-28 09:17:42"
     },
     {
         "row_id": 3,
@@ -21,7 +21,7 @@
         "artist_id": 26515293,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:46:07"
+        "update_date": "2026-08-28 09:17:48"
     },
     {
         "row_id": 4,
@@ -29,7 +29,7 @@
         "artist_id": 6338556,
         "artist_genre": "Metalcore",
         "update_type": 1,
-        "update_date": "2026-08-20 13:46:13"
+        "update_date": "2026-08-28 09:17:53"
     },
     {
         "row_id": 5,
@@ -45,7 +45,7 @@
         "artist_id": 251582975,
         "artist_genre": "Acoustic",
         "update_type": 1,
-        "update_date": "2026-08-20 13:46:19"
+        "update_date": "2026-08-28 09:17:59"
     },
     {
         "row_id": 7,
@@ -53,7 +53,7 @@
         "artist_id": 112058,
         "artist_genre": "Rap",
         "update_type": 1,
-        "update_date": "2026-08-20 13:46:26"
+        "update_date": "2026-08-28 09:18:06"
     },
     {
         "row_id": 8,
@@ -61,7 +61,7 @@
         "artist_id": 1258256228,
         "artist_genre": "Rap",
         "update_type": 1,
-        "update_date": "2026-08-20 13:46:33"
+        "update_date": "2026-08-28 09:18:12"
     },
     {
         "row_id": 9,
@@ -69,7 +69,7 @@
         "artist_id": 331647880,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:42:48"
+        "update_date": "2026-08-28 09:18:18"
     },
     {
         "row_id": 10,
@@ -77,7 +77,7 @@
         "artist_id": 640520453,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:42:52"
+        "update_date": "2026-08-28 09:18:24"
     },
     {
         "row_id": 11,
@@ -85,7 +85,7 @@
         "artist_id": 1444860850,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:42:56"
+        "update_date": "2026-08-28 09:18:29"
     },
     {
         "row_id": 12,
@@ -93,7 +93,7 @@
         "artist_id": 590332748,
         "artist_genre": "Rap",
         "update_type": 1,
-        "update_date": "2026-08-20 13:46:56"
+        "update_date": "2026-08-28 09:18:35"
     },
     {
         "row_id": 13,
@@ -101,7 +101,7 @@
         "artist_id": 501951774,
         "artist_genre": "Rap",
         "update_type": 1,
-        "update_date": "2026-08-20 13:47:02"
+        "update_date": "2026-08-28 09:18:41"
     },
     {
         "row_id": 14,
@@ -117,7 +117,7 @@
         "artist_id": 646139967,
         "artist_genre": "Heavy Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:43:00"
+        "update_date": "2026-08-28 09:18:48"
     },
     {
         "row_id": 16,
@@ -133,7 +133,7 @@
         "artist_id": 1372953342,
         "artist_genre": "Rap",
         "update_type": 1,
-        "update_date": "2026-08-20 13:47:16"
+        "update_date": "2026-08-28 09:18:55"
     },
     {
         "row_id": 18,
@@ -141,7 +141,7 @@
         "artist_id": 1526891030,
         "artist_genre": "Black Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:43:04"
+        "update_date": "2026-08-28 09:19:01"
     },
     {
         "row_id": 19,
@@ -149,7 +149,7 @@
         "artist_id": 1406384230,
         "artist_genre": "Groove Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:43:08"
+        "update_date": "2026-08-28 09:19:06"
     },
     {
         "row_id": 20,
@@ -181,7 +181,7 @@
         "artist_id": 569705781,
         "artist_genre": "Folk Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:47:33"
+        "update_date": "2026-08-28 09:19:12"
     },
     {
         "row_id": 24,
@@ -189,7 +189,7 @@
         "artist_id": 284266767,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 13:47:40"
+        "update_date": "2026-08-28 09:19:19"
     },
     {
         "row_id": 25,
@@ -205,7 +205,7 @@
         "artist_id": 352344842,
         "artist_genre": "Hip-Hop",
         "update_type": 1,
-        "update_date": "2026-08-20 13:47:46"
+        "update_date": "2026-08-28 09:19:25"
     },
     {
         "row_id": 27,
@@ -213,7 +213,7 @@
         "artist_id": 340420197,
         "artist_genre": "Hip-Hop",
         "update_type": 1,
-        "update_date": "2026-08-20 13:47:52"
+        "update_date": "2026-08-28 09:19:30"
     },
     {
         "row_id": 28,
@@ -221,7 +221,7 @@
         "artist_id": 334602356,
         "artist_genre": "Heavy Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:43:12"
+        "update_date": "2026-08-28 09:19:36"
     },
     {
         "row_id": 29,
@@ -253,7 +253,7 @@
         "artist_id": 355823121,
         "artist_genre": "Folk Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:48:03"
+        "update_date": "2026-08-28 09:19:42"
     },
     {
         "row_id": 33,
@@ -261,7 +261,7 @@
         "artist_id": 446310531,
         "artist_genre": "Hip-Hop",
         "update_type": 1,
-        "update_date": "2026-08-20 13:48:08"
+        "update_date": "2026-08-28 09:19:47"
     },
     {
         "row_id": 34,
@@ -269,7 +269,7 @@
         "artist_id": 626901659,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:43:16"
+        "update_date": "2026-08-28 09:19:53"
     },
     {
         "row_id": 35,
@@ -285,7 +285,7 @@
         "artist_id": 720831518,
         "artist_genre": "Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 13:48:20"
+        "update_date": "2026-08-28 09:19:59"
     },
     {
         "row_id": 37,
@@ -301,7 +301,7 @@
         "artist_id": 531116017,
         "artist_genre": "Punk Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 13:48:26"
+        "update_date": "2026-08-28 09:20:04"
     },
     {
         "row_id": 39,
@@ -309,7 +309,7 @@
         "artist_id": 334652535,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:48:32"
+        "update_date": "2026-08-28 09:20:10"
     },
     {
         "row_id": 40,
@@ -317,7 +317,7 @@
         "artist_id": 160957018,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:43:21"
+        "update_date": "2026-08-28 09:20:16"
     },
     {
         "row_id": 41,
@@ -325,7 +325,7 @@
         "artist_id": 424022271,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:43:26"
+        "update_date": "2026-08-28 09:20:22"
     },
     {
         "row_id": 42,
@@ -333,7 +333,7 @@
         "artist_id": 1169161746,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:43:30"
+        "update_date": "2026-08-28 09:20:28"
     },
     {
         "row_id": 43,
@@ -341,7 +341,7 @@
         "artist_id": 652503,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 13:48:55"
+        "update_date": "2026-08-28 09:20:33"
     },
     {
         "row_id": 44,
@@ -349,7 +349,7 @@
         "artist_id": 413422387,
         "artist_genre": "Country",
         "update_type": 2,
-        "update_date": "2026-08-21 07:43:34"
+        "update_date": "2026-08-28 09:20:39"
     },
     {
         "row_id": 45,
@@ -357,7 +357,7 @@
         "artist_id": 200771326,
         "artist_genre": "Black Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:43:38"
+        "update_date": "2026-08-28 09:20:44"
     },
     {
         "row_id": 46,
@@ -365,7 +365,7 @@
         "artist_id": 155833533,
         "artist_genre": "Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:43:42"
+        "update_date": "2026-08-28 09:20:50"
     },
     {
         "row_id": 47,
@@ -373,7 +373,7 @@
         "artist_id": 5040714,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:43:46"
+        "update_date": "2026-08-28 09:20:56"
     },
     {
         "row_id": 48,
@@ -381,7 +381,7 @@
         "artist_id": 1007586421,
         "artist_genre": "Thrash Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:49:24"
+        "update_date": "2026-08-28 09:21:01"
     },
     {
         "row_id": 49,
@@ -389,7 +389,7 @@
         "artist_id": 1484967403,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:43:50"
+        "update_date": "2026-08-28 09:21:06"
     },
     {
         "row_id": 50,
@@ -405,7 +405,7 @@
         "artist_id": 459504,
         "artist_genre": "Nu Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:49:36"
+        "update_date": "2026-08-28 09:21:12"
     },
     {
         "row_id": 52,
@@ -413,7 +413,7 @@
         "artist_id": 454991210,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:49:41"
+        "update_date": "2026-08-28 09:21:17"
     },
     {
         "row_id": 53,
@@ -421,7 +421,7 @@
         "artist_id": 115386,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:43:54"
+        "update_date": "2026-08-28 09:21:23"
     },
     {
         "row_id": 54,
@@ -429,7 +429,7 @@
         "artist_id": 210642079,
         "artist_genre": "Progressive Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:49:53"
+        "update_date": "2026-08-28 09:21:29"
     },
     {
         "row_id": 55,
@@ -437,7 +437,7 @@
         "artist_id": 258928125,
         "artist_genre": "Hard Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 13:49:59"
+        "update_date": "2026-08-28 09:21:34"
     },
     {
         "row_id": 56,
@@ -445,7 +445,7 @@
         "artist_id": 262028864,
         "artist_genre": "Score",
         "update_type": 1,
-        "update_date": "2026-08-20 13:50:06"
+        "update_date": "2026-08-28 09:21:40"
     },
     {
         "row_id": 57,
@@ -469,7 +469,7 @@
         "artist_id": 453982764,
         "artist_genre": "Progressive Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:50:12"
+        "update_date": "2026-08-28 09:21:46"
     },
     {
         "row_id": 60,
@@ -477,7 +477,7 @@
         "artist_id": 462221,
         "artist_genre": "Grunge",
         "update_type": 1,
-        "update_date": "2026-08-20 13:50:17"
+        "update_date": "2026-08-28 09:21:52"
     },
     {
         "row_id": 61,
@@ -485,7 +485,7 @@
         "artist_id": 316069,
         "artist_genre": "R&B",
         "update_type": 1,
-        "update_date": "2026-08-20 13:50:25"
+        "update_date": "2026-08-28 09:21:59"
     },
     {
         "row_id": 62,
@@ -493,7 +493,7 @@
         "artist_id": 3446405,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:43:58"
+        "update_date": "2026-08-28 09:22:04"
     },
     {
         "row_id": 63,
@@ -501,7 +501,7 @@
         "artist_id": 1638071786,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:44:02"
+        "update_date": "2026-08-28 09:22:10"
     },
     {
         "row_id": 64,
@@ -509,7 +509,7 @@
         "artist_id": 64942610,
         "artist_genre": "Deathcore",
         "update_type": 1,
-        "update_date": "2026-08-20 13:50:42"
+        "update_date": "2026-08-28 09:22:15"
     },
     {
         "row_id": 65,
@@ -517,7 +517,7 @@
         "artist_id": 57844144,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:44:06"
+        "update_date": "2026-08-28 09:22:21"
     },
     {
         "row_id": 66,
@@ -525,7 +525,7 @@
         "artist_id": 1529369992,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:44:10"
+        "update_date": "2026-08-28 09:22:26"
     },
     {
         "row_id": 67,
@@ -533,7 +533,7 @@
         "artist_id": 1437554087,
         "artist_genre": "Power Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:50:59"
+        "update_date": "2026-08-28 09:22:32"
     },
     {
         "row_id": 68,
@@ -541,7 +541,7 @@
         "artist_id": 1063020307,
         "artist_genre": "Nu Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:51:04"
+        "update_date": "2026-08-28 09:22:38"
     },
     {
         "row_id": 69,
@@ -549,7 +549,7 @@
         "artist_id": 1462079731,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 13:51:10"
+        "update_date": "2026-08-28 09:22:43"
     },
     {
         "row_id": 70,
@@ -557,7 +557,7 @@
         "artist_id": 73789273,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:44:14"
+        "update_date": "2026-08-28 09:22:49"
     },
     {
         "row_id": 71,
@@ -565,7 +565,7 @@
         "artist_id": 421114522,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:44:19"
+        "update_date": "2026-08-28 09:22:55"
     },
     {
         "row_id": 72,
@@ -573,7 +573,7 @@
         "artist_id": 649003431,
         "artist_genre": "Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:44:23"
+        "update_date": "2026-08-28 09:23:01"
     },
     {
         "row_id": 73,
@@ -589,7 +589,7 @@
         "artist_id": 54261107,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:44:27"
+        "update_date": "2026-08-28 09:23:06"
     },
     {
         "row_id": 75,
@@ -597,7 +597,7 @@
         "artist_id": 5545051,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:44:32"
+        "update_date": "2026-08-28 09:23:12"
     },
     {
         "row_id": 76,
@@ -613,7 +613,7 @@
         "artist_id": 72869936,
         "artist_genre": "Black Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:51:46"
+        "update_date": "2026-08-28 09:23:18"
     },
     {
         "row_id": 78,
@@ -621,7 +621,7 @@
         "artist_id": 32204550,
         "artist_genre": "Symphonic Black Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:44:36"
+        "update_date": "2026-08-28 09:23:23"
     },
     {
         "row_id": 79,
@@ -645,7 +645,7 @@
         "artist_id": 336485294,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:44:40"
+        "update_date": "2026-08-28 09:23:29"
     },
     {
         "row_id": 82,
@@ -653,7 +653,7 @@
         "artist_id": 153374625,
         "artist_genre": "Thrash Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:44:43"
+        "update_date": "2026-08-28 09:23:34"
     },
     {
         "row_id": 83,
@@ -661,7 +661,7 @@
         "artist_id": 192030844,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:44:48"
+        "update_date": "2026-08-28 09:23:40"
     },
     {
         "row_id": 84,
@@ -677,7 +677,7 @@
         "artist_id": 311508570,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:44:52"
+        "update_date": "2026-08-28 09:23:46"
     },
     {
         "row_id": 86,
@@ -685,7 +685,7 @@
         "artist_id": 7264636,
         "artist_genre": "Thrash Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:44:56"
+        "update_date": "2026-08-28 09:23:51"
     },
     {
         "row_id": 87,
@@ -693,7 +693,7 @@
         "artist_id": 78387863,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:45:00"
+        "update_date": "2026-08-28 09:23:57"
     },
     {
         "row_id": 88,
@@ -701,7 +701,7 @@
         "artist_id": 1208203506,
         "artist_genre": "Doom Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:45:04"
+        "update_date": "2026-08-28 09:24:02"
     },
     {
         "row_id": 89,
@@ -709,7 +709,7 @@
         "artist_id": 411644,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:45:08"
+        "update_date": "2026-08-28 09:24:09"
     },
     {
         "row_id": 90,
@@ -717,7 +717,7 @@
         "artist_id": 960840600,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:45:13"
+        "update_date": "2026-08-28 09:24:15"
     },
     {
         "row_id": 91,
@@ -725,7 +725,7 @@
         "artist_id": 1602506871,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:45:17"
+        "update_date": "2026-08-28 09:24:20"
     },
     {
         "row_id": 92,
@@ -733,7 +733,7 @@
         "artist_id": 368621510,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 13:52:57"
+        "update_date": "2026-08-28 09:24:26"
     },
     {
         "row_id": 93,
@@ -741,7 +741,7 @@
         "artist_id": 18098340,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:45:21"
+        "update_date": "2026-08-28 09:24:32"
     },
     {
         "row_id": 94,
@@ -749,7 +749,7 @@
         "artist_id": 897258174,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 13:53:09"
+        "update_date": "2026-08-28 09:24:37"
     },
     {
         "row_id": 95,
@@ -757,7 +757,7 @@
         "artist_id": 182821355,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:45:25"
+        "update_date": "2026-08-28 09:24:43"
     },
     {
         "row_id": 96,
@@ -765,7 +765,7 @@
         "artist_id": 429852013,
         "artist_genre": "Technical Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:45:29"
+        "update_date": "2026-08-28 09:24:48"
     },
     {
         "row_id": 97,
@@ -773,7 +773,7 @@
         "artist_id": 412778295,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 13:53:28"
+        "update_date": "2026-08-28 09:24:56"
     },
     {
         "row_id": 98,
@@ -781,7 +781,7 @@
         "artist_id": 61440649,
         "artist_genre": "Thrash Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:45:33"
+        "update_date": "2026-08-28 09:25:02"
     },
     {
         "row_id": 99,
@@ -789,7 +789,7 @@
         "artist_id": 156713594,
         "artist_genre": "Deathcore",
         "update_type": 1,
-        "update_date": "2026-08-20 13:53:40"
+        "update_date": "2026-08-28 09:25:07"
     },
     {
         "row_id": 100,
@@ -797,7 +797,7 @@
         "artist_id": 54266496,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:45:37"
+        "update_date": "2026-08-28 09:25:13"
     },
     {
         "row_id": 101,
@@ -805,7 +805,7 @@
         "artist_id": 274296748,
         "artist_genre": "Progressive Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 13:53:51"
+        "update_date": "2026-08-28 09:25:18"
     },
     {
         "row_id": 102,
@@ -813,7 +813,7 @@
         "artist_id": 1547541596,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:45:41"
+        "update_date": "2026-08-28 09:25:24"
     },
     {
         "row_id": 103,
@@ -821,7 +821,7 @@
         "artist_id": 329938300,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:45:45"
+        "update_date": "2026-08-28 09:25:30"
     },
     {
         "row_id": 104,
@@ -829,7 +829,7 @@
         "artist_id": 285623085,
         "artist_genre": "Progressive Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 13:54:08"
+        "update_date": "2026-08-28 09:25:35"
     },
     {
         "row_id": 105,
@@ -837,7 +837,7 @@
         "artist_id": 589410635,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:45:49"
+        "update_date": "2026-08-28 09:25:41"
     },
     {
         "row_id": 106,
@@ -845,7 +845,7 @@
         "artist_id": 57658038,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:45:53"
+        "update_date": "2026-08-28 09:25:46"
     },
     {
         "row_id": 107,
@@ -853,7 +853,7 @@
         "artist_id": 6095061,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:45:58"
+        "update_date": "2026-08-28 09:25:52"
     },
     {
         "row_id": 108,
@@ -861,7 +861,7 @@
         "artist_id": 46893195,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:46:02"
+        "update_date": "2026-08-28 09:25:58"
     },
     {
         "row_id": 109,
@@ -869,7 +869,7 @@
         "artist_id": 1265164818,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 13:54:40"
+        "update_date": "2026-08-28 09:26:05"
     },
     {
         "row_id": 110,
@@ -877,7 +877,7 @@
         "artist_id": 1451199469,
         "artist_genre": "Doom Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:46:06"
+        "update_date": "2026-08-28 09:26:11"
     },
     {
         "row_id": 111,
@@ -885,7 +885,7 @@
         "artist_id": 6766228,
         "artist_genre": "Heavy Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:46:10"
+        "update_date": "2026-08-28 09:26:17"
     },
     {
         "row_id": 112,
@@ -901,7 +901,7 @@
         "artist_id": 459885,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:46:14"
+        "update_date": "2026-08-28 09:26:23"
     },
     {
         "row_id": 114,
@@ -909,7 +909,7 @@
         "artist_id": 526199085,
         "artist_genre": "EDM",
         "update_type": 1,
-        "update_date": "2026-08-20 13:55:04"
+        "update_date": "2026-08-28 09:26:30"
     },
     {
         "row_id": 115,
@@ -925,7 +925,7 @@
         "artist_id": 477101776,
         "artist_genre": "Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:46:19"
+        "update_date": "2026-08-28 09:26:36"
     },
     {
         "row_id": 117,
@@ -933,7 +933,7 @@
         "artist_id": 1005229146,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:46:23"
+        "update_date": "2026-08-28 09:26:41"
     },
     {
         "row_id": 118,
@@ -941,7 +941,7 @@
         "artist_id": 412807070,
         "artist_genre": "Heavy Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:46:27"
+        "update_date": "2026-08-28 09:26:47"
     },
     {
         "row_id": 119,
@@ -949,7 +949,7 @@
         "artist_id": 590762561,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:46:31"
+        "update_date": "2026-08-28 09:26:52"
     },
     {
         "row_id": 120,
@@ -957,7 +957,7 @@
         "artist_id": 466059563,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 13:55:36"
+        "update_date": "2026-08-28 09:27:00"
     },
     {
         "row_id": 121,
@@ -965,7 +965,7 @@
         "artist_id": 78682379,
         "artist_genre": "Melodic Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:55:41"
+        "update_date": "2026-08-28 09:27:05"
     },
     {
         "row_id": 122,
@@ -973,7 +973,7 @@
         "artist_id": 42255142,
         "artist_genre": "Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:46:36"
+        "update_date": "2026-08-28 09:27:11"
     },
     {
         "row_id": 123,
@@ -981,7 +981,7 @@
         "artist_id": 214355791,
         "artist_genre": "Technical Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:46:39"
+        "update_date": "2026-08-28 09:27:17"
     },
     {
         "row_id": 124,
@@ -989,7 +989,7 @@
         "artist_id": 54671918,
         "artist_genre": "Gothic Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:55:59"
+        "update_date": "2026-08-28 09:27:22"
     },
     {
         "row_id": 125,
@@ -997,7 +997,7 @@
         "artist_id": 107404782,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:46:43"
+        "update_date": "2026-08-28 09:27:28"
     },
     {
         "row_id": 126,
@@ -1005,7 +1005,7 @@
         "artist_id": 1419227,
         "artist_genre": "R&B",
         "update_type": 1,
-        "update_date": "2026-08-20 13:56:13"
+        "update_date": "2026-08-28 09:27:36"
     },
     {
         "row_id": 127,
@@ -1013,7 +1013,7 @@
         "artist_id": 431171265,
         "artist_genre": "Technical Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:56:19"
+        "update_date": "2026-08-28 09:27:41"
     },
     {
         "row_id": 128,
@@ -1021,7 +1021,7 @@
         "artist_id": 955346353,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:46:48"
+        "update_date": "2026-08-28 09:27:47"
     },
     {
         "row_id": 129,
@@ -1029,7 +1029,7 @@
         "artist_id": 1065981054,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 13:56:31"
+        "update_date": "2026-08-28 09:27:53"
     },
     {
         "row_id": 130,
@@ -1037,7 +1037,7 @@
         "artist_id": 258778118,
         "artist_genre": "Hard Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 13:56:37"
+        "update_date": "2026-08-28 09:27:58"
     },
     {
         "row_id": 131,
@@ -1045,7 +1045,7 @@
         "artist_id": 1072442999,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:46:52"
+        "update_date": "2026-08-28 09:28:04"
     },
     {
         "row_id": 132,
@@ -1053,7 +1053,7 @@
         "artist_id": 725708648,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:46:56"
+        "update_date": "2026-08-28 09:28:10"
     },
     {
         "row_id": 133,
@@ -1069,7 +1069,7 @@
         "artist_id": 360391,
         "artist_genre": "Hip-Hop",
         "update_type": 1,
-        "update_date": "2026-08-20 13:56:55"
+        "update_date": "2026-08-28 09:28:17"
     },
     {
         "row_id": 135,
@@ -1077,7 +1077,7 @@
         "artist_id": 1137940619,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:47:00"
+        "update_date": "2026-08-28 09:28:22"
     },
     {
         "row_id": 136,
@@ -1085,7 +1085,7 @@
         "artist_id": 165907,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:57:07"
+        "update_date": "2026-08-28 09:28:29"
     },
     {
         "row_id": 137,
@@ -1093,7 +1093,7 @@
         "artist_id": 295232409,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:47:04"
+        "update_date": "2026-08-28 09:28:34"
     },
     {
         "row_id": 138,
@@ -1101,7 +1101,7 @@
         "artist_id": 155784503,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:47:08"
+        "update_date": "2026-08-28 09:28:40"
     },
     {
         "row_id": 139,
@@ -1109,7 +1109,7 @@
         "artist_id": 276789923,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:47:12"
+        "update_date": "2026-08-28 09:28:46"
     },
     {
         "row_id": 140,
@@ -1117,7 +1117,7 @@
         "artist_id": 1621762105,
         "artist_genre": "Black Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:47:16"
+        "update_date": "2026-08-28 09:28:52"
     },
     {
         "row_id": 141,
@@ -1125,7 +1125,7 @@
         "artist_id": 1226343661,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:47:20"
+        "update_date": "2026-08-28 09:28:57"
     },
     {
         "row_id": 142,
@@ -1133,7 +1133,7 @@
         "artist_id": 1599759791,
         "artist_genre": "Nu Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:47:24"
+        "update_date": "2026-08-28 09:29:03"
     },
     {
         "row_id": 143,
@@ -1141,7 +1141,7 @@
         "artist_id": 15133784,
         "artist_genre": "Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:47:28"
+        "update_date": "2026-08-28 09:29:09"
     },
     {
         "row_id": 144,
@@ -1149,7 +1149,7 @@
         "artist_id": 64942384,
         "artist_genre": "Metalcore",
         "update_type": 1,
-        "update_date": "2026-08-20 13:57:54"
+        "update_date": "2026-08-28 09:29:14"
     },
     {
         "row_id": 145,
@@ -1157,7 +1157,7 @@
         "artist_id": 14549348,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:47:33"
+        "update_date": "2026-08-28 09:29:20"
     },
     {
         "row_id": 146,
@@ -1165,7 +1165,7 @@
         "artist_id": 149376,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 13:58:05"
+        "update_date": "2026-08-28 09:29:26"
     },
     {
         "row_id": 147,
@@ -1173,7 +1173,7 @@
         "artist_id": 116851,
         "artist_genre": "Punk Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:47:37"
+        "update_date": "2026-08-28 09:29:32"
     },
     {
         "row_id": 148,
@@ -1181,7 +1181,7 @@
         "artist_id": 64873162,
         "artist_genre": "Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:47:41"
+        "update_date": "2026-08-28 09:29:37"
     },
     {
         "row_id": 149,
@@ -1189,7 +1189,7 @@
         "artist_id": 861350,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 13:58:23"
+        "update_date": "2026-08-28 09:29:43"
     },
     {
         "row_id": 150,
@@ -1197,7 +1197,7 @@
         "artist_id": 550334387,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:47:45"
+        "update_date": "2026-08-28 09:29:48"
     },
     {
         "row_id": 151,
@@ -1205,7 +1205,7 @@
         "artist_id": 560676512,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:47:49"
+        "update_date": "2026-08-28 09:29:55"
     },
     {
         "row_id": 152,
@@ -1213,7 +1213,7 @@
         "artist_id": 1186009219,
         "artist_genre": "Nu Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:47:53"
+        "update_date": "2026-08-28 09:30:00"
     },
     {
         "row_id": 153,
@@ -1221,7 +1221,7 @@
         "artist_id": 265124966,
         "artist_genre": "Progressive Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:58:46"
+        "update_date": "2026-08-28 09:30:06"
     },
     {
         "row_id": 154,
@@ -1229,7 +1229,7 @@
         "artist_id": 1551370723,
         "artist_genre": "Melodic Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:58:51"
+        "update_date": "2026-08-28 09:30:11"
     },
     {
         "row_id": 155,
@@ -1237,7 +1237,7 @@
         "artist_id": 645352,
         "artist_genre": "Rap Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:47:57"
+        "update_date": "2026-08-28 09:30:17"
     },
     {
         "row_id": 156,
@@ -1245,7 +1245,7 @@
         "artist_id": 122782,
         "artist_genre": "Hard Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 13:59:04"
+        "update_date": "2026-08-28 09:30:23"
     },
     {
         "row_id": 157,
@@ -1253,7 +1253,7 @@
         "artist_id": 28430680,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:48:01"
+        "update_date": "2026-08-28 09:30:29"
     },
     {
         "row_id": 158,
@@ -1261,7 +1261,7 @@
         "artist_id": 265002070,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:48:05"
+        "update_date": "2026-08-28 09:30:34"
     },
     {
         "row_id": 159,
@@ -1277,7 +1277,7 @@
         "artist_id": 203739,
         "artist_genre": "Country",
         "update_type": 1,
-        "update_date": "2026-08-20 13:59:22"
+        "update_date": "2026-08-28 09:30:40"
     },
     {
         "row_id": 161,
@@ -1285,7 +1285,7 @@
         "artist_id": 1348756444,
         "artist_genre": "Deathcore",
         "update_type": 1,
-        "update_date": "2026-08-20 13:59:28"
+        "update_date": "2026-08-28 09:30:46"
     },
     {
         "row_id": 162,
@@ -1293,7 +1293,7 @@
         "artist_id": 3299379,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:48:09"
+        "update_date": "2026-08-28 09:30:52"
     },
     {
         "row_id": 163,
@@ -1301,7 +1301,7 @@
         "artist_id": 1387815306,
         "artist_genre": "Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 13:59:39"
+        "update_date": "2026-08-28 09:30:58"
     },
     {
         "row_id": 164,
@@ -1309,7 +1309,7 @@
         "artist_id": 121043936,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:48:14"
+        "update_date": "2026-08-28 09:31:05"
     },
     {
         "row_id": 165,
@@ -1317,7 +1317,7 @@
         "artist_id": 217005,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 13:59:53"
+        "update_date": "2026-08-28 09:31:12"
     },
     {
         "row_id": 166,
@@ -1325,7 +1325,7 @@
         "artist_id": 1145316099,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:48:18"
+        "update_date": "2026-08-28 09:31:17"
     },
     {
         "row_id": 167,
@@ -1333,7 +1333,7 @@
         "artist_id": 4163922,
         "artist_genre": "Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:48:22"
+        "update_date": "2026-08-28 09:31:23"
     },
     {
         "row_id": 168,
@@ -1341,7 +1341,7 @@
         "artist_id": 278873078,
         "artist_genre": "R&B",
         "update_type": 1,
-        "update_date": "2026-08-20 14:00:11"
+        "update_date": "2026-08-28 09:31:29"
     },
     {
         "row_id": 169,
@@ -1349,7 +1349,7 @@
         "artist_id": 50077521,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:48:26"
+        "update_date": "2026-08-28 09:31:35"
     },
     {
         "row_id": 170,
@@ -1357,7 +1357,7 @@
         "artist_id": 159398723,
         "artist_genre": "Deathcore",
         "update_type": 1,
-        "update_date": "2026-08-20 14:00:23"
+        "update_date": "2026-08-28 09:31:41"
     },
     {
         "row_id": 171,
@@ -1365,7 +1365,7 @@
         "artist_id": 265766061,
         "artist_genre": "Black Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:00:29"
+        "update_date": "2026-08-28 09:31:46"
     },
     {
         "row_id": 172,
@@ -1373,7 +1373,7 @@
         "artist_id": 154751,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:48:31"
+        "update_date": "2026-08-28 09:31:53"
     },
     {
         "row_id": 173,
@@ -1381,7 +1381,7 @@
         "artist_id": 520447521,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:48:35"
+        "update_date": "2026-08-28 09:31:58"
     },
     {
         "row_id": 174,
@@ -1389,7 +1389,7 @@
         "artist_id": 326084432,
         "artist_genre": "Power Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:00:46"
+        "update_date": "2026-08-28 09:32:04"
     },
     {
         "row_id": 175,
@@ -1397,7 +1397,7 @@
         "artist_id": 107402910,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:48:39"
+        "update_date": "2026-08-28 09:32:09"
     },
     {
         "row_id": 176,
@@ -1405,7 +1405,7 @@
         "artist_id": 28174275,
         "artist_genre": "Metalcore",
         "update_type": 1,
-        "update_date": "2026-08-20 14:00:58"
+        "update_date": "2026-08-28 09:32:15"
     },
     {
         "row_id": 177,
@@ -1413,7 +1413,7 @@
         "artist_id": 28692971,
         "artist_genre": "Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:48:43"
+        "update_date": "2026-08-28 09:32:20"
     },
     {
         "row_id": 178,
@@ -1421,7 +1421,7 @@
         "artist_id": 279550516,
         "artist_genre": "Symphonic Black Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:48:47"
+        "update_date": "2026-08-28 09:32:26"
     },
     {
         "row_id": 179,
@@ -1429,7 +1429,7 @@
         "artist_id": 42159435,
         "artist_genre": "Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:01:15"
+        "update_date": "2026-08-28 09:32:32"
     },
     {
         "row_id": 180,
@@ -1437,7 +1437,7 @@
         "artist_id": 159752070,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:48:51"
+        "update_date": "2026-08-28 09:32:38"
     },
     {
         "row_id": 181,
@@ -1445,7 +1445,7 @@
         "artist_id": 1757933184,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:48:54"
+        "update_date": "2026-08-28 09:32:43"
     },
     {
         "row_id": 182,
@@ -1461,7 +1461,7 @@
         "artist_id": 273152410,
         "artist_genre": "Groove Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:48:58"
+        "update_date": "2026-08-28 09:32:48"
     },
     {
         "row_id": 184,
@@ -1469,7 +1469,7 @@
         "artist_id": 1448925855,
         "artist_genre": "Folk Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:01:38"
+        "update_date": "2026-08-28 09:32:54"
     },
     {
         "row_id": 185,
@@ -1477,7 +1477,7 @@
         "artist_id": 362131770,
         "artist_genre": "Hip-Hop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:01:43"
+        "update_date": "2026-08-28 09:32:59"
     },
     {
         "row_id": 186,
@@ -1485,7 +1485,7 @@
         "artist_id": 307783101,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:49:02"
+        "update_date": "2026-08-28 09:33:05"
     },
     {
         "row_id": 187,
@@ -1493,7 +1493,7 @@
         "artist_id": 339161543,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:01:55"
+        "update_date": "2026-08-28 09:33:10"
     },
     {
         "row_id": 188,
@@ -1501,7 +1501,7 @@
         "artist_id": 286570387,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:49:06"
+        "update_date": "2026-08-28 09:33:16"
     },
     {
         "row_id": 189,
@@ -1509,7 +1509,7 @@
         "artist_id": 519486,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:49:10"
+        "update_date": "2026-08-28 09:33:22"
     },
     {
         "row_id": 190,
@@ -1517,7 +1517,7 @@
         "artist_id": 13550318,
         "artist_genre": "Melodic Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:02:13"
+        "update_date": "2026-08-28 09:33:28"
     },
     {
         "row_id": 191,
@@ -1525,7 +1525,7 @@
         "artist_id": 16638953,
         "artist_genre": "Groove Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:02:19"
+        "update_date": "2026-08-28 09:33:34"
     },
     {
         "row_id": 192,
@@ -1541,7 +1541,7 @@
         "artist_id": 95705522,
         "artist_genre": "R&B",
         "update_type": 1,
-        "update_date": "2026-08-20 14:02:29"
+        "update_date": "2026-08-28 09:33:43"
     },
     {
         "row_id": 194,
@@ -1549,7 +1549,7 @@
         "artist_id": 259398,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:02:36"
+        "update_date": "2026-08-28 09:33:50"
     },
     {
         "row_id": 195,
@@ -1557,7 +1557,7 @@
         "artist_id": 14317116,
         "artist_genre": "R&B",
         "update_type": 1,
-        "update_date": "2026-08-20 14:02:44"
+        "update_date": "2026-08-28 09:33:57"
     },
     {
         "row_id": 196,
@@ -1573,7 +1573,7 @@
         "artist_id": 1881731759,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:49:14"
+        "update_date": "2026-08-28 09:34:02"
     },
     {
         "row_id": 198,
@@ -1581,7 +1581,7 @@
         "artist_id": 18935530,
         "artist_genre": "Rap Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:49:18"
+        "update_date": "2026-08-28 09:34:09"
     },
     {
         "row_id": 199,
@@ -1589,7 +1589,7 @@
         "artist_id": 1527728038,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:49:22"
+        "update_date": "2026-08-28 09:34:14"
     },
     {
         "row_id": 200,
@@ -1597,7 +1597,7 @@
         "artist_id": 1588352091,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:49:26"
+        "update_date": "2026-08-28 09:34:20"
     },
     {
         "row_id": 201,
@@ -1605,7 +1605,7 @@
         "artist_id": 15031628,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:49:30"
+        "update_date": "2026-08-28 09:34:26"
     },
     {
         "row_id": 202,
@@ -1613,7 +1613,7 @@
         "artist_id": 435825401,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:03:18"
+        "update_date": "2026-08-28 09:34:31"
     },
     {
         "row_id": 203,
@@ -1621,7 +1621,7 @@
         "artist_id": 1799247657,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:03:24"
+        "update_date": "2026-08-28 09:34:37"
     },
     {
         "row_id": 204,
@@ -1629,7 +1629,7 @@
         "artist_id": 471744,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:03:31"
+        "update_date": "2026-08-28 09:34:44"
     },
     {
         "row_id": 205,
@@ -1637,7 +1637,7 @@
         "artist_id": 397508692,
         "artist_genre": "Glam Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:49:34"
+        "update_date": "2026-08-28 09:34:50"
     },
     {
         "row_id": 206,
@@ -1645,7 +1645,7 @@
         "artist_id": 1655646304,
         "artist_genre": "Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:49:38"
+        "update_date": "2026-08-28 09:34:55"
     },
     {
         "row_id": 207,
@@ -1653,7 +1653,7 @@
         "artist_id": 706356959,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:49:42"
+        "update_date": "2026-08-28 09:35:01"
     },
     {
         "row_id": 208,
@@ -1661,7 +1661,7 @@
         "artist_id": 834634416,
         "artist_genre": "Progressive Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:03:54"
+        "update_date": "2026-08-28 09:35:06"
     },
     {
         "row_id": 209,
@@ -1669,7 +1669,7 @@
         "artist_id": 1494882725,
         "artist_genre": "Industrial Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:04:00"
+        "update_date": "2026-08-28 09:35:11"
     },
     {
         "row_id": 210,
@@ -1677,7 +1677,7 @@
         "artist_id": 1182900937,
         "artist_genre": "Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:49:46"
+        "update_date": "2026-08-28 09:35:17"
     },
     {
         "row_id": 211,
@@ -1685,7 +1685,7 @@
         "artist_id": 1577450345,
         "artist_genre": "Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:04:11"
+        "update_date": "2026-08-28 09:35:22"
     },
     {
         "row_id": 212,
@@ -1693,7 +1693,7 @@
         "artist_id": 6842529,
         "artist_genre": "Symphonic Black Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:04:17"
+        "update_date": "2026-08-28 09:35:28"
     },
     {
         "row_id": 213,
@@ -1701,7 +1701,7 @@
         "artist_id": 3738030,
         "artist_genre": "Symphonic Black Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:49:50"
+        "update_date": "2026-08-28 09:35:34"
     },
     {
         "row_id": 214,
@@ -1717,7 +1717,7 @@
         "artist_id": 524819,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:04:29"
+        "update_date": "2026-08-28 09:35:40"
     },
     {
         "row_id": 216,
@@ -1725,7 +1725,7 @@
         "artist_id": 2861519,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:04:35"
+        "update_date": "2026-08-28 09:35:46"
     },
     {
         "row_id": 217,
@@ -1741,7 +1741,7 @@
         "artist_id": 568294157,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:49:54"
+        "update_date": "2026-08-28 09:35:51"
     },
     {
         "row_id": 219,
@@ -1749,7 +1749,7 @@
         "artist_id": 540063815,
         "artist_genre": "Stoner Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:49:58"
+        "update_date": "2026-08-28 09:35:57"
     },
     {
         "row_id": 220,
@@ -1757,7 +1757,7 @@
         "artist_id": 41977108,
         "artist_genre": "Technical Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:50:02"
+        "update_date": "2026-08-28 09:36:03"
     },
     {
         "row_id": 221,
@@ -1765,7 +1765,7 @@
         "artist_id": 1269835458,
         "artist_genre": "Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:50:06"
+        "update_date": "2026-08-28 09:36:08"
     },
     {
         "row_id": 222,
@@ -1773,7 +1773,7 @@
         "artist_id": 465802,
         "artist_genre": "Rap Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:50:11"
+        "update_date": "2026-08-28 09:36:14"
     },
     {
         "row_id": 223,
@@ -1781,7 +1781,7 @@
         "artist_id": 178617554,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:50:15"
+        "update_date": "2026-08-28 09:36:20"
     },
     {
         "row_id": 224,
@@ -1789,7 +1789,7 @@
         "artist_id": 1459158516,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:50:19"
+        "update_date": "2026-08-28 09:36:25"
     },
     {
         "row_id": 225,
@@ -1829,7 +1829,7 @@
         "artist_id": 256917288,
         "artist_genre": "Black Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:50:23"
+        "update_date": "2026-08-28 09:36:31"
     },
     {
         "row_id": 230,
@@ -1837,7 +1837,7 @@
         "artist_id": 688705822,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:50:27"
+        "update_date": "2026-08-28 09:36:36"
     },
     {
         "row_id": 231,
@@ -1845,7 +1845,7 @@
         "artist_id": 18243687,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:50:31"
+        "update_date": "2026-08-28 09:36:42"
     },
     {
         "row_id": 232,
@@ -1853,7 +1853,7 @@
         "artist_id": 17249127,
         "artist_genre": "Melodic Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:05:40"
+        "update_date": "2026-08-28 09:36:48"
     },
     {
         "row_id": 233,
@@ -1861,7 +1861,7 @@
         "artist_id": 581951674,
         "artist_genre": "Symphonic Black Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:05:45"
+        "update_date": "2026-08-28 09:36:53"
     },
     {
         "row_id": 234,
@@ -1869,7 +1869,7 @@
         "artist_id": 748174,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:50:35"
+        "update_date": "2026-08-28 09:36:59"
     },
     {
         "row_id": 235,
@@ -1877,7 +1877,7 @@
         "artist_id": 5557599,
         "artist_genre": "EDM",
         "update_type": 1,
-        "update_date": "2026-08-20 14:06:02"
+        "update_date": "2026-08-28 09:37:09"
     },
     {
         "row_id": 236,
@@ -1885,7 +1885,7 @@
         "artist_id": 726336927,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:50:39"
+        "update_date": "2026-08-28 09:37:15"
     },
     {
         "row_id": 237,
@@ -1901,7 +1901,7 @@
         "artist_id": 307522520,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:50:44"
+        "update_date": "2026-08-28 09:37:21"
     },
     {
         "row_id": 239,
@@ -1909,7 +1909,7 @@
         "artist_id": 1696366666,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:50:47"
+        "update_date": "2026-08-28 09:37:26"
     },
     {
         "row_id": 240,
@@ -1917,7 +1917,7 @@
         "artist_id": 459042712,
         "artist_genre": "Stoner Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:06:25"
+        "update_date": "2026-08-28 09:37:31"
     },
     {
         "row_id": 241,
@@ -1925,7 +1925,7 @@
         "artist_id": 78011850,
         "artist_genre": "EDM",
         "update_type": 1,
-        "update_date": "2026-08-20 14:06:33"
+        "update_date": "2026-08-28 09:37:40"
     },
     {
         "row_id": 242,
@@ -1933,7 +1933,7 @@
         "artist_id": 17249530,
         "artist_genre": "Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:06:39"
+        "update_date": "2026-08-28 09:37:45"
     },
     {
         "row_id": 243,
@@ -1941,7 +1941,7 @@
         "artist_id": 42258018,
         "artist_genre": "Technical Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:06:45"
+        "update_date": "2026-08-28 09:37:51"
     },
     {
         "row_id": 244,
@@ -1949,7 +1949,7 @@
         "artist_id": 6547189,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:06:51"
+        "update_date": "2026-08-28 09:37:56"
     },
     {
         "row_id": 245,
@@ -1957,7 +1957,7 @@
         "artist_id": 135532,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:50:54"
+        "update_date": "2026-08-28 09:38:04"
     },
     {
         "row_id": 246,
@@ -1965,7 +1965,7 @@
         "artist_id": 1686925632,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:07:05"
+        "update_date": "2026-08-28 09:38:10"
     },
     {
         "row_id": 247,
@@ -1973,7 +1973,7 @@
         "artist_id": 1081768030,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:50:58"
+        "update_date": "2026-08-28 09:38:16"
     },
     {
         "row_id": 248,
@@ -1981,7 +1981,7 @@
         "artist_id": 16644222,
         "artist_genre": "Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:51:02"
+        "update_date": "2026-08-28 09:38:22"
     },
     {
         "row_id": 249,
@@ -1989,7 +1989,7 @@
         "artist_id": 184414833,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:51:06"
+        "update_date": "2026-08-28 09:38:27"
     },
     {
         "row_id": 250,
@@ -1997,7 +1997,7 @@
         "artist_id": 17800621,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:51:10"
+        "update_date": "2026-08-28 09:38:33"
     },
     {
         "row_id": 251,
@@ -2005,7 +2005,7 @@
         "artist_id": 443229623,
         "artist_genre": "Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:51:14"
+        "update_date": "2026-08-28 09:38:39"
     },
     {
         "row_id": 252,
@@ -2013,7 +2013,7 @@
         "artist_id": 437778215,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:51:18"
+        "update_date": "2026-08-28 09:38:45"
     },
     {
         "row_id": 253,
@@ -2021,7 +2021,7 @@
         "artist_id": 64636070,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:51:22"
+        "update_date": "2026-08-28 09:38:51"
     },
     {
         "row_id": 254,
@@ -2029,7 +2029,7 @@
         "artist_id": 264135825,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:51:26"
+        "update_date": "2026-08-28 09:38:56"
     },
     {
         "row_id": 255,
@@ -2045,7 +2045,7 @@
         "artist_id": 835108921,
         "artist_genre": "Metalcore",
         "update_type": 1,
-        "update_date": "2026-08-20 14:07:58"
+        "update_date": "2026-08-28 09:39:02"
     },
     {
         "row_id": 257,
@@ -2053,7 +2053,7 @@
         "artist_id": 913655238,
         "artist_genre": "Gothic Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:08:04"
+        "update_date": "2026-08-28 09:39:07"
     },
     {
         "row_id": 258,
@@ -2061,7 +2061,7 @@
         "artist_id": 30462631,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:51:30"
+        "update_date": "2026-08-28 09:39:13"
     },
     {
         "row_id": 259,
@@ -2069,7 +2069,7 @@
         "artist_id": 337438756,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:51:34"
+        "update_date": "2026-08-28 09:39:19"
     },
     {
         "row_id": 260,
@@ -2077,7 +2077,7 @@
         "artist_id": 1477263754,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:51:38"
+        "update_date": "2026-08-28 09:39:25"
     },
     {
         "row_id": 261,
@@ -2085,7 +2085,7 @@
         "artist_id": 365991611,
         "artist_genre": "Symphonic Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:08:27"
+        "update_date": "2026-08-28 09:39:30"
     },
     {
         "row_id": 262,
@@ -2093,7 +2093,7 @@
         "artist_id": 7278795,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:08:33"
+        "update_date": "2026-08-28 09:39:36"
     },
     {
         "row_id": 263,
@@ -2109,7 +2109,7 @@
         "artist_id": 380615226,
         "artist_genre": "Rave",
         "update_type": 2,
-        "update_date": "2026-08-21 07:51:43"
+        "update_date": "2026-08-28 09:39:41"
     },
     {
         "row_id": 265,
@@ -2125,7 +2125,7 @@
         "artist_id": 15621683,
         "artist_genre": "Symphonic Black Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:51:47"
+        "update_date": "2026-08-28 09:39:47"
     },
     {
         "row_id": 267,
@@ -2133,7 +2133,7 @@
         "artist_id": 2779392,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:08:51"
+        "update_date": "2026-08-28 09:39:53"
     },
     {
         "row_id": 268,
@@ -2149,7 +2149,7 @@
         "artist_id": 1562899607,
         "artist_genre": "Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:08:56"
+        "update_date": "2026-08-28 09:39:58"
     },
     {
         "row_id": 270,
@@ -2157,7 +2157,7 @@
         "artist_id": 18284287,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:51:52"
+        "update_date": "2026-08-28 09:40:05"
     },
     {
         "row_id": 271,
@@ -2165,7 +2165,7 @@
         "artist_id": 156807,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:51:56"
+        "update_date": "2026-08-28 09:40:10"
     },
     {
         "row_id": 272,
@@ -2173,7 +2173,7 @@
         "artist_id": 259887061,
         "artist_genre": "Metalcore",
         "update_type": 1,
-        "update_date": "2026-08-20 14:09:14"
+        "update_date": "2026-08-28 09:40:16"
     },
     {
         "row_id": 273,
@@ -2181,7 +2181,7 @@
         "artist_id": 28623702,
         "artist_genre": "EDM",
         "update_type": 1,
-        "update_date": "2026-08-20 14:09:21"
+        "update_date": "2026-08-28 09:40:22"
     },
     {
         "row_id": 274,
@@ -2189,7 +2189,7 @@
         "artist_id": 157749142,
         "artist_genre": "Hip-Hop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:09:28"
+        "update_date": "2026-08-28 09:40:30"
     },
     {
         "row_id": 275,
@@ -2205,7 +2205,7 @@
         "artist_id": 830588310,
         "artist_genre": "Pop",
         "update_type": 2,
-        "update_date": "2026-08-21 07:52:02"
+        "update_date": "2026-08-28 09:40:37"
     },
     {
         "row_id": 277,
@@ -2213,7 +2213,7 @@
         "artist_id": 1705431963,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:52:05"
+        "update_date": "2026-08-28 09:40:42"
     },
     {
         "row_id": 278,
@@ -2221,7 +2221,7 @@
         "artist_id": 307317604,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:52:10"
+        "update_date": "2026-08-28 09:40:48"
     },
     {
         "row_id": 279,
@@ -2229,7 +2229,7 @@
         "artist_id": 952845940,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:52:14"
+        "update_date": "2026-08-28 09:40:54"
     },
     {
         "row_id": 280,
@@ -2237,7 +2237,7 @@
         "artist_id": 373967,
         "artist_genre": "Rap Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:52:18"
+        "update_date": "2026-08-28 09:41:00"
     },
     {
         "row_id": 281,
@@ -2245,7 +2245,7 @@
         "artist_id": 35315,
         "artist_genre": "Rap",
         "update_type": 1,
-        "update_date": "2026-08-20 14:10:05"
+        "update_date": "2026-08-28 09:41:06"
     },
     {
         "row_id": 282,
@@ -2253,7 +2253,7 @@
         "artist_id": 46934953,
         "artist_genre": "Gothic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:52:22"
+        "update_date": "2026-08-28 09:41:11"
     },
     {
         "row_id": 283,
@@ -2261,7 +2261,7 @@
         "artist_id": 3261249,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:52:26"
+        "update_date": "2026-08-28 09:41:17"
     },
     {
         "row_id": 284,
@@ -2269,7 +2269,7 @@
         "artist_id": 271256,
         "artist_genre": "Rap",
         "update_type": 1,
-        "update_date": "2026-08-20 14:10:27"
+        "update_date": "2026-08-28 09:41:27"
     },
     {
         "row_id": 285,
@@ -2277,7 +2277,7 @@
         "artist_id": 730091,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:52:30"
+        "update_date": "2026-08-28 09:41:33"
     },
     {
         "row_id": 286,
@@ -2285,7 +2285,7 @@
         "artist_id": 1609700595,
         "artist_genre": "Thrash Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:10:39"
+        "update_date": "2026-08-28 09:41:38"
     },
     {
         "row_id": 287,
@@ -2293,7 +2293,7 @@
         "artist_id": 95701594,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:52:34"
+        "update_date": "2026-08-28 09:41:44"
     },
     {
         "row_id": 288,
@@ -2301,7 +2301,7 @@
         "artist_id": 1031397873,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:10:53"
+        "update_date": "2026-08-28 09:41:52"
     },
     {
         "row_id": 289,
@@ -2309,7 +2309,7 @@
         "artist_id": 1057505755,
         "artist_genre": "Rap Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:10:59"
+        "update_date": "2026-08-28 09:41:57"
     },
     {
         "row_id": 290,
@@ -2317,7 +2317,7 @@
         "artist_id": 1405075680,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:52:38"
+        "update_date": "2026-08-28 09:42:03"
     },
     {
         "row_id": 291,
@@ -2325,7 +2325,7 @@
         "artist_id": 326752603,
         "artist_genre": "Heavy Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:52:42"
+        "update_date": "2026-08-28 09:42:09"
     },
     {
         "row_id": 292,
@@ -2341,7 +2341,7 @@
         "artist_id": 1044809006,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:52:46"
+        "update_date": "2026-08-28 09:42:14"
     },
     {
         "row_id": 294,
@@ -2349,7 +2349,7 @@
         "artist_id": 958038395,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:52:50"
+        "update_date": "2026-08-28 09:42:19"
     },
     {
         "row_id": 295,
@@ -2357,7 +2357,7 @@
         "artist_id": 430613575,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:52:54"
+        "update_date": "2026-08-28 09:42:25"
     },
     {
         "row_id": 296,
@@ -2365,7 +2365,7 @@
         "artist_id": 54687228,
         "artist_genre": "Folk Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:52:58"
+        "update_date": "2026-08-28 09:42:31"
     },
     {
         "row_id": 297,
@@ -2373,7 +2373,7 @@
         "artist_id": 15621603,
         "artist_genre": "Groove Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:53:02"
+        "update_date": "2026-08-28 09:42:37"
     },
     {
         "row_id": 298,
@@ -2381,7 +2381,7 @@
         "artist_id": 387883325,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:53:07"
+        "update_date": "2026-08-28 09:42:42"
     },
     {
         "row_id": 299,
@@ -2389,7 +2389,7 @@
         "artist_id": 3276488,
         "artist_genre": "Nu Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:11:51"
+        "update_date": "2026-08-28 09:42:48"
     },
     {
         "row_id": 300,
@@ -2397,7 +2397,7 @@
         "artist_id": 251691375,
         "artist_genre": "Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:11:57"
+        "update_date": "2026-08-28 09:42:54"
     },
     {
         "row_id": 301,
@@ -2405,7 +2405,7 @@
         "artist_id": 269358403,
         "artist_genre": "Folk Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:53:11"
+        "update_date": "2026-08-28 09:42:59"
     },
     {
         "row_id": 302,
@@ -2413,7 +2413,7 @@
         "artist_id": 1110032029,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:53:15"
+        "update_date": "2026-08-28 09:43:05"
     },
     {
         "row_id": 303,
@@ -2421,7 +2421,7 @@
         "artist_id": 261362717,
         "artist_genre": "Industrial Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:12:14"
+        "update_date": "2026-08-28 09:43:10"
     },
     {
         "row_id": 304,
@@ -2429,7 +2429,7 @@
         "artist_id": 13432035,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:53:19"
+        "update_date": "2026-08-28 09:43:16"
     },
     {
         "row_id": 305,
@@ -2437,7 +2437,7 @@
         "artist_id": 111051,
         "artist_genre": "Rap",
         "update_type": 1,
-        "update_date": "2026-08-20 14:12:28"
+        "update_date": "2026-08-28 09:43:23"
     },
     {
         "row_id": 306,
@@ -2445,7 +2445,7 @@
         "artist_id": 179865613,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:53:25"
+        "update_date": "2026-08-28 09:43:30"
     },
     {
         "row_id": 307,
@@ -2453,7 +2453,7 @@
         "artist_id": 923642844,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:53:29"
+        "update_date": "2026-08-28 09:43:36"
     },
     {
         "row_id": 308,
@@ -2461,7 +2461,7 @@
         "artist_id": 185933496,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:53:33"
+        "update_date": "2026-08-28 09:43:42"
     },
     {
         "row_id": 309,
@@ -2469,7 +2469,7 @@
         "artist_id": 1344210544,
         "artist_genre": "Technical Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:12:53"
+        "update_date": "2026-08-28 09:43:47"
     },
     {
         "row_id": 310,
@@ -2477,7 +2477,7 @@
         "artist_id": 843621835,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:53:37"
+        "update_date": "2026-08-28 09:43:52"
     },
     {
         "row_id": 311,
@@ -2485,7 +2485,7 @@
         "artist_id": 1066053168,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:13:04"
+        "update_date": "2026-08-28 09:43:58"
     },
     {
         "row_id": 312,
@@ -2493,7 +2493,7 @@
         "artist_id": 42102393,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:53:41"
+        "update_date": "2026-08-28 09:44:04"
     },
     {
         "row_id": 313,
@@ -2501,7 +2501,7 @@
         "artist_id": 102861586,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:13:16"
+        "update_date": "2026-08-28 09:44:09"
     },
     {
         "row_id": 314,
@@ -2509,7 +2509,7 @@
         "artist_id": 258833437,
         "artist_genre": "Thrash Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:53:45"
+        "update_date": "2026-08-28 09:44:15"
     },
     {
         "row_id": 315,
@@ -2517,7 +2517,7 @@
         "artist_id": 315632493,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:53:49"
+        "update_date": "2026-08-28 09:44:20"
     },
     {
         "row_id": 316,
@@ -2525,7 +2525,7 @@
         "artist_id": 106228497,
         "artist_genre": "Thrash Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:53:52"
+        "update_date": "2026-08-28 09:44:26"
     },
     {
         "row_id": 317,
@@ -2533,7 +2533,7 @@
         "artist_id": 565644950,
         "artist_genre": "Nu Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:13:39"
+        "update_date": "2026-08-28 09:44:31"
     },
     {
         "row_id": 318,
@@ -2541,7 +2541,7 @@
         "artist_id": 825926898,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:53:56"
+        "update_date": "2026-08-28 09:44:37"
     },
     {
         "row_id": 319,
@@ -2549,7 +2549,7 @@
         "artist_id": 28673423,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:54:01"
+        "update_date": "2026-08-28 09:44:43"
     },
     {
         "row_id": 320,
@@ -2557,7 +2557,7 @@
         "artist_id": 439592053,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:54:05"
+        "update_date": "2026-08-28 09:44:49"
     },
     {
         "row_id": 321,
@@ -2565,7 +2565,7 @@
         "artist_id": 474676502,
         "artist_genre": "Technical Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:54:09"
+        "update_date": "2026-08-28 09:44:54"
     },
     {
         "row_id": 322,
@@ -2573,7 +2573,7 @@
         "artist_id": 980357124,
         "artist_genre": "Gothic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:54:13"
+        "update_date": "2026-08-28 09:45:00"
     },
     {
         "row_id": 323,
@@ -2581,7 +2581,7 @@
         "artist_id": 17508882,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:14:15"
+        "update_date": "2026-08-28 09:45:05"
     },
     {
         "row_id": 324,
@@ -2589,7 +2589,7 @@
         "artist_id": 61412380,
         "artist_genre": "Folk Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:54:17"
+        "update_date": "2026-08-28 09:45:11"
     },
     {
         "row_id": 325,
@@ -2597,7 +2597,7 @@
         "artist_id": 15773169,
         "artist_genre": "Industrial Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:54:21"
+        "update_date": "2026-08-28 09:45:16"
     },
     {
         "row_id": 326,
@@ -2605,7 +2605,7 @@
         "artist_id": 151910203,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:14:33"
+        "update_date": "2026-08-28 09:45:22"
     },
     {
         "row_id": 327,
@@ -2613,7 +2613,7 @@
         "artist_id": 211261102,
         "artist_genre": "Folk Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:54:26"
+        "update_date": "2026-08-28 09:45:28"
     },
     {
         "row_id": 328,
@@ -2621,7 +2621,7 @@
         "artist_id": 1272838229,
         "artist_genre": "Rap Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:54:30"
+        "update_date": "2026-08-28 09:45:34"
     },
     {
         "row_id": 329,
@@ -2629,7 +2629,7 @@
         "artist_id": 96318432,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:54:34"
+        "update_date": "2026-08-28 09:45:39"
     },
     {
         "row_id": 330,
@@ -2637,7 +2637,7 @@
         "artist_id": 1097645498,
         "artist_genre": "Technical Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:14:56"
+        "update_date": "2026-08-28 09:45:45"
     },
     {
         "row_id": 331,
@@ -2645,7 +2645,7 @@
         "artist_id": 437838789,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:54:38"
+        "update_date": "2026-08-28 09:45:50"
     },
     {
         "row_id": 332,
@@ -2653,7 +2653,7 @@
         "artist_id": 258875116,
         "artist_genre": "Groove Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:54:42"
+        "update_date": "2026-08-28 09:45:56"
     },
     {
         "row_id": 333,
@@ -2661,7 +2661,7 @@
         "artist_id": 88311,
         "artist_genre": "Nu Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:54:46"
+        "update_date": "2026-08-28 09:46:02"
     },
     {
         "row_id": 334,
@@ -2669,7 +2669,7 @@
         "artist_id": 450736188,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:54:50"
+        "update_date": "2026-08-28 09:46:07"
     },
     {
         "row_id": 335,
@@ -2677,7 +2677,7 @@
         "artist_id": 27653104,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:15:25"
+        "update_date": "2026-08-28 09:46:13"
     },
     {
         "row_id": 336,
@@ -2685,7 +2685,7 @@
         "artist_id": 6906197,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:54:54"
+        "update_date": "2026-08-28 09:46:19"
     },
     {
         "row_id": 337,
@@ -2693,7 +2693,7 @@
         "artist_id": 309867739,
         "artist_genre": "Gothic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:54:58"
+        "update_date": "2026-08-28 09:46:24"
     },
     {
         "row_id": 338,
@@ -2709,7 +2709,7 @@
         "artist_id": 5648447,
         "artist_genre": "Heavy Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:55:02"
+        "update_date": "2026-08-28 09:46:30"
     },
     {
         "row_id": 340,
@@ -2717,7 +2717,7 @@
         "artist_id": 1724866538,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:55:06"
+        "update_date": "2026-08-28 09:46:35"
     },
     {
         "row_id": 341,
@@ -2725,7 +2725,7 @@
         "artist_id": 849321982,
         "artist_genre": "Power Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:15:54"
+        "update_date": "2026-08-28 09:46:41"
     },
     {
         "row_id": 342,
@@ -2733,7 +2733,7 @@
         "artist_id": 28673455,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:16:00"
+        "update_date": "2026-08-28 09:46:46"
     },
     {
         "row_id": 343,
@@ -2741,7 +2741,7 @@
         "artist_id": 510215,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:55:10"
+        "update_date": "2026-08-28 09:46:52"
     },
     {
         "row_id": 344,
@@ -2749,7 +2749,7 @@
         "artist_id": 486640196,
         "artist_genre": "Groove Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:55:14"
+        "update_date": "2026-08-28 09:46:57"
     },
     {
         "row_id": 345,
@@ -2757,7 +2757,7 @@
         "artist_id": 208973684,
         "artist_genre": "Doom Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:55:18"
+        "update_date": "2026-08-28 09:47:03"
     },
     {
         "row_id": 346,
@@ -2765,7 +2765,7 @@
         "artist_id": 1457925016,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:55:22"
+        "update_date": "2026-08-28 09:47:08"
     },
     {
         "row_id": 347,
@@ -2773,7 +2773,7 @@
         "artist_id": 1068343185,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:55:26"
+        "update_date": "2026-08-28 09:47:14"
     },
     {
         "row_id": 348,
@@ -2781,7 +2781,7 @@
         "artist_id": 26514798,
         "artist_genre": "Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:16:34"
+        "update_date": "2026-08-28 09:47:19"
     },
     {
         "row_id": 349,
@@ -2789,7 +2789,7 @@
         "artist_id": 59745912,
         "artist_genre": "Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:16:40"
+        "update_date": "2026-08-28 09:47:25"
     },
     {
         "row_id": 350,
@@ -2797,7 +2797,7 @@
         "artist_id": 416625995,
         "artist_genre": "Nu Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:16:46"
+        "update_date": "2026-08-28 09:47:30"
     },
     {
         "row_id": 351,
@@ -2805,7 +2805,7 @@
         "artist_id": 1065835156,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:55:30"
+        "update_date": "2026-08-28 09:47:36"
     },
     {
         "row_id": 352,
@@ -2813,7 +2813,7 @@
         "artist_id": 1497429001,
         "artist_genre": "Country",
         "update_type": 1,
-        "update_date": "2026-08-20 14:16:57"
+        "update_date": "2026-08-28 09:47:42"
     },
     {
         "row_id": 353,
@@ -2829,7 +2829,7 @@
         "artist_id": 600730426,
         "artist_genre": "Heavy Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:55:34"
+        "update_date": "2026-08-28 09:47:48"
     },
     {
         "row_id": 355,
@@ -2837,7 +2837,7 @@
         "artist_id": 1582883040,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:55:38"
+        "update_date": "2026-08-28 09:47:53"
     },
     {
         "row_id": 356,
@@ -2845,7 +2845,7 @@
         "artist_id": 458659054,
         "artist_genre": "Hip-Hop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:17:17"
+        "update_date": "2026-08-28 09:48:01"
     },
     {
         "row_id": 357,
@@ -2853,7 +2853,7 @@
         "artist_id": 280779736,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:55:42"
+        "update_date": "2026-08-28 09:48:07"
     },
     {
         "row_id": 358,
@@ -2861,7 +2861,7 @@
         "artist_id": 1558093934,
         "artist_genre": "Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:17:28"
+        "update_date": "2026-08-28 09:48:12"
     },
     {
         "row_id": 359,
@@ -2869,7 +2869,7 @@
         "artist_id": 250737,
         "artist_genre": "Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:55:46"
+        "update_date": "2026-08-28 09:48:18"
     },
     {
         "row_id": 360,
@@ -2877,7 +2877,7 @@
         "artist_id": 65158676,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:55:50"
+        "update_date": "2026-08-28 09:48:24"
     },
     {
         "row_id": 361,
@@ -2885,7 +2885,7 @@
         "artist_id": 2089079,
         "artist_genre": "Punk Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:55:54"
+        "update_date": "2026-08-28 09:48:30"
     },
     {
         "row_id": 362,
@@ -2901,7 +2901,7 @@
         "artist_id": 1373297908,
         "artist_genre": "Thrash Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:55:58"
+        "update_date": "2026-08-28 09:48:35"
     },
     {
         "row_id": 364,
@@ -2909,7 +2909,7 @@
         "artist_id": 15866087,
         "artist_genre": "Symphonic Black Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:56:01"
+        "update_date": "2026-08-28 09:48:41"
     },
     {
         "row_id": 365,
@@ -2917,7 +2917,7 @@
         "artist_id": 954266,
         "artist_genre": "Punk Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:18:04"
+        "update_date": "2026-08-28 09:48:47"
     },
     {
         "row_id": 366,
@@ -2925,7 +2925,7 @@
         "artist_id": 1244071662,
         "artist_genre": "Stoner Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:56:05"
+        "update_date": "2026-08-28 09:48:52"
     },
     {
         "row_id": 367,
@@ -2933,7 +2933,7 @@
         "artist_id": 4916893,
         "artist_genre": "Grunge",
         "update_type": 1,
-        "update_date": "2026-08-20 14:18:15"
+        "update_date": "2026-08-28 09:48:58"
     },
     {
         "row_id": 368,
@@ -2941,7 +2941,7 @@
         "artist_id": 1535465007,
         "artist_genre": "Rap Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:56:09"
+        "update_date": "2026-08-28 09:49:03"
     },
     {
         "row_id": 369,
@@ -2949,7 +2949,7 @@
         "artist_id": 558193,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:18:27"
+        "update_date": "2026-08-28 09:49:09"
     },
     {
         "row_id": 370,
@@ -2957,7 +2957,7 @@
         "artist_id": 106621,
         "artist_genre": "Hard Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:18:33"
+        "update_date": "2026-08-28 09:49:15"
     },
     {
         "row_id": 371,
@@ -2965,7 +2965,7 @@
         "artist_id": 18262718,
         "artist_genre": "Rap Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:56:13"
+        "update_date": "2026-08-28 09:49:20"
     },
     {
         "row_id": 372,
@@ -2973,7 +2973,7 @@
         "artist_id": 558489997,
         "artist_genre": "Rap Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:18:44"
+        "update_date": "2026-08-28 09:49:26"
     },
     {
         "row_id": 373,
@@ -2981,7 +2981,7 @@
         "artist_id": 363702196,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:56:17"
+        "update_date": "2026-08-28 09:49:32"
     },
     {
         "row_id": 374,
@@ -2989,7 +2989,7 @@
         "artist_id": 3969358,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:56:22"
+        "update_date": "2026-08-28 09:49:38"
     },
     {
         "row_id": 375,
@@ -2997,7 +2997,7 @@
         "artist_id": 6475279,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:56:26"
+        "update_date": "2026-08-28 09:49:44"
     },
     {
         "row_id": 376,
@@ -3005,7 +3005,7 @@
         "artist_id": 80907270,
         "artist_genre": "Progressive Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:19:08"
+        "update_date": "2026-08-28 09:49:49"
     },
     {
         "row_id": 377,
@@ -3013,7 +3013,7 @@
         "artist_id": 1541741631,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:56:30"
+        "update_date": "2026-08-28 09:49:54"
     },
     {
         "row_id": 378,
@@ -3021,7 +3021,7 @@
         "artist_id": 90291,
         "artist_genre": "Metalcore",
         "update_type": 1,
-        "update_date": "2026-08-20 14:19:19"
+        "update_date": "2026-08-28 09:50:00"
     },
     {
         "row_id": 379,
@@ -3029,7 +3029,7 @@
         "artist_id": 7251914,
         "artist_genre": "Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:56:34"
+        "update_date": "2026-08-28 09:50:05"
     },
     {
         "row_id": 380,
@@ -3037,7 +3037,7 @@
         "artist_id": 323831786,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:56:38"
+        "update_date": "2026-08-28 09:50:11"
     },
     {
         "row_id": 381,
@@ -3045,7 +3045,7 @@
         "artist_id": 262114058,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:19:36"
+        "update_date": "2026-08-28 09:50:16"
     },
     {
         "row_id": 382,
@@ -3053,7 +3053,7 @@
         "artist_id": 107403664,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:56:42"
+        "update_date": "2026-08-28 09:50:22"
     },
     {
         "row_id": 383,
@@ -3061,7 +3061,7 @@
         "artist_id": 1487510,
         "artist_genre": "Rap Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:56:47"
+        "update_date": "2026-08-28 09:50:28"
     },
     {
         "row_id": 384,
@@ -3069,7 +3069,7 @@
         "artist_id": 1455211134,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:56:51"
+        "update_date": "2026-08-28 09:50:34"
     },
     {
         "row_id": 385,
@@ -3085,7 +3085,7 @@
         "artist_id": 215827435,
         "artist_genre": "Groove Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:20:00"
+        "update_date": "2026-08-28 09:50:40"
     },
     {
         "row_id": 387,
@@ -3093,7 +3093,7 @@
         "artist_id": 68223567,
         "artist_genre": "Hard Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:20:06"
+        "update_date": "2026-08-28 09:50:45"
     },
     {
         "row_id": 388,
@@ -3101,7 +3101,7 @@
         "artist_id": 4471986,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:20:12"
+        "update_date": "2026-08-28 09:50:51"
     },
     {
         "row_id": 389,
@@ -3109,7 +3109,7 @@
         "artist_id": 294758731,
         "artist_genre": "Hard Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:20:17"
+        "update_date": "2026-08-28 09:50:56"
     },
     {
         "row_id": 390,
@@ -3117,7 +3117,7 @@
         "artist_id": 1496026557,
         "artist_genre": "Alternative Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:56:55"
+        "update_date": "2026-08-28 09:51:02"
     },
     {
         "row_id": 391,
@@ -3125,7 +3125,7 @@
         "artist_id": 1445776667,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:56:59"
+        "update_date": "2026-08-28 09:51:08"
     },
     {
         "row_id": 392,
@@ -3133,7 +3133,7 @@
         "artist_id": 1234951513,
         "artist_genre": "Stoner Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:57:02"
+        "update_date": "2026-08-28 09:51:13"
     },
     {
         "row_id": 393,
@@ -3141,7 +3141,7 @@
         "artist_id": 335876,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:20:40"
+        "update_date": "2026-08-28 09:51:18"
     },
     {
         "row_id": 394,
@@ -3149,7 +3149,7 @@
         "artist_id": 1449601841,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:57:06"
+        "update_date": "2026-08-28 09:51:24"
     },
     {
         "row_id": 395,
@@ -3165,7 +3165,7 @@
         "artist_id": 15788810,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:57:11"
+        "update_date": "2026-08-28 09:51:30"
     },
     {
         "row_id": 397,
@@ -3173,7 +3173,7 @@
         "artist_id": 429561895,
         "artist_genre": "Rap Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:57:15"
+        "update_date": "2026-08-28 09:51:36"
     },
     {
         "row_id": 398,
@@ -3181,7 +3181,7 @@
         "artist_id": 1601428639,
         "artist_genre": "Progressive Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:21:04"
+        "update_date": "2026-08-28 09:51:41"
     },
     {
         "row_id": 399,
@@ -3189,7 +3189,7 @@
         "artist_id": 204318665,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:57:20"
+        "update_date": "2026-08-28 09:51:48"
     },
     {
         "row_id": 400,
@@ -3197,7 +3197,7 @@
         "artist_id": 284534047,
         "artist_genre": "Progressive Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:21:15"
+        "update_date": "2026-08-28 09:51:53"
     },
     {
         "row_id": 401,
@@ -3205,7 +3205,7 @@
         "artist_id": 314463968,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:57:24"
+        "update_date": "2026-08-28 09:51:58"
     },
     {
         "row_id": 402,
@@ -3213,7 +3213,7 @@
         "artist_id": 152674496,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:57:28"
+        "update_date": "2026-08-28 09:52:04"
     },
     {
         "row_id": 403,
@@ -3221,7 +3221,7 @@
         "artist_id": 5570230,
         "artist_genre": "Nu Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:21:33"
+        "update_date": "2026-08-28 09:52:10"
     },
     {
         "row_id": 404,
@@ -3229,7 +3229,7 @@
         "artist_id": 358714030,
         "artist_genre": "Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:21:40"
+        "update_date": "2026-08-28 09:52:16"
     },
     {
         "row_id": 405,
@@ -3237,7 +3237,7 @@
         "artist_id": 15866288,
         "artist_genre": "Black Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:57:32"
+        "update_date": "2026-08-28 09:52:22"
     },
     {
         "row_id": 406,
@@ -3245,7 +3245,7 @@
         "artist_id": 15866128,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:57:36"
+        "update_date": "2026-08-28 09:52:27"
     },
     {
         "row_id": 407,
@@ -3253,7 +3253,7 @@
         "artist_id": 465707,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:21:58"
+        "update_date": "2026-08-28 09:52:33"
     },
     {
         "row_id": 408,
@@ -3261,7 +3261,7 @@
         "artist_id": 667542803,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:57:40"
+        "update_date": "2026-08-28 09:52:39"
     },
     {
         "row_id": 409,
@@ -3269,7 +3269,7 @@
         "artist_id": 316626426,
         "artist_genre": "Technical Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:57:44"
+        "update_date": "2026-08-28 09:52:44"
     },
     {
         "row_id": 410,
@@ -3277,7 +3277,7 @@
         "artist_id": 1719972340,
         "artist_genre": "Gothic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:57:48"
+        "update_date": "2026-08-28 09:52:50"
     },
     {
         "row_id": 411,
@@ -3293,7 +3293,7 @@
         "artist_id": 1619555284,
         "artist_genre": "Folk Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:57:52"
+        "update_date": "2026-08-28 09:52:56"
     },
     {
         "row_id": 413,
@@ -3309,7 +3309,7 @@
         "artist_id": 78949757,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:57:56"
+        "update_date": "2026-08-28 09:53:02"
     },
     {
         "row_id": 415,
@@ -3317,7 +3317,7 @@
         "artist_id": 1393307706,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:58:00"
+        "update_date": "2026-08-28 09:53:07"
     },
     {
         "row_id": 416,
@@ -3341,7 +3341,7 @@
         "artist_id": 1089858079,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:58:04"
+        "update_date": "2026-08-28 09:53:12"
     },
     {
         "row_id": 419,
@@ -3349,7 +3349,7 @@
         "artist_id": 125711666,
         "artist_genre": "Bluegrass",
         "update_type": 1,
-        "update_date": "2026-08-20 14:22:44"
+        "update_date": "2026-08-28 09:53:18"
     },
     {
         "row_id": 420,
@@ -3357,7 +3357,7 @@
         "artist_id": 546381,
         "artist_genre": "Heavy Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:58:08"
+        "update_date": "2026-08-28 09:53:25"
     },
     {
         "row_id": 421,
@@ -3373,7 +3373,7 @@
         "artist_id": 1484488135,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:58:12"
+        "update_date": "2026-08-28 09:53:30"
     },
     {
         "row_id": 423,
@@ -3381,7 +3381,7 @@
         "artist_id": 129659665,
         "artist_genre": "Nu Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:58:17"
+        "update_date": "2026-08-28 09:53:37"
     },
     {
         "row_id": 424,
@@ -3389,7 +3389,7 @@
         "artist_id": 957093644,
         "artist_genre": "Deathcore",
         "update_type": 1,
-        "update_date": "2026-08-20 14:23:10"
+        "update_date": "2026-08-28 09:53:42"
     },
     {
         "row_id": 425,
@@ -3397,7 +3397,7 @@
         "artist_id": 534599711,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:58:21"
+        "update_date": "2026-08-28 09:53:48"
     },
     {
         "row_id": 426,
@@ -3413,7 +3413,7 @@
         "artist_id": 259118085,
         "artist_genre": "R&B",
         "update_type": 1,
-        "update_date": "2026-08-20 14:23:25"
+        "update_date": "2026-08-28 09:53:56"
     },
     {
         "row_id": 428,
@@ -3421,7 +3421,7 @@
         "artist_id": 436625213,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:58:25"
+        "update_date": "2026-08-28 09:54:02"
     },
     {
         "row_id": 429,
@@ -3429,7 +3429,7 @@
         "artist_id": 463009,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:23:39"
+        "update_date": "2026-08-28 09:54:09"
     },
     {
         "row_id": 430,
@@ -3445,7 +3445,7 @@
         "artist_id": 963872688,
         "artist_genre": "Rap",
         "update_type": 1,
-        "update_date": "2026-08-20 14:23:45"
+        "update_date": "2026-08-28 09:54:15"
     },
     {
         "row_id": 432,
@@ -3453,7 +3453,7 @@
         "artist_id": 496694999,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:58:29"
+        "update_date": "2026-08-28 09:54:21"
     },
     {
         "row_id": 433,
@@ -3461,7 +3461,7 @@
         "artist_id": 213177752,
         "artist_genre": "Technical Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:58:33"
+        "update_date": "2026-08-28 09:54:26"
     },
     {
         "row_id": 434,
@@ -3469,7 +3469,7 @@
         "artist_id": 72181046,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:58:37"
+        "update_date": "2026-08-28 09:54:32"
     },
     {
         "row_id": 435,
@@ -3493,7 +3493,7 @@
         "artist_id": 6910560,
         "artist_genre": "Progressive Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:24:08"
+        "update_date": "2026-08-28 09:54:37"
     },
     {
         "row_id": 438,
@@ -3517,7 +3517,7 @@
         "artist_id": 1883437,
         "artist_genre": "Country",
         "update_type": 2,
-        "update_date": "2026-08-21 07:58:41"
+        "update_date": "2026-08-28 09:54:43"
     },
     {
         "row_id": 441,
@@ -3525,7 +3525,7 @@
         "artist_id": 660106105,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:58:45"
+        "update_date": "2026-08-28 09:54:48"
     },
     {
         "row_id": 442,
@@ -3533,7 +3533,7 @@
         "artist_id": 320569549,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:24:28"
+        "update_date": "2026-08-28 09:54:56"
     },
     {
         "row_id": 443,
@@ -3541,7 +3541,7 @@
         "artist_id": 908429460,
         "artist_genre": "Progressive Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:24:33"
+        "update_date": "2026-08-28 09:55:02"
     },
     {
         "row_id": 444,
@@ -3573,7 +3573,7 @@
         "artist_id": 85099785,
         "artist_genre": "Progressive Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:58:49"
+        "update_date": "2026-08-28 09:55:07"
     },
     {
         "row_id": 448,
@@ -3581,7 +3581,7 @@
         "artist_id": 15951546,
         "artist_genre": "Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:58:53"
+        "update_date": "2026-08-28 09:55:13"
     },
     {
         "row_id": 449,
@@ -3589,7 +3589,7 @@
         "artist_id": 73592787,
         "artist_genre": "Doom Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:58:58"
+        "update_date": "2026-08-28 09:55:19"
     },
     {
         "row_id": 450,
@@ -3597,7 +3597,7 @@
         "artist_id": 64387566,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:24:59"
+        "update_date": "2026-08-28 09:55:26"
     },
     {
         "row_id": 451,
@@ -3605,7 +3605,7 @@
         "artist_id": 328886581,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:59:02"
+        "update_date": "2026-08-28 09:55:32"
     },
     {
         "row_id": 452,
@@ -3613,7 +3613,7 @@
         "artist_id": 334854763,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:25:11"
+        "update_date": "2026-08-28 09:55:39"
     },
     {
         "row_id": 453,
@@ -3621,7 +3621,7 @@
         "artist_id": 1450170610,
         "artist_genre": "Industrial Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:59:05"
+        "update_date": "2026-08-28 09:55:44"
     },
     {
         "row_id": 454,
@@ -3629,7 +3629,7 @@
         "artist_id": 1004631193,
         "artist_genre": "Doom Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:59:09"
+        "update_date": "2026-08-28 09:55:50"
     },
     {
         "row_id": 455,
@@ -3637,7 +3637,7 @@
         "artist_id": 252399,
         "artist_genre": "Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 07:59:14"
+        "update_date": "2026-08-28 09:55:56"
     },
     {
         "row_id": 456,
@@ -3653,7 +3653,7 @@
         "artist_id": 202098188,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:59:18"
+        "update_date": "2026-08-28 09:56:01"
     },
     {
         "row_id": 458,
@@ -3661,7 +3661,7 @@
         "artist_id": 216252398,
         "artist_genre": "Heavy Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:59:22"
+        "update_date": "2026-08-28 09:56:07"
     },
     {
         "row_id": 459,
@@ -3669,7 +3669,7 @@
         "artist_id": 280835500,
         "artist_genre": "EDM",
         "update_type": 1,
-        "update_date": "2026-08-20 14:25:47"
+        "update_date": "2026-08-28 09:56:13"
     },
     {
         "row_id": 460,
@@ -3677,7 +3677,7 @@
         "artist_id": 14268438,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:59:26"
+        "update_date": "2026-08-28 09:56:19"
     },
     {
         "row_id": 461,
@@ -3685,7 +3685,7 @@
         "artist_id": 1450535649,
         "artist_genre": "Metalcore",
         "update_type": 1,
-        "update_date": "2026-08-20 14:25:58"
+        "update_date": "2026-08-28 09:56:24"
     },
     {
         "row_id": 462,
@@ -3693,7 +3693,7 @@
         "artist_id": 5576674,
         "artist_genre": "Nu Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:59:30"
+        "update_date": "2026-08-28 09:56:30"
     },
     {
         "row_id": 463,
@@ -3701,7 +3701,7 @@
         "artist_id": 1601998574,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 07:59:34"
+        "update_date": "2026-08-28 09:56:35"
     },
     {
         "row_id": 464,
@@ -3709,7 +3709,7 @@
         "artist_id": 440719207,
         "artist_genre": "EDM",
         "update_type": 1,
-        "update_date": "2026-08-20 14:26:15"
+        "update_date": "2026-08-28 09:56:41"
     },
     {
         "row_id": 465,
@@ -3725,7 +3725,7 @@
         "artist_id": 466532,
         "artist_genre": "Nu Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:59:38"
+        "update_date": "2026-08-28 09:56:47"
     },
     {
         "row_id": 467,
@@ -3741,7 +3741,7 @@
         "artist_id": 18030160,
         "artist_genre": "Gothic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:59:43"
+        "update_date": "2026-08-28 09:56:53"
     },
     {
         "row_id": 469,
@@ -3749,7 +3749,7 @@
         "artist_id": 277293880,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:26:35"
+        "update_date": "2026-08-28 09:57:01"
     },
     {
         "row_id": 470,
@@ -3757,7 +3757,7 @@
         "artist_id": 1785017394,
         "artist_genre": "Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:26:41"
+        "update_date": "2026-08-28 09:57:06"
     },
     {
         "row_id": 471,
@@ -3765,7 +3765,7 @@
         "artist_id": 18758452,
         "artist_genre": "Groove Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 07:59:47"
+        "update_date": "2026-08-28 09:57:12"
     },
     {
         "row_id": 472,
@@ -3773,7 +3773,7 @@
         "artist_id": 1687417810,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:59:51"
+        "update_date": "2026-08-28 09:57:17"
     },
     {
         "row_id": 473,
@@ -3781,7 +3781,7 @@
         "artist_id": 1631608480,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:26:58"
+        "update_date": "2026-08-28 09:57:23"
     },
     {
         "row_id": 474,
@@ -3789,7 +3789,7 @@
         "artist_id": 530875466,
         "artist_genre": "Alternative Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:27:04"
+        "update_date": "2026-08-28 09:57:28"
     },
     {
         "row_id": 475,
@@ -3797,7 +3797,7 @@
         "artist_id": 994656,
         "artist_genre": "Hard Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:27:10"
+        "update_date": "2026-08-28 09:57:34"
     },
     {
         "row_id": 476,
@@ -3805,7 +3805,7 @@
         "artist_id": 1455594195,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 07:59:55"
+        "update_date": "2026-08-28 09:57:40"
     },
     {
         "row_id": 477,
@@ -3813,7 +3813,7 @@
         "artist_id": 1064503590,
         "artist_genre": "Rap Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:00:00"
+        "update_date": "2026-08-28 09:57:46"
     },
     {
         "row_id": 478,
@@ -3829,7 +3829,7 @@
         "artist_id": 1338913478,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:00:04"
+        "update_date": "2026-08-28 09:57:51"
     },
     {
         "row_id": 480,
@@ -3845,7 +3845,7 @@
         "artist_id": 105544,
         "artist_genre": "Nu Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:00:08"
+        "update_date": "2026-08-28 09:57:57"
     },
     {
         "row_id": 482,
@@ -3853,7 +3853,7 @@
         "artist_id": 19561015,
         "artist_genre": "Industrial Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:00:12"
+        "update_date": "2026-08-28 09:58:03"
     },
     {
         "row_id": 483,
@@ -3861,7 +3861,7 @@
         "artist_id": 20851094,
         "artist_genre": "Industrial Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:00:16"
+        "update_date": "2026-08-28 09:58:08"
     },
     {
         "row_id": 484,
@@ -3869,7 +3869,7 @@
         "artist_id": 148662,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:00:21"
+        "update_date": "2026-08-28 09:58:15"
     },
     {
         "row_id": 485,
@@ -3877,7 +3877,7 @@
         "artist_id": 149011322,
         "artist_genre": "Progressive Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:27:57"
+        "update_date": "2026-08-28 09:58:21"
     },
     {
         "row_id": 486,
@@ -3885,7 +3885,7 @@
         "artist_id": 310964912,
         "artist_genre": "Rave",
         "update_type": 1,
-        "update_date": "2026-08-20 14:28:04"
+        "update_date": "2026-08-28 09:58:27"
     },
     {
         "row_id": 487,
@@ -3893,7 +3893,7 @@
         "artist_id": 327165319,
         "artist_genre": "Gothic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:00:27"
+        "update_date": "2026-08-28 09:58:33"
     },
     {
         "row_id": 488,
@@ -3901,7 +3901,7 @@
         "artist_id": 385220213,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:00:31"
+        "update_date": "2026-08-28 09:58:39"
     },
     {
         "row_id": 489,
@@ -3909,7 +3909,7 @@
         "artist_id": 572977787,
         "artist_genre": "Thrash Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:00:35"
+        "update_date": "2026-08-28 09:58:44"
     },
     {
         "row_id": 490,
@@ -3917,7 +3917,7 @@
         "artist_id": 473514,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:28:28"
+        "update_date": "2026-08-28 09:58:50"
     },
     {
         "row_id": 491,
@@ -3925,7 +3925,7 @@
         "artist_id": 410063121,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:00:39"
+        "update_date": "2026-08-28 09:58:57"
     },
     {
         "row_id": 492,
@@ -3933,7 +3933,7 @@
         "artist_id": 517704185,
         "artist_genre": "Nu Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:28:40"
+        "update_date": "2026-08-28 09:59:03"
     },
     {
         "row_id": 493,
@@ -3941,7 +3941,7 @@
         "artist_id": 7420827,
         "artist_genre": "Modern Classical",
         "update_type": 1,
-        "update_date": "2026-08-20 14:28:47"
+        "update_date": "2026-08-28 09:59:10"
     },
     {
         "row_id": 494,
@@ -3957,7 +3957,7 @@
         "artist_id": 16638695,
         "artist_genre": "Groove Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:00:43"
+        "update_date": "2026-08-28 09:59:15"
     },
     {
         "row_id": 496,
@@ -3965,7 +3965,7 @@
         "artist_id": 20044,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:29:01"
+        "update_date": "2026-08-28 09:59:23"
     },
     {
         "row_id": 497,
@@ -3973,7 +3973,7 @@
         "artist_id": 1413545983,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:00:48"
+        "update_date": "2026-08-28 09:59:29"
     },
     {
         "row_id": 498,
@@ -3981,7 +3981,7 @@
         "artist_id": 267420258,
         "artist_genre": "Groove Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:00:52"
+        "update_date": "2026-08-28 09:59:35"
     },
     {
         "row_id": 499,
@@ -3989,7 +3989,7 @@
         "artist_id": 1808750544,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 08:00:56"
+        "update_date": "2026-08-28 09:59:40"
     },
     {
         "row_id": 500,
@@ -3997,7 +3997,7 @@
         "artist_id": 1312874741,
         "artist_genre": "Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 08:00:59"
+        "update_date": "2026-08-28 09:59:46"
     },
     {
         "row_id": 501,
@@ -4005,7 +4005,7 @@
         "artist_id": 942669462,
         "artist_genre": "Heavy Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:01:03"
+        "update_date": "2026-08-28 09:59:51"
     },
     {
         "row_id": 502,
@@ -4013,7 +4013,7 @@
         "artist_id": 157798,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:29:36"
+        "update_date": "2026-08-28 09:59:57"
     },
     {
         "row_id": 503,
@@ -4029,7 +4029,7 @@
         "artist_id": 251375,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:01:08"
+        "update_date": "2026-08-28 10:00:03"
     },
     {
         "row_id": 505,
@@ -4037,7 +4037,7 @@
         "artist_id": 1445459220,
         "artist_genre": "Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:01:12"
+        "update_date": "2026-08-28 10:00:09"
     },
     {
         "row_id": 506,
@@ -4045,7 +4045,7 @@
         "artist_id": 14400049,
         "artist_genre": "Hip-Hop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:29:55"
+        "update_date": "2026-08-28 10:00:16"
     },
     {
         "row_id": 507,
@@ -4053,7 +4053,7 @@
         "artist_id": 264611177,
         "artist_genre": "Heavy Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:01:16"
+        "update_date": "2026-08-28 10:00:21"
     },
     {
         "row_id": 508,
@@ -4061,7 +4061,7 @@
         "artist_id": 4511319,
         "artist_genre": "Heavy Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:01:21"
+        "update_date": "2026-08-28 10:00:28"
     },
     {
         "row_id": 509,
@@ -4069,7 +4069,7 @@
         "artist_id": 1216150815,
         "artist_genre": "Industrial Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:01:25"
+        "update_date": "2026-08-28 10:00:33"
     },
     {
         "row_id": 510,
@@ -4077,7 +4077,7 @@
         "artist_id": 65922937,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:01:29"
+        "update_date": "2026-08-28 10:00:39"
     },
     {
         "row_id": 511,
@@ -4093,7 +4093,7 @@
         "artist_id": 1185006747,
         "artist_genre": "Country",
         "update_type": 1,
-        "update_date": "2026-08-20 14:30:26"
+        "update_date": "2026-08-28 10:00:45"
     },
     {
         "row_id": 513,
@@ -4101,7 +4101,7 @@
         "artist_id": 488289,
         "artist_genre": "Thrash Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:01:34"
+        "update_date": "2026-08-28 10:00:51"
     },
     {
         "row_id": 514,
@@ -4109,7 +4109,7 @@
         "artist_id": 1183485446,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:01:37"
+        "update_date": "2026-08-28 10:00:56"
     },
     {
         "row_id": 515,
@@ -4117,7 +4117,7 @@
         "artist_id": 80073958,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:01:42"
+        "update_date": "2026-08-28 10:01:02"
     },
     {
         "row_id": 516,
@@ -4125,7 +4125,7 @@
         "artist_id": 60363022,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:30:49"
+        "update_date": "2026-08-28 10:01:08"
     },
     {
         "row_id": 517,
@@ -4133,7 +4133,7 @@
         "artist_id": 17304969,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:01:46"
+        "update_date": "2026-08-28 10:01:14"
     },
     {
         "row_id": 518,
@@ -4141,7 +4141,7 @@
         "artist_id": 578277708,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:01:50"
+        "update_date": "2026-08-28 10:01:19"
     },
     {
         "row_id": 519,
@@ -4149,7 +4149,7 @@
         "artist_id": 1019310481,
         "artist_genre": "Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:31:07"
+        "update_date": "2026-08-28 10:01:25"
     },
     {
         "row_id": 520,
@@ -4157,7 +4157,7 @@
         "artist_id": 3996865,
         "artist_genre": "Heavy Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:01:55"
+        "update_date": "2026-08-28 10:01:32"
     },
     {
         "row_id": 521,
@@ -4165,7 +4165,7 @@
         "artist_id": 13115975,
         "artist_genre": "Rap Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:31:20"
+        "update_date": "2026-08-28 10:01:37"
     },
     {
         "row_id": 522,
@@ -4181,7 +4181,7 @@
         "artist_id": 469318624,
         "artist_genre": "Industrial Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:31:25"
+        "update_date": "2026-08-28 10:01:42"
     },
     {
         "row_id": 524,
@@ -4189,7 +4189,7 @@
         "artist_id": 137057909,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:31:32"
+        "update_date": "2026-08-28 10:01:49"
     },
     {
         "row_id": 525,
@@ -4205,7 +4205,7 @@
         "artist_id": 288232948,
         "artist_genre": "Melodic Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:31:38"
+        "update_date": "2026-08-28 10:01:54"
     },
     {
         "row_id": 527,
@@ -4213,7 +4213,7 @@
         "artist_id": 1605840904,
         "artist_genre": "Thrash Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:01:59"
+        "update_date": "2026-08-28 10:02:00"
     },
     {
         "row_id": 528,
@@ -4221,7 +4221,7 @@
         "artist_id": 4366875,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:02:03"
+        "update_date": "2026-08-28 10:02:06"
     },
     {
         "row_id": 529,
@@ -4229,7 +4229,7 @@
         "artist_id": 1469081126,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:31:56"
+        "update_date": "2026-08-28 10:02:11"
     },
     {
         "row_id": 530,
@@ -4237,7 +4237,7 @@
         "artist_id": 1470690802,
         "artist_genre": "Gothic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:02:07"
+        "update_date": "2026-08-28 10:02:16"
     },
     {
         "row_id": 531,
@@ -4245,7 +4245,7 @@
         "artist_id": 6842435,
         "artist_genre": "Industrial Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:32:07"
+        "update_date": "2026-08-28 10:02:22"
     },
     {
         "row_id": 532,
@@ -4253,7 +4253,7 @@
         "artist_id": 199424890,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:02:11"
+        "update_date": "2026-08-28 10:02:27"
     },
     {
         "row_id": 533,
@@ -4261,7 +4261,7 @@
         "artist_id": 1224964390,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:02:15"
+        "update_date": "2026-08-28 10:02:33"
     },
     {
         "row_id": 534,
@@ -4269,7 +4269,7 @@
         "artist_id": 1013087052,
         "artist_genre": "Metalcore",
         "update_type": 1,
-        "update_date": "2026-08-20 14:32:24"
+        "update_date": "2026-08-28 10:02:38"
     },
     {
         "row_id": 535,
@@ -4277,7 +4277,7 @@
         "artist_id": 128844824,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:02:19"
+        "update_date": "2026-08-28 10:02:44"
     },
     {
         "row_id": 536,
@@ -4293,7 +4293,7 @@
         "artist_id": 131210723,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:02:22"
+        "update_date": "2026-08-28 10:02:49"
     },
     {
         "row_id": 538,
@@ -4301,7 +4301,7 @@
         "artist_id": 266666216,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:02:27"
+        "update_date": "2026-08-28 10:02:55"
     },
     {
         "row_id": 539,
@@ -4309,7 +4309,7 @@
         "artist_id": 284113,
         "artist_genre": "Glam Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:32:49"
+        "update_date": "2026-08-28 10:03:01"
     },
     {
         "row_id": 540,
@@ -4317,7 +4317,7 @@
         "artist_id": 539605,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:32:57"
+        "update_date": "2026-08-28 10:03:09"
     },
     {
         "row_id": 541,
@@ -4325,7 +4325,7 @@
         "artist_id": 468521,
         "artist_genre": "Nu Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:33:03"
+        "update_date": "2026-08-28 10:03:15"
     },
     {
         "row_id": 542,
@@ -4333,7 +4333,7 @@
         "artist_id": 1093360,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:02:31"
+        "update_date": "2026-08-28 10:03:21"
     },
     {
         "row_id": 543,
@@ -4349,7 +4349,7 @@
         "artist_id": 377449574,
         "artist_genre": "Hard Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:33:16"
+        "update_date": "2026-08-28 10:03:26"
     },
     {
         "row_id": 545,
@@ -4357,7 +4357,7 @@
         "artist_id": 73591048,
         "artist_genre": "Doom Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:02:36"
+        "update_date": "2026-08-28 10:03:32"
     },
     {
         "row_id": 546,
@@ -4365,7 +4365,7 @@
         "artist_id": 471321,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 08:02:40"
+        "update_date": "2026-08-28 10:03:38"
     },
     {
         "row_id": 547,
@@ -4373,7 +4373,7 @@
         "artist_id": 317299570,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:02:44"
+        "update_date": "2026-08-28 10:03:43"
     },
     {
         "row_id": 548,
@@ -4381,7 +4381,7 @@
         "artist_id": 343293037,
         "artist_genre": "Doom Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:02:47"
+        "update_date": "2026-08-28 10:03:49"
     },
     {
         "row_id": 549,
@@ -4389,7 +4389,7 @@
         "artist_id": 1181149890,
         "artist_genre": "Rap Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:02:51"
+        "update_date": "2026-08-28 10:03:54"
     },
     {
         "row_id": 550,
@@ -4397,7 +4397,7 @@
         "artist_id": 73982981,
         "artist_genre": "Technical Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:33:51"
+        "update_date": "2026-08-28 10:04:00"
     },
     {
         "row_id": 551,
@@ -4405,7 +4405,7 @@
         "artist_id": 2897799,
         "artist_genre": "EDM",
         "update_type": 1,
-        "update_date": "2026-08-20 14:33:58"
+        "update_date": "2026-08-28 10:04:06"
     },
     {
         "row_id": 552,
@@ -4413,7 +4413,7 @@
         "artist_id": 205776793,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:02:56"
+        "update_date": "2026-08-28 10:04:11"
     },
     {
         "row_id": 553,
@@ -4421,7 +4421,7 @@
         "artist_id": 278116755,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:34:09"
+        "update_date": "2026-08-28 10:04:16"
     },
     {
         "row_id": 554,
@@ -4437,7 +4437,7 @@
         "artist_id": 5280361,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:03:00"
+        "update_date": "2026-08-28 10:04:23"
     },
     {
         "row_id": 556,
@@ -4445,7 +4445,7 @@
         "artist_id": 278464538,
         "artist_genre": "Hip-Hop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:34:27"
+        "update_date": "2026-08-28 10:04:32"
     },
     {
         "row_id": 557,
@@ -4461,7 +4461,7 @@
         "artist_id": 19092957,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:03:04"
+        "update_date": "2026-08-28 10:04:38"
     },
     {
         "row_id": 559,
@@ -4469,7 +4469,7 @@
         "artist_id": 2898807,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:03:09"
+        "update_date": "2026-08-28 10:04:44"
     },
     {
         "row_id": 560,
@@ -4477,7 +4477,7 @@
         "artist_id": 1325344302,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:03:15"
+        "update_date": "2026-08-28 10:04:51"
     },
     {
         "row_id": 561,
@@ -4485,7 +4485,7 @@
         "artist_id": 65885099,
         "artist_genre": "Technical Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:03:19"
+        "update_date": "2026-08-28 10:04:57"
     },
     {
         "row_id": 562,
@@ -4493,7 +4493,7 @@
         "artist_id": 472554595,
         "artist_genre": "Hip-Hop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:34:58"
+        "update_date": "2026-08-28 10:05:02"
     },
     {
         "row_id": 563,
@@ -4501,7 +4501,7 @@
         "artist_id": 112018,
         "artist_genre": "Grunge",
         "update_type": 1,
-        "update_date": "2026-08-20 14:35:04"
+        "update_date": "2026-08-28 10:05:08"
     },
     {
         "row_id": 564,
@@ -4509,7 +4509,7 @@
         "artist_id": 628452620,
         "artist_genre": "Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:03:23"
+        "update_date": "2026-08-28 10:05:14"
     },
     {
         "row_id": 565,
@@ -4517,7 +4517,7 @@
         "artist_id": 1021580182,
         "artist_genre": "Nu Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:35:16"
+        "update_date": "2026-08-28 10:05:19"
     },
     {
         "row_id": 566,
@@ -4525,7 +4525,7 @@
         "artist_id": 292138099,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:35:23"
+        "update_date": "2026-08-28 10:05:25"
     },
     {
         "row_id": 567,
@@ -4533,7 +4533,7 @@
         "artist_id": 39213,
         "artist_genre": "Nu Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:03:27"
+        "update_date": "2026-08-28 10:05:31"
     },
     {
         "row_id": 568,
@@ -4541,7 +4541,7 @@
         "artist_id": 697181311,
         "artist_genre": "Symphonic Black Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:03:31"
+        "update_date": "2026-08-28 10:05:37"
     },
     {
         "row_id": 569,
@@ -4549,7 +4549,7 @@
         "artist_id": 1263618368,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:03:35"
+        "update_date": "2026-08-28 10:05:42"
     },
     {
         "row_id": 570,
@@ -4565,7 +4565,7 @@
         "artist_id": 16645051,
         "artist_genre": "Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:03:39"
+        "update_date": "2026-08-28 10:05:47"
     },
     {
         "row_id": 572,
@@ -4573,7 +4573,7 @@
         "artist_id": 42373693,
         "artist_genre": "Technical Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:03:43"
+        "update_date": "2026-08-28 10:05:53"
     },
     {
         "row_id": 573,
@@ -4581,7 +4581,7 @@
         "artist_id": 127357180,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:03:47"
+        "update_date": "2026-08-28 10:05:59"
     },
     {
         "row_id": 574,
@@ -4589,7 +4589,7 @@
         "artist_id": 504527242,
         "artist_genre": "Hard Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:36:05"
+        "update_date": "2026-08-28 10:06:04"
     },
     {
         "row_id": 575,
@@ -4605,7 +4605,7 @@
         "artist_id": 260414340,
         "artist_genre": "Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:36:12"
+        "update_date": "2026-08-28 10:06:11"
     },
     {
         "row_id": 577,
@@ -4613,7 +4613,7 @@
         "artist_id": 192877221,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:03:51"
+        "update_date": "2026-08-28 10:06:17"
     },
     {
         "row_id": 578,
@@ -4621,7 +4621,7 @@
         "artist_id": 3196120,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:03:55"
+        "update_date": "2026-08-28 10:06:23"
     },
     {
         "row_id": 579,
@@ -4629,7 +4629,7 @@
         "artist_id": 448541782,
         "artist_genre": "Melodic Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:36:30"
+        "update_date": "2026-08-28 10:06:28"
     },
     {
         "row_id": 580,
@@ -4637,7 +4637,7 @@
         "artist_id": 691240064,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:03:59"
+        "update_date": "2026-08-28 10:06:34"
     },
     {
         "row_id": 581,
@@ -4645,7 +4645,7 @@
         "artist_id": 271815617,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:04:03"
+        "update_date": "2026-08-28 10:06:39"
     },
     {
         "row_id": 582,
@@ -4653,7 +4653,7 @@
         "artist_id": 20101373,
         "artist_genre": "Gothic Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:36:47"
+        "update_date": "2026-08-28 10:06:45"
     },
     {
         "row_id": 583,
@@ -4661,7 +4661,7 @@
         "artist_id": 18243552,
         "artist_genre": "Folk Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:36:53"
+        "update_date": "2026-08-28 10:06:50"
     },
     {
         "row_id": 584,
@@ -4669,7 +4669,7 @@
         "artist_id": 640829214,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:04:07"
+        "update_date": "2026-08-28 10:06:56"
     },
     {
         "row_id": 585,
@@ -4677,7 +4677,7 @@
         "artist_id": 6218880,
         "artist_genre": "Nu Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:04:11"
+        "update_date": "2026-08-28 10:07:01"
     },
     {
         "row_id": 586,
@@ -4685,7 +4685,7 @@
         "artist_id": 1484238276,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 08:04:15"
+        "update_date": "2026-08-28 10:07:07"
     },
     {
         "row_id": 587,
@@ -4693,7 +4693,7 @@
         "artist_id": 1549672851,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:04:19"
+        "update_date": "2026-08-28 10:07:12"
     },
     {
         "row_id": 588,
@@ -4701,7 +4701,7 @@
         "artist_id": 886834,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:37:22"
+        "update_date": "2026-08-28 10:07:19"
     },
     {
         "row_id": 589,
@@ -4709,7 +4709,7 @@
         "artist_id": 626650,
         "artist_genre": "Nu Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:04:23"
+        "update_date": "2026-08-28 10:07:24"
     },
     {
         "row_id": 590,
@@ -4717,7 +4717,7 @@
         "artist_id": 188155872,
         "artist_genre": "Progressive Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:37:34"
+        "update_date": "2026-08-28 10:07:30"
     },
     {
         "row_id": 591,
@@ -4725,7 +4725,7 @@
         "artist_id": 155209,
         "artist_genre": "Groove Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:37:40"
+        "update_date": "2026-08-28 10:07:36"
     },
     {
         "row_id": 592,
@@ -4733,7 +4733,7 @@
         "artist_id": 3445763,
         "artist_genre": "Nu Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:04:28"
+        "update_date": "2026-08-28 10:07:42"
     },
     {
         "row_id": 593,
@@ -4741,7 +4741,7 @@
         "artist_id": 1772889922,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:04:32"
+        "update_date": "2026-08-28 10:07:47"
     },
     {
         "row_id": 594,
@@ -4749,7 +4749,7 @@
         "artist_id": 1484547434,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:04:35"
+        "update_date": "2026-08-28 10:07:53"
     },
     {
         "row_id": 595,
@@ -4757,7 +4757,7 @@
         "artist_id": 166667737,
         "artist_genre": "Metalcore",
         "update_type": 1,
-        "update_date": "2026-08-20 14:38:03"
+        "update_date": "2026-08-28 10:07:58"
     },
     {
         "row_id": 596,
@@ -4781,7 +4781,7 @@
         "artist_id": 118007099,
         "artist_genre": "EDM",
         "update_type": 2,
-        "update_date": "2026-08-21 08:04:40"
+        "update_date": "2026-08-28 10:08:04"
     },
     {
         "row_id": 599,
@@ -4789,7 +4789,7 @@
         "artist_id": 870541409,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:38:15"
+        "update_date": "2026-08-28 10:08:10"
     },
     {
         "row_id": 600,
@@ -4797,7 +4797,7 @@
         "artist_id": 1559752622,
         "artist_genre": "Industrial Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:38:20"
+        "update_date": "2026-08-28 10:08:15"
     },
     {
         "row_id": 601,
@@ -4805,7 +4805,7 @@
         "artist_id": 187683869,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:04:44"
+        "update_date": "2026-08-28 10:08:21"
     },
     {
         "row_id": 602,
@@ -4813,7 +4813,7 @@
         "artist_id": 337247603,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:04:48"
+        "update_date": "2026-08-28 10:08:26"
     },
     {
         "row_id": 603,
@@ -4821,7 +4821,7 @@
         "artist_id": 789938918,
         "artist_genre": "Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:04:53"
+        "update_date": "2026-08-28 10:08:33"
     },
     {
         "row_id": 604,
@@ -4829,7 +4829,7 @@
         "artist_id": 1156839466,
         "artist_genre": "Hard Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:38:45"
+        "update_date": "2026-08-28 10:08:39"
     },
     {
         "row_id": 605,
@@ -4845,7 +4845,7 @@
         "artist_id": 4488522,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:38:52"
+        "update_date": "2026-08-28 10:08:46"
     },
     {
         "row_id": 607,
@@ -4853,7 +4853,7 @@
         "artist_id": 487143,
         "artist_genre": "Progressive Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:38:59"
+        "update_date": "2026-08-28 10:08:52"
     },
     {
         "row_id": 608,
@@ -4861,7 +4861,7 @@
         "artist_id": 14487204,
         "artist_genre": "Nu Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:39:04"
+        "update_date": "2026-08-28 10:08:58"
     },
     {
         "row_id": 609,
@@ -4869,7 +4869,7 @@
         "artist_id": 595914612,
         "artist_genre": "Progressive Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:39:10"
+        "update_date": "2026-08-28 10:09:03"
     },
     {
         "row_id": 610,
@@ -4885,7 +4885,7 @@
         "artist_id": 1004130511,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:04:58"
+        "update_date": "2026-08-28 10:09:09"
     },
     {
         "row_id": 612,
@@ -4893,7 +4893,7 @@
         "artist_id": 966309175,
         "artist_genre": "Rap",
         "update_type": 2,
-        "update_date": "2026-08-21 08:05:03"
+        "update_date": "2026-08-28 10:09:16"
     },
     {
         "row_id": 613,
@@ -4901,7 +4901,7 @@
         "artist_id": 1540478964,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:05:07"
+        "update_date": "2026-08-28 10:09:22"
     },
     {
         "row_id": 614,
@@ -4909,7 +4909,7 @@
         "artist_id": 1227138817,
         "artist_genre": "Rap Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:05:10"
+        "update_date": "2026-08-28 10:09:27"
     },
     {
         "row_id": 615,
@@ -4917,7 +4917,7 @@
         "artist_id": 1093515,
         "artist_genre": "Nu Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:05:14"
+        "update_date": "2026-08-28 10:09:33"
     },
     {
         "row_id": 616,
@@ -4925,7 +4925,7 @@
         "artist_id": 272130237,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:05:19"
+        "update_date": "2026-08-28 10:09:39"
     },
     {
         "row_id": 617,
@@ -4933,7 +4933,7 @@
         "artist_id": 28721874,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:05:23"
+        "update_date": "2026-08-28 10:09:45"
     },
     {
         "row_id": 618,
@@ -4941,7 +4941,7 @@
         "artist_id": 109754,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:05:27"
+        "update_date": "2026-08-28 10:09:51"
     },
     {
         "row_id": 619,
@@ -4949,7 +4949,7 @@
         "artist_id": 151045,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:40:04"
+        "update_date": "2026-08-28 10:09:57"
     },
     {
         "row_id": 620,
@@ -4957,7 +4957,7 @@
         "artist_id": 516682295,
         "artist_genre": "Progressive Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:40:10"
+        "update_date": "2026-08-28 10:10:02"
     },
     {
         "row_id": 621,
@@ -4965,7 +4965,7 @@
         "artist_id": 1826083930,
         "artist_genre": "Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:40:15"
+        "update_date": "2026-08-28 10:10:08"
     },
     {
         "row_id": 622,
@@ -4973,7 +4973,7 @@
         "artist_id": 41865640,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:05:31"
+        "update_date": "2026-08-28 10:10:13"
     },
     {
         "row_id": 623,
@@ -4981,7 +4981,7 @@
         "artist_id": 1799036399,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:05:35"
+        "update_date": "2026-08-28 10:10:18"
     },
     {
         "row_id": 624,
@@ -4989,7 +4989,7 @@
         "artist_id": 3296287,
         "artist_genre": "Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:40:34"
+        "update_date": "2026-08-28 10:10:26"
     },
     {
         "row_id": 625,
@@ -4997,7 +4997,7 @@
         "artist_id": 3261481,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:05:39"
+        "update_date": "2026-08-28 10:10:32"
     },
     {
         "row_id": 626,
@@ -5005,7 +5005,7 @@
         "artist_id": 899409,
         "artist_genre": "Rap Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:40:46"
+        "update_date": "2026-08-28 10:10:38"
     },
     {
         "row_id": 627,
@@ -5021,7 +5021,7 @@
         "artist_id": 51688,
         "artist_genre": "Hard Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:40:52"
+        "update_date": "2026-08-28 10:10:44"
     },
     {
         "row_id": 629,
@@ -5037,7 +5037,7 @@
         "artist_id": 408932,
         "artist_genre": "Industrial Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:05:44"
+        "update_date": "2026-08-28 10:10:50"
     },
     {
         "row_id": 631,
@@ -5045,7 +5045,7 @@
         "artist_id": 17511114,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:41:03"
+        "update_date": "2026-08-28 10:10:55"
     },
     {
         "row_id": 632,
@@ -5053,7 +5053,7 @@
         "artist_id": 214135551,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:05:48"
+        "update_date": "2026-08-28 10:11:01"
     },
     {
         "row_id": 633,
@@ -5061,7 +5061,7 @@
         "artist_id": 889780,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:05:53"
+        "update_date": "2026-08-28 10:11:07"
     },
     {
         "row_id": 634,
@@ -5069,7 +5069,7 @@
         "artist_id": 1386551631,
         "artist_genre": "Power Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:41:21"
+        "update_date": "2026-08-28 10:11:12"
     },
     {
         "row_id": 635,
@@ -5085,7 +5085,7 @@
         "artist_id": 1491622798,
         "artist_genre": "Symphonic Black Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:05:56"
+        "update_date": "2026-08-28 10:11:18"
     },
     {
         "row_id": 637,
@@ -5093,7 +5093,7 @@
         "artist_id": 1584778122,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:06:00"
+        "update_date": "2026-08-28 10:11:23"
     },
     {
         "row_id": 638,
@@ -5101,7 +5101,7 @@
         "artist_id": 1631598530,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:06:04"
+        "update_date": "2026-08-28 10:11:29"
     },
     {
         "row_id": 639,
@@ -5117,7 +5117,7 @@
         "artist_id": 63346553,
         "artist_genre": "R&B",
         "update_type": 1,
-        "update_date": "2026-08-20 14:41:46"
+        "update_date": "2026-08-28 10:11:36"
     },
     {
         "row_id": 641,
@@ -5125,7 +5125,7 @@
         "artist_id": 373843476,
         "artist_genre": "Technical Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:06:08"
+        "update_date": "2026-08-28 10:11:42"
     },
     {
         "row_id": 642,
@@ -5133,7 +5133,7 @@
         "artist_id": 440770281,
         "artist_genre": "Metalcore",
         "update_type": 1,
-        "update_date": "2026-08-20 14:41:58"
+        "update_date": "2026-08-28 10:11:47"
     },
     {
         "row_id": 643,
@@ -5141,7 +5141,7 @@
         "artist_id": 687192633,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:06:12"
+        "update_date": "2026-08-28 10:11:52"
     },
     {
         "row_id": 644,
@@ -5149,7 +5149,7 @@
         "artist_id": 1674741887,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:06:16"
+        "update_date": "2026-08-28 10:11:58"
     },
     {
         "row_id": 645,
@@ -5157,7 +5157,7 @@
         "artist_id": 184065032,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:06:21"
+        "update_date": "2026-08-28 10:12:04"
     },
     {
         "row_id": 646,
@@ -5165,7 +5165,7 @@
         "artist_id": 268594195,
         "artist_genre": "Thrash Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:06:24"
+        "update_date": "2026-08-28 10:12:09"
     },
     {
         "row_id": 647,
@@ -5173,7 +5173,7 @@
         "artist_id": 299850725,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 08:06:28"
+        "update_date": "2026-08-28 10:12:15"
     },
     {
         "row_id": 648,
@@ -5181,7 +5181,7 @@
         "artist_id": 994032832,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:06:32"
+        "update_date": "2026-08-28 10:12:20"
     },
     {
         "row_id": 649,
@@ -5189,7 +5189,7 @@
         "artist_id": 1490523214,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:06:36"
+        "update_date": "2026-08-28 10:12:26"
     },
     {
         "row_id": 650,
@@ -5197,7 +5197,7 @@
         "artist_id": 391630,
         "artist_genre": "Nu Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:06:41"
+        "update_date": "2026-08-28 10:12:32"
     },
     {
         "row_id": 651,
@@ -5205,7 +5205,7 @@
         "artist_id": 16054731,
         "artist_genre": "Thrash Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:42:51"
+        "update_date": "2026-08-28 10:12:37"
     },
     {
         "row_id": 652,
@@ -5213,7 +5213,7 @@
         "artist_id": 1330668835,
         "artist_genre": "Symphonic Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:42:56"
+        "update_date": "2026-08-28 10:12:43"
     },
     {
         "row_id": 653,
@@ -5229,7 +5229,7 @@
         "artist_id": 27051147,
         "artist_genre": "Heavy Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:06:44"
+        "update_date": "2026-08-28 10:12:48"
     },
     {
         "row_id": 655,
@@ -5237,7 +5237,7 @@
         "artist_id": 1334753645,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:43:08"
+        "update_date": "2026-08-28 10:12:54"
     },
     {
         "row_id": 656,
@@ -5245,7 +5245,7 @@
         "artist_id": 81695527,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:06:48"
+        "update_date": "2026-08-28 10:12:59"
     },
     {
         "row_id": 657,
@@ -5253,7 +5253,7 @@
         "artist_id": 1810454952,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:06:52"
+        "update_date": "2026-08-28 10:13:05"
     },
     {
         "row_id": 658,
@@ -5261,7 +5261,7 @@
         "artist_id": 1563763617,
         "artist_genre": "Nu Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:43:25"
+        "update_date": "2026-08-28 10:13:10"
     },
     {
         "row_id": 659,
@@ -5269,7 +5269,7 @@
         "artist_id": 602212,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 08:06:57"
+        "update_date": "2026-08-28 10:13:16"
     },
     {
         "row_id": 660,
@@ -5293,7 +5293,7 @@
         "artist_id": 92713141,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:07:01"
+        "update_date": "2026-08-28 10:13:23"
     },
     {
         "row_id": 663,
@@ -5301,7 +5301,7 @@
         "artist_id": 275730586,
         "artist_genre": "Symphonic Black Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:07:05"
+        "update_date": "2026-08-28 10:13:28"
     },
     {
         "row_id": 664,
@@ -5309,7 +5309,7 @@
         "artist_id": 918092,
         "artist_genre": "Thrash Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:07:10"
+        "update_date": "2026-08-28 10:13:34"
     },
     {
         "row_id": 665,
@@ -5317,7 +5317,7 @@
         "artist_id": 561583302,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:07:14"
+        "update_date": "2026-08-28 10:13:40"
     },
     {
         "row_id": 666,
@@ -5325,7 +5325,7 @@
         "artist_id": 82647909,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:07:19"
+        "update_date": "2026-08-28 10:13:46"
     },
     {
         "row_id": 667,
@@ -5333,7 +5333,7 @@
         "artist_id": 1141476328,
         "artist_genre": "Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:44:09"
+        "update_date": "2026-08-28 10:13:52"
     },
     {
         "row_id": 668,
@@ -5341,7 +5341,7 @@
         "artist_id": 13125174,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:07:23"
+        "update_date": "2026-08-28 10:13:58"
     },
     {
         "row_id": 669,
@@ -5349,7 +5349,7 @@
         "artist_id": 897993639,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:07:27"
+        "update_date": "2026-08-28 10:14:03"
     },
     {
         "row_id": 670,
@@ -5357,7 +5357,7 @@
         "artist_id": 821618900,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:07:32"
+        "update_date": "2026-08-28 10:14:09"
     },
     {
         "row_id": 671,
@@ -5365,7 +5365,7 @@
         "artist_id": 28721078,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:44:36"
+        "update_date": "2026-08-28 10:14:17"
     },
     {
         "row_id": 672,
@@ -5373,7 +5373,7 @@
         "artist_id": 1236907075,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:07:36"
+        "update_date": "2026-08-28 10:14:22"
     },
     {
         "row_id": 673,
@@ -5381,7 +5381,7 @@
         "artist_id": 1584399710,
         "artist_genre": "Rap Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:07:40"
+        "update_date": "2026-08-28 10:14:28"
     },
     {
         "row_id": 674,
@@ -5389,7 +5389,7 @@
         "artist_id": 1116060677,
         "artist_genre": "Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:07:43"
+        "update_date": "2026-08-28 10:14:33"
     },
     {
         "row_id": 675,
@@ -5397,7 +5397,7 @@
         "artist_id": 1555418843,
         "artist_genre": "Metalcore",
         "update_type": 1,
-        "update_date": "2026-08-20 14:44:58"
+        "update_date": "2026-08-28 10:14:38"
     },
     {
         "row_id": 676,
@@ -5405,7 +5405,7 @@
         "artist_id": 28917807,
         "artist_genre": "Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:07:48"
+        "update_date": "2026-08-28 10:14:44"
     },
     {
         "row_id": 677,
@@ -5413,7 +5413,7 @@
         "artist_id": 257823434,
         "artist_genre": "Hard Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:45:11"
+        "update_date": "2026-08-28 10:14:50"
     },
     {
         "row_id": 678,
@@ -5421,7 +5421,7 @@
         "artist_id": 5298947,
         "artist_genre": "Nu Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:07:52"
+        "update_date": "2026-08-28 10:14:56"
     },
     {
         "row_id": 679,
@@ -5429,7 +5429,7 @@
         "artist_id": 356545647,
         "artist_genre": "EDM",
         "update_type": 1,
-        "update_date": "2026-08-20 14:45:24"
+        "update_date": "2026-08-28 10:15:02"
     },
     {
         "row_id": 680,
@@ -5437,7 +5437,7 @@
         "artist_id": 13132485,
         "artist_genre": "Glam Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:45:30"
+        "update_date": "2026-08-28 10:15:09"
     },
     {
         "row_id": 681,
@@ -5445,7 +5445,7 @@
         "artist_id": 115556,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 08:07:57"
+        "update_date": "2026-08-28 10:15:15"
     },
     {
         "row_id": 682,
@@ -5453,7 +5453,7 @@
         "artist_id": 1000804900,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:08:01"
+        "update_date": "2026-08-28 10:15:20"
     },
     {
         "row_id": 683,
@@ -5461,7 +5461,7 @@
         "artist_id": 414425,
         "artist_genre": "Thrash Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:45:48"
+        "update_date": "2026-08-28 10:15:26"
     },
     {
         "row_id": 684,
@@ -5469,7 +5469,7 @@
         "artist_id": 1153723033,
         "artist_genre": "Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:08:05"
+        "update_date": "2026-08-28 10:15:32"
     },
     {
         "row_id": 685,
@@ -5477,7 +5477,7 @@
         "artist_id": 6907568,
         "artist_genre": "Nu Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:08:09"
+        "update_date": "2026-08-28 10:15:37"
     },
     {
         "row_id": 686,
@@ -5485,7 +5485,7 @@
         "artist_id": 1693881372,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:08:13"
+        "update_date": "2026-08-28 10:15:43"
     },
     {
         "row_id": 687,
@@ -5493,7 +5493,7 @@
         "artist_id": 1468672845,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:08:16"
+        "update_date": "2026-08-28 10:15:48"
     },
     {
         "row_id": 688,
@@ -5501,7 +5501,7 @@
         "artist_id": 21769,
         "artist_genre": "Rap",
         "update_type": 1,
-        "update_date": "2026-08-20 14:46:22"
+        "update_date": "2026-08-28 10:15:58"
     },
     {
         "row_id": 689,
@@ -5509,7 +5509,7 @@
         "artist_id": 547416867,
         "artist_genre": "Rap",
         "update_type": 1,
-        "update_date": "2026-08-20 14:46:28"
+        "update_date": "2026-08-28 10:16:04"
     },
     {
         "row_id": 690,
@@ -5517,7 +5517,7 @@
         "artist_id": 423817511,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:08:20"
+        "update_date": "2026-08-28 10:16:09"
     },
     {
         "row_id": 691,
@@ -5525,7 +5525,7 @@
         "artist_id": 1273280741,
         "artist_genre": "Progressive Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:46:40"
+        "update_date": "2026-08-28 10:16:15"
     },
     {
         "row_id": 692,
@@ -5533,7 +5533,7 @@
         "artist_id": 6767103,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:08:25"
+        "update_date": "2026-08-28 10:16:20"
     },
     {
         "row_id": 693,
@@ -5541,7 +5541,7 @@
         "artist_id": 563152754,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:08:29"
+        "update_date": "2026-08-28 10:16:26"
     },
     {
         "row_id": 694,
@@ -5549,7 +5549,7 @@
         "artist_id": 363090144,
         "artist_genre": "Melodic Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:46:58"
+        "update_date": "2026-08-28 10:16:31"
     },
     {
         "row_id": 695,
@@ -5557,7 +5557,7 @@
         "artist_id": 29048370,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:08:34"
+        "update_date": "2026-08-28 10:16:38"
     },
     {
         "row_id": 696,
@@ -5565,7 +5565,7 @@
         "artist_id": 348367792,
         "artist_genre": "Progressive Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:47:10"
+        "update_date": "2026-08-28 10:16:43"
     },
     {
         "row_id": 697,
@@ -5573,7 +5573,7 @@
         "artist_id": 950328612,
         "artist_genre": "Groove Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:47:15"
+        "update_date": "2026-08-28 10:16:48"
     },
     {
         "row_id": 698,
@@ -5589,7 +5589,7 @@
         "artist_id": 15772893,
         "artist_genre": "Groove Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:08:38"
+        "update_date": "2026-08-28 10:16:54"
     },
     {
         "row_id": 700,
@@ -5597,7 +5597,7 @@
         "artist_id": 15772823,
         "artist_genre": "Nu Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:47:27"
+        "update_date": "2026-08-28 10:16:59"
     },
     {
         "row_id": 701,
@@ -5605,7 +5605,7 @@
         "artist_id": 1293047384,
         "artist_genre": "Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:08:42"
+        "update_date": "2026-08-28 10:17:05"
     },
     {
         "row_id": 702,
@@ -5613,7 +5613,7 @@
         "artist_id": 261493655,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:08:46"
+        "update_date": "2026-08-28 10:17:10"
     },
     {
         "row_id": 703,
@@ -5621,7 +5621,7 @@
         "artist_id": 215778,
         "artist_genre": "Punk Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:47:45"
+        "update_date": "2026-08-28 10:17:16"
     },
     {
         "row_id": 704,
@@ -5629,7 +5629,7 @@
         "artist_id": 613161,
         "artist_genre": "Nu Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:08:50"
+        "update_date": "2026-08-28 10:17:21"
     },
     {
         "row_id": 705,
@@ -5637,7 +5637,7 @@
         "artist_id": 447352078,
         "artist_genre": "Groove Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:47:56"
+        "update_date": "2026-08-28 10:17:27"
     },
     {
         "row_id": 706,
@@ -5645,7 +5645,7 @@
         "artist_id": 669248603,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:08:54"
+        "update_date": "2026-08-28 10:17:32"
     },
     {
         "row_id": 707,
@@ -5653,7 +5653,7 @@
         "artist_id": 161690,
         "artist_genre": "Industrial Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:48:08"
+        "update_date": "2026-08-28 10:17:38"
     },
     {
         "row_id": 708,
@@ -5661,7 +5661,7 @@
         "artist_id": 302709189,
         "artist_genre": "Glam Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:08:58"
+        "update_date": "2026-08-28 10:17:43"
     },
     {
         "row_id": 709,
@@ -5669,7 +5669,7 @@
         "artist_id": 1042313094,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:09:02"
+        "update_date": "2026-08-28 10:17:49"
     },
     {
         "row_id": 710,
@@ -5677,7 +5677,7 @@
         "artist_id": 981357713,
         "artist_genre": "Bluegrass",
         "update_type": 2,
-        "update_date": "2026-08-21 08:09:06"
+        "update_date": "2026-08-28 10:17:55"
     },
     {
         "row_id": 711,
@@ -5685,7 +5685,7 @@
         "artist_id": 1003940079,
         "artist_genre": "Metalcore",
         "update_type": 1,
-        "update_date": "2026-08-20 14:48:32"
+        "update_date": "2026-08-28 10:18:00"
     },
     {
         "row_id": 712,
@@ -5693,7 +5693,7 @@
         "artist_id": 287105142,
         "artist_genre": "Hard Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:48:38"
+        "update_date": "2026-08-28 10:18:06"
     },
     {
         "row_id": 713,
@@ -5701,7 +5701,7 @@
         "artist_id": 16643509,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:48:44"
+        "update_date": "2026-08-28 10:18:11"
     },
     {
         "row_id": 714,
@@ -5709,7 +5709,7 @@
         "artist_id": 1104994009,
         "artist_genre": "Folk Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:09:10"
+        "update_date": "2026-08-28 10:18:17"
     },
     {
         "row_id": 715,
@@ -5717,7 +5717,7 @@
         "artist_id": 2417172,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:09:14"
+        "update_date": "2026-08-28 10:18:22"
     },
     {
         "row_id": 716,
@@ -5725,7 +5725,7 @@
         "artist_id": 6557658,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:09:19"
+        "update_date": "2026-08-28 10:18:28"
     },
     {
         "row_id": 717,
@@ -5733,7 +5733,7 @@
         "artist_id": 36021999,
         "artist_genre": "Rap Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:49:08"
+        "update_date": "2026-08-28 10:18:34"
     },
     {
         "row_id": 718,
@@ -5741,7 +5741,7 @@
         "artist_id": 181915332,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:09:22"
+        "update_date": "2026-08-28 10:18:39"
     },
     {
         "row_id": 719,
@@ -5749,7 +5749,7 @@
         "artist_id": 249591,
         "artist_genre": "Punk Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 08:09:27"
+        "update_date": "2026-08-28 10:18:45"
     },
     {
         "row_id": 720,
@@ -5757,7 +5757,7 @@
         "artist_id": 1501307689,
         "artist_genre": "Deathcore",
         "update_type": 1,
-        "update_date": "2026-08-20 14:49:25"
+        "update_date": "2026-08-28 10:18:50"
     },
     {
         "row_id": 721,
@@ -5765,7 +5765,7 @@
         "artist_id": 1047599951,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:09:30"
+        "update_date": "2026-08-28 10:18:56"
     },
     {
         "row_id": 722,
@@ -5773,7 +5773,7 @@
         "artist_id": 492548,
         "artist_genre": "Glam Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:49:37"
+        "update_date": "2026-08-28 10:19:02"
     },
     {
         "row_id": 723,
@@ -5781,7 +5781,7 @@
         "artist_id": 78030544,
         "artist_genre": "Nu Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:49:43"
+        "update_date": "2026-08-28 10:19:07"
     },
     {
         "row_id": 724,
@@ -5789,7 +5789,7 @@
         "artist_id": 126384053,
         "artist_genre": "Metalcore",
         "update_type": 1,
-        "update_date": "2026-08-20 14:49:49"
+        "update_date": "2026-08-28 10:19:13"
     },
     {
         "row_id": 725,
@@ -5797,7 +5797,7 @@
         "artist_id": 181601973,
         "artist_genre": "Progressive Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:49:55"
+        "update_date": "2026-08-28 10:19:18"
     },
     {
         "row_id": 726,
@@ -5805,7 +5805,7 @@
         "artist_id": 1082238720,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:09:35"
+        "update_date": "2026-08-28 10:19:24"
     },
     {
         "row_id": 727,
@@ -5813,7 +5813,7 @@
         "artist_id": 462715,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:50:06"
+        "update_date": "2026-08-28 10:19:29"
     },
     {
         "row_id": 728,
@@ -5821,7 +5821,7 @@
         "artist_id": 128465509,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:50:13"
+        "update_date": "2026-08-28 10:19:35"
     },
     {
         "row_id": 729,
@@ -5829,7 +5829,7 @@
         "artist_id": 137058200,
         "artist_genre": "Nu Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:09:39"
+        "update_date": "2026-08-28 10:19:41"
     },
     {
         "row_id": 730,
@@ -5837,7 +5837,7 @@
         "artist_id": 264641364,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:09:44"
+        "update_date": "2026-08-28 10:19:48"
     },
     {
         "row_id": 731,
@@ -5845,7 +5845,7 @@
         "artist_id": 159260351,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:50:35"
+        "update_date": "2026-08-28 10:19:57"
     },
     {
         "row_id": 732,
@@ -5853,7 +5853,7 @@
         "artist_id": 1556817098,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:09:48"
+        "update_date": "2026-08-28 10:20:02"
     },
     {
         "row_id": 733,
@@ -5869,7 +5869,7 @@
         "artist_id": 284809113,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:09:53"
+        "update_date": "2026-08-28 10:20:09"
     },
     {
         "row_id": 735,
@@ -5877,7 +5877,7 @@
         "artist_id": 279204661,
         "artist_genre": "Progressive Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:50:53"
+        "update_date": "2026-08-28 10:20:14"
     },
     {
         "row_id": 736,
@@ -5885,7 +5885,7 @@
         "artist_id": 157139,
         "artist_genre": "Thrash Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:09:57"
+        "update_date": "2026-08-28 10:20:20"
     },
     {
         "row_id": 737,
@@ -5893,7 +5893,7 @@
         "artist_id": 275099992,
         "artist_genre": "Groove Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:10:01"
+        "update_date": "2026-08-28 10:20:26"
     },
     {
         "row_id": 738,
@@ -5901,7 +5901,7 @@
         "artist_id": 61138147,
         "artist_genre": "Gothic Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 08:10:06"
+        "update_date": "2026-08-28 10:20:32"
     },
     {
         "row_id": 739,
@@ -5909,7 +5909,7 @@
         "artist_id": 253042890,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:10:10"
+        "update_date": "2026-08-28 10:20:37"
     },
     {
         "row_id": 740,
@@ -5917,7 +5917,7 @@
         "artist_id": 259346705,
         "artist_genre": "Melodic Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:51:23"
+        "update_date": "2026-08-28 10:20:43"
     },
     {
         "row_id": 741,
@@ -5925,7 +5925,7 @@
         "artist_id": 3447642,
         "artist_genre": "Punk Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:51:29"
+        "update_date": "2026-08-28 10:20:49"
     },
     {
         "row_id": 742,
@@ -5933,7 +5933,7 @@
         "artist_id": 579836835,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:51:37"
+        "update_date": "2026-08-28 10:20:56"
     },
     {
         "row_id": 743,
@@ -5941,7 +5941,7 @@
         "artist_id": 3446364,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:51:42"
+        "update_date": "2026-08-28 10:21:01"
     },
     {
         "row_id": 744,
@@ -5949,7 +5949,7 @@
         "artist_id": 136975,
         "artist_genre": "Rock & Roll",
         "update_type": 1,
-        "update_date": "2026-08-20 14:51:49"
+        "update_date": "2026-08-28 10:21:08"
     },
     {
         "row_id": 745,
@@ -5957,7 +5957,7 @@
         "artist_id": 53265055,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:10:14"
+        "update_date": "2026-08-28 10:21:13"
     },
     {
         "row_id": 746,
@@ -5965,7 +5965,7 @@
         "artist_id": 511215697,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:10:18"
+        "update_date": "2026-08-28 10:21:19"
     },
     {
         "row_id": 747,
@@ -5973,7 +5973,7 @@
         "artist_id": 1157406413,
         "artist_genre": "Rap Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:10:22"
+        "update_date": "2026-08-28 10:21:25"
     },
     {
         "row_id": 748,
@@ -5981,7 +5981,7 @@
         "artist_id": 151092,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:52:12"
+        "update_date": "2026-08-28 10:21:30"
     },
     {
         "row_id": 749,
@@ -5989,7 +5989,7 @@
         "artist_id": 1732933328,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:10:26"
+        "update_date": "2026-08-28 10:21:35"
     },
     {
         "row_id": 750,
@@ -5997,7 +5997,7 @@
         "artist_id": 1271719224,
         "artist_genre": "Symphonic Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:52:23"
+        "update_date": "2026-08-28 10:21:41"
     },
     {
         "row_id": 751,
@@ -6005,7 +6005,7 @@
         "artist_id": 1577812052,
         "artist_genre": "Symphonic Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:52:28"
+        "update_date": "2026-08-28 10:21:46"
     },
     {
         "row_id": 752,
@@ -6013,7 +6013,7 @@
         "artist_id": 218291847,
         "artist_genre": "Technical Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:52:34"
+        "update_date": "2026-08-28 10:21:52"
     },
     {
         "row_id": 753,
@@ -6021,7 +6021,7 @@
         "artist_id": 355237757,
         "artist_genre": "Melodic Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:52:40"
+        "update_date": "2026-08-28 10:21:58"
     },
     {
         "row_id": 754,
@@ -6029,7 +6029,7 @@
         "artist_id": 917467004,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:10:30"
+        "update_date": "2026-08-28 10:22:04"
     },
     {
         "row_id": 755,
@@ -6037,7 +6037,7 @@
         "artist_id": 1163152336,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:10:34"
+        "update_date": "2026-08-28 10:22:09"
     },
     {
         "row_id": 756,
@@ -6045,7 +6045,7 @@
         "artist_id": 1592180647,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:10:38"
+        "update_date": "2026-08-28 10:22:15"
     },
     {
         "row_id": 757,
@@ -6053,7 +6053,7 @@
         "artist_id": 494609338,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:10:43"
+        "update_date": "2026-08-28 10:22:21"
     },
     {
         "row_id": 758,
@@ -6061,7 +6061,7 @@
         "artist_id": 1017443475,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:53:09"
+        "update_date": "2026-08-28 10:22:26"
     },
     {
         "row_id": 759,
@@ -6069,7 +6069,7 @@
         "artist_id": 75680722,
         "artist_genre": "Groove Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:10:47"
+        "update_date": "2026-08-28 10:22:32"
     },
     {
         "row_id": 760,
@@ -6077,7 +6077,7 @@
         "artist_id": 2820865,
         "artist_genre": "Punk Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 08:10:51"
+        "update_date": "2026-08-28 10:22:38"
     },
     {
         "row_id": 761,
@@ -6085,7 +6085,7 @@
         "artist_id": 73384726,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:10:55"
+        "update_date": "2026-08-28 10:22:43"
     },
     {
         "row_id": 762,
@@ -6093,7 +6093,7 @@
         "artist_id": 1576555346,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:10:59"
+        "update_date": "2026-08-28 10:22:49"
     },
     {
         "row_id": 763,
@@ -6109,7 +6109,7 @@
         "artist_id": 891638660,
         "artist_genre": "Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:11:03"
+        "update_date": "2026-08-28 10:22:55"
     },
     {
         "row_id": 765,
@@ -6117,7 +6117,7 @@
         "artist_id": 28682997,
         "artist_genre": "Groove Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:53:44"
+        "update_date": "2026-08-28 10:23:00"
     },
     {
         "row_id": 766,
@@ -6125,7 +6125,7 @@
         "artist_id": 1678040383,
         "artist_genre": "Thrash Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:53:49"
+        "update_date": "2026-08-28 10:23:06"
     },
     {
         "row_id": 767,
@@ -6133,7 +6133,7 @@
         "artist_id": 511924458,
         "artist_genre": "Melodic Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:53:54"
+        "update_date": "2026-08-28 10:23:11"
     },
     {
         "row_id": 768,
@@ -6141,7 +6141,7 @@
         "artist_id": 1522554654,
         "artist_genre": "Thrash Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:11:07"
+        "update_date": "2026-08-28 10:23:16"
     },
     {
         "row_id": 769,
@@ -6149,7 +6149,7 @@
         "artist_id": 423971933,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:11:11"
+        "update_date": "2026-08-28 10:23:22"
     },
     {
         "row_id": 770,
@@ -6165,7 +6165,7 @@
         "artist_id": 74214491,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:54:12"
+        "update_date": "2026-08-28 10:23:28"
     },
     {
         "row_id": 772,
@@ -6173,7 +6173,7 @@
         "artist_id": 1802068825,
         "artist_genre": "Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:54:18"
+        "update_date": "2026-08-28 10:23:33"
     },
     {
         "row_id": 773,
@@ -6181,7 +6181,7 @@
         "artist_id": 479756766,
         "artist_genre": "R&B",
         "update_type": 1,
-        "update_date": "2026-08-20 14:54:27"
+        "update_date": "2026-08-28 10:23:42"
     },
     {
         "row_id": 774,
@@ -6189,7 +6189,7 @@
         "artist_id": 15978957,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:11:15"
+        "update_date": "2026-08-28 10:23:48"
     },
     {
         "row_id": 775,
@@ -6197,7 +6197,7 @@
         "artist_id": 5360702,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:54:40"
+        "update_date": "2026-08-28 10:23:54"
     },
     {
         "row_id": 776,
@@ -6205,7 +6205,7 @@
         "artist_id": 1973668,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:11:19"
+        "update_date": "2026-08-28 10:24:00"
     },
     {
         "row_id": 777,
@@ -6213,7 +6213,7 @@
         "artist_id": 99418200,
         "artist_genre": "Progressive Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:54:52"
+        "update_date": "2026-08-28 10:24:06"
     },
     {
         "row_id": 778,
@@ -6221,7 +6221,7 @@
         "artist_id": 220299990,
         "artist_genre": "Melodic Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:54:57"
+        "update_date": "2026-08-28 10:24:11"
     },
     {
         "row_id": 779,
@@ -6229,7 +6229,7 @@
         "artist_id": 4007460,
         "artist_genre": "Groove Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:55:02"
+        "update_date": "2026-08-28 10:24:17"
     },
     {
         "row_id": 780,
@@ -6237,7 +6237,7 @@
         "artist_id": 288345578,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:11:23"
+        "update_date": "2026-08-28 10:24:22"
     },
     {
         "row_id": 781,
@@ -6245,7 +6245,7 @@
         "artist_id": 68696,
         "artist_genre": "Rap Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:11:27"
+        "update_date": "2026-08-28 10:24:28"
     },
     {
         "row_id": 782,
@@ -6253,7 +6253,7 @@
         "artist_id": 445594358,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:55:20"
+        "update_date": "2026-08-28 10:24:34"
     },
     {
         "row_id": 783,
@@ -6261,7 +6261,7 @@
         "artist_id": 140870416,
         "artist_genre": "Progressive Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:55:25"
+        "update_date": "2026-08-28 10:24:39"
     },
     {
         "row_id": 784,
@@ -6269,7 +6269,7 @@
         "artist_id": 382859965,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:55:30"
+        "update_date": "2026-08-28 10:24:45"
     },
     {
         "row_id": 785,
@@ -6277,7 +6277,7 @@
         "artist_id": 327441648,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:11:31"
+        "update_date": "2026-08-28 10:24:50"
     },
     {
         "row_id": 786,
@@ -6285,7 +6285,7 @@
         "artist_id": 47123955,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:11:36"
+        "update_date": "2026-08-28 10:24:56"
     },
     {
         "row_id": 787,
@@ -6293,7 +6293,7 @@
         "artist_id": 5243260,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:55:48"
+        "update_date": "2026-08-28 10:25:02"
     },
     {
         "row_id": 788,
@@ -6301,7 +6301,7 @@
         "artist_id": 149786,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:55:54"
+        "update_date": "2026-08-28 10:25:07"
     },
     {
         "row_id": 789,
@@ -6309,7 +6309,7 @@
         "artist_id": 16169568,
         "artist_genre": "Doom Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:56:00"
+        "update_date": "2026-08-28 10:25:13"
     },
     {
         "row_id": 790,
@@ -6317,7 +6317,7 @@
         "artist_id": 140800517,
         "artist_genre": "Folk Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:11:40"
+        "update_date": "2026-08-28 10:25:19"
     },
     {
         "row_id": 791,
@@ -6325,7 +6325,7 @@
         "artist_id": 201700208,
         "artist_genre": "Hard Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:56:11"
+        "update_date": "2026-08-28 10:25:24"
     },
     {
         "row_id": 792,
@@ -6333,7 +6333,7 @@
         "artist_id": 337026140,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:11:43"
+        "update_date": "2026-08-28 10:25:30"
     },
     {
         "row_id": 793,
@@ -6341,7 +6341,7 @@
         "artist_id": 1054086,
         "artist_genre": "Nu Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:56:23"
+        "update_date": "2026-08-28 10:25:35"
     },
     {
         "row_id": 794,
@@ -6349,7 +6349,7 @@
         "artist_id": 1169661709,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:11:48"
+        "update_date": "2026-08-28 10:25:41"
     },
     {
         "row_id": 795,
@@ -6357,7 +6357,7 @@
         "artist_id": 1536468328,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:11:52"
+        "update_date": "2026-08-28 10:25:46"
     },
     {
         "row_id": 796,
@@ -6365,7 +6365,7 @@
         "artist_id": 364902987,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:11:56"
+        "update_date": "2026-08-28 10:25:52"
     },
     {
         "row_id": 797,
@@ -6373,7 +6373,7 @@
         "artist_id": 1589097908,
         "artist_genre": "Melodic Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:56:46"
+        "update_date": "2026-08-28 10:25:57"
     },
     {
         "row_id": 798,
@@ -6381,7 +6381,7 @@
         "artist_id": 3563163,
         "artist_genre": "Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:56:52"
+        "update_date": "2026-08-28 10:26:03"
     },
     {
         "row_id": 799,
@@ -6389,7 +6389,7 @@
         "artist_id": 41839276,
         "artist_genre": "Punk Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:56:58"
+        "update_date": "2026-08-28 10:26:09"
     },
     {
         "row_id": 800,
@@ -6397,7 +6397,7 @@
         "artist_id": 321079004,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:12:00"
+        "update_date": "2026-08-28 10:26:15"
     },
     {
         "row_id": 801,
@@ -6405,7 +6405,7 @@
         "artist_id": 189950439,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:12:04"
+        "update_date": "2026-08-28 10:26:21"
     },
     {
         "row_id": 802,
@@ -6413,7 +6413,7 @@
         "artist_id": 1586205827,
         "artist_genre": "Nu Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:12:08"
+        "update_date": "2026-08-28 10:26:26"
     },
     {
         "row_id": 803,
@@ -6421,7 +6421,7 @@
         "artist_id": 3222127,
         "artist_genre": "Thrash Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:12:12"
+        "update_date": "2026-08-28 10:26:32"
     },
     {
         "row_id": 804,
@@ -6429,7 +6429,7 @@
         "artist_id": 1240303583,
         "artist_genre": "Heavy Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:12:16"
+        "update_date": "2026-08-28 10:26:38"
     },
     {
         "row_id": 805,
@@ -6437,7 +6437,7 @@
         "artist_id": 1567803649,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:12:20"
+        "update_date": "2026-08-28 10:26:43"
     },
     {
         "row_id": 806,
@@ -6445,7 +6445,7 @@
         "artist_id": 1109065921,
         "artist_genre": "Groove Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:57:39"
+        "update_date": "2026-08-28 10:26:49"
     },
     {
         "row_id": 807,
@@ -6453,7 +6453,7 @@
         "artist_id": 1258545719,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:12:24"
+        "update_date": "2026-08-28 10:26:54"
     },
     {
         "row_id": 808,
@@ -6461,7 +6461,7 @@
         "artist_id": 28448368,
         "artist_genre": "Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:57:50"
+        "update_date": "2026-08-28 10:27:00"
     },
     {
         "row_id": 809,
@@ -6469,7 +6469,7 @@
         "artist_id": 218352633,
         "artist_genre": "Modern Classical",
         "update_type": 1,
-        "update_date": "2026-08-20 14:58:00"
+        "update_date": "2026-08-28 10:27:09"
     },
     {
         "row_id": 810,
@@ -6477,7 +6477,7 @@
         "artist_id": 1558868226,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:12:27"
+        "update_date": "2026-08-28 10:27:14"
     },
     {
         "row_id": 811,
@@ -6485,7 +6485,7 @@
         "artist_id": 301242373,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:12:31"
+        "update_date": "2026-08-28 10:27:20"
     },
     {
         "row_id": 812,
@@ -6493,7 +6493,7 @@
         "artist_id": 157709052,
         "artist_genre": "Heavy Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:12:35"
+        "update_date": "2026-08-28 10:27:26"
     },
     {
         "row_id": 813,
@@ -6501,7 +6501,7 @@
         "artist_id": 1498778637,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:12:39"
+        "update_date": "2026-08-28 10:27:31"
     },
     {
         "row_id": 814,
@@ -6509,7 +6509,7 @@
         "artist_id": 582856449,
         "artist_genre": "Death Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:58:28"
+        "update_date": "2026-08-28 10:27:36"
     },
     {
         "row_id": 815,
@@ -6517,7 +6517,7 @@
         "artist_id": 1605371692,
         "artist_genre": "Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 14:58:34"
+        "update_date": "2026-08-28 10:27:42"
     },
     {
         "row_id": 816,
@@ -6525,7 +6525,7 @@
         "artist_id": 1000847729,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:12:43"
+        "update_date": "2026-08-28 10:27:47"
     },
     {
         "row_id": 817,
@@ -6533,7 +6533,7 @@
         "artist_id": 567438265,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 14:58:45"
+        "update_date": "2026-08-28 10:27:53"
     },
     {
         "row_id": 818,
@@ -6541,7 +6541,7 @@
         "artist_id": 1456170269,
         "artist_genre": "Thrash Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:58:50"
+        "update_date": "2026-08-28 10:27:58"
     },
     {
         "row_id": 819,
@@ -6549,7 +6549,7 @@
         "artist_id": 74469873,
         "artist_genre": "Power Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:12:47"
+        "update_date": "2026-08-28 10:28:04"
     },
     {
         "row_id": 820,
@@ -6557,7 +6557,7 @@
         "artist_id": 563838898,
         "artist_genre": "Alternative",
         "update_type": 2,
-        "update_date": "2026-08-21 08:12:51"
+        "update_date": "2026-08-28 10:28:10"
     },
     {
         "row_id": 821,
@@ -6565,7 +6565,7 @@
         "artist_id": 1261130488,
         "artist_genre": "Metalcore",
         "update_type": 1,
-        "update_date": "2026-08-20 14:59:07"
+        "update_date": "2026-08-28 10:28:15"
     },
     {
         "row_id": 822,
@@ -6581,7 +6581,7 @@
         "artist_id": 1414993988,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:12:55"
+        "update_date": "2026-08-28 10:28:21"
     },
     {
         "row_id": 824,
@@ -6589,7 +6589,7 @@
         "artist_id": 428163662,
         "artist_genre": "Heavy Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 14:59:19"
+        "update_date": "2026-08-28 10:28:26"
     },
     {
         "row_id": 825,
@@ -6597,7 +6597,7 @@
         "artist_id": 127084107,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:12:59"
+        "update_date": "2026-08-28 10:28:32"
     },
     {
         "row_id": 826,
@@ -6605,7 +6605,7 @@
         "artist_id": 77315264,
         "artist_genre": "Glam Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:13:03"
+        "update_date": "2026-08-28 10:28:37"
     },
     {
         "row_id": 827,
@@ -6613,7 +6613,7 @@
         "artist_id": 3495273,
         "artist_genre": "Hip-Hop",
         "update_type": 1,
-        "update_date": "2026-08-20 14:59:37"
+        "update_date": "2026-08-28 10:28:44"
     },
     {
         "row_id": 828,
@@ -6621,7 +6621,7 @@
         "artist_id": 205108911,
         "artist_genre": "Melodic Death Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:13:07"
+        "update_date": "2026-08-28 10:28:50"
     },
     {
         "row_id": 829,
@@ -6629,7 +6629,7 @@
         "artist_id": 2898551,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:13:12"
+        "update_date": "2026-08-28 10:28:57"
     },
     {
         "row_id": 830,
@@ -6637,7 +6637,7 @@
         "artist_id": 285238342,
         "artist_genre": "Deathcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:13:15"
+        "update_date": "2026-08-28 10:29:02"
     },
     {
         "row_id": 831,
@@ -6653,7 +6653,7 @@
         "artist_id": 269315952,
         "artist_genre": "EDM",
         "update_type": 1,
-        "update_date": "2026-08-20 15:00:03"
+        "update_date": "2026-08-28 10:29:09"
     },
     {
         "row_id": 833,
@@ -6661,7 +6661,7 @@
         "artist_id": 360832093,
         "artist_genre": "Metalcore",
         "update_type": 2,
-        "update_date": "2026-08-21 08:13:20"
+        "update_date": "2026-08-28 10:29:14"
     },
     {
         "row_id": 834,
@@ -6669,7 +6669,7 @@
         "artist_id": 867130324,
         "artist_genre": "Alternative",
         "update_type": 1,
-        "update_date": "2026-08-20 15:00:14"
+        "update_date": "2026-08-28 10:29:20"
     },
     {
         "row_id": 835,
@@ -6677,7 +6677,7 @@
         "artist_id": 76752772,
         "artist_genre": "Symphonic Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:13:24"
+        "update_date": "2026-08-28 10:29:26"
     },
     {
         "row_id": 836,
@@ -6685,7 +6685,7 @@
         "artist_id": 1647613236,
         "artist_genre": "Thrash Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 15:00:26"
+        "update_date": "2026-08-28 10:29:31"
     },
     {
         "row_id": 837,
@@ -6693,7 +6693,7 @@
         "artist_id": 1476455581,
         "artist_genre": "Stoner Metal",
         "update_type": 1,
-        "update_date": "2026-08-20 15:00:31"
+        "update_date": "2026-08-28 10:29:36"
     },
     {
         "row_id": 838,
@@ -6701,7 +6701,7 @@
         "artist_id": 910604189,
         "artist_genre": "Pop",
         "update_type": 1,
-        "update_date": "2026-08-20 15:00:38"
+        "update_date": "2026-08-28 10:29:43"
     },
     {
         "row_id": 839,
@@ -6709,7 +6709,7 @@
         "artist_id": 424044507,
         "artist_genre": "Hip-Hop",
         "update_type": 1,
-        "update_date": "2026-08-20 15:00:45"
+        "update_date": "2026-08-28 10:29:50"
     },
     {
         "row_id": 840,
@@ -6717,7 +6717,7 @@
         "artist_id": 1534153761,
         "artist_genre": "Heavy Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:13:27"
+        "update_date": "2026-08-28 10:29:55"
     },
     {
         "row_id": 841,
@@ -6725,7 +6725,7 @@
         "artist_id": 483363,
         "artist_genre": "Punk Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 08:13:32"
+        "update_date": "2026-08-28 10:30:01"
     },
     {
         "row_id": 842,
@@ -6733,7 +6733,7 @@
         "artist_id": 28181124,
         "artist_genre": "Thrash Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:13:36"
+        "update_date": "2026-08-28 10:30:06"
     },
     {
         "row_id": 843,
@@ -6741,7 +6741,7 @@
         "artist_id": 1750092191,
         "artist_genre": "Progressive Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 08:13:39"
+        "update_date": "2026-08-28 10:30:12"
     },
     {
         "row_id": 845,
@@ -6749,7 +6749,7 @@
         "artist_id": 1059349058,
         "artist_genre": "Alternative Metal",
         "update_type": 2,
-        "update_date": "2026-08-21 08:13:44"
+        "update_date": "2026-08-28 10:30:18"
     },
     {
         "row_id": 846,
@@ -6837,7 +6837,7 @@
         "artist_id": 2814978,
         "artist_genre": "Hard Rock",
         "update_type": 1,
-        "update_date": "2026-08-20 15:01:20"
+        "update_date": "2026-08-28 10:30:24"
     },
     {
         "row_id": 858,
@@ -6845,7 +6845,7 @@
         "artist_id": 263068617,
         "artist_genre": "Hard Rock",
         "update_type": 2,
-        "update_date": "2026-08-21 08:13:48"
+        "update_date": "2026-08-28 10:30:29"
     },
     {
         "row_id": 859,
@@ -6853,6 +6853,14 @@
         "artist_id": 515530562,
         "artist_genre": "Progressive Metal",
         "update_type": 2,
-        "update_date": "2026-08-28 00:44:57"
+        "update_date": "2026-08-28 10:30:35"
+    },
+    {
+        "row_id": 860,
+        "artist": "Ladrones",
+        "artist_id": 1617367440,
+        "artist_genre": "Nu Metal",
+        "update_type": 2,
+        "update_date": "2026-08-28 13:03:30"
     }
 ]
