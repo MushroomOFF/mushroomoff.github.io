@@ -102723,7 +102723,7 @@
         "genre_category": "M",
         "artist": "Fear Factory",
         "album": "Roboticist - Single",
-        "my_type": null,
+        "my_type": "v",
         "album_id": 6798257643,
         "album_link": "https://music.apple.com/us/album/roboticist-single/6798257643",
         "album_link_ym": "https://music.yandex.ru/album/43715094",
@@ -103101,13 +103101,13 @@
         "genre_category": "HR",
         "artist": "Zahna",
         "album": "BREAK OR BREAKTHROUGH",
-        "my_type": null,
+        "my_type": "v",
         "album_id": 1887205816,
         "album_link": "https://music.apple.com/us/album/break-or-breakthrough/1887205816",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/89/a5/00/89a50030-2ea9-c711-3a37-543312ec0d0b/823375074182_Cover.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1513
     },
     {
         "row_id": 7372,
@@ -103185,13 +103185,13 @@
         "genre_category": "HR",
         "artist": "Tanzwut",
         "album": "Herz aus Stein",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 1887292104,
         "album_link": "https://music.apple.com/us/album/herz-aus-stein/1887292104",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/4b/17/8a/4b178a42-4bbd-723c-9805-b88276fa260d/820200617781.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1514
     },
     {
         "row_id": 7378,
