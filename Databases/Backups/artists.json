@@ -6862,5 +6862,13 @@
         "artist_genre": "Nu Metal",
         "update_type": 2,
         "update_date": "2026-09-04 11:56:47"
+    },
+    {
+        "row_id": 861,
+        "artist": "Zahna",
+        "artist_id": 1222175418,
+        "artist_genre": "Alternative",
+        "update_type": 2,
+        "update_date": "2026-09-04 15:23:27"
     }
 ]
