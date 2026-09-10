@@ -6870,5 +6870,13 @@
         "artist_genre": "Alternative",
         "update_type": 2,
         "update_date": "2026-09-04 15:23:27"
+    },
+    {
+        "row_id": 862,
+        "artist": "Accept",
+        "artist_id": 545085,
+        "artist_genre": "Heavy Metal",
+        "update_type": 1,
+        "update_date": "2026-09-10 11:03:07"
     }
 ]
