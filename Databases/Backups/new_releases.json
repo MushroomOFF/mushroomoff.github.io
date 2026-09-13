@@ -103689,13 +103689,13 @@
         "genre_category": "M",
         "artist": "A Night In Texas",
         "album": "The Darkest Side Of Humanity",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6778162092,
         "album_link": "https://music.apple.com/us/album/the-darkest-side-of-humanity/6778162092",
         "album_link_ym": null,
         "album_link_zv": "https://zvuk.com/release/52835332",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c3/91/62/c3916260-390f-99a0-f2c0-bf9127221e33/820233161787.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1540
     },
     {
         "row_id": 7414,
@@ -103717,13 +103717,13 @@
         "genre_category": "M",
         "artist": "Heartless Human Harvest",
         "album": "Agony In Silence - EP",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6795909557,
         "album_link": "https://music.apple.com/us/album/agony-in-silence-ep/6795909557",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/6f/aa/ca/6faacabe-fd3f-e6c1-4b41-6647445ab01b/4262428353489.png/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1541
     },
     {
         "row_id": 7416,
