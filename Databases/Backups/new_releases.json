@@ -103591,13 +103591,13 @@
         "genre_category": "M",
         "artist": "MOUTH BREAKER",
         "album": "MOSHUP - EP",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6782974666,
         "album_link": "https://music.apple.com/us/album/moshup-ep/6782974666",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/49/38/8b/49388bec-c92e-5f77-ff92-42a858ea0d04/820233792363.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1542
     },
     {
         "row_id": 7407,
@@ -103605,7 +103605,7 @@
         "genre_category": "M",
         "artist": "Haken",
         "album": "in a fever dream (Deluxe Edition)",
-        "my_type": null,
+        "my_type": "v",
         "album_id": 6805500530,
         "album_link": "https://music.apple.com/us/album/in-a-fever-dream-deluxe-edition/6805500530",
         "album_link_ym": null,
@@ -103633,13 +103633,13 @@
         "genre_category": "M",
         "artist": "Get Out Alive",
         "album": "Saint of the Dark",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6803212950,
         "album_link": "https://music.apple.com/us/album/saint-of-the-dark/6803212950",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/59/03/4b/59034b24-286f-6bc9-1197-9f974db1c9f8/193436484138_GETOUTALIVEFINALX.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1543
     },
     {
         "row_id": 7410,
