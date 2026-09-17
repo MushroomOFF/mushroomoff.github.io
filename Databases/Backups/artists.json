@@ -6878,5 +6878,13 @@
         "artist_genre": "Heavy Metal",
         "update_type": 1,
         "update_date": "2026-09-11 09:03:11"
+    },
+    {
+        "row_id": 863,
+        "artist": "Remember the Monsters",
+        "artist_id": 1256587063,
+        "artist_genre": "Alternative",
+        "update_type": 2,
+        "update_date": "2026-09-17 10:02:01"
     }
 ]
