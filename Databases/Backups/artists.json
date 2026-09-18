@@ -6886,5 +6886,13 @@
         "artist_genre": "Alternative",
         "update_type": 2,
         "update_date": "2026-09-18 10:22:39"
+    },
+    {
+        "row_id": 864,
+        "artist": "Blodtar",
+        "artist_id": 1584412052,
+        "artist_genre": "Black Metal",
+        "update_type": 2,
+        "update_date": "2026-09-18 11:25:05"
     }
 ]
