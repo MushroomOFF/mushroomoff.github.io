@@ -104473,13 +104473,13 @@
         "genre_category": "M",
         "artist": "Blodtår",
         "album": "Monark",
-        "my_type": null,
+        "my_type": "v",
         "album_id": 6766898523,
         "album_link": "https://music.apple.com/us/album/monark/6766898523",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/25/69/fe/2569fe4d-4a33-cff9-f359-54f2f321eb17/7350142983796.png/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1563
     },
     {
         "row_id": 7470,
