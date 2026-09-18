@@ -1,0 +1,12 @@
+{
+  "name": "Alternative & Metal Releases",
+  "short_name": "AMR New Releases",
+  "start_url": "releases.html",
+  "display": "standalone",
+  "background_color": "#fbfbfd",
+  "theme_color": "#fa233b",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

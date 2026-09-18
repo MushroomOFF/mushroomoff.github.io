@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alternative & Metal Releases</title>
+<!-- Favicon для вкладок браузера -->
+<link rel="icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+
+<!-- Иконка для устройств Apple при сохранении на рабочий стол -->
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+<!-- Режим «как приложение» при запуске с рабочего стола -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="AMR New Releases">
+<meta name="theme-color" content="#fa233b">
+
+<link rel="manifest" href="manifest.webmanifest">
+
+<link rel="stylesheet" href="releases.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo"><span>Alternative & Metal Releases</span></div>
+
+    <div class="type-filters" id="typeFilters">
+      <button class="type-filter-btn" data-type="v" title="Must listen">🔥</button>
+      <button class="type-filter-btn" data-type="o" title="Good">👌</button>
+      <button class="type-filter-btn" data-type="d" title="Interesting">🔍</button>
+      <button class="type-filter-btn" data-type="x" title="Skip">✖️</button>
+      <button class="type-filter-btn" data-type="empty" title="Без оценки">∅</button>
+    </div>
+
+    <div class="controls">
+      <select id="yearSelect"></select>
+      <select id="monthSelect"></select>
+      <button class="admin-btn" id="adminBtn" onclick="openLoginModal()">🔐 Войти</button>
+    </div>
+  </div>
+
+  <div class="view-settings">
+    <label class="switch-wrap" title="Группировать релизы по датам выхода">
+      <span class="switch">
+        <input type="checkbox" id="groupByDateToggle" checked>
+        <span class="slider"></span>
+      </span>
+      <span class="switch-text">Группировать по датам</span>
+    </label>
+
+    <div class="sort-control">
+      <span class="sort-label">Сортировка:</span>
+      <select id="sortSelect">
+        <option value="date_desc">По дате (новые сверху)</option>
+        <option value="date_asc">По дате (старые сверху)</option>
+        <option value="artist_asc">По исполнителю (А-Я)</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<main id="mainContent">
+  <div class="status-message" id="statusArea">
+    <div class="spinner"></div>
+    <p>Загрузка релизов…</p>
+  </div>
+</main>
+
+<!-- Player Modal -->
+<div class="player-modal-overlay" id="playerModal" onclick="closePlayerModal(event)">
+  <div class="player-modal">
+    <div class="player-modal-header">
+      <div class="player-modal-title">
+        <div class="player-modal-artist" id="playerArtist"></div>
+        <div class="player-modal-album" id="playerAlbum"></div>
+      </div>
+      <button class="player-modal-close" onclick="closePlayerModal()">×</button>
+    </div>
+    <div class="player-modal-body" id="playerBody"></div>
+  </div>
+</div>
+
+<!-- Image Modal -->
+<div class="image-modal-overlay" id="imageModal" onclick="closeImageModal(event)">
+  <div class="image-modal">
+    <button class="image-modal-close" onclick="closeImageModal()">×</button>
+    <img id="imageModalImg" src="" alt="">
+    <div class="image-modal-info">
+      <span class="artist" id="imageModalArtist"></span> — <span id="imageModalAlbum"></span>
+    </div>
+  </div>
+</div>
+
+<!-- Login Modal (один токен) -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <h2>🔐 Вход в панель администратора</h2>
+    <p id="loginHint">Локально — токен сервера. В сети — fine-grained токен GitHub (право Contents: Write).</p>
+    <input type="password" id="tokenInput" placeholder="Токен" autocomplete="current-password">
+    <div class="modal-error" id="modalError"></div>
+    <div class="modal-buttons">
+      <button class="modal-btn secondary" onclick="closeLoginModal()">Отмена</button>
+      <button class="modal-btn primary" onclick="submitToken()">Войти</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="releases.js"></script>
+</body>
+</html>
