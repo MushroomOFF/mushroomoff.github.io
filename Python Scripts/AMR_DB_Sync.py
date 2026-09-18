@@ -11,22 +11,21 @@ Rules:
 - If row_id does not exist in DB: insert row from JSON.
 - Rows existing only in DB are not deleted.
 
+Workflow:
+- Phase 1: DRY-RUN (shows planned changes, DB is not modified).
+- Then the script asks: apply changes? (y/n)
+- Only answer "y" runs Phase 2 (real changes). Any other answer = no changes.
+
 Usage examples:
 
-    # Dry run: show what would happen without changing DB
+    # Normal run: dry-run first, then y/n confirmation
+    python sync_json_to_sqlite.py --db my_database.db --json-dir .
+
+    # Dry-run only, no confirmation prompt
     python sync_json_to_sqlite.py --db my_database.db --json-dir . --dry-run
 
-    # Real sync with automatic DB backup before changes
+    # With automatic DB backup before applying changes
     python sync_json_to_sqlite.py --db my_database.db --json-dir . --backup
-
-    # Sync only selected tables
-    python sync_json_to_sqlite.py --db my_database.db --tables artists my_releases
-
-    # Allow script to add missing columns from JSON to existing tables
-    python sync_json_to_sqlite.py --db my_database.db --add-missing-columns
-
-    # Allow script to create missing tables from JSON files
-    python sync_json_to_sqlite.py --db my_database.db --create-missing-tables
 """
 
 import argparse
@@ -132,7 +131,6 @@ def load_json_rows(path: Path, strip_strings: bool) -> List[Dict[str, Any]]:
     except Exception as exc:
         raise RuntimeError(f"Cannot read JSON file {path}: {exc}") from exc
 
-    # Support either a top-level list or a dict containing one list.
     if isinstance(data, dict):
         if isinstance(data.get("rows"), list):
             data = data["rows"]
@@ -156,15 +154,7 @@ def load_json_rows(path: Path, strip_strings: bool) -> List[Dict[str, Any]]:
 
 
 def values_equal(a: Any, b: Any) -> bool:
-    """
-    Compare DB value and JSON value.
-
-    The comparison is intentionally tolerant for common SQLite cases:
-    - numbers are compared numerically;
-    - numeric strings and numbers are considered equal;
-    - None equals None only;
-    - bytes can be compared to UTF-8 strings.
-    """
+    """Compare DB value and JSON value (tolerant for common SQLite cases)."""
     if a is b:
         return True
 
@@ -243,12 +233,7 @@ def get_table_columns(conn: sqlite3.Connection, table: str) -> List[str]:
 
 
 def make_column_lookup(columns: List[str]) -> Dict[str, str]:
-    """
-    Create normalized column lookup.
-
-    Keys are normalized lowercase/stripped names.
-    Values are actual DB column names.
-    """
+    """Normalized column lookup: lowercase/stripped name -> actual DB column name."""
     lookup = {}
     for column in columns:
         lookup[normalize_key(column)] = column
@@ -329,11 +314,7 @@ def create_table_from_rows(
     rows: List[Dict[str, Any]],
     dry_run: bool = False,
 ) -> List[str]:
-    """
-    Create missing table using JSON rows.
-
-    All non-row_id columns are created as TEXT for maximum compatibility.
-    """
+    """Create missing table using JSON rows (non-row_id columns as TEXT)."""
     if not rows:
         raise RuntimeError(f"Cannot create table '{table}' from empty JSON row list")
 
@@ -385,11 +366,13 @@ def sync_table(
     table: str,
     json_path: Path,
     args: argparse.Namespace,
+    dry_run: bool,
 ) -> Dict[str, int]:
     """Synchronize one table from one JSON file."""
     rows = load_json_rows(json_path, args.strip_values)
 
-    print(f"\n=== Table '{table}' from {json_path.name}: {len(rows)} JSON row(s) ===")
+    mode = "[DRY-RUN] " if dry_run else ""
+    print(f"\n=== {mode}Table '{table}' from {json_path.name}: {len(rows)} JSON row(s) ===")
 
     stats = {
         "inserted": 0,
@@ -400,7 +383,6 @@ def sync_table(
     if not rows:
         return stats
 
-    # Validate duplicate row_id values inside JSON file.
     seen_row_ids = set()
     for row in rows:
         row_id = row["row_id"]
@@ -425,11 +407,10 @@ def sync_table(
             conn=conn,
             table=sql_table,
             rows=rows,
-            dry_run=args.dry_run,
+            dry_run=dry_run,
         )
 
-        # In a real run, table now exists. In dry-run, it still does not.
-        table_exists = not args.dry_run
+        table_exists = not dry_run
 
     column_lookup = make_column_lookup(db_columns)
 
@@ -438,7 +419,6 @@ def sync_table(
 
     row_id_column = column_lookup["row_id"]
 
-    # Detect JSON fields that do not exist in DB.
     all_json_fields = set()
     for row in rows:
         all_json_fields.update(key for key in row.keys() if key != "row_id")
@@ -454,11 +434,11 @@ def sync_table(
 
     if missing_fields:
         if args.add_missing_columns:
-            prefix = "[DRY-RUN] Would add" if args.dry_run else "Adding"
+            prefix = "[DRY-RUN] Would add" if dry_run else "Adding"
             print(f"  {prefix} missing columns: {', '.join(missing_fields)}")
 
             for field in missing_fields:
-                if table_exists and not args.dry_run:
+                if table_exists and not dry_run:
                     sql = f"""
                         ALTER TABLE {quote_ident(sql_table)}
                         ADD COLUMN {quote_ident(field)} TEXT
@@ -509,7 +489,7 @@ def sync_table(
 
                 data[column] = value
 
-            if args.dry_run:
+            if dry_run:
                 print(f"  [DRY-RUN] INSERT row_id={row_id!r}")
                 if args.verbose:
                     print(f"    values: {data}")
@@ -547,7 +527,7 @@ def sync_table(
                     )
 
         if updates:
-            if args.dry_run:
+            if dry_run:
                 print(
                     f"  [DRY-RUN] UPDATE row_id={row_id!r}, "
                     f"columns: {', '.join(updates.keys())}"
@@ -568,18 +548,63 @@ def sync_table(
             stats["updated"] += 1
         else:
             if args.verbose:
-                print(f"  UNCHANGED row_id={row_id!r}")
+                print(f"  {'[DRY-RUN] ' if dry_run else ''}UNCHANGED row_id={row_id!r}")
 
             stats["unchanged"] += 1
 
     print(
-        "  Summary: "
+        f"  {mode}Summary: "
         f"inserted={stats['inserted']}, "
         f"updated={stats['updated']}, "
         f"unchanged={stats['unchanged']}"
     )
 
     return stats
+
+
+def run_sync_phase(
+    conn: sqlite3.Connection,
+    table_file_pairs: List[Any],
+    args: argparse.Namespace,
+    dry_run: bool,
+) -> Dict[str, int]:
+    """Run full sync over all tables in one transaction. Dry-run rolls back."""
+    totals = {
+        "inserted": 0,
+        "updated": 0,
+        "unchanged": 0,
+    }
+
+    conn.execute("BEGIN")
+
+    try:
+        for table, json_path in table_file_pairs:
+            stats = sync_table(conn, table, json_path, args, dry_run)
+            for key in totals:
+                totals[key] += stats.get(key, 0)
+
+        if dry_run:
+            conn.execute("ROLLBACK")
+        else:
+            conn.execute("COMMIT")
+    except Exception:
+        try:
+            conn.execute("ROLLBACK")
+        except Exception:
+            pass
+        raise
+
+    return totals
+
+
+def ask_yes_no(prompt: str) -> bool:
+    """Return True only if user answers 'y'/'Y'. Anything else (or no stdin) = False."""
+    try:
+        answer = input(prompt).strip().lower()
+    except (EOFError, KeyboardInterrupt):
+        print()
+        return False
+    return answer == "y"
 
 
 def backup_database(db_path: Path) -> Path:
@@ -593,71 +618,29 @@ def backup_database(db_path: Path) -> Path:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Sync SQLite DB tables from per-table JSON backup files.",
+        description="Sync SQLite DB tables from per-table JSON backup files. "
+                    "Always performs a dry-run first, then asks for confirmation.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
 
-    parser.add_argument(
-        "--db",
-        required=True,
-        help="Path to SQLite database file, e.g. database.db",
-    )
-
-    parser.add_argument(
-        "--json-dir",
-        default=".",
-        help="Directory containing JSON files named as tables",
-    )
-
-    parser.add_argument(
-        "--tables",
-        nargs="*",
-        metavar="TABLE",
-        help="Sync only these tables. If omitted, all *.json files in --json-dir are used.",
-    )
-
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Show what would be done without committing changes",
-    )
-
-    parser.add_argument(
-        "--backup",
-        action="store_true",
-        help="Create timestamped backup of DB file before changes",
-    )
-
-    parser.add_argument(
-        "--create-missing-tables",
-        action="store_true",
-        help="Create tables if they do not exist in DB",
-    )
-
-    parser.add_argument(
-        "--add-missing-columns",
-        action="store_true",
-        help="Add missing columns to existing tables if JSON has extra fields",
-    )
-
-    parser.add_argument(
-        "--ignore-extra-json-fields",
-        action="store_true",
-        help="Ignore JSON fields that do not exist in DB instead of raising error",
-    )
-
-    parser.add_argument(
-        "--verbose",
-        action="store_true",
-        help="Print changed values and unchanged rows",
-    )
-
-    parser.add_argument(
-        "--no-strip-values",
-        dest="strip_values",
-        action="store_false",
-        help="Do not strip leading/trailing whitespace from string values",
-    )
+    parser.add_argument("--db", required=True, help="Path to SQLite database file")
+    parser.add_argument("--json-dir", default=".", help="Directory containing JSON files named as tables")
+    parser.add_argument("--tables", nargs="*", metavar="TABLE",
+                        help="Sync only these tables. If omitted, all *.json files in --json-dir are used.")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="Perform only the dry-run phase and exit without confirmation prompt")
+    parser.add_argument("--backup", action="store_true",
+                        help="Create timestamped backup of DB file right before applying changes")
+    parser.add_argument("--create-missing-tables", action="store_true",
+                        help="Create tables if they do not exist in DB")
+    parser.add_argument("--add-missing-columns", action="store_true",
+                        help="Add missing columns to existing tables if JSON has extra fields")
+    parser.add_argument("--ignore-extra-json-fields", action="store_true",
+                        help="Ignore JSON fields that do not exist in DB instead of raising error")
+    parser.add_argument("--verbose", action="store_true",
+                        help="Print changed values and unchanged rows")
+    parser.add_argument("--no-strip-values", dest="strip_values", action="store_false",
+                        help="Do not strip leading/trailing whitespace from string values")
 
     parser.set_defaults(strip_values=True)
 
@@ -694,53 +677,73 @@ def main() -> None:
     if not table_file_pairs:
         sys.exit(f"ERROR: no JSON files found in {json_dir}")
 
-    if args.backup:
-        backup_database(db_path)
+    # ---------------- Phase 1: DRY-RUN ----------------
+    print("=" * 60)
+    print("PHASE 1: DRY-RUN (database will NOT be modified)")
+    print("=" * 60)
 
-    # isolation_level=None gives manual transaction control.
     conn = sqlite3.connect(db_path, isolation_level=None)
     conn.row_factory = sqlite3.Row
 
-    total_stats = {
-        "inserted": 0,
-        "updated": 0,
-        "unchanged": 0,
-    }
-
     try:
-        conn.execute("BEGIN")
-
-        for table, json_path in table_file_pairs:
-            stats = sync_table(conn, table, json_path, args)
-
-            for key in total_stats:
-                total_stats[key] += stats.get(key, 0)
-
-        if args.dry_run:
-            conn.execute("ROLLBACK")
-            print("\nDry run finished. No changes were committed.")
-        else:
-            conn.execute("COMMIT")
-            print("\nDone. Changes committed.")
-
-        print(
-            "Total: "
-            f"inserted={total_stats['inserted']}, "
-            f"updated={total_stats['updated']}, "
-            f"unchanged={total_stats['unchanged']}"
-        )
-
+        dry_totals = run_sync_phase(conn, table_file_pairs, args, dry_run=True)
     except Exception as exc:
-        try:
-            conn.execute("ROLLBACK")
-        except Exception:
-            pass
-
-        print(f"ERROR: {exc}", file=sys.stderr)
+        conn.close()
+        print(f"ERROR during dry-run: {exc}", file=sys.stderr)
         sys.exit(1)
 
-    finally:
+    conn.close()
+
+    print(
+        "\nDry-run summary: "
+        f"would insert={dry_totals['inserted']}, "
+        f"would update={dry_totals['updated']}, "
+        f"unchanged={dry_totals['unchanged']}"
+    )
+
+    if args.dry_run:
+        print("--dry-run specified: exiting without confirmation prompt.")
+        return
+
+    changes_needed = dry_totals["inserted"] + dry_totals["updated"]
+    if changes_needed == 0:
+        print("Nothing to change. Database is already in sync with JSON files.")
+        return
+
+    # ---------------- Confirmation ----------------
+    print()
+    if not ask_yes_no("Apply these changes to the database? [y/N]: "):
+        print("Cancelled by user. Database was NOT modified.")
+        return
+
+    if args.backup:
+        backup_database(db_path)
+
+    # ---------------- Phase 2: APPLY ----------------
+    print()
+    print("=" * 60)
+    print("PHASE 2: APPLYING CHANGES")
+    print("=" * 60)
+
+    conn = sqlite3.connect(db_path, isolation_level=None)
+    conn.row_factory = sqlite3.Row
+
+    try:
+        real_totals = run_sync_phase(conn, table_file_pairs, args, dry_run=False)
+    except Exception as exc:
         conn.close()
+        print(f"ERROR while applying changes: {exc}. All changes rolled back.", file=sys.stderr)
+        sys.exit(1)
+
+    conn.close()
+
+    print(
+        "\nDone. Changes committed.\n"
+        "Total: "
+        f"inserted={real_totals['inserted']}, "
+        f"updated={real_totals['updated']}, "
+        f"unchanged={real_totals['unchanged']}"
+    )
 
 
 if __name__ == "__main__":
