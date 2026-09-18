@@ -104389,13 +104389,13 @@
         "genre_category": "M",
         "artist": "Death Dealer Union",
         "album": "Dark Sister",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6783187677,
         "album_link": "https://music.apple.com/us/album/dark-sister/6783187677",
         "album_link_ym": "https://music.yandex.ru/album/42763985",
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f6/a6/63/f6a66360-6642-45dd-4300-dcc8c5e12363/859740999774_cover.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1564
     },
     {
         "row_id": 7464,
@@ -104403,13 +104403,13 @@
         "genre_category": "M",
         "artist": "BIG NOTER",
         "album": "SONGS IN THE KEY OF WRESTLING",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6778270188,
         "album_link": "https://music.apple.com/us/album/songs-in-the-key-of-wrestling/6778270188",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/56/e7/be/56e7be3c-8047-4e80-c19e-572622b6d341/26UMGIM72648.rgb.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1565
     },
     {
         "row_id": 7465,
@@ -104431,7 +104431,7 @@
         "genre_category": "M",
         "artist": "Lord of the Lost",
         "album": "Empyrean (2026 Deluxe Edition)",
-        "my_type": null,
+        "my_type": "v",
         "album_id": 6803184405,
         "album_link": "https://music.apple.com/us/album/empyrean-2026-deluxe-edition/6803184405",
         "album_link_ym": "https://music.yandex.ru/album/43616279",
@@ -104445,13 +104445,13 @@
         "genre_category": "M",
         "artist": "Maunah",
         "album": "Hjarta",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6778422917,
         "album_link": "https://music.apple.com/us/album/hjarta/6778422917",
         "album_link_ym": "https://music.yandex.ru/album/43605009",
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/0e/3c/9d/0e3c9d5d-3751-7a4c-0890-f5868d585761/2922.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1566
     },
     {
         "row_id": 7468,
