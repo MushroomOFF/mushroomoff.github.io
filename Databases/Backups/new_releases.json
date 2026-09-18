@@ -104333,13 +104333,13 @@
         "genre_category": "M",
         "artist": "BEAR",
         "album": "Anhedonia - EP",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 1888240656,
         "album_link": "https://music.apple.com/us/album/anhedonia-ep/1888240656",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/8c/36/0b/8c360bf5-5476-0b8f-de19-f4d1fa5eaba6/199806994498.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1570
     },
     {
         "row_id": 7460,
@@ -104347,13 +104347,13 @@
         "genre_category": "M",
         "artist": "The Bleeding",
         "album": "Godless Communion",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6805792245,
         "album_link": "https://music.apple.com/us/album/godless-communion/6805792245",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/75/81/7f/75817fae-518d-8eec-58fc-d6f06c1e4bc0/885288433708.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1571
     },
     {
         "row_id": 7461,
@@ -104361,13 +104361,13 @@
         "genre_category": "M",
         "artist": "Swept Into Decay",
         "album": "BODY//GOLD - EP",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6786800348,
         "album_link": "https://music.apple.com/us/album/body-gold-ep/6786800348",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f5/fb/cd/f5fbcddd-279b-7fb8-3012-0b561fbc89ae/820233920995.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1572
     },
     {
         "row_id": 7462,
