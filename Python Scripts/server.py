@@ -8,13 +8,13 @@
     ├── Python Scripts/
     │   └── server.py          <- этот файл
     └── Website/
-        ├── releases.html
+        ├── index.html
         ├── releases.css
         ├── releases.js
         └── new_releases.json
 
 Запуск:  python "Python Scripts/server.py"   (из корня проекта или откуда угодно)
-Адрес:   http://localhost:8000/releases.html
+Адрес:   http://localhost:8000/index.html
 """
 import http.server
 import socketserver
@@ -42,7 +42,7 @@ def find_website_dir():
 
 
 WEBSITE_DIR = find_website_dir()
-HTML_FILE = 'releases.html'                                   # относительно WEBSITE_DIR
+HTML_FILE = 'index.html'                                   # относительно WEBSITE_DIR
 JSON_FILE = os.path.join(WEBSITE_DIR, 'new_releases.json') if WEBSITE_DIR else None
 
 ADMIN_TOKEN = os.environ.get('ADMIN_TOKEN', 'amr_admin_2026')
