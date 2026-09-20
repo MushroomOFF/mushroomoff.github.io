@@ -202,34 +202,56 @@ def logger(log_line, log_file, script_name, *args):
 
 def db_backup(db_file):
     """Backup DB as tables in JSON files"""
-    db_name = os.path.split(db_file)
-    db_backup_folder = os.path.join(db_name[0], 'Backups/')
+
+    # Делаем путь абсолютным
+    db_file = os.path.abspath(db_file)
+    
+    # Определяем пути
+    db_folder = os.path.dirname(db_file)
+    db_name = os.path.basename(db_file)
+    db_backup_folder = os.path.join(db_folder, 'Backups')
+    project_root = os.path.dirname(db_folder)
+    website_folder = os.path.join(project_root, 'Website')
+
+    def get_display_path(abs_path):
+        rel_path = os.path.relpath(abs_path, project_root)
+        return '/' + rel_path.replace(os.sep, '/')
 
     print('')
     if not os.path.exists(db_file):
-        print(f"Ошибка: база данных '{db_name[1]}' не найдена в папке'{db_name[0]}'.")
+        print(f"Ошибка: база данных '{db_name}' не найдена в папке '{get_display_path(db_folder)}'.")
         return
 
+    os.makedirs(db_backup_folder, exist_ok=True)
+    os.makedirs(website_folder, exist_ok=True)
+
     conn = sqlite3.connect(db_file)
-    cursor = conn.cursor()
 
-    for table in TABLES:
-        json_filename = os.path.join(db_backup_folder, f"{table}.json")
+    try:
+        cursor = conn.cursor()
 
-        try:
-            cursor.execute(f"SELECT * FROM {table}")
-            rows = cursor.fetchall()
-            columns = [description[0] for description in cursor.description]
-            data = [dict(zip(columns, row)) for row in rows]
+        for table in TABLES:
+            target_folder = website_folder if table == 'new_releases' else db_backup_folder
+            json_filename = os.path.join(target_folder, f"{table}.json")
 
-            with open(json_filename, 'w', encoding='utf-8') as f:
-                json.dump(data, f, ensure_ascii=False, indent=4)
-            print(f"[{table}] Экспортировано {len(data)} записей в '{table}.json'")
+            try:
+                cursor.execute(f'SELECT * FROM "{table}"')
+                rows = cursor.fetchall()
+                columns = [description[0] for description in cursor.description]
+                data = [dict(zip(columns, row)) for row in rows]
 
-        except sqlite3.Error as e:
-            print(f"[{table}] Ошибка при работе с таблицей: {e}\n")
-        except Exception as e:
-            print(f"[{table}] Непредвиденная ошибка: {e}\n")
+                with open(json_filename, 'w', encoding='utf-8') as f:
+                    json.dump(data, f, ensure_ascii=False, indent=4)
 
-    conn.close()
+                print(f"[{table}] Экспортировано {len(data)} записей в '{get_display_path(json_filename)}'")
+
+            except sqlite3.Error as e:
+                print(f"[{table}] Ошибка при работе с таблицей: {e}\n")
+
+            except Exception as e:
+                print(f"[{table}] Непредвиденная ошибка: {e}\n")
+
+    finally:
+        conn.close()
+
     print('')

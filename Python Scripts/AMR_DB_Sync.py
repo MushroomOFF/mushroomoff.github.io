@@ -624,7 +624,13 @@ def parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument("--db", required=True, help="Path to SQLite database file")
-    parser.add_argument("--json-dir", default=".", help="Directory containing JSON files named as tables")
+    parser.add_argument(
+        "--json-dir",
+        nargs="+",
+        default=["."],
+        metavar="DIR",
+        help="One or more directories containing JSON files named as tables",
+    )
     parser.add_argument("--tables", nargs="*", metavar="TABLE",
                         help="Sync only these tables. If omitted, all *.json files in --json-dir are used.")
     parser.add_argument("--dry-run", action="store_true",
@@ -654,9 +660,12 @@ def main() -> None:
     if not db_path.exists():
         sys.exit(f"ERROR: database file not found: {db_path}")
 
-    json_dir = Path(args.json_dir)
-    if not json_dir.is_dir():
-        sys.exit(f"ERROR: JSON directory not found: {json_dir}")
+    json_dirs = []
+    for directory in args.json_dir:
+        d = Path(directory)
+        if not d.is_dir():
+            sys.exit(f"ERROR: JSON directory not found: {d}")
+        json_dirs.append(d)
 
     table_file_pairs = []
 
@@ -665,17 +674,42 @@ def main() -> None:
             if table.endswith(".json"):
                 table = table[:-5]
 
-            json_path = json_dir / f"{table}.json"
-            if not json_path.exists():
-                sys.exit(f"ERROR: JSON file not found: {json_path}")
+            json_path = None
+            for d in json_dirs:
+                candidate = d / f"{table}.json"
+                if candidate.is_file():
+                    json_path = candidate
+                    break
+
+            if json_path is None:
+                dirs_list = ", ".join(str(d) for d in json_dirs)
+                sys.exit(f"ERROR: JSON file for table '{table}' not found in: {dirs_list}")
 
             table_file_pairs.append((table, json_path))
     else:
-        json_files = sorted(json_dir.glob("*.json"))
-        table_file_pairs = [(path.stem, path) for path in json_files if path.is_file()]
+        seen_tables = {}
+        for d in json_dirs:
+            for path in sorted(d.glob("*.json")):
+                if not path.is_file():
+                    continue
+
+                table = path.stem
+                if table in seen_tables:
+                    sys.exit(
+                        f"ERROR: table '{table}' has JSON files in two directories: "
+                        f"{seen_tables[table]} and {path}. Keep only one."
+                    )
+                seen_tables[table] = path
+                table_file_pairs.append((table, path))
+
+        table_file_pairs.sort(key=lambda pair: pair[0])
 
     if not table_file_pairs:
-        sys.exit(f"ERROR: no JSON files found in {json_dir}")
+        sys.exit(f"ERROR: no JSON files found in: {', '.join(str(d) for d in json_dirs)}")
+
+    print("JSON sources:")
+    for table, path in table_file_pairs:
+        print(f"  {table} -> {path}")
 
     # ---------------- Phase 1: DRY-RUN ----------------
     print("=" * 60)
