@@ -27,11 +27,8 @@ LOGGER_ID = os.environ['tg_logger_id']
 YM_TOKEN = os.environ['ym_token']
 ZVUK_TOKEN = os.environ['zv_token']
 
-AMR_FOLDER = os.path.join(ROOT_FOLDER, 'AMRs/')
 DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
 DB_FILE = os.path.join(DB_FOLDER, 'music_releases.db')
-
-status_message = ''
 
 HEADERS = {'Referer':'https://music.apple.com', 'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'}
 session = requests.Session() 
@@ -204,45 +201,12 @@ def search_album_zv(query):
         elif type(zv_releases) is str:
             # if search_command_zv return Error
             ZVUK_ERROR = f'Zvuk {zv_releases}' 
-        # elif zv_releases is None:
-            # if search_command_zv return None
-            # amr.logger(f"Zvuk didn't find {one_query}", LOG_FILE, SCRIPT_NAME)
-            # status_message += f"\n⚠️ Zvuk didn't find {one_query}"
 #-----------------------------------------
-
-
-def change_amr_button(source_code, separator, new_link, zvorym): 
-    """Changing button state in AMR html files
-    'zvorym' parameter in ['Яндекс.Музыка', 'Звук']
-    """
-    str_tuple = source_code.partition(f'<button data-frame-load="{separator}">Preview</button>')
-    str_list = list(str_tuple)
-    
-    str_list[2] = str_list[2].replace(f'<a href="" target="_blank"><button disabled>{zvorym}</button>', 
-                                      f'<a href="{new_link}" target="_blank"><button>{zvorym}</button>', 1)
-    str_tuple = tuple(str_list)
-    source_code = ''.join(str_tuple)
-    return source_code
-
-
-def change_amr_file(new_link, zvorym, amr_date, link):
-    """Changing links in AMR html files
-    'zvorym' parameter in ['Яндекс.Музыка', 'Звук']
-    """    
-    amr_link = f'{AMR_FOLDER}{amr_date[0:4]}/AMR {amr_date[0:7]}.html'
-    with open(amr_link, 'r', encoding='utf-8') as html_file:
-        source_code = html_file.read()
-        link_split = link.split('/')
-        id_to_find = link_split[len(link_split)-1]
-        source_code = change_amr_button(source_code, id_to_find, new_link, zvorym)
-            
-    with open(amr_link, 'w') as html_file:
-        html_file.write(source_code)
-
 
 # ================= DATABASE FUNCTIONS =================
 
 def get_no_zvym_releases(previous_date):
+    """Получаем релизы без ссылки на Яндекс.Музыку ИЛИ Звук"""
     try:
         conn = sqlite3.connect(DB_FILE)
         cursor = conn.cursor()
@@ -264,7 +228,7 @@ def get_no_zvym_releases(previous_date):
 
 
 def update_zvym_link(row_id, new_link, zvym):
-    """Обновить ???"""
+    """Обновить ссылку на релиз на Яндекс.Музыке или Звуке"""
     try:
         conn = sqlite3.connect(DB_FILE)
         cursor = conn.cursor()
@@ -280,7 +244,7 @@ def update_zvym_link(row_id, new_link, zvym):
 
 
 def update_tg_message_id(row_id, tg_message_id):
-    """Обновить ???"""
+    """Обновить ID сообщения в Телеграм-канале"""
     try:
         conn = sqlite3.connect(DB_FILE)
         cursor = conn.cursor()
@@ -296,7 +260,7 @@ def update_tg_message_id(row_id, tg_message_id):
     
 
 def main():
-    global status_message
+    status_message = ''
 
     if ENV == 'Local': 
         amr.print_name(SCRIPT_NAME, VERSION)
@@ -336,7 +300,6 @@ def main():
             # Changing links for YM and Zvuk
             if (ym_result is not None) and (ym_result != ''):    
                 update_zvym_link(row[0], ym_result, 'ym')
-                change_amr_file(ym_result, 'Яндекс.Музыка', row[8], row[4])
                 new_ym_links += 1
                 is_message = True
             elif row[5]:
@@ -344,7 +307,6 @@ def main():
 
             if (zv_result is not None) and (zv_result != ''):
                 update_zvym_link(row[0], zv_result, 'zv')
-                change_amr_file(zv_result, 'Звук', row[8], row[4])
                 new_zv_links += 1
                 is_message = True
             elif row[6]:
