@@ -284,7 +284,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 return
 
             with open(JSON_FILE, 'w', encoding='utf-8') as f:
-                json.dump(releases, f, ensure_ascii=False, indent=1)
+                json.dump(releases, f, ensure_ascii=False, indent=4)
 
             ts = datetime.now().strftime('%H:%M:%S')
             print(f"[{ts}] ✅ row_id={row_id}: '{old_type}' → '{new_type}' "
