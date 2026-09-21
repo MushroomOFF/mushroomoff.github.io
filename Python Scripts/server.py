@@ -178,6 +178,7 @@ def tg_sender_loop(stop_event):
                                  (msg_id, row_id))
                     conn.execute('DELETE FROM tg_queue WHERE id = ?', (qid,))
                     conn.commit()
+                    amr.db_backup(DB_FILE)
                     print(f'✅ TG отправлено для row_id={row_id} (message_id={msg_id})')
                 else:
                     conn.execute('UPDATE tg_queue SET attempts = ? WHERE id = ?',
