@@ -104515,13 +104515,13 @@
         "genre_category": "HR",
         "artist": "The Pretty Reckless",
         "album": "Sessions",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6802872349,
         "album_link": "https://music.apple.com/us/album/sessions/6802872349",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/af/eb/4d/afeb4de6-8811-2178-2d32-e988c1836710/26CRGIM56337.rgb.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1577
     },
     {
         "row_id": 7473,

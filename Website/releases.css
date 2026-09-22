@@ -518,3 +518,31 @@ main {
   color: rgba(255,255,255,0.8); font-size: 0.88rem;
 }
 .image-modal-info .artist { font-weight: 600; color: white; }
+
+/* ===== СТРОКА-УКАЗАТЕЛЬ (дата | жанр) ПРИ ПРОКРУТКЕ ===== */
+.scroll-breadcrumb {
+  max-width: 1400px;
+  margin: 0 auto;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0 var(--main-pad);
+  font-size: 0.85rem;
+  color: var(--text);
+  text-align: center;
+  white-space: nowrap;
+  transition: max-height 0.25s ease, opacity 0.2s ease, padding 0.25s ease;
+}
+
+.scroll-breadcrumb.visible {
+  max-height: 34px;
+  opacity: 1;
+  padding: 5px var(--main-pad) 7px;
+  border-top: 1px solid var(--border);
+}
+
+.scroll-breadcrumb .crumb-date { font-weight: 600; }
+.scroll-breadcrumb .crumb-sep { color: var(--text-secondary); margin: 0 6px; }
+.scroll-breadcrumb .crumb-genre { font-weight: 600; }
+.scroll-breadcrumb[data-genre="metal"] .crumb-genre { color: var(--metal); }
+.scroll-breadcrumb[data-genre="alternative"] .crumb-genre { color: var(--alt); }

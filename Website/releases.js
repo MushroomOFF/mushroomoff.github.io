@@ -572,3 +572,76 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 })();
+
+// ====== СТРОКА-УКАЗАТЕЛЬ: «ДАТА | ЖАНР» ПРИ ПРОКРУТКЕ ======
+(function () {
+  const bar = document.getElementById('scrollBreadcrumb');
+  if (!bar) return;
+
+  let ticking = false;
+  let lastKey = '';
+
+  // Текст жанра без счётчика
+  function genreTextOf(section) {
+    const titleEl = section.querySelector('.genre-title');
+    if (!titleEl) return '';
+    const clone = titleEl.cloneNode(true);
+    const count = clone.querySelector('.count');
+    if (count) count.remove();
+    return clone.textContent.trim();
+  }
+
+  // Последняя жанровая секция, чей верх уже прошёл линию под шапкой
+  function findCurrentSection() {
+    const headerEl = document.querySelector('header');
+    const line = (headerEl ? headerEl.offsetHeight : 56) + 12;
+    let current = null;
+    document.querySelectorAll('.genre-section').forEach(sec => {
+      if (sec.style.display === 'none') return;             // скрыта фильтром
+      const dg = sec.closest('.date-group');
+      if (dg && dg.style.display === 'none') return;        // дата скрыта фильтром
+      if (sec.getBoundingClientRect().top <= line) current = sec;
+    });
+    return current;
+  }
+
+  function update() {
+    ticking = false;
+    const headerEl = document.querySelector('header');
+    const sec = findCurrentSection();
+
+    // Показываем строку только когда шапка свёрнута и есть видимая группа
+    if (!sec || !headerEl || !headerEl.classList.contains('collapsed')) {
+      bar.classList.remove('visible');
+      lastKey = '';
+      return;
+    }
+
+    const dateGroup = sec.closest('.date-group');
+    const dateEl = dateGroup ? dateGroup.querySelector('.date-text') : null;
+    const dateText = dateEl ? dateEl.textContent.trim() : '';
+    const genreText = genreTextOf(sec);
+
+    const key = `${dateText}|${genreText}|${sec.dataset.genre || ''}`;
+    if (key !== lastKey) {
+      bar.innerHTML =
+        `<span class="crumb-date">${escapeHtml(dateText)}</span>` +
+        `<span class="crumb-sep">|</span>` +
+        `<span class="crumb-genre">${escapeHtml(genreText)}</span>`;
+      bar.dataset.genre = sec.dataset.genre || '';
+      lastKey = key;
+    }
+    bar.classList.add('visible');
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+})();
