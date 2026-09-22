@@ -104039,13 +104039,13 @@
         "genre_category": "M",
         "artist": "Trivium",
         "album": "Dead Inside Of Me - Single",
-        "my_type": null,
+        "my_type": "v",
         "album_id": 6808693870,
         "album_link": "https://music.apple.com/us/album/dead-inside-of-me-single/6808693870",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e5/45/87/e5458712-4e4b-a076-38e3-41d8cc77b9a8/075679558671.jpg/296x296bf.webp",
-        "tg_message_id": 1552
+        "tg_message_id": 1578
     },
     {
         "row_id": 7439,
@@ -104053,13 +104053,13 @@
         "genre_category": "M",
         "artist": "Like Moths to Flames",
         "album": "Does Heaven Ever Mourn for Me - EP",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 1893686109,
         "album_link": "https://music.apple.com/us/album/does-heaven-ever-mourn-for-me-ep/1893686109",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d4/7c/f7/d47cf7f0-52b9-cca4-268f-6984203ccbf3/8721466557540.png/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1579
     },
     {
         "row_id": 7440,
@@ -104067,7 +104067,7 @@
         "genre_category": "M",
         "artist": "Early Moods",
         "album": "Ready For The Grave",
-        "my_type": null,
+        "my_type": "x",
         "album_id": 6787496635,
         "album_link": "https://music.apple.com/us/album/ready-for-the-grave/6787496635",
         "album_link_ym": null,
@@ -104081,13 +104081,13 @@
         "genre_category": "M",
         "artist": "Secrets",
         "album": "SEARCHING FOR THE THINGS WE DON’T WISH TO FIND",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 1891684230,
         "album_link": "https://music.apple.com/us/album/searching-for-the-things-we-dont-wish-to-find/1891684230",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/71/f9/14/71f91477-f4ff-eb00-0d01-55bf1f5732c3/193436467551_SECRETS.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1580
     },
     {
         "row_id": 7442,
