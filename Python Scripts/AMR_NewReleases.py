@@ -19,6 +19,7 @@ if os.getenv("GITHUB_ACTIONS") == "true":
 if ENV == 'Local':
     ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
     load_dotenv(os.path.join(ROOT_FOLDER, '.env'))
+    import subprocess # Для открытия страницы в браузере
 elif ENV == 'GitHub':
     ROOT_FOLDER = ''
 
@@ -56,6 +57,25 @@ ZVUK_ERROR = ''
 
 def uri_encode(text: str) -> str:
     return urllib.parse.quote(text, safe="")
+
+
+def get_safari_page_html():
+    """Получить отрендеренный HTML из текущей вкладки Safari через AppleScript"""
+    applescript = '''
+    tell application "Safari"
+        activate
+        set pageHTML to do JavaScript "document.documentElement.outerHTML" in current tab of front window
+        return pageHTML
+    end tell
+    '''
+    result = subprocess.run(
+        ['osascript', '-e', applescript],
+        capture_output=True, text=True, timeout=30
+    )
+    if result.returncode != 0:
+        raise Exception(f"AppleScript error: {result.stderr}")
+    return result.stdout
+
 
 # Yandex.Music ---------------------------
 def send_search_request_ym(query, year):
@@ -481,7 +501,6 @@ def collect_new_releases(category_link, category_abbr):
 
 def coming_soon(category_link):
     global message_cs_releases
-    
     update_date = datetime.datetime.now().strftime('%Y-%m-%d') 
 
     new_cs_releases_df = pd.DataFrame(columns=['apple_music_sort', 'aria_label', 'artwork_bg_color',
@@ -490,10 +509,25 @@ def coming_soon(category_link):
                                                'apple_music_release_date', 'apple_music_release_date_text',
                                                'is_new_on_this_week'])
     
-    request = session.get(category_link)
-    request.encoding = 'UTF-8'
-    response = request.text
+    # ================== ЗАГРУЗКА СТРАНИЦЫ ==================
+    if ENV == 'Local':
+        # Открываем именно в Safari
+        subprocess.run(['open', '-a', 'Safari', category_link])
+
+        input("\n📜 Прокрутите страницу в Safari до самого низа.\n"
+              "Дождитесь загрузки всех карточек, затем нажмите Enter здесь...\n")
+
+        response = get_safari_page_html()
+    else:
+        # GitHub Actions: обычный запрос
+        request = session.get(category_link)
+        request.encoding = 'UTF-8'
+        response = request.text
+    # =======================================================
+
     li_list = response.split('<li class="grid-item ')
+    print(f"\n🔍 Нашёл {len(li_list) - 1} предстоящих релизов")
+
     for li_index, li in enumerate(li_list):
         if li_index > 0:  
             data_blocks = li.split('data-testid="')
@@ -532,22 +566,45 @@ def coming_soon(category_link):
             
                 if block_name == 'product-lockup-subtitle':
                     link_position_end = data_block.find('</a')
-                    link_position_begin = data_block.rfind('>', 0, link_position_end) + len('>')
-                    artist = data_block[link_position_begin:link_position_end].strip()
-                    artist_list.append(artist)
-                    
-                    link_position_begin = data_blocks[index - 1].find('<a href="') + len('<a href="')
-                    link_position_end = data_blocks[index - 1].find('"', link_position_begin)
-                    artist_link = data_blocks[index - 1][link_position_begin:link_position_end].strip()
-                    artist_link_list.append(artist_link)
-                    artist_id = artist_link[artist_link.rfind('/') + 1:]
-                    artist_id_list.append(artist_id)
+                    if link_position_end > -1:
+                        link_position_begin = data_block.rfind('>', 0, link_position_end) + len('>')
+                        artist = data_block[link_position_begin:link_position_end].strip()
+                        artist_list.append(artist)
+                        temp_a = 0
 
-            # Searching release date
+                    if data_blocks[index - 1].find('<a href="') > -1:
+                        link_position_begin = data_blocks[index - 1].find('<a href="') + len('<a href="')
+                        link_position_end = data_blocks[index - 1].find('"', link_position_begin)
+                        artist_link = data_blocks[index - 1][link_position_begin:link_position_end].strip()
+                        artist_link_list.append(artist_link)
+                        artist_id = artist_link[artist_link.rfind('/') + 1:]
+                        artist_id_list.append(artist_id)
+
             request = session.get(album_link)
             request.encoding = 'UTF-8'
             response = request.text
 
+            if not artist_list:
+                artist_string = 'data-testid="product-subtitles">'
+                artist_string_begin = response.find(artist_string)
+                artist_string_end = response.find('</div', artist_string_begin)
+                artist_string_text = response[artist_string_begin + len(artist_string):artist_string_end]
+                artist_string_data_blocks = artist_string_text.split('<a')
+                
+                for index, data_block in enumerate(artist_string_data_blocks):
+                    if index > 0:
+                        link_position_end = data_block.find('</')
+                        link_position_begin = data_block.rfind('>', 0, link_position_end) + len('>')
+                        artist = data_block[link_position_begin:link_position_end].strip()
+                        artist_list.append(artist) 
+
+                        link_position_begin = data_block.find('href="') + len('href="')
+                        link_position_end = data_block.find('"', link_position_begin)
+                        artist_link = data_block[link_position_begin:link_position_end].strip()
+                        artist_link_list.append(artist_link)
+                        artist_id = artist_link[artist_link.rfind('/') + 1:]
+                        artist_id_list.append(artist_id)                   
+        
             date_time_string = 'data-testid="tracklist-footer-description">'
             date_time_begin = response.find(date_time_string)
             date_time_end = response.find('\n', date_time_begin)
@@ -578,7 +635,7 @@ def coming_soon(category_link):
                 'artist_link': row['artist_link_list'][0],
                 'album_link': row['album_link'],
                 'cover_link': image_link_jpeg,
-                'release_date': row['apple_music_release_date'][0:10], # HERE'S might be an ERROR!!!
+                'release_date': row['apple_music_release_date'].strftime('%Y-%m-%d'),
                 'release_date_text': row['apple_music_release_date_text']
             }
 
@@ -593,7 +650,7 @@ def coming_soon(category_link):
             message_id = 0
             if is_my_artist:
                 image_url = image_link_jpeg.replace('296x296bb-60.jpg', '632x632bb.webp').replace('296x296bf-60.jpg', '632x632bf.webp')
-                image_caption = f'*{artist.replace('&amp;','&')}* \\- [{row['album'].replace('&amp;','&')}]({row['album_link'].replace('://','://embed.')})\n{str(row['apple_music_release_date'])[0:10]}'
+                image_caption = f'*{artist.replace('&amp;','&')}* \\- [{row['album'].replace('&amp;','&')}]({row['album_link'].replace('://','://embed.')})\n{row['apple_music_release_date'].strftime('%Y-%m-%d')}'
                 message_id = amr.send_message(image_caption, TOKEN, CHAT_ID, image_url, 'Coming Soon')
                 message_cs_releases = True
 
