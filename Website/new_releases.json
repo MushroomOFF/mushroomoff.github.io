@@ -104949,7 +104949,7 @@
         "genre_category": "M",
         "artist": "Godflesh",
         "album": "Decay",
-        "my_type": null,
+        "my_type": "x",
         "album_id": 6779721992,
         "album_link": "https://music.apple.com/us/album/decay/6779721992",
         "album_link_ym": null,
@@ -104963,13 +104963,13 @@
         "genre_category": "M",
         "artist": "The Ocean",
         "album": "Solaris",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6769156881,
         "album_link": "https://music.apple.com/us/album/solaris/6769156881",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/1d/63/27/1d6327ee-443c-745b-256c-1368cf290ac7/820233267496.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1605
     },
     {
         "row_id": 7505,
@@ -104977,13 +104977,13 @@
         "genre_category": "M",
         "artist": "coldrain",
         "album": "OPTIMIZE = OPTDEMISE",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6786435272,
         "album_link": "https://music.apple.com/us/album/optimize-optdemise/6786435272",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ae/f4/7a/aef47a3d-b87b-db30-8487-673b5683a108/196874260111.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1606
     },
     {
         "row_id": 7506,
@@ -104991,7 +104991,7 @@
         "genre_category": "M",
         "artist": "Pain of Truth",
         "album": "Pain Of Truth",
-        "my_type": null,
+        "my_type": "x",
         "album_id": 6788077035,
         "album_link": "https://music.apple.com/us/album/pain-of-truth/6788077035",
         "album_link_ym": "https://music.yandex.ru/album/40121055",
@@ -105005,13 +105005,13 @@
         "genre_category": "M",
         "artist": "Crown Magnetar",
         "album": "The Hollowing Of Godflesh",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6787681682,
         "album_link": "https://music.apple.com/us/album/the-hollowing-of-godflesh/6787681682",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/27/c0/c3/27c0c39e-0313-9903-eecb-1d307a8184a6/820233658362.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1607
     },
     {
         "row_id": 7508,
@@ -105019,13 +105019,13 @@
         "genre_category": "M",
         "artist": "Black Label Society",
         "album": "Ozzy's Song - Single",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6812527796,
         "album_link": "https://music.apple.com/us/album/ozzys-song-single/6812527796",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/04/d9/4e/04d94edf-6d17-55c1-f0fa-8b741be416ce/33804.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1608
     },
     {
         "row_id": 7509,
@@ -105033,13 +105033,13 @@
         "genre_category": "M",
         "artist": "Lacrimas Profundere",
         "album": "Lay Me Down O Silent Fear",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6791073961,
         "album_link": "https://music.apple.com/us/album/lay-me-down-o-silent-fear/6791073961",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/55/e6/cc/55e6ccc8-94fc-c026-585c-838b739db905/4001617102275.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1609
     },
     {
         "row_id": 7510,
@@ -105047,13 +105047,13 @@
         "genre_category": "M",
         "artist": "Slope",
         "album": "Same Kids. Just Louder.",
-        "my_type": null,
+        "my_type": "v",
         "album_id": 6769731543,
         "album_link": "https://music.apple.com/us/album/same-kids-just-louder/6769731543",
         "album_link_ym": "https://music.yandex.ru/album/42101653",
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ce/49/32/ce49323b-c877-85f4-6e5a-4c0c45fc884c/cover.jpg/296x296bf.webp",
-        "tg_message_id": 1593
+        "tg_message_id": 1610
     },
     {
         "row_id": 7511,
@@ -105061,7 +105061,7 @@
         "genre_category": "M",
         "artist": "Deathchant",
         "album": "KOVA",
-        "my_type": null,
+        "my_type": "x",
         "album_id": 6788588669,
         "album_link": "https://music.apple.com/us/album/kova/6788588669",
         "album_link_ym": null,
@@ -105075,7 +105075,7 @@
         "genre_category": "M",
         "artist": "BRAT",
         "album": "Manslayer",
-        "my_type": null,
+        "my_type": "x",
         "album_id": 6779396075,
         "album_link": "https://music.apple.com/us/album/manslayer/6779396075",
         "album_link_ym": null,
