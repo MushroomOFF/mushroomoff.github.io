@@ -87449,13 +87449,13 @@
         "genre_category": "M",
         "artist": "ERRA",
         "album": "silence outlives the earth",
-        "my_type": "v",
+        "my_type": "o",
         "album_id": 1867613901,
         "album_link": "https://music.apple.com/us/album/silence-outlives-the-earth/1867613901",
         "album_link_ym": null,
         "album_link_zv": "https://zvuk.com/release/49457715",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/40/b6/19/40b61963-a776-6383-0bde-ff0e3d1e3edf/8721465132007.png/296x296bf.webp",
-        "tg_message_id": 898
+        "tg_message_id": 1591
     },
     {
         "row_id": 6248,
