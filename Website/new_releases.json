@@ -105355,13 +105355,13 @@
         "genre_category": "HR",
         "artist": "LINKIN PARK",
         "album": "Unshatter Film Soundtrack (Live in São Paulo)",
-        "my_type": null,
+        "my_type": "v",
         "album_id": 6794460856,
         "album_link": "https://music.apple.com/us/album/unshatter-film-soundtrack-live-in-s%C3%A3o-paulo/6794460856",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/cd/7b/91/cd7b9189-5c62-5f99-c39a-e268a31ec7c2/093624821380.jpg/296x296bf.webp",
-        "tg_message_id": 1594
+        "tg_message_id": 1623
     },
     {
         "row_id": 7533,
@@ -105369,13 +105369,13 @@
         "genre_category": "HR",
         "artist": "Tom Morello",
         "album": "Everyone Gets Everything They Want",
-        "my_type": null,
+        "my_type": "v",
         "album_id": 6793327746,
         "album_link": "https://music.apple.com/us/album/everyone-gets-everything-they-want/6793327746",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e0/07/cc/e007cc56-3245-034f-b5f9-8b1e76ceff82/823375328384_Cover.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1624
     },
     {
         "row_id": 7534,

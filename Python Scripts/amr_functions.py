@@ -231,7 +231,7 @@ def db_backup(db_file):
         cursor = conn.cursor()
 
         for table in TABLES:
-            target_folder = website_folder if table == 'new_releases' else db_backup_folder
+            target_folder = website_folder if table in ['new_releases', 'soon_releases'] else db_backup_folder
             json_filename = os.path.join(target_folder, f"{table}.json")
 
             try:

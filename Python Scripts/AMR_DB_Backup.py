@@ -24,7 +24,7 @@ TABLE_EXPORT_FOLDERS = {
     'artists': DB_BACKUP_FOLDER,
     'my_releases': DB_BACKUP_FOLDER,
     'new_releases': WEBSITE_FOLDER,
-    'soon_releases': DB_BACKUP_FOLDER,
+    'soon_releases': WEBSITE_FOLDER,
 }
 
 def get_display_path(abs_path, root):

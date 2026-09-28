@@ -226,7 +226,6 @@ function renderCard(r) {
     : `<span class="link-btn disabled">🎵</span>`;
 
   const myArtistClass = isMyArtist ? ' my-artist' : '';
-  const myArtistBadge = isMyArtist ? `<div class="my-artist-badge">⭐</div>` : '';
 
   const imageIndicator = cover
     ? `<div class="image-indicator" onclick="openImageModal(${rowId}, event)" title="Открыть обложку"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`
@@ -235,7 +234,6 @@ function renderCard(r) {
   return `<div class="release-card${myArtistClass}" data-row-id="${rowId}" onclick="openPlayerModal(${rowId})">
   <div class="cover-wrap">
     ${coverDisplay ? `<img src="${coverDisplay}" alt="${name}" loading="lazy" onerror="this.style.display='none'">` : ''}
-    ${myArtistBadge}
     ${imageIndicator}
   </div>
   <div class="card-info">

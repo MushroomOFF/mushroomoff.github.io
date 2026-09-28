@@ -546,3 +546,26 @@ main {
 .scroll-breadcrumb .crumb-genre { font-weight: 600; }
 .scroll-breadcrumb[data-genre="metal"] .crumb-genre { color: var(--metal); }
 .scroll-breadcrumb[data-genre="alternative"] .crumb-genre { color: var(--alt); }
+
+/* ===== КНОПКА НАВИГАЦИИ МЕЖДУ СТРАНИЦАМИ ===== */
+.nav-btn {
+  padding: 5px 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  white-space: nowrap;
+  margin-left: auto;
+}
+.nav-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
