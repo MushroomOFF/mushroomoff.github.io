@@ -356,18 +356,19 @@ def insert_soon_release(release_data):
         cursor.execute('''
             INSERT INTO soon_releases
             (update_date, artist_name, album_name, artist_link, 
-            album_link, cover_link, release_date, release_date_text)
+            album_link, cover_link, release_date, release_date_text, my_artist)
 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', (
             str(release_data['update_date']),
             str(release_data['artist_name']),
             str(release_data['album_name']),
-            str(release_data['artist_link']),
+            str(release_data['artist_link']) if release_data['artist_link'] else None,
             str(release_data['album_link']),
             str(release_data['cover_link']),
             str(release_data['release_date']),
-            str(release_data['release_date_text'])
+            str(release_data['release_date_text']),
+            int(release_data['my_artist']) if release_data['my_artist'] else None
         ))
         conn.commit()
         conn.close()
@@ -592,18 +593,19 @@ def coming_soon(category_link):
                 artist_string_data_blocks = artist_string_text.split('<a')
                 
                 for index, data_block in enumerate(artist_string_data_blocks):
-                    if index > 0:
+                    if data_block.find('</'):
                         link_position_end = data_block.find('</')
                         link_position_begin = data_block.rfind('>', 0, link_position_end) + len('>')
                         artist = data_block[link_position_begin:link_position_end].strip()
                         artist_list.append(artist) 
 
-                        link_position_begin = data_block.find('href="') + len('href="')
-                        link_position_end = data_block.find('"', link_position_begin)
-                        artist_link = data_block[link_position_begin:link_position_end].strip()
-                        artist_link_list.append(artist_link)
-                        artist_id = artist_link[artist_link.rfind('/') + 1:]
-                        artist_id_list.append(artist_id)                   
+                        if data_block.find('href="'):
+                            link_position_begin = data_block.find('href="') + len('href="')
+                            link_position_end = data_block.find('"', link_position_begin)
+                            artist_link = data_block[link_position_begin:link_position_end].strip()
+                            artist_link_list.append(artist_link)
+                            artist_id = artist_link[artist_link.rfind('/') + 1:]
+                            artist_id_list.append(artist_id)                   
         
             date_time_string = 'data-testid="tracklist-footer-description">'
             date_time_begin = response.find(date_time_string)
@@ -628,24 +630,30 @@ def coming_soon(category_link):
             image_link_jpeg = row['picture_srcset_jpeg'][0:row['picture_srcset_jpeg'].find(' ')]
             artist = '; '.join(row['artist_list'])
 
+            is_my_artist = False
+            art_link_idx = 0
+            for art_idx, artist_id in enumerate(row['artist_id_list']):
+                if artist_id:
+                    if check_my_artist(artist_id):
+                        is_my_artist = True
+                        art_link_idx = art_idx
+                        break
+
+
             soon_release_data = {
                 'update_date': update_date,
                 'artist_name': artist.replace('&amp;','&'), 
                 'album_name': row['album'].replace('&amp;','&'), 
-                'artist_link': row['artist_link_list'][0],
+                'artist_link': row['artist_link_list'][art_link_idx] if row['artist_link_list'] else None,
                 'album_link': row['album_link'],
                 'cover_link': image_link_jpeg,
                 'release_date': row['apple_music_release_date'].strftime('%Y-%m-%d'),
-                'release_date_text': row['apple_music_release_date_text']
+                'release_date_text': row['apple_music_release_date_text'],
+                'my_artist': 1 if is_my_artist else None
             }
 
             if not insert_soon_release(soon_release_data):
                 print(f'  ✗ Failed to insert: {soon_release_data["album_name"]}')
-
-            is_my_artist = False
-            for artist_id in row['artist_id_list']:
-                if check_my_artist(artist_id):
-                    is_my_artist = True
 
             message_id = 0
             if is_my_artist:
