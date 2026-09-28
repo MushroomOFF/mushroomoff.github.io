@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coming Soon — Alternative & Metal</title>
+<link rel="stylesheet" href="coming_soon.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">Coming Soon 🔜</div>
+    <div class="controls">
+      <select id="yearSelect"></select>
+      <select id="monthSelect"></select>
+    </div>
+  </div>
+  <div class="view-settings">
+    <label class="switch-wrap">
+      <label class="switch">
+        <input type="checkbox" id="groupByDateToggle" checked>
+        <span class="slider"></span>
+      </label>
+      <span class="switch-text">Группировать по датам</span>
+    </label>
+    <label class="switch-wrap">
+      <label class="switch">
+        <input type="checkbox" id="myArtistsToggle">
+        <span class="slider"></span>
+      </label>
+      <span class="switch-text">⭐ Мои исполнители</span>
+    </label>
+    <div class="sort-control">
+      <span class="sort-label">Сортировка:</span>
+      <select id="sortSelect">
+        <option value="date_asc">По дате (ближайшие)</option>
+        <option value="date_desc">По дате (дальние)</option>
+        <option value="artist_asc">По исполнителю (А-Я)</option>
+        <option value="artist_desc">По исполнителю (Я-А)</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<div id="scrollBreadcrumb" class="scroll-breadcrumb"></div>
+
+<main id="mainContent">
+  <div id="statusArea" class="status-message">
+    <div class="spinner"></div>
+    <p>Загрузка релизов…</p>
+  </div>
+</main>
+
+<!-- Player Modal -->
+<div class="player-modal-overlay" id="playerModal" onclick="closePlayerModal(event)">
+  <div class="player-modal">
+    <div class="player-modal-header">
+      <div class="player-modal-title">
+        <span class="player-modal-artist" id="playerArtist"></span>
+        <span class="player-modal-album" id="playerAlbum"></span>
+      </div>
+      <button class="player-modal-close" onclick="closePlayerModal()">✕</button>
+    </div>
+    <div class="player-modal-body" id="playerBody"></div>
+  </div>
+</div>
+
+<!-- Image Modal -->
+<div class="image-modal-overlay" id="imageModal" onclick="closeImageModal(event)">
+  <div class="image-modal">
+    <button class="image-modal-close" onclick="closeImageModal()">✕</button>
+    <img id="imageModalImg" src="" alt="">
+    <div class="image-modal-info">
+      <span class="artist" id="imageModalArtist"></span>
+      <span id="imageModalAlbum"></span>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="coming_soon.js"></script>
+</body>
+</html>
