@@ -4,8 +4,7 @@ import os
 
 # Скрипт лежит в ./Python Scripts/AMR_DB_Backup.py
 # Поэтому корень проекта — это родительская папка для Python Scripts
-SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
-ROOT_FOLDER = os.path.dirname(SCRIPT_FOLDER)
+ROOT_FOLDER = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases')
 DB_BACKUP_FOLDER = os.path.join(DB_FOLDER, 'Backups')

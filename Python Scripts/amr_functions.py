@@ -161,7 +161,7 @@ def send_message(text, token, chat_id, image, topic):
     print('')
     # 🔽 Попытка отправить уведомление об ошибке
     try:
-        logger_chat_id = os.environ['tg_logger_id']
+        logger_chat_id = os.environ.get('tg_logger_id')
         error_msg = "Ошибка: сообщение отправить не удалось!"
         error_url = f"https://api.telegram.org/bot{token}/sendMessage"
         # Отправляем как plain text (без parse_mode), чтобы избежать циклических ошибок парсинга

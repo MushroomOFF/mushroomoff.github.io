@@ -6,7 +6,7 @@ import amr_functions as amr
 SCRIPT_NAME = "Covers Renamer"
 VERSION = "2.026.07"
 
-ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
+ROOT_FOLDER = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ORIGINAL_COVERS_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/Проекты/_Covers/_BIG'
 
 # ================= FUNCTIONS =================

@@ -16,16 +16,16 @@ if os.getenv("GITHUB_ACTIONS") == "true":
     ENV = 'GitHub'
 
 if ENV == 'Local':
-    ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
+    ROOT_FOLDER = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     load_dotenv(os.path.join(ROOT_FOLDER, '.env'))
 elif ENV == 'GitHub':
     ROOT_FOLDER = ''
 
-TOKEN = os.environ['tg_token']
-CHAT_ID = os.environ['tg_channel_id']
-LOGGER_ID = os.environ['tg_logger_id']
-YM_TOKEN = os.environ['ym_token']
-ZVUK_TOKEN = os.environ['zv_token']
+TOKEN = os.environ.get('tg_token')
+CHAT_ID = os.environ.get('tg_channel_id')
+LOGGER_ID = os.environ.get('tg_logger_id')
+YM_TOKEN = os.environ.get('ym_token')
+ZVUK_TOKEN = os.environ.get('zv_token')
 
 DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
 DB_FILE = os.path.join(DB_FOLDER, 'music_releases.db')

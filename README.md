@@ -1,50 +1,92 @@
-# [Alternative & Metal Releases](https://mushroomoff.github.io)
-There will be some description... soon!
+# Alternative & Metal Releases (AMR)
 
-## Index
-### Root folder
-- *index.html* - main HTML with upcoming releases
-- *README.md* - read me
-- *status.log* - GitHub Actions log
+Personal music-release tracking system: it watches an **artists list** for new
+albums on Apple Music (plus Yandex.Music and Zvuk), stores everything in a
+SQLite database, publishes a static website with the results and posts updates
+to a Telegram channel — automatically, via GitHub Actions.
 
-### /.github/workflows
-- *AMR_LookApp.yml* - YAML to run GitHub Action "AMR LookApp" on schedule: Every Friday at 3:39 UTC (+/- 15 min). 3:39 UTC is 6:39 in Moscow
-- *AMR_NewReleases.yml* - YAML to run GitHub Action "AMR New Releases" on schedule: Every Friday at 5:09 UTC (+/- 15 min). 5:09 UTC is 8:09 in Moscow.
+## Repository structure
 
-### /AMRs
-- *AMR YYYY-MM.html* - HTMLs for each month with new releases (YYYY - year, MM - month)
+```
+.
+├── Databases/
+│   ├── music_releases.db          # Main SQLite DB (artists, my_releases, new_releases, soon_releases, tg_queue)
+│   └── Backups/                   # JSON backups of DB tables (source of truth for sync/restore)
+│       ├── artists.json           # Personal artists list (name, artist_id, genre, update_type)
+│       └── my_releases.json       # Found releases history
+├── Python Scripts/                # All automation scripts
+│   ├── amr_functions.py           # Shared helpers: logger, Telegram MarkdownV2, send_message, DB backup
+│   ├── AMR_LookApp.py             # Scans artists for new releases on Apple Music (iTunes Search API)
+│   ├── AMR_NewReleases.py         # Builds new/coming-soon release lists, messages, website JSON
+│   ├── AMR_ZVYM.py                # Yandex.Music & Zvuk lookup
+│   ├── AMR_LookApp_Errors.py      # Re-checks artists/releases that previously errored
+│   ├── AMR_DB_Backup.py           # Exports DB tables to JSON backups
+│   ├── AMR_DB_Sync.py             # Imports JSON backups into SQLite (dry-run + confirm)
+│   ├── AMR_CoversDownloader.py    # Downloads album covers
+│   ├── AMR_CoversRenamer.py       # Renames/formats big cover files
+│   ├── server.py                  # Local dev web server for the releases page (localhost:8000)
+│   └── requirements.txt           # Python dependencies
+├── Website/                       # Static site (GitHub Pages): releases table, coming-soon page, icons
+├── website/                       # Legacy site assets (releases.css/js, new_releases.json)
+├── .github/workflows/             # CI: weekly update, deploy, ZVYM run, manual trigger
+└── status.log                     # Script run log
+```
 
-> ### /Covers (ignored from GitHub)
-> - */New Covers* - folder to download new covers
-> - */Fresh Covers to Check* - folder that stores new covers to check manualy
+## How it works
 
-### /Databases
-- *AMR_artisitGenres.txt* - list of Artists with Genres for MP3 tags
-- *AMR_artisitIDs.csv* - CSV of Artists Apple Music IDs for LookApp
-- *AMR_csReleases_DB.csv* - CSV of Coming Soon releases (shown on main HTML)
-- *AMR_newReleases_DB.csv* - CSV of New releases (shown on AMR HTMLs)
-- *AMR_releases_DB.csv* - CSV of all releases for Artists in "AMR_artisitIDs.csv"
+1. **`AMR_LookApp.py`** iterates over the `artists` table (your personal
+   artists list). For each unprocessed artist it queries the iTunes Search
+   API for albums in the selected countries (`us`, `ru`, `jp`), filters out
+   already-known releases and inserts new ones into `my_releases`.
+2. **`AMR_NewReleases.py`** compiles recent and upcoming releases into
+   `new_releases` / `soon_releases`, exports `Website/new_releases.json` and
+   `Website/soon_releases.json` for the site, and posts formatted messages to
+   Telegram topics.
+3. **`AMR_ZVYM.py`** cross-checks releases on Yandex.Music and Zvuk
+   (requires `ym_token` / `zv_token`).
+4. **GitHub Actions** (`.github/workflows/amr-weekly-update.yml`) runs the
+   pipeline every Friday, commits the updated data and deploys the site.
+5. **Database ↔ JSON**: `AMR_DB_Backup.py` dumps tables to
+   `Databases/Backups/*.json`; `AMR_DB_Sync.py` restores/syncs them back
+   (row-by-row, dry-run first).
 
-### /Python Notebooks
-- *AMR Check Database v.2.024.ipynb* - PyNotebook to work with all releases database "AMR_releases_DB.csv". Here all releases must be marked for downloading (empty - to download, 'v' - downloaded, 'x' - no need to download). Here stores the script for "AMR_List2Download_local.py"
-- *AMR Covers Downloader v.2.024.ipynb* - PyNotebook contains script for "AMR_CoversDownloader_local.py"
-- *AMR LookApp v.2.024.ipynb* - PyNotebook contains script for "AMR_LookApp_local.py" and "AMR_LookApp_github.py"
-- *AMR New Releases v.2.024.ipynb* - PyNotebook contains script for "AMR_NewReleases_local.py" and "AMR_NewReleases_github.py"
-- *requirements.txt* - third party packages for Python (used to run GitHub Actions)
+## Requirements
 
-### /Python Scripts
-- *AMR_CoversDownloader_local.py* - There will be some description... soon!
-- *AMR_List2Download_local.py* - There will be some description... soon!
-- *AMR_LookApp_github.py* - There will be some description... soon!
-- *AMR_LookApp_local.py* - There will be some description... soon!
-- *AMR_NewReleases_github.py* - There will be some description... soon!
-- *AMR_NewReleases_local.py* - There will be some description... soon!
+- Python 3.12+ (CI uses 3.14)
+- Dependencies: `pip install -r "Python Scripts/requirements.txt"`
+  (`requests`, `pandas`, `python-dotenv`, `yandex-music`)
+- Optional secrets (only needed for Telegram/YM/Zvuk features):
+  `tg_token`, `tg_channel_id`, `tg_logger_id`, `ym_token`, `zv_token`, `admin_token`
 
-### \resources
-- *favicon-2.ico* - site favourite icon
-- *favicon.ico* - site favourite icon
-- *index.css* - CSS #1
-- *styles.css* - CSS #2
-- *touch-icon-\** - mobile devices favourite icon
+## Quick start
 
-2022-2024 by Viktor 'MushroomOFF' Gribov
+```bash
+git clone <your-fork-url> && cd mushroomoff.github.io
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r "Python Scripts/requirements.txt"
+```
+
+Then follow the **[Local Run Tutorial](docs/LOCAL_RUN_TUTORIAL.md)** to set up
+the project on your own machine with **your own personal artists list**.
+
+## Scripts reference
+
+| Script | Purpose | Needs `.env` |
+|---|---|---|
+| `AMR_LookApp.py` | Find new releases for artists (Apple Music) | optional (Telegram logging) |
+| `AMR_NewReleases.py` | Build release lists + website JSON + Telegram posts | yes (`tg_*`, `ym_token`, `zv_token`) |
+| `AMR_ZVYM.py` | Yandex.Music / Zvuk lookup | yes |
+| `AMR_LookApp_Errors.py` | Retry artists that returned errors | no |
+| `AMR_DB_Backup.py` | Export SQLite tables → JSON | no |
+| `AMR_DB_Sync.py` | Import JSON → SQLite (`--db`, `--json-dir`, `--dry-run`) | no |
+| `AMR_CoversDownloader.py` | Download covers for new releases | no |
+| `AMR_CoversRenamer.py` | Rename large cover files | no |
+| `server.py` | Local web server for editing/publishing releases | yes |
+
+> **Note:** most scripts contain a hard-coded `ROOT_FOLDER` pointing to the
+> author's machine. When running locally, edit it to your repository path —
+> see the tutorial.
+
+## License
+
+Private/personal project — all rights reserved by the author.

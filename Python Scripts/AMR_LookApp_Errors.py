@@ -12,7 +12,7 @@ import amr_functions as amr
 SCRIPT_NAME = "LookApp Errors"
 VERSION = "2.026.07"
 
-ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
+ROOT_FOLDER = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
 DB_FILE = os.path.join(DB_FOLDER, 'music_releases.db')
 LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')

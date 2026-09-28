@@ -17,7 +17,7 @@ if os.getenv("GITHUB_ACTIONS") == "true":
     ENV = 'GitHub'
 
 if ENV == 'Local':
-    ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
+    ROOT_FOLDER = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     load_dotenv(os.path.join(ROOT_FOLDER, '.env'))
 elif ENV == 'GitHub':
     ROOT_FOLDER = ''
