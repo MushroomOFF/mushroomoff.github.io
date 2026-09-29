@@ -6888,19 +6888,19 @@
         "update_date": "2026-09-25 13:27:10"
     },
     {
-        "row_id": 864,
-        "artist": "Blodtar",
-        "artist_id": 1584412052,
-        "artist_genre": "Black Metal",
-        "update_type": 2,
-        "update_date": "2026-09-25 13:27:15"
-    },
-    {
         "row_id": 865,
         "artist": "Kissin' Dynamite",
         "artist_id": 279044268,
         "artist_genre": "Hard Rock",
         "update_type": 2,
         "update_date": "2026-09-25 13:27:21"
+    },
+    {
+        "row_id": 866,
+        "artist": "Tom Morello",
+        "artist_id": 466357,
+        "artist_genre": "Hard Rock",
+        "update_type": 2,
+        "update_date": "2026-09-29 11:50:46"
     }
 ]

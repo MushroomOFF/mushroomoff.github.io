@@ -24970,5 +24970,29 @@
         "release_date": "2027-03-19",
         "release_date_text": "March 19, 2027",
         "my_artist": 1
+    },
+    {
+        "row_id": 2159,
+        "update_date": "2026-09-29",
+        "artist_name": "; Disfear",
+        "album_name": "The Last Nail",
+        "artist_link": null,
+        "album_link": "https://music.apple.com/us/album/the-last-nail/6791700794",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/89/49/f9/8949f977-4d36-69eb-6fb3-a75a1d2712d8/781676533411.jpg/296x296bf-60.jpg",
+        "release_date": "2026-11-20",
+        "release_date_text": "November 20, 2026",
+        "my_artist": null
+    },
+    {
+        "row_id": 2160,
+        "update_date": "2026-09-29",
+        "artist_name": "; Void Sector Zero",
+        "album_name": "Dead Space Enigma",
+        "artist_link": null,
+        "album_link": "https://music.apple.com/us/album/dead-space-enigma/6804730833",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f5/89/f6/f589f6b8-3698-6618-9d64-7cdd6966406d/822603021356.jpg/296x296bf-60.jpg",
+        "release_date": "2026-12-11",
+        "release_date_text": "December 11, 2026",
+        "my_artist": null
     }
 ]
