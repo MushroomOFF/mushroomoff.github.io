@@ -404,3 +404,143 @@ main {
   border-color: var(--accent);
   color: var(--accent);
 }
+
+/* ===== ТЁМНАЯ ТЕМА (автопереключение по системной настройке) ===== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1c1c1e;
+    --bg-secondary: #2c2c2e;
+    --text: #f5f5f7;
+    --text-secondary: #98989d;
+    --border: #38383a;
+    --accent: #ff453a;
+    --card-bg: #2c2c2e;
+    --shadow: 0 2px 8px rgba(0,0,0,0.3);
+    --shadow-hover: 0 6px 20px rgba(0,0,0,0.5);
+    --metal: #ff453a;
+    --alt: #0a84ff;
+    --my-artist-bg: rgba(48, 209, 88, 0.10);
+    --my-artist-border: rgba(48, 209, 88, 0.35);
+    --my-artist-hover: rgba(48, 209, 88, 0.18);
+  }
+
+  /* Шапка */
+  header {
+    background: rgba(28, 28, 30, 0.85);
+  }
+
+  /* Стрелка селекта — светлая для тёмного фона */
+  select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2398989d' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  }
+
+  /* Кнопка навигации */
+  .nav-btn {
+    background: var(--bg-secondary);
+  }
+
+  /* Свитч */
+  .slider {
+    background: var(--border);
+  }
+  .switch input:checked + .slider {
+    background: var(--accent);
+  }
+
+  /* Кнопка «Войти» / бейдж админа */
+  .admin-btn {
+    background: var(--bg-secondary);
+  }
+
+  /* Карточка «Мой артист» — тёмный зелёный градиент */
+  .release-card.my-artist {
+    background: linear-gradient(135deg, #1a2e1a 0%, #1e2b1a 100%);
+    border-color: var(--my-artist-border);
+  }
+  .release-card.my-artist:hover {
+    background: linear-gradient(135deg, #223a22 0%, #283822 100%);
+  }
+
+  /* Кнопка Apple Music — тёмный вариант */
+  .link-btn.am-active {
+    background: rgba(255, 69, 58, 0.12) !important;
+    border-color: var(--accent) !important;
+    color: var(--accent) !important;
+  }
+  .link-btn.am-active:hover {
+    background: rgba(255, 69, 58, 0.2) !important;
+    border-color: #e01f34 !important;
+  }
+
+  /* Индикатор просмотра обложки */
+  .image-indicator {
+    background: rgba(44, 44, 46, 0.95);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  }
+  .image-indicator:hover {
+    background: #3a3a3c;
+  }
+  .image-indicator svg {
+    stroke: var(--text);
+  }
+
+  /* Модальное окно плеера */
+  .player-modal {
+    background: var(--card-bg);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+  }
+  .player-modal-header {
+    border-bottom-color: var(--border);
+  }
+  .player-modal-close {
+    background: var(--bg);
+    color: var(--text-secondary);
+  }
+  .player-modal-close:hover {
+    background: var(--border);
+    color: var(--text);
+  }
+  .player-modal-body {
+    background: var(--bg);
+  }
+  .player-modal-body iframe {
+    background: #1c1c1e;
+  }
+
+  /* Модальное окно изображения */
+  .image-modal-close {
+    background: var(--card-bg);
+    color: var(--text);
+  }
+  .image-modal-close:hover {
+    background: var(--accent);
+    color: white;
+  }
+
+  /* Тосты */
+  .toast {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  }
+
+  /* Спиннер */
+  .spinner {
+    border-color: var(--border);
+    border-top-color: var(--accent);
+  }
+
+  /* Скроллбар для WebKit (Safari, Chrome) */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+  }
+}
