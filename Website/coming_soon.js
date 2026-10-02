@@ -17,7 +17,9 @@ let sortMode = 'date_asc';
 // ====== УТИЛИТЫ ======
 function parseDate(str) {
   if (!str) return null;
-  const d = new Date(str);
+  const m = String(str).trim().match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!m) return null;
+  const d = new Date(+m[1], +m[2] - 1, +m[3]); // локальная полночь
   return isNaN(d) ? null : d;
 }
 
@@ -71,7 +73,7 @@ function getFilteredReleases() {
     if (!d) return false;
 
     if (currentYear === 'upcoming') {
-      return d >= TODAY;
+      return d > TODAY;
     }
 
     if (d.getFullYear() !== currentYear) return false;

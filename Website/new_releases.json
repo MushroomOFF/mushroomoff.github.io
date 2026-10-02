@@ -105691,13 +105691,13 @@
         "genre_category": "M",
         "artist": "Amon Amarth",
         "album": "The Allfather Awakens",
-        "my_type": null,
+        "my_type": "v",
         "album_id": 6775988608,
         "album_link": "https://music.apple.com/us/album/the-allfather-awakens/6775988608",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/1f/03/00/1f0300ab-d1e4-f9fd-7b43-a1d0df5fa382/Amon_Amarth_-_The_Allfather_Awakens.jpg/296x296bf.webp",
-        "tg_message_id": 1638
+        "tg_message_id": 1644
     },
     {
         "row_id": 7557,
