@@ -105705,13 +105705,13 @@
         "genre_category": "M",
         "artist": "Miss May I",
         "album": "No Place For Me",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6788102689,
         "album_link": "https://music.apple.com/us/album/no-place-for-me/6788102689",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ad/15/16/ad1516b6-8322-1275-8881-27dc1403ad12/810129813173.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1645
     },
     {
         "row_id": 7558,

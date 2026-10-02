@@ -90,6 +90,32 @@ def update_tg_message_id(row_id, tg_message_id):
     conn.close()
 
 
+def get_tg_message_id(row_id):
+    """
+    Возвращает tg_message_id из таблицы new_releases.
+    Если запись не найдена — возвращает None.
+    """
+    try:
+        conn = db_connect()
+        row = conn.execute(
+            'SELECT tg_message_id FROM new_releases WHERE row_id = ?',
+            (row_id,)
+        ).fetchone()
+        conn.close()
+        return row[0] if row else None
+    except Exception as e:
+        print(f'⚠️ Не удалось прочитать tg_message_id для row_id={row_id}: {e}')
+        return None
+
+
+def tg_message_id_is_unsent(tg_message_id):
+    """
+    True, если сообщение в Telegram ещё не отправлялось.
+    Пустое значение или 0 считаем неотправленным.
+    """
+    return tg_message_id is None or str(tg_message_id).strip() in ('', '0')
+
+
 def enqueue_tg(row_id):
     """Дедупликация: если для row_id уже есть неотправленная запись — она заменяется новой."""
     conn = db_connect()
@@ -160,6 +186,18 @@ def tg_sender_loop(stop_event):
                     conn.commit()
                     conn.close()
                     print(f'🗑 row_id={row_id}: удалено из очереди без отправки')
+                    continue
+
+                tg_message_id = get_tg_message_id(row_id)
+                if not tg_message_id_is_unsent(tg_message_id):
+                    conn = db_connect()
+                    conn.execute('DELETE FROM tg_queue WHERE id = ?', (qid,))
+                    conn.commit()
+                    conn.close()
+                    print(
+                        f'🗑 row_id={row_id}: удалено из очереди без отправки, '
+                        f'уже отправлено (tg_message_id={tg_message_id})'
+                    )
                     continue
 
                 topic = 'Top Releases' if current_type == 'o' else 'New Releases'
@@ -252,9 +290,11 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             if token != ADMIN_TOKEN:
                 self.send_json({'success': False, 'message': 'Неверный токен'}, 403)
                 return
+
             if row_id is None or new_type not in ('v', 'd', 'o', 'x'):
                 self.send_json({'success': False, 'message': 'Некорректные данные'}, 400)
                 return
+
             if not os.path.exists(JSON_FILE):
                 self.send_json({'success': False, 'message': 'JSON не найден'}, 404)
                 return
@@ -265,18 +305,33 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             updated = 0
             old_type = None
             tg_queued = False
+            tg_message_id = None
+            tg_skip_reason = None
 
             for r in releases:
                 rid = r.get('row_id')
                 if str(rid) == str(row_id):
                     old_type = r.get('my_type')
                     r['my_type'] = new_type
+
+                    # Обновляем тип релиза в БД
                     update_empty_new_release(row_id, new_type)
 
-                    # В очередь попадает только row_id; дубликаты заменяются
+                    # В очередь попадает только row_id; дубликаты заменяются.
+                    # Но перед этим проверяем, не было ли сообщение уже отправлено.
                     if new_type in ('v', 'd', 'o'):
-                        enqueue_tg(row_id)
-                        tg_queued = True
+                        tg_message_id = get_tg_message_id(row_id)
+
+                        if tg_message_id_is_unsent(tg_message_id):
+                            enqueue_tg(row_id)
+                            tg_queued = True
+                        else:
+                            tg_skip_reason = f'уже отправлено (tg_message_id={tg_message_id})'
+                            print(
+                                f"[{datetime.now().strftime('%H:%M:%S')}] "
+                                f"⏭ row_id={row_id}: очередь пропущена, {tg_skip_reason}"
+                            )
+
                     updated += 1
 
             if updated == 0:
@@ -287,16 +342,26 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 json.dump(releases, f, ensure_ascii=False, indent=4)
 
             ts = datetime.now().strftime('%H:%M:%S')
-            print(f"[{ts}] ✅ row_id={row_id}: '{old_type}' → '{new_type}' "
-                  f"({updated} записей, в очереди TG: {tg_queued})")
+            print(
+                f"[{ts}] ✅ row_id={row_id}: '{old_type}' → '{new_type}' "
+                f"({updated} записей, в очереди TG: {tg_queued})"
+            )
 
-            self.send_json({
+            response = {
                 'success': True,
                 'message': f'Обновлено: {updated} записей',
                 'old_type': old_type,
                 'new_type': new_type,
-                'tg_queued': tg_queued
-            })
+                'tg_queued': tg_queued,
+                'tg_message_id': tg_message_id
+            }
+
+            if tg_skip_reason:
+                response['message'] = f'Обновлено: {updated} записей; отправка в TG пропущена'
+                response['tg_skip_reason'] = tg_skip_reason
+
+            self.send_json(response)
+
         except Exception as e:
             self.send_json({'success': False, 'message': f'Ошибка: {e}'}, 500)
 
