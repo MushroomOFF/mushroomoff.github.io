@@ -105484,10 +105484,10 @@
         "my_type": "o",
         "album_id": 6776303779,
         "album_link": "https://music.apple.com/us/album/sigil/6776303779",
-        "album_link_ym": null,
+        "album_link_ym": "https://music.yandex.ru/album/44017422",
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/06/45/af/0645af6a-12a2-5525-fde8-20d9da22e9ff/822603022766.jpg/296x296bf.webp",
-        "tg_message_id": 1626
+        "tg_message_id": 1648
     },
     {
         "row_id": 7542,
