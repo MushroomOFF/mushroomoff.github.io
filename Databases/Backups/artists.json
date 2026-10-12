@@ -3330,10 +3330,10 @@
     {
         "row_id": 417,
         "artist": "Iommi",
-        "artist_id": 0,
+        "artist_id": 462585,
         "artist_genre": "Hard Rock",
-        "update_type": 0,
-        "update_date": null
+        "update_type": 1,
+        "update_date": "2026-10-12 15:15:51"
     },
     {
         "row_id": 418,
@@ -6910,5 +6910,21 @@
         "artist_genre": "Progressive Metal",
         "update_type": 2,
         "update_date": "2026-10-09 09:06:59"
+    },
+    {
+        "row_id": 868,
+        "artist": "Lions at the Gate",
+        "artist_id": 1567034221,
+        "artist_genre": "Alternative Metal",
+        "update_type": 2,
+        "update_date": "2026-10-12 15:15:56"
+    },
+    {
+        "row_id": 869,
+        "artist": "Atavistia",
+        "artist_id": 1287070679,
+        "artist_genre": "Melodic Death Metal",
+        "update_type": 2,
+        "update_date": "2026-10-12 15:16:01"
     }
 ]
