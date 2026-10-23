@@ -25366,5 +25366,53 @@
         "release_date": "2027-02-19",
         "release_date_text": "February 19, 2027",
         "my_artist": null
+    },
+    {
+        "row_id": 2192,
+        "update_date": "2026-10-23",
+        "artist_name": "Motoi Sakuraba",
+        "album_name": "Emotional Mind",
+        "artist_link": "https://music.apple.com/us/artist/motoi-sakuraba/357679473",
+        "album_link": "https://music.apple.com/us/album/emotional-mind/6817200909",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f0/65/ac/f065acca-f1eb-d14d-33ea-1fa1524b63e8/4988044140387.png/296x296bf-60.jpg",
+        "release_date": "2026-11-04",
+        "release_date_text": "November 4, 2026",
+        "my_artist": null
+    },
+    {
+        "row_id": 2193,
+        "update_date": "2026-10-23",
+        "artist_name": "One Step Closer",
+        "album_name": "Zero",
+        "artist_link": "https://music.apple.com/us/artist/one-step-closer/278131868",
+        "album_link": "https://music.apple.com/us/album/zero/6817007605",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/00/2b/0b/002b0b6b-512b-09ad-484a-984bf65da590/69060.jpg/296x296bf-60.jpg",
+        "release_date": "2027-02-19",
+        "release_date_text": "February 19, 2027",
+        "my_artist": null
+    },
+    {
+        "row_id": 2194,
+        "update_date": "2026-10-23",
+        "artist_name": "Evil Invaders",
+        "album_name": "Weaponized Chaos",
+        "artist_link": "https://music.apple.com/us/artist/evil-invaders/594957653",
+        "album_link": "https://music.apple.com/us/album/weaponized-chaos/6815297661",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/c3/ae/40/c3ae402f-e378-5e0b-41a9-e362bb869b21/810226381179.jpg/296x296bf-60.jpg",
+        "release_date": "2027-02-19",
+        "release_date_text": "February 19, 2027",
+        "my_artist": null
+    },
+    {
+        "row_id": 2195,
+        "update_date": "2026-10-23",
+        "artist_name": "Firewind",
+        "album_name": "Gods, Myths and Titans",
+        "artist_link": "https://music.apple.com/us/artist/firewind/21299680",
+        "album_link": "https://music.apple.com/us/album/gods-myths-and-titans/6803107805",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/83/59/e1/8359e148-056c-3cf1-c6a8-d94c3e462061/885288329278.jpg/296x296bf-60.jpg",
+        "release_date": "2027-02-19",
+        "release_date_text": "February 19, 2027",
+        "my_artist": null
     }
 ]
