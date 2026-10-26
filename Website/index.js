@@ -158,12 +158,6 @@ function showToast(msg, type = 'info') {
   }, 3000);
 }
 
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, c => ({
-    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-  }[c]));
-}
-
 // ====== АУТЕНТИФИКАЦИЯ (один токен, двойной режим) ======
 function openLoginModal() {
   document.getElementById('loginModal').classList.add('active');
