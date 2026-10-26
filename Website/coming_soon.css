@@ -155,6 +155,9 @@ main {
   margin-bottom: 18px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border);
+  /* Пропуск отрисовки/расчёта макета групп, ушедших далеко за экран */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
 }
 .date-group:last-child { border-bottom: none; }
 .date-header {
@@ -185,7 +188,7 @@ main {
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
-  transition: all 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -250,7 +253,7 @@ main {
   position: absolute; top: 8px; right: 8px; width: 32px; height: 32px;
   background: rgba(255,255,255,0.95); border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  opacity: 0; transform: scale(0.8); transition: all 0.25s ease;
+  opacity: 0; transform: scale(0.8); transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2); pointer-events: none; cursor: pointer; z-index: 2;
 }
 .release-card:hover .image-indicator { opacity: 1; transform: scale(1); pointer-events: auto; }

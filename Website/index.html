@@ -23,6 +23,15 @@
 
 <link rel="manifest" href="icons/manifest.webmanifest">
 
+<!-- Ускоряем установку TCP/TLS-соединения с CDN обложек и GitHub API -->
+<link rel="preconnect" href="https://mzimg.apple.net" crossorigin>
+<link rel="dns-prefetch" href="https://mzimg.apple.net">
+<link rel="preconnect" href="https://embed.music.apple.com">
+<link rel="dns-prefetch" href="https://api.github.com">
+
+<!-- Заранее загружаем данные параллельно с CSS/JS (инициализируется index.js) -->
+<link id="dataPreload" rel="preload" as="fetch" fetchpriority="high" crossorigin href="new_releases.json">
+
 <link rel="stylesheet" href="index.css">
 </head>
 <body>

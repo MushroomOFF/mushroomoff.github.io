@@ -8,6 +8,11 @@ TODAY.setHours(0, 0, 0, 0);
 
 // ====== СОСТОЯНИЕ ======
 let allReleases = [];
+// Быстрый поиск релиза по row_id (Map вместо линейного find по всему массиву)
+let releasesById = new Map();
+// Предзагрузка данных из <link rel="preload" as="fetch">, если браузер её поддерживает
+const _preloadLink = document.getElementById('dataPreload');
+if (_preloadLink) _preloadLink.href = JSON_FILE + '?v=' + Date.now();
 let currentYear = 'upcoming';
 let currentMonth = 'all';
 let groupByDate = true;
@@ -30,8 +35,9 @@ function formatDateRu(date) {
   return `${year}-${month}-${day}`;
 }
 
-function dateKey(date) {
-  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+// Сортировочный ключ (число): yyyy * 372 + mm * 31 + dd — сохраняет хронологический порядок
+function dateSortKey(d) {
+  return d.getFullYear() * 372 + d.getMonth() * 31 + d.getDate();
 }
 
 function plural(n) {
@@ -46,10 +52,17 @@ function getPeriodLabel() {
   return `в ${MONTHS_RU[currentMonth].toLowerCase()} ${currentYear}`;
 }
 
+// Кэш объектов escapeHtml для повторяющихся строк при массовом рендеринге
+const _escCache = new Map();
 function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, c => ({
+  const str = String(s);
+  let cached = _escCache.get(str);
+  if (cached !== undefined) return cached;
+  const res = str.replace(/[&<>"']/g, c => ({
     '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
   }[c]));
+  if (_escCache.size < 5000) _escCache.set(str, res);
+  return res;
 }
 
 function showToast(msg, type = 'info') {
@@ -66,10 +79,18 @@ function showToast(msg, type = 'info') {
   }, 3000);
 }
 
+// Дата парсится один раз и кешируется на объекте релиза (_d — не перечисляется в JSON-циклах)
+function relDate(r) {
+  if (!('_d' in r)) {
+    Object.defineProperty(r, '_d', { value: parseDate(r.release_date), enumerable: false });
+  }
+  return r._d;
+}
+
 // ====== ФИЛЬТРАЦИЯ ======
 function getFilteredReleases() {
   let list = allReleases.filter(r => {
-    const d = parseDate(r.release_date);
+    const d = relDate(r);
     if (!d) return false;
 
     if (currentYear === 'upcoming') {
@@ -91,20 +112,22 @@ function getFilteredReleases() {
 
 // ====== СОРТИРОВКА ======
 function sortReleases(list) {
-  const sorted = [...list];
-  sorted.sort((a, b) => {
+  // Предвычисление ключей: сравнения числами вместо повторного парсинга дат внутри компаратора
+  const decorated = list.map(r => {
+    const d = relDate(r);
+    return { r, k: d ? dateSortKey(d) : 0 };
+  });
+  decorated.sort((a, b) => {
     if (sortMode === 'artist_asc') {
-      return (a.artist_name || '').localeCompare(b.artist_name || '', 'ru');
+      return (a.r.artist_name || '').localeCompare(b.r.artist_name || '', 'ru');
     }
     if (sortMode === 'artist_desc') {
-      return (b.artist_name || '').localeCompare(a.artist_name || '', 'ru');
+      return (b.r.artist_name || '').localeCompare(a.r.artist_name || '', 'ru');
     }
-    const da = parseDate(a.release_date) || new Date(0);
-    const db = parseDate(b.release_date) || new Date(0);
-    if (sortMode === 'date_asc') return da - db;
-    return db - da;
+    if (sortMode === 'date_asc') return a.k - b.k;
+    return b.k - a.k;
   });
-  return sorted;
+  return decorated.map(x => x.r);
 }
 
 // ====== РЕНДЕРИНГ ======
@@ -113,7 +136,7 @@ function buildYearMonthOptions() {
   const yearMonths = {};
 
   allReleases.forEach(r => {
-    const d = parseDate(r.release_date);
+    const d = relDate(r);
     if (!d) return;
     years.add(d.getFullYear());
     if (!yearMonths[d.getFullYear()]) yearMonths[d.getFullYear()] = new Set();
@@ -178,39 +201,37 @@ function render() {
 }
 
 function renderGroupedByDate(main, releases) {
-  const byDate = {};
+  const byDate = new Map();
   releases.forEach(r => {
-    const d = parseDate(r.release_date);
+    const d = relDate(r);
     if (!d) return;
-    const key = dateKey(d);
-    if (!byDate[key]) byDate[key] = { date: d, items: [] };
-    byDate[key].items.push(r);
+    const key = dateSortKey(d);
+    let g = byDate.get(key);
+    if (!g) { g = { date: d, items: [] }; byDate.set(key, g); }
+    g.items.push(r);
   });
 
-  const datesSorted = Object.values(byDate);
+  const datesSorted = [...byDate.entries()];
   datesSorted.sort((a, b) => {
-    if (sortMode === 'date_desc') return b.date - a.date;
-    return a.date - b.date;
+    if (sortMode === 'date_desc') return b[0] - a[0];
+    return a[0] - b[0];
   });
 
-  let html = '';
-  datesSorted.forEach(({ date, items }) => {
-    html += `<div class="date-group">`;
-    html += `<h2 class="date-header"><span class="date-text">${formatDateRu(date)}</span><span class="date-count">${items.length} релиз${plural(items.length)}</span></h2>`;
-    html += `<div class="releases-grid">`;
-    items.forEach(r => { html += renderCard(r); });
-    html += `</div></div>`;
-  });
+  const parts = [];
+  for (const [, { date, items }] of datesSorted) {
+    parts.push(`<div class="date-group">`,
+      `<h2 class="date-header"><span class="date-text">${formatDateRu(date)}</span><span class="date-count">${items.length} релиз${plural(items.length)}</span></h2>`,
+      `<div class="releases-grid">`,
+      items.map(renderCard).join(''),
+      `</div></div>`);
+  }
 
-  main.innerHTML = html;
+  main.innerHTML = parts.join('');
 }
 
 function renderFlat(main, releases) {
-  let html = `<div class="flat-summary">Найдено: ${releases.length} релиз${plural(releases.length)} (${getPeriodLabel()})</div>`;
-  html += `<div class="releases-grid">`;
-  releases.forEach(r => { html += renderCard(r); });
-  html += `</div>`;
-  main.innerHTML = html;
+  main.innerHTML = `<div class="flat-summary">Найдено: ${releases.length} релиз${plural(releases.length)} (${getPeriodLabel()})</div>` +
+    `<div class="releases-grid">` + releases.map(renderCard).join('') + `</div>`;
 }
 
 function renderCard(r) {
@@ -249,7 +270,7 @@ function renderCard(r) {
 
 // ====== ПЛЕЕР ======
 function openPlayerModal(rowId) {
-  const release = allReleases.find(r => String(r.row_id) === String(rowId));
+  const release = releasesById.get(String(rowId));
   if (!release) return;
 
   document.getElementById('playerArtist').textContent = release.artist_name || 'Unknown';
@@ -280,7 +301,7 @@ function closePlayerModal(event) {
 // ====== ПРОСМОТР ОБЛОЖКИ ======
 function openImageModal(rowId, event) {
   if (event) event.stopPropagation();
-  const release = allReleases.find(r => String(r.row_id) === String(rowId));
+  const release = releasesById.get(String(rowId));
   if (!release || !release.cover_link) return;
 
   const fullUrl = release.cover_link.replace('296x296bf-60.jpg', '10000x10000-999.jpg');
@@ -302,12 +323,21 @@ function closeImageModal(event) {
 // ====== ЗАГРУЗКА ДАННЫХ ======
 async function loadData() {
   try {
-    const r = await fetch(JSON_FILE + '?v=' + Date.now());
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    allReleases = await r.json();
+    let resp;
+    if (_preloadLink && typeof _preloadLink.fetchStart === 'function') {
+      resp = await _preloadLink.fetchStart().catch(() => null);
+    }
+    if (!resp || !resp.ok) {
+      resp = await fetch(JSON_FILE + '?v=' + Date.now(), { cache: 'no-cache' });
+    }
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    allReleases = await resp.json();
+    // Индекс по row_id для поиска за O(1) вместо линейного сканирования всей базы
+    releasesById = new Map(allReleases.map(r => [String(r.row_id), r]));
     document.getElementById('statusArea').style.display = 'none';
     buildYearMonthOptions();
-    render();
+    // Рендеринг после первого кадра — не блокируем отрисовку шапки/spinner
+    requestAnimationFrame(render);
   } catch (e) {
     console.error('Ошибка загрузки:', e);
     document.getElementById('mainContent').innerHTML =

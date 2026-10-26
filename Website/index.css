@@ -231,6 +231,9 @@ main {
   margin-bottom: 18px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border);
+  /* Пропуск отрисовки/расчёта макета групп, ушедших далеко за экран */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
 }
 .date-group:last-child { border-bottom: none; }
 
@@ -282,7 +285,8 @@ main {
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
-  transition: all 0.25s ease;
+  /* Только анимируемые свойства вместо «all» — меньше перерасчётов стиля/макета */
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
   display: flex;
   flex-direction: column;
   cursor: pointer;

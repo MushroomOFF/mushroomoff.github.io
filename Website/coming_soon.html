@@ -23,6 +23,14 @@
 
 <link rel="manifest" href="icons/manifest.webmanifest">
 
+<!-- Ускоряем установку TCP/TLS-соединения с CDN обложек -->
+<link rel="preconnect" href="https://mzimg.apple.net" crossorigin>
+<link rel="dns-prefetch" href="https://mzimg.apple.net">
+<link rel="preconnect" href="https://embed.music.apple.com">
+
+<!-- Заранее загружаем данные параллельно с CSS/JS (инициализируется coming_soon.js) -->
+<link id="dataPreload" rel="preload" as="fetch" fetchpriority="high" crossorigin href="soon_releases.json">
+
 <link rel="stylesheet" href="coming_soon.css">
 </head>
 <body>
