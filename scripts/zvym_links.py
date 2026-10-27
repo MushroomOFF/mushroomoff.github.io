@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 import amr_functions as amr
 
 # ================= CONSTANTS & VARIABLES =================
-SCRIPT_NAME = "Yandex.Music & Zvuk Lookup"
-VERSION = "2.026.07"
+SCRIPT_NAME = "Zvuk & Yandex.Music Lookup"
+VERSION = "2.026.10"
 ENV = 'Local'
 if os.getenv("GITHUB_ACTIONS") == "true":
     ENV = 'GitHub'
@@ -27,7 +27,7 @@ LOGGER_ID = os.environ.get('tg_logger_id')
 YM_TOKEN = os.environ.get('ym_token')
 ZVUK_TOKEN = os.environ.get('zv_token')
 
-DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
+DB_FOLDER = os.path.join(ROOT_FOLDER, 'databases/')
 DB_FILE = os.path.join(DB_FOLDER, 'music_releases.db')
 
 HEADERS = {'Referer':'https://music.apple.com', 'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'}

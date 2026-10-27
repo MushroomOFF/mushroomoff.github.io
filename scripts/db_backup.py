@@ -2,13 +2,13 @@ import sqlite3
 import json
 import os
 
-# Скрипт лежит в ./Python Scripts/AMR_DB_Backup.py
-# Поэтому корень проекта — это родительская папка для Python Scripts
+# Скрипт лежит в ./scripts/db_backup.py
+# Поэтому корень проекта — это родительская папка для scripts
 ROOT_FOLDER = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases')
-DB_BACKUP_FOLDER = os.path.join(DB_FOLDER, 'Backups')
-WEBSITE_FOLDER = os.path.join(ROOT_FOLDER, 'Website')
+DB_FOLDER = os.path.join(ROOT_FOLDER, 'databases')
+DB_BACKUP_FOLDER = os.path.join(DB_FOLDER, 'backups')
+WEBSITE_FOLDER = os.path.join(ROOT_FOLDER, 'website')
 
 DB_FILE = os.path.join(DB_FOLDER, 'music_releases.db')
 

@@ -209,9 +209,9 @@ def db_backup(db_file):
     # Определяем пути
     db_folder = os.path.dirname(db_file)
     db_name = os.path.basename(db_file)
-    db_backup_folder = os.path.join(db_folder, 'Backups')
+    db_backup_folder = os.path.join(db_folder, 'backups')
     project_root = os.path.dirname(db_folder)
-    website_folder = os.path.join(project_root, 'Website')
+    website_folder = os.path.join(project_root, 'website')
 
     def get_display_path(abs_path):
         rel_path = os.path.relpath(abs_path, project_root)

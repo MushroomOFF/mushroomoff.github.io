@@ -5,7 +5,7 @@
 Очередь хранит только row_id (UNIQUE): новая правка заменяет неотправленную
 старую, текст сообщения строится в момент отправки из актуального JSON.
 
-Запуск:  python "Python Scripts/server.py"
+Запуск:  python "scripts/server.py"
 Адрес:   http://localhost:8000/index.html
 """
 import http.server
@@ -24,10 +24,10 @@ import amr_functions as amr
 PORT = 8000
 ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
 load_dotenv(os.path.join(ROOT_FOLDER, '.env'))
-WEBSITE_DIR = os.path.join(ROOT_FOLDER, 'Website/')
+WEBSITE_DIR = os.path.join(ROOT_FOLDER, 'website/')
 HTML_FILE = 'index.html'
 JSON_FILE = os.path.join(WEBSITE_DIR, 'new_releases.json')
-DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
+DB_FOLDER = os.path.join(ROOT_FOLDER, 'databases/')
 DB_FILE = os.path.join(DB_FOLDER, 'music_releases.db')
 
 TOKEN = os.environ.get('tg_token')
@@ -384,7 +384,7 @@ def main():
     print("🎵 AMR Server — локальная разработка")
     print("=" * 60)
     if not os.path.isdir(WEBSITE_DIR):
-        print("❌ ОШИБКА: папка 'Website' не найдена!")
+        print("❌ ОШИБКА: папка 'website' не найдена!")
         sys.exit(1)
     print(f"📁 Сайт:    {WEBSITE_DIR}")
     print(f"📄 JSON:    {JSON_FILE}")

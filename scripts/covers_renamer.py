@@ -4,7 +4,7 @@ import amr_functions as amr
 
 # ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "Covers Renamer"
-VERSION = "2.026.07"
+VERSION = "2.026.10"
 
 ROOT_FOLDER = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ORIGINAL_COVERS_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/Проекты/_Covers/_BIG'

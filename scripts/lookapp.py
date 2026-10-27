@@ -11,7 +11,7 @@ import amr_functions as amr
 
 # ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "LookApp"
-VERSION = "2.026.07"
+VERSION = "2.026.10"
 ENV = 'Local'
 if os.getenv("GITHUB_ACTIONS") == "true":
     ENV = 'GitHub'
@@ -24,7 +24,7 @@ elif ENV == 'GitHub':
 
 TOKEN = os.environ.get('tg_token')
 LOGGER_ID = os.environ.get('tg_logger_id')
-DB_FOLDER = os.path.join(ROOT_FOLDER, 'Databases/')
+DB_FOLDER = os.path.join(ROOT_FOLDER, 'databases/')
 DB_FILE = os.path.join(DB_FOLDER, 'music_releases.db')
 LOG_FILE = os.path.join(ROOT_FOLDER, 'status.log')
 

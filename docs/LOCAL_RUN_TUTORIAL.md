@@ -31,14 +31,14 @@ cd amr
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
-pip install -r "Python Scripts/requirements.txt"
+pip install -r "scripts/requirements.txt"
 ```
 
 ## Step 3 — Point the scripts at YOUR folder
 
 Most scripts hard-code the author's path. Replace it with your repo path.
 
-Open each file listed below in `Python Scripts/` and change the value of
+Open each file listed below in `scripts/` and change the value of
 `ROOT_FOLDER`:
 
 ```python
@@ -53,15 +53,15 @@ ROOT_FOLDER = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/'
 
 Files to edit:
 
-- [ ] `AMR_LookApp.py`
-- [ ] `AMR_NewReleases.py`
-- [ ] `AMR_ZVYM.py`
-- [ ] `AMR_LookApp_Errors.py`
-- [ ] `AMR_CoversDownloader.py` (also `COVERS_FOLDER` if you download covers)
-- [ ] `AMR_CoversRenamer.py` (also `ORIGINAL_COVERS_FOLDER`)
+- [ ] `lookapp.py`
+- [ ] `new_releases.py`
+- [ ] `zvym_links.py`
+- [ ] `lookapp_errors.py`
+- [ ] `covers_downloader.py` (also `COVERS_FOLDER` if you download covers)
+- [ ] `covers_renamer.py` (also `ORIGINAL_COVERS_FOLDER`)
 - [ ] `server.py`
 
-`AMR_DB_Backup.py` and `AMR_DB_Sync.py` already compute paths relative to the
+`db_backup.py` and `db_sync.py` already compute paths relative to the
 script location — no changes needed.
 
 ## Step 4 — Create `.env` (optional but recommended)
@@ -86,20 +86,20 @@ If you leave the Telegram values empty, `amr_functions.send_message()` simply
 skips sending (see `status.log`: *"Message not sent! No TOKEN or CHAT_ID"*),
 and the scripts keep working locally.
 
-To run `AMR_NewReleases.py` / `AMR_ZVYM.py` fully, either fill in real tokens
+To run `new_releases.py` / `zvym_links.py` fully, either fill in real tokens
 or temporarily change their `os.environ['key']` reads to
 `os.environ.get('key')`.
 
 ## Step 5 — Start with a clean database
 
-The repo ships with the author's `Databases/music_releases.db`. For a personal
+The repo ships with the author's `databases/music_releases.db`. For a personal
 run, remove it (the table schema will be recreated automatically):
 
 ```bash
-rm Databases/music_releases.db
+rm databases/music_releases.db
 ```
 
-> Keep `Databases/Backups/*.json` only if you want the author's data as a
+> Keep `databases/backups/*.json` only if you want the author's data as a
 > starting point — otherwise delete them too; they are just JSON exports.
 
 ## Step 6 — Build YOUR personal artists list
@@ -107,7 +107,7 @@ rm Databases/music_releases.db
 Artists live in the `artists` table. The easiest way to fill it is SQL:
 
 ```bash
-sqlite3 Databases/music_releases.db <<'SQL'
+sqlite3 databases/music_releases.db <<'SQL'
 CREATE TABLE IF NOT EXISTS artists (
     row_id INTEGER,
     artist TEXT,
@@ -152,12 +152,12 @@ curl -s "https://itunes.apple.com/search?term=power+paladin&entity=musicArtist&l
 
 ### Alternative: manage the list in JSON
 
-You can also keep your list as `Databases/Backups/artists.json` (same fields,
+You can also keep your list as `databases/backups/artists.json` (same fields,
 see the shipped example) and import it into SQLite:
 
 ```bash
-cd "Python Scripts"
-python AMR_DB_Sync.py --db ../Databases/music_releases.db --json-dir ../Databases/Backups
+cd "scripts"
+python db_sync.py --db ../databases/music_releases.db --json-dir ../databases/backups
 # dry-run is shown first — answer y to apply
 ```
 
@@ -166,8 +166,8 @@ python AMR_DB_Sync.py --db ../Databases/music_releases.db --json-dir ../Database
 Run LookApp interactively:
 
 ```bash
-cd "Python Scripts"
-python AMR_LookApp.py
+cd "scripts"
+python lookapp.py
 ```
 
 It will ask:
@@ -183,20 +183,20 @@ already in `my_releases`, inserts genuinely new ones, prints progress, and
 writes results to `status.log` in the repo root.
 
 Typical statuses per artist: `N new records`, `EMPTY` (not available in that
-country store), `ERROR (50x)` (API hiccup — rerun `AMR_LookApp_Errors.py`
+country store), `ERROR (50x)` (API hiccup — rerun `lookapp_errors.py`
 later to retry).
 
 ## Step 8 — Verify your data
 
 ```bash
-sqlite3 ../Databases/music_releases.db \
+sqlite3 ../databases/music_releases.db \
   "SELECT main_artist, album, release_date FROM my_releases ORDER BY release_date DESC LIMIT 10;"
 ```
 
 Back up your personal DB + artists list to JSON at any time:
 
 ```bash
-python AMR_DB_Backup.py
+python db_backup.py
 ```
 
 ## Step 9 — Website & local server (optional)
@@ -210,14 +210,14 @@ python server.py
 
 Without a filled `admin_token`/Telegram config, publishing actions are logged
 but messages are not sent — the site still renders from
-`Website/new_releases.json`.
+`website/new_releases.json`.
 
-For a purely static preview you can also just open `Website/index.html` via
-any local static server, e.g. `python3 -m http.server 8000 -d Website`.
+For a purely static preview you can also just open `website/index.html` via
+any local static server, e.g. `python3 -m http.server 8000 -d website`.
 
 ## Step 10 — Make it a habit
 
-- Re-run `AMR_LookApp.py` whenever you want (weekly matches the CI cadence).
+- Re-run `lookapp.py` whenever you want (weekly matches the CI cadence).
   Reset progress for a full re-scan by setting `update_date = NULL` again:
   ```sql
   UPDATE artists SET update_date = NULL WHERE update_type IN (1, 2);
@@ -231,10 +231,10 @@ any local static server, e.g. `python3 -m http.server 8000 -d Website`.
 
 | Symptom | Fix |
 |---|---|
-| `FileNotFoundError` on `Databases/...` | Wrong `ROOT_FOLDER` — redo Step 3 (must end with `/`) |
+| `FileNotFoundError` on `databases/...` | Wrong `ROOT_FOLDER` — redo Step 3 (must end with `/`) |
 | `KeyError: 'tg_token'` | Missing `.env` (Step 4) or strict `os.environ[...]` access — use `.get()` |
 | `Bad ID` in log | `artist_id` ≤ 0 or wrong — fix in `artists` table |
-| Many `ERROR (502/503)` | Apple API throttling — wait and run `AMR_LookApp_Errors.py` |
+| Many `ERROR (502/503)` | Apple API throttling — wait and run `lookapp_errors.py` |
 | Nothing found for an artist | Artist has no albums in that country store (`EMPTY`) or all releases already known |
 
 Happy listening! 🤘

@@ -8,7 +8,7 @@ const GH = {
   owner: 'MushroomOFF',
   repo: 'mushroomoff.github.io',
   branch: 'main',
-  file: 'Website/new_releases.json'
+  file: 'website/new_releases.json'
 };
 
 // Не localhost → работаем через GitHub API вместо server.py
