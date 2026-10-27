@@ -22,7 +22,7 @@ from datetime import datetime
 import amr_functions as amr
 
 PORT = 8000
-ROOT_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/GitHub/mushroomoff.github.io/'
+ROOT_FOLDER = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 load_dotenv(os.path.join(ROOT_FOLDER, '.env'))
 WEBSITE_DIR = os.path.join(ROOT_FOLDER, 'website/')
 HTML_FILE = 'index.html'
