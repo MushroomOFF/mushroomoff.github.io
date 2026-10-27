@@ -22008,18 +22008,6 @@
         "my_artist": null
     },
     {
-        "row_id": 1853,
-        "update_date": "2026-07-03",
-        "artist_name": "Kai Hansen",
-        "album_name": "Born With A Hammer",
-        "artist_link": "https://music.apple.com/us/artist/kai-hansen/2320585",
-        "album_link": "https://music.apple.com/us/album/born-with-a-hammer/6780537281",
-        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/3e/1e/f9/3e1ef9c3-ae19-3655-200d-e47d04718207/4029759216285.jpg/296x296bf-60.jpg",
-        "release_date": "2026-09-18",
-        "release_date_text": "September 18, 2026",
-        "my_artist": null
-    },
-    {
         "row_id": 1854,
         "update_date": "2026-07-03",
         "artist_name": "Villagers of Ioannina City",
@@ -23489,8 +23477,8 @@
         "artist_name": "Haywire 617",
         "album_name": "I DON'T WANNA SAY GOODBYE",
         "artist_link": "https://music.apple.com/us/artist/haywire-617/1715695747",
-        "album_link": "https://music.apple.com/us/album/i-dont-wanna-say-goodbye/6801264918",
-        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ee/b9/76/eeb97615-2b87-b073-65a6-2740ad215de7/075679567307.jpg/296x296bf-60.jpg",
+        "album_link": "https://music.apple.com/us/album/i-dont-wanna-say-goodbye/6817053900",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e8/e2/a4/e8e2a45e-5945-d6f1-4ecf-82caa71b3ee2/075679553065.jpg/296x296bb-60.jpg",
         "release_date": "2026-10-02",
         "release_date_text": "October 2, 2026",
         "my_artist": null
@@ -23638,18 +23626,6 @@
         "release_date": "2026-09-18",
         "release_date_text": "September 18, 2026",
         "my_artist": null
-    },
-    {
-        "row_id": 1989,
-        "update_date": "2026-09-11",
-        "artist_name": "Till Lindemann",
-        "album_name": "Live In Krakow",
-        "artist_link": "https://music.apple.com/us/artist/till-lindemann/20851094",
-        "album_link": "https://music.apple.com/us/album/live-in-krakow/6804991266",
-        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/1f/ee/72/1fee72c3-0336-2d77-e49e-7dcfc2cd0ecb/cover.jpg/296x296bf-60.jpg",
-        "release_date": "2026-09-25",
-        "release_date_text": "September 25, 2026",
-        "my_artist": 1
     },
     {
         "row_id": 1990,

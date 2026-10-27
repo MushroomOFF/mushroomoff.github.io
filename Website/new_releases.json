@@ -108372,5 +108372,19 @@
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/5d/f7/7d/5df77d1a-119f-1eb6-1904-74080d68e9c3/885288560848.jpg/296x296bb-60.jpg",
         "tg_message_id": 0
+    },
+    {
+        "row_id": 7748,
+        "update_date": "2026-10-27",
+        "genre_category": "MCS",
+        "artist": "Haywire 617",
+        "album": "I DON'T WANNA SAY GOODBYE",
+        "my_type": null,
+        "album_id": 6817053900,
+        "album_link": "https://music.apple.com/us/album/i-dont-wanna-say-goodbye/6817053900",
+        "album_link_ym": null,
+        "album_link_zv": null,
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e8/e2/a4/e8e2a45e-5945-d6f1-4ecf-82caa71b3ee2/075679553065.jpg/296x296bb-60.jpg",
+        "tg_message_id": 0
     }
 ]

@@ -761,7 +761,7 @@ def collect_cs_releases(category_abbr):
                     new_cover = old_cover # По умолчанию оставляем старую, пока не спарсим новую
                     
                     if not check_new_soon_on_this_week(new_link):
-                        msg = f"ℹ️ CSDB new link already in DB: [{row_id}] {artist_name} - {album_name}"
+                        msg = f"ℹ️  CSDB new link already in DB: [{row_id}] {artist_name} - {album_name}"
                         print(msg)
                         # status_message += f"\n{msg}"
                     else:
