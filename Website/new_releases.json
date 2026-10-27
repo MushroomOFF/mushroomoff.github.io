@@ -107444,10 +107444,10 @@
         "my_type": "o",
         "album_id": 6815688026,
         "album_link": "https://music.apple.com/us/album/marionettes-ep/6815688026",
-        "album_link_ym": null,
-        "album_link_zv": null,
+        "album_link_ym": "https://music.yandex.ru/album/44145399",
+        "album_link_zv": "https://zvuk.com/release/53119811",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0f/f6/ce/0ff6ce47-bd5c-7d23-7109-744da4014951/cover.jpg/296x296bf.webp",
-        "tg_message_id": 1730
+        "tg_message_id": 1738
     },
     {
         "row_id": 7682,
