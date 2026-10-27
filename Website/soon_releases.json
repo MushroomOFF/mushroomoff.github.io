@@ -25414,5 +25414,29 @@
         "release_date": "2027-02-19",
         "release_date_text": "February 19, 2027",
         "my_artist": null
+    },
+    {
+        "row_id": 2196,
+        "update_date": "2026-10-27",
+        "artist_name": "; Motoi Sakuraba",
+        "album_name": "Philosophical Return",
+        "artist_link": null,
+        "album_link": "https://music.apple.com/us/album/philosophical-return/6817202572",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/c6/37/df/c637df65-e8eb-a45d-8277-88b22d0a4201/4988044140370.png/296x296bf-60.jpg",
+        "release_date": "2026-11-04",
+        "release_date_text": "November 4, 2026",
+        "my_artist": null
+    },
+    {
+        "row_id": 2197,
+        "update_date": "2026-10-27",
+        "artist_name": "Lifesick",
+        "album_name": "When Brutality Becomes the Language",
+        "artist_link": "https://music.apple.com/us/artist/lifesick/1062124905",
+        "album_link": "https://music.apple.com/us/album/when-brutality-becomes-the-language/6778678282",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/2f/96/56/2f965649-f4f3-490d-e6b1-808e59158da3/ticket.jageplyk.jpg/296x296bf-60.jpg",
+        "release_date": "2027-01-22",
+        "release_date_text": "January 22, 2027",
+        "my_artist": null
     }
 ]
