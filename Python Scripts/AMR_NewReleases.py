@@ -77,6 +77,45 @@ def get_safari_page_html():
     return result.stdout
 
 
+def search_itunes_album(artist_name, album_name, artist_link):
+    """Поиск альбома через iTunes Lookup API по ID артиста"""
+    if not artist_link:
+        print(f"⚠️ Отсутствует artist_link для поиска в iTunes: {artist_name} - {album_name}")
+        return None
+        
+    # Извлекаем artist_id из ссылки, убирая query-параметры (?uo=4 и т.д.)
+    clean_artist_link = artist_link.split('?')[0]
+    artist_id = clean_artist_link.rsplit('/', 1)[1]
+    
+    if not artist_id.isdigit():
+        print(f"⚠️ Не удалось извлечь ID артиста из ссылки: {artist_link}")
+        return None
+        
+    url = f"https://itunes.apple.com/lookup?id={artist_id}&country=us&entity=album&limit=200"
+    try:
+        response = session.get(url)
+        response.raise_for_status()
+        data = response.json()
+        if 'results' in data and len(data['results']) > 0:
+            db_artist = artist_name.lower().strip()
+            db_album = album_name.lower().strip()
+            
+            for res in data['results']:
+                if res.get('wrapperType') == 'collection':
+                    res_artist = res.get('artistName', '').lower().strip()
+                    res_album = res.get('collectionName', '').lower().strip()
+                    
+                    if db_artist == res_artist and db_album == res_album:
+                        clean_url = res.get('collectionViewUrl', '').split('?')[0]
+                        return clean_url
+                        
+        print(f"⚠️ iTunes Lookup не нашел точного совпадения для: {artist_name} - {album_name}")
+        return None
+        
+    except Exception as e:
+        print(f"iTunes lookup error: {e}")
+    return None
+
 # Yandex.Music ---------------------------
 def send_search_request_ym(query, year):
     ym_search_result = YM_CLIENT.search(query)
@@ -295,16 +334,16 @@ def check_my_artist(artist_id):
     except Exception as e:
         print(f'Error checking cover for {artist_id}: {e}')
         return False
-    
+
 
 def soon_to_new_releases(current_date):
     try:
         conn = sqlite3.connect(DB_FILE)
         cursor = conn.cursor()
         cursor.execute('''
-            SELECT sr.row_id, sr.artist_name, sr.album_name, sr.album_link, 
-            sr.cover_link, sr.release_date FROM soon_releases sr 
-            LEFT JOIN new_releases nr ON sr.album_link = nr.album_link 
+            SELECT sr.row_id, sr.artist_name, sr.album_name, sr.album_link,
+            sr.cover_link, sr.release_date, sr.artist_link FROM soon_releases sr
+            LEFT JOIN new_releases nr ON sr.album_link = nr.album_link
             WHERE nr.album_link IS NULL AND sr.release_date <= ?
         ''', (current_date,))
         result = cursor.fetchall()
@@ -327,7 +366,26 @@ def update_soon_release(row_id, release_date, release_date_text):
         conn.close()
         return True
     except Exception as e:
-        print(f'Error updating ???: {e}')
+        print(f'Error updating release date: {e}')
+        traceback.print_exc()
+        return False
+
+
+def update_soon_release_data(row_id, album_link, cover_link, release_date, release_date_text):
+    """Обновить ссылку, обложку и дату релиза в таблице soon_releases"""
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+        cursor.execute('''
+            UPDATE soon_releases 
+            SET album_link = ?, cover_link = ?, release_date = ?, release_date_text = ? 
+            WHERE row_id = ?
+        ''', (album_link, cover_link, release_date, release_date_text, row_id))
+        conn.commit()
+        conn.close()
+        return True
+    except Exception as e:
+        print(f'Error updating release data for {row_id}: {e}')
         traceback.print_exc()
         return False
 
@@ -689,14 +747,84 @@ def collect_cs_releases(category_abbr):
                 else:
                     cs_to_new_releases_df.loc[len(cs_to_new_releases_df.index)] = [row[1], row[2], row[3], row[4]]
             else:
-                soon_db_error = f"⚠️ Coming Soon DB bad link: [{row[0]}] {row[1]} - {row[2]}"
-                print(soon_db_error)
-                status_message += f"\n{soon_db_error}"
+                artist_name = row[1]
+                album_name = row[2]
+                old_link = row[3]
+                old_cover = row[4]
+                row_id = row[0]
+                artist_link = row[6] if len(row) > 6 else None
+                
+                print(f"\n🔍 CSDB bad link. Search new in iTunes: {artist_name} - {album_name}")
+                new_link = search_itunes_album(artist_name, album_name, artist_link)
+                
+                if new_link and new_link != old_link:
+                    new_cover = old_cover # По умолчанию оставляем старую, пока не спарсим новую
+                    
+                    if not check_new_soon_on_this_week(new_link):
+                        msg = f"ℹ️ CSDB new link already in DB: [{row_id}] {artist_name} - {album_name}"
+                        print(msg)
+                        # status_message += f"\n{msg}"
+                    else:
+                        request = session.get(new_link)
+                        request.encoding = 'UTF-8'
+                        response = request.text
+                        
+                        date_time_string = 'data-testid="tracklist-footer-description">'
+                        date_time_begin = response.find(date_time_string)                        
+                        new_date_time = None
+                        new_date_time_text = ''
+                        
+                        if date_time_begin > -1:
+                            date_time_end = response.find('\n', date_time_begin)
+                            new_date_time_text = response[date_time_begin + len(date_time_string):date_time_end]
+                            try:
+                                new_date_time = datetime.datetime.strptime(new_date_time_text, '%B %d, %Y')
+                            except ValueError:
+                                pass
+                                
+                        data_blocks = response.split('data-testid="')
+                        for data_block in data_blocks:
+                            block_name = data_block[:data_block.find('"')]
+                            if block_name == 'artwork-component':
+                                srcsets = data_block.split('srcset="')
+                                for idx, srcset in enumerate(srcsets):
+                                    # Индекс 2 обычно соответствует JPEG srcset
+                                    if idx == 2: 
+                                        picture_srcset_jpeg = srcset[:srcset.find('"')]
+                                        new_cover = picture_srcset_jpeg[0:picture_srcset_jpeg.find(' ')]
+                                        break
+                                break
+                        
+                        db_release_date = str(new_date_time)[0:10] if new_date_time else str(row[5])
+                        db_release_date_text = new_date_time_text if new_date_time_text else ''
+                        
+                        if update_soon_release_data(row_id, new_link, new_cover, db_release_date, db_release_date_text):
+                            msg = f"🔄 CSDB new link: [{row_id}] {artist_name} - {album_name}" # \nСсылка: {new_link}\nОбложка: {new_cover}"
+                            print(msg)
+                            status_message += f"\n{msg}"
+                            
+                            # Если дата не найдена или релиз уже вышел (или сегодня), добавляем в обработку как новый релиз
+                            if not new_date_time or new_date_time <= datetime.datetime.now():
+                                cs_to_new_releases_df.loc[len(cs_to_new_releases_df.index)] = [artist_name, album_name, new_link, new_cover]
+                        else:
+                            msg = f"❌ CSDB updating error: [{row_id}] {artist_name} - {album_name}"
+                            print(msg)
+                            status_message += f"\n{msg}"
+                elif new_link == old_link:
+                    msg = f"⚠️ CSDB same bad link from iTunes: [{row_id}] {artist_name} - {album_name}"
+                    print(msg)
+                    status_message += f"\n{msg}"
+                else:
+                    msg = f"❌ CSDB can't find: [{row_id}] {artist_name} - {album_name}"
+                    print(msg)
+                    status_message += f"\n{msg}"
 
     # Main work
     if len(cs_to_new_releases_df):
         for _, row in cs_to_new_releases_df.iterrows():
-            album_id = row['link'][row['link'].rfind('/') + 1:]
+            # Принудительно отсекаем query-параметры (?uo=4 и т.д.) перед извлечением ID
+            clean_link = row['link'].split('?')[0]
+            album_id = clean_link[clean_link.rfind('/') + 1:]
             #                                                      is_my_artist
             write_to_db(row['artist'], row['album'], current_date, None, row['image_link'], row['link'], category_abbr, album_id)
         

@@ -108358,5 +108358,19 @@
         "album_link_zv": "https://zvuk.com/release/52231147",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/81/67/91/81679166-7942-404d-6328-8b785b732309/cover.jpg/296x296bf-60.jpg",
         "tg_message_id": 0
+    },
+    {
+        "row_id": 7747,
+        "update_date": "2026-10-27",
+        "genre_category": "MCS",
+        "artist": "Sépulcre",
+        "album": "Cryptic Temple of Otherworldly Abhorrations",
+        "my_type": null,
+        "album_id": 6813079609,
+        "album_link": "https://music.apple.com/us/album/cryptic-temple-of-otherworldly-abhorrations/6813079609",
+        "album_link_ym": null,
+        "album_link_zv": null,
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/5d/f7/7d/5df77d1a-119f-1eb6-1904-74080d68e9c3/885288560848.jpg/296x296bb-60.jpg",
+        "tg_message_id": 0
     }
 ]
