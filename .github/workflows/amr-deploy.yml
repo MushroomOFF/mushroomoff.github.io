@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'Website/**'  # автодеплой только при изменении данных
+      - 'website/**'  # автодеплой только при изменении данных
   workflow_dispatch:  # ручной запуск: Actions → Run workflow
 
 permissions:
@@ -31,7 +31,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5.0.0
         with:
-          path: ./Website
+          path: ./website
 
       - name: Deploy to GitHub Pages
         id: deployment
