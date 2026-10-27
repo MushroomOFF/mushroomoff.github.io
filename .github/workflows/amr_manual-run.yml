@@ -32,7 +32,7 @@ jobs:
           if [ -f 'scripts/requirements.txt' ]; then pip install -r 'scripts/requirements.txt'; fi
 
       - name: Execute py script
-        run: python 'scripts/lookapp_local.py'
+        run: python 'scripts/lookapp.py'
 
       # - name: Commit files
       #   run: |
