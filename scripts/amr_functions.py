@@ -173,6 +173,70 @@ def send_message(text, token, chat_id, image, topic):
     return None
 
 
+def delete_tg_message(token, chat_id, message_id):
+    """
+    Удаляет сообщение из Telegram-чата по message_id.
+
+    Параметры:
+        token      - токен Telegram-бота
+        chat_id    - ID чата/канала
+        message_id - ID сообщения, которое нужно удалить
+
+    Возвращает:
+        True  - если Telegram подтвердил удаление
+        False - если сообщение не удалено или произошла ошибка
+
+    Функция не прерывает работу скрипта при ошибке.
+    """
+
+    # Базовая проверка обязательных параметров
+    if not token or not chat_id or not message_id:
+        print('⚠️ delete_tg_message: не указан token, chat_id или message_id')
+        return False
+
+    # Приводим message_id к числу, чтобы безопасно обрабатывать разные типы из БД
+    try:
+        message_id = int(message_id)
+    except (TypeError, ValueError):
+        print(f'⚠️ delete_tg_message: некорректный message_id: {message_id!r}')
+        return False
+
+    # Пустые/служебные значения не удаляем
+    if message_id <= 1:
+        return False
+
+    url = f"https://api.telegram.org/bot{token}/deleteMessage"
+
+    data_arguments = {
+        "chat_id": chat_id,
+        "message_id": message_id,
+    }
+
+    try:
+        response = requests.post(url, data=data_arguments, timeout=10)
+
+        try:
+            json_response = response.json()
+        except ValueError:
+            json_response = {}
+
+        # Telegram отвечает {"ok": true, "result": true} при успешном удалении
+        if response.ok and json_response.get("ok") is True:
+            return True
+
+        # Если Telegram вернул ошибку: сообщение уже удалено, нет прав, старый пост и т.п.
+        print(f'⚠️ Не удалось удалить сообщение {message_id} из чата {chat_id}: {response.text}')
+        return False
+
+    except requests.exceptions.RequestException as e:
+        print(f'⚠️ Ошибка сети при удалении сообщения {message_id}: {e}')
+        return False
+
+    except Exception as e:
+        print(f'⚠️ Непредвиденная ошибка при удалении сообщения {message_id}: {e}')
+        return False
+
+
 def logger(log_line, log_file, script_name, *args):
     """Writing log line into log file
     * For GitHub Actions:

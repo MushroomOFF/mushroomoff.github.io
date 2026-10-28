@@ -213,7 +213,7 @@ def get_no_zvym_releases(previous_date):
         cursor.execute('''
             SELECT row_id, artist, album, my_type, 
             album_link, album_link_ym, album_link_zv, 
-            cover_link, update_date FROM new_releases
+            cover_link, update_date, tg_message_id FROM new_releases
             WHERE my_type IN ('v', 'd', 'o') 
             AND (album_link_ym IS NULL OR album_link_zv IS NULL)
             AND update_date >= ?
@@ -238,7 +238,7 @@ def update_zvym_link(row_id, new_link, zvym):
         conn.close()
         return True
     except Exception as e:
-        print(f'Error updating ??? {row_id}: {e}')
+        print(f'Error updating album_link_{zvym} in {row_id}: {e}')
         traceback.print_exc()
         return False
 
@@ -280,7 +280,7 @@ def main():
     releases_to_zvym = get_no_zvym_releases(previous_date)
     # 0 - row_id, 1 - artist, 2 - album, 3 - my_type, 
     # 4 - album_link, 5 - album_link_ym, 6 - album_link_zv, 
-    # 7 - cover_link, 8 - update_date
+    # 7 - cover_link, 8 - update_date, 9 - tg_message_id
     if releases_to_zvym:
         for row in releases_to_zvym:
             ym_result = ''
@@ -324,7 +324,19 @@ def main():
                                  f'{f'\n\U0001F4A5 [Яндекс\\.Музыка]({ym_result})' if ym_result else ''}'
                                  f'{f'\n\U0001F50A [Звук]({zv_result})' if zv_result else ''}')
                 message_to_send = amr.send_message(image_caption, TOKEN, CHAT_ID, image_url, thread_name)
-                update_tg_message_id(row[0], message_to_send)
+
+                # Обновляем базу и удаляем старый пост только если новое сообщение успешно отправлено
+                if message_to_send:
+                    old_tg_message_id = row[9]
+
+                    # Если старый ID существует и это не служебное значение - пытаемся удалить старое сообщение
+                    if old_tg_message_id not in (None, '', 0, '0', 1, '1'):
+                        amr.delete_tg_message(TOKEN, CHAT_ID, old_tg_message_id)
+
+                    # Записываем в базу ID нового сообщения
+                    update_tg_message_id(row[0], message_to_send)
+                else:
+                    print(f'⚠️ Не удалось отправить сообщение для row_id={row[0]}. Старый пост не удаляется.')
 
     if ZVUK_ERROR:
         status_message += f'\n⚠️ {ZVUK_ERROR}'
