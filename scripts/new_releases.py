@@ -908,6 +908,12 @@ def main():
             "category_link": 'https://music.apple.com/us/curator/apple-music-metal/976439543',
             "category_name": 'METAL - CS',
             "category_abbr": 'MCS'
+        },
+        {
+            "category_type": 'Coming Soon',
+            "category_link": 'https://music.apple.com/us/curator/apple-music-hard-rock/979231690',
+            "category_name": 'ALTERNATIVE & HARD ROCK - CS',
+            "category_abbr": 'HRCS'
         }
     ]
 
@@ -925,14 +931,14 @@ def main():
             amr.db_backup(DB_FILE)
         elif category["category_type"] == 'Coming Soon':
             coming_soon(category_link)
-            print('Coming Soon')
-            status_message += f'\n✅ Coming Soon'
-            amr.db_backup(DB_FILE)
-
-            collect_cs_releases(category["category_abbr"])
             print(logger_category)
             status_message += f'\n✅ {logger_category}'
             amr.db_backup(DB_FILE)
+
+    collect_cs_releases('MCS')
+    print('Coming Soon -> New Releases')
+    status_message += f'\n✅ Coming Soon -> New Releases'
+    amr.db_backup(DB_FILE)
 
     if not message_new_releases:
         amr.send_message('New Releases: \U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F', TOKEN, LOGGER_ID, None, None)

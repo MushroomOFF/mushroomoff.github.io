@@ -19,6 +19,7 @@ import json
 import os
 import requests
 import sqlite3
+import time
 
 
 THREAD_ID_DICT = {'New Updates': 6, 'Top Releases': 10, 'Coming Soon': 3, 'New Releases': 2, 'Next Week Releases': 80, 'General': 0}
@@ -112,63 +113,127 @@ def mdv2(text):
     return final_text
 
 
-def send_message(text, token, chat_id, image, topic):
-    """Отправка сообщения в Telegram с обработкой ошибок и отладочным выводом"""
-    
+def send_message(text, token, chat_id, image, topic, max_attempts=5, retry_delay=2):
+    """
+    Отправка сообщения в Telegram с обработкой ошибок и повторными попытками.
+
+    Параметры:
+        max_attempts - максимальное количество попыток отправки
+        retry_delay  - базовая задержка перед повтором в секундах
+    """
+
     # Экранируем текст перед отправкой
     escaped_text = mdv2(text)
 
-    send_method = 'sendMessage'
-    data_arguments = {
-        "text": escaped_text,
-        "chat_id": chat_id,
-        "parse_mode": 'MarkdownV2'
-    }
     if image:
         send_method = 'sendPhoto'
-        data_arguments.update({"photo": image, "caption": escaped_text})
+        data_arguments = {
+            "chat_id": chat_id,
+            "photo": image,
+            "caption": escaped_text,
+            "parse_mode": 'MarkdownV2'
+        }
+    else:
+        send_method = 'sendMessage'
+        data_arguments = {
+            "text": escaped_text,
+            "chat_id": chat_id,
+            "parse_mode": 'MarkdownV2'
+        }
+
     if topic:
         data_arguments.update({"message_thread_id": THREAD_ID_DICT[topic]})
+
     url = f"https://api.telegram.org/bot{token}/{send_method}"
 
-    try:
-        response = requests.post(url, data=data_arguments)
-        json_response = json.loads(response.text)
-        # Если API вернул ошибку, ключа 'result' не будет — вызовется KeyError
-        return json_response['result']['message_id']
-        
-    except KeyError:
-        # Telegram вернул ответ без ключа 'result' — сообщение не отправлено
-        # 🔍 ОТЛАДКА: выводим полный ответ API для диагностики
-        print(f"🔍 Telegram API error response: {response.text}")
-        print("❌ Ошибка отправки сообщения")
-        
-    except TypeError:
-        # На случай, если json_response не является словарём
-        print(f"🔍 Telegram API unexpected response: {response.text}")
-        print("❌ Ошибка отправки сообщения (некорректный формат ответа)")
-        
-    except requests.exceptions.RequestException as e:
-        # Ошибка сети, таймаут, недоступность API
-        print(f"❌ Ошибка сети при отправке: {e}")
-        
-    except json.JSONDecodeError as e:
-        # Ответ не является валидным JSON
-        print(f"❌ Ошибка парсинга JSON-ответа: {e}")
-        print(f"🔍 Сырой ответ: {response.text if 'response' in locals() else 'N/A'}")    
+    # Ошибки, которые считаем временными сетевыми и можем повторять
+    retryable_exceptions = (
+        requests.exceptions.ConnectionError,
+        requests.exceptions.Timeout,
+        requests.exceptions.ChunkedEncodingError,
+    )
+
+    for attempt in range(1, max_attempts + 1):
+        try:
+            response = requests.post(
+                url,
+                data=data_arguments,
+                timeout=(10, 60)
+            )
+
+            json_response = json.loads(response.text)
+
+            # Если всё успешно — возвращаем ID сообщения
+            return json_response['result']['message_id']
+
+        except retryable_exceptions as e:
+            if attempt < max_attempts:
+                # Пауза с увеличением времени: 2, 4, 8, 16 секунд и т.д.
+                delay = min(retry_delay * (2 ** (attempt - 1)), 30)
+
+                print(f"⚠️ Сетевая ошибка (попытка {attempt}/{max_attempts}): {e}")
+                print(f"⏳ Повтор через {delay} сек...")
+
+                time.sleep(delay)
+                continue
+
+            print(f"❌ Ошибка сети после {max_attempts} попыток: {e}")
+
+        except KeyError:
+            # Telegram вернул ответ, но без ключа 'result'.
+            # Обычно это ошибка формата, токена, чата, прав или Markdown.
+            print(f"🔍 Telegram API error response: {response.text}")
+            print("❌ Ошибка отправки сообщения")
+            break
+
+        except TypeError:
+            # На случай, если ответ пришёл в неожиданном формате
+            print(f"🔍 Telegram API unexpected response: {response.text}")
+            print("❌ Ошибка отправки сообщения (некорректный формат ответа)")
+            break
+
+        except requests.exceptions.RequestException as e:
+            # Дополнительная страховка: если ConnectionResetError пришёл
+            # в виде другой обёртки или текста ошибки
+            error_text = f"{e!r} {e}"
+
+            if attempt < max_attempts and (
+                'ConnectionResetError' in error_text or
+                'Connection reset by peer' in error_text or
+                'Connection aborted' in error_text
+            ):
+                delay = min(retry_delay * (2 ** (attempt - 1)), 30)
+
+                print(f"⚠️ Сетевая ошибка (попытка {attempt}/{max_attempts}): {e}")
+                print(f"⏳ Повтор через {delay} сек...")
+
+                time.sleep(delay)
+                continue
+
+            print(f"❌ Ошибка сети при отправке: {e}")
+            break
+
+        except json.JSONDecodeError as e:
+            print(f"❌ Ошибка парсинга JSON-ответа: {e}")
+            print(f"🔍 Сырой ответ: {response.text if 'response' in locals() else 'N/A'}")
+            break
 
     print(f"📄 Отправляемый текст: {escaped_text}")
     print('')
-    # 🔽 Попытка отправить уведомление об ошибке
+
+    # Попытка отправить уведомление об ошибке
     try:
         logger_chat_id = os.environ.get('tg_logger_id')
         error_msg = "Ошибка: сообщение отправить не удалось!"
         error_url = f"https://api.telegram.org/bot{token}/sendMessage"
-        # Отправляем как plain text (без parse_mode), чтобы избежать циклических ошибок парсинга
+
+        # Отправляем как plain text, чтобы избежать циклических ошибок парсинга
         error_data = {"chat_id": logger_chat_id, "text": error_msg}
+
         requests.post(error_url, data=error_data, timeout=10)
-    except Exception as notif_err:
-        print(f"⚠️ Не удалось отправить уведомление об ошибке")
+
+    except Exception:
+        print("⚠️ Не удалось отправить уведомление об ошибке")
 
     return None
 
