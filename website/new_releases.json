@@ -107080,10 +107080,10 @@
         "my_type": "v",
         "album_id": 6789116125,
         "album_link": "https://music.apple.com/us/album/netherworlds/6789116125",
-        "album_link_ym": null,
+        "album_link_ym": "https://music.yandex.ru/album/44600748",
         "album_link_zv": "https://zvuk.com/release/53479418",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/46/ac/42/46ac424d-a66c-d1a0-a55d-f3f74297f0dc/196874157831.jpg/296x296bf.webp",
-        "tg_message_id": 1717
+        "tg_message_id": 1763
     },
     {
         "row_id": 7656,
@@ -107780,10 +107780,10 @@
         "my_type": "o",
         "album_id": 6819483528,
         "album_link": "https://music.apple.com/us/album/deathwish-ep/6819483528",
-        "album_link_ym": null,
-        "album_link_zv": null,
+        "album_link_ym": "https://music.yandex.ru/album/44544052",
+        "album_link_zv": "https://zvuk.com/release/53587964",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/9b/e5/d8/9be5d816-4a67-0fbc-4157-a76c4b0b8624/cover.jpg/296x296bf.webp",
-        "tg_message_id": 1744
+        "tg_message_id": 1764
     },
     {
         "row_id": 7706,
@@ -107837,9 +107837,9 @@
         "album_id": 6796362884,
         "album_link": "https://music.apple.com/us/album/echoes-of-a-forlorn-land/6796362884",
         "album_link_ym": null,
-        "album_link_zv": null,
+        "album_link_zv": "https://zvuk.com/release/53588089",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/12/ad/da/12addacb-e2f0-1b9e-ae18-3ba1fa2d6216/196874003077.jpg/296x296bf.webp",
-        "tg_message_id": 1727
+        "tg_message_id": 1765
     },
     {
         "row_id": 7710,
