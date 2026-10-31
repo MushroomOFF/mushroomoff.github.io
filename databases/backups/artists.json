@@ -6932,7 +6932,7 @@
         "artist": "Decameron",
         "artist_id": 122075215,
         "artist_genre": "Melodic Death Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-10-30 08:57:30"
     },
     {
@@ -6948,7 +6948,7 @@
         "artist": "Dimension Zero",
         "artist_id": 16485941,
         "artist_genre": "Melodic Death Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-10-30 08:57:39"
     },
     {
@@ -6964,7 +6964,15 @@
         "artist": "Sacrilege",
         "artist_id": 81109217,
         "artist_genre": "Melodic Death Metal",
-        "update_type": 2,
+        "update_type": 1,
         "update_date": "2026-10-30 08:57:49"
+    },
+    {
+        "row_id": 875,
+        "artist": "Taetre",
+        "artist_id": 299644700,
+        "artist_genre": "Melodic Death Metal",
+        "update_type": 1,
+        "update_date": "2026-10-30 23:45:59"
     }
 ]
