@@ -39,7 +39,7 @@ jobs:
       #     git config --local user.email "mushroomoff@mail.ru"
       #     git config --local user.name "MushroomOFF"
       #     git add -A
-      #     git commit -a -m "AMR LookApp autoupdate"
+      #     git commit -a -m "HaRM manual run"
       # - name: Push changes
       #   uses: ad-m/github-push-action@master
       #   with:

@@ -1,17 +1,17 @@
 """ 
 # How to import from the same directory:
-import amr_functions as amr
+import harm_functions as harm
 
 # functions usage example:
-amr.print_name(SCRIPT_NAME, VERSION)
+harm.print_name(SCRIPT_NAME, VERSION)
 
-amr.mdv2(text_line)
+harm.mdv2(text_line)
 
-amr.send_message(text, token, chat_id, image, topic)
+harm.send_message(text, token, chat_id, image, topic)
 
-amr.logger(log_line, LOG_FILE, SCRIPT_NAME, *args)
+harm.logger(log_line, LOG_FILE, SCRIPT_NAME, *args)
 
-amr.db_backup(DB_FILE)
+harm.db_backup(DB_FILE)
 """
 
 import datetime

@@ -1,6 +1,6 @@
 import os
 import shutil
-import amr_functions as amr
+import harm_functions as harm
 
 # ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "Covers Renamer"
@@ -11,7 +11,7 @@ ORIGINAL_COVERS_FOLDER = '/Users/mushroomoff/Yandex.Disk.localized/Проект�
 
 # ================= FUNCTIONS =================
 def main():
-    amr.print_name(SCRIPT_NAME, VERSION)
+    harm.print_name(SCRIPT_NAME, VERSION)
 
     # Prompt user for a path, if nothing is entered, use the original covers folder
     covers_folder = input(f'Path to big covers folder:\nEnter -> {ORIGINAL_COVERS_FOLDER}\n')

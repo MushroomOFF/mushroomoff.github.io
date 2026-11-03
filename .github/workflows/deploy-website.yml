@@ -1,4 +1,4 @@
-name: AMR Deploy Webpage
+name: Deploy HaRM webpage
 
 on:
   push:

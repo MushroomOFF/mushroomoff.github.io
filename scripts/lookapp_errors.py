@@ -6,7 +6,7 @@ import requests
 import sqlite3
 import time
 import traceback
-import amr_functions as amr
+import harm_functions as harm
 
 # ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "LookApp Errors"
@@ -92,11 +92,11 @@ def insert_release(release_data):
 
 # ================= MAIN FUNCTIONS =================
 def find_errors():
-    """Finding errors in the AMR LookApp last run log"""
+    """Finding errors in the HaRM LookApp last run log"""
     with open(LOG_FILE, 'r') as lf:
         log_lines = lf.readlines()
 
-    # Looking for the indexes of the first and last recording of AMR LookApp run
+    # Looking for the indexes of the first and last recording of HaRM LookApp run
     begin_idx = next((i for i, line in enumerate(log_lines) 
                       if '[LookApp] ▼' in line), None)
 
@@ -104,7 +104,7 @@ def find_errors():
                     if '[LookApp] ▲' in line), None)
     
     if begin_idx is None or end_idx is None or begin_idx >= end_idx:
-        print("There's no errors in last AMR LookApp run")
+        print("There's no errors in last HaRM LookApp run")
         return []
 
     suffix = ('ERROR (503)\n', 'ERROR (502)\n')
@@ -217,7 +217,7 @@ def find_releases(find_artist_id, artist_print_name, country):
 
 
 def main():
-    amr.print_name(SCRIPT_NAME, VERSION)
+    harm.print_name(SCRIPT_NAME, VERSION)
 
     artist_list = find_errors()
     key_logger = input("[Enter] to continue: ")
@@ -229,7 +229,7 @@ def main():
 
     print(f'{'':55}')
 
-    amr.db_backup(DB_FILE)
+    harm.db_backup(DB_FILE)
 
 if __name__ == "__main__":
     main()

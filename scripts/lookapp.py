@@ -7,7 +7,7 @@ import sqlite3
 import time
 import traceback
 from dotenv import load_dotenv
-import amr_functions as amr
+import harm_functions as harm
 
 # ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "LookApp"
@@ -266,12 +266,12 @@ def find_releases(find_artist_id, artist_print_name):
             else:
                 if not log_in_file:
                     try:
-                        amr.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint')
+                        harm.logger(f'▲ v.{VERSION} [{ENV}]', LOG_FILE, SCRIPT_NAME, 'noprint')
                         log_in_file = True
                     except Exception:
                         pass
                 try:
-                    amr.logger(f'{artist_print_name} - {find_artist_id} - {country} - ERROR ({response.status_code})',
+                    harm.logger(f'{artist_print_name} - {find_artist_id} - {country} - ERROR ({response.status_code})',
                                LOG_FILE, SCRIPT_NAME)
                 except Exception:
                     pass
@@ -357,7 +357,7 @@ def main():
 
     try:
         if ENV == 'Local':
-            amr.print_name(SCRIPT_NAME, VERSION)
+            harm.print_name(SCRIPT_NAME, VERSION)
 
         # Инициализация БД
         init_db()
@@ -397,7 +397,7 @@ def main():
         welcome_message = f'🚀 *{SCRIPT_NAME}*\n{app_version}'
 
         try:
-            amr.send_message(welcome_message, TOKEN, LOGGER_ID, None, None)
+            harm.send_message(welcome_message, TOKEN, LOGGER_ID, None, None)
         except Exception as e:
             print(f'Error sending welcome message: {e}')
 
@@ -484,15 +484,15 @@ def main():
                 if check_mes_empty_len != len(message_empty):
                     message_to_send += f'\n\n{message_empty}'
 
-            amr.send_message(message_to_send, TOKEN, LOGGER_ID, None, None)
+            harm.send_message(message_to_send, TOKEN, LOGGER_ID, None, None)
         except Exception as e:
             print(f'Error sending final message: {e}')
 
-        amr.db_backup(DB_FILE)
+        harm.db_backup(DB_FILE)
 
         if log_in_file:
             try:
-                amr.logger('▼ DONE', LOG_FILE, SCRIPT_NAME, 'noprint')
+                harm.logger('▼ DONE', LOG_FILE, SCRIPT_NAME, 'noprint')
             except Exception as e:
                 print(f'Error logging done: {e}')
 
@@ -501,7 +501,7 @@ def main():
         traceback.print_exc()
         if log_in_file:
             try:
-                amr.logger(f'▼ CRITICAL ERROR: {e}', LOG_FILE, SCRIPT_NAME, 'noprint')
+                harm.logger(f'▼ CRITICAL ERROR: {e}', LOG_FILE, SCRIPT_NAME, 'noprint')
             except Exception:
                 pass
 

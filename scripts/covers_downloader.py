@@ -3,7 +3,7 @@ import os
 import requests
 import sqlite3
 import traceback
-import amr_functions as amr
+import harm_functions as harm
 
 # ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "Covers Downloader"
@@ -126,7 +126,7 @@ def update_cover_downloaded(row_id, date_of_update):
 
 
 def main():
-    amr.print_name(SCRIPT_NAME, VERSION)
+    harm.print_name(SCRIPT_NAME, VERSION)
 
     session = requests.Session() 
     session.headers.update({
@@ -168,7 +168,7 @@ def main():
         if not update_cover_downloaded(row_id, date_of_update):
             print(f'\n✗ Failed to update progress for cover № {row_id}')
 
-    amr.db_backup(DB_FILE)
+    harm.db_backup(DB_FILE)
 
     print("\nDONE")
 

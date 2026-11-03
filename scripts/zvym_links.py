@@ -6,7 +6,7 @@ import sqlite3
 import traceback
 from yandex_music import Client # for YM
 from dotenv import load_dotenv
-import amr_functions as amr
+import harm_functions as harm
 
 # ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "Zvuk & Yandex.Music Lookup"
@@ -263,11 +263,11 @@ def main():
     status_message = ''
 
     if ENV == 'Local': 
-        amr.print_name(SCRIPT_NAME, VERSION)
+        harm.print_name(SCRIPT_NAME, VERSION)
 
     app_version = f'v.{VERSION} [{ENV}]'
     welcome_message = f'🚀 *{SCRIPT_NAME}*\n{app_version}'
-    amr.send_message(welcome_message, TOKEN, LOGGER_ID, None, None)
+    harm.send_message(welcome_message, TOKEN, LOGGER_ID, None, None)
 
     if is_token_anonymous_zv():
         status_message += f'\n⚠️ Zvuk token disabled'
@@ -323,7 +323,7 @@ def main():
                                  f'\n\n\U0001F3B5 [Apple Music]({row[4]})'
                                  f'{f'\n\U0001F4A5 [Яндекс\\.Музыка]({ym_result})' if ym_result else ''}'
                                  f'{f'\n\U0001F50A [Звук]({zv_result})' if zv_result else ''}')
-                message_to_send = amr.send_message(image_caption, TOKEN, CHAT_ID, image_url, thread_name)
+                message_to_send = harm.send_message(image_caption, TOKEN, CHAT_ID, image_url, thread_name)
 
                 # Обновляем базу и удаляем старый пост только если новое сообщение успешно отправлено
                 if message_to_send:
@@ -331,7 +331,7 @@ def main():
 
                     # Если старый ID существует и это не служебное значение - пытаемся удалить старое сообщение
                     if old_tg_message_id not in (None, '', 0, '0', 1, '1'):
-                        amr.delete_tg_message(TOKEN, CHAT_ID, old_tg_message_id)
+                        harm.delete_tg_message(TOKEN, CHAT_ID, old_tg_message_id)
 
                     # Записываем в базу ID нового сообщения
                     update_tg_message_id(row[0], message_to_send)
@@ -343,10 +343,10 @@ def main():
             
     if (new_ym_links + new_zv_links):
         logger_message = f'New links:\n💥 {new_ym_links} Yandex\\.Music\n🔊 {new_zv_links} Zvuk'
-        amr.db_backup(DB_FILE)
+        harm.db_backup(DB_FILE)
     else:
         logger_message = f'🤷‍♂️ No new links'
-    amr.send_message(f'{logger_message}{f'\n{status_message}' if status_message else ''}', TOKEN, LOGGER_ID, None, None)
+    harm.send_message(f'{logger_message}{f'\n{status_message}' if status_message else ''}', TOKEN, LOGGER_ID, None, None)
 
 
 if __name__ == "__main__":

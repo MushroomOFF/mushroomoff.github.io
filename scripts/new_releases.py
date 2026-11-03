@@ -7,7 +7,7 @@ import traceback
 import urllib.parse
 from yandex_music import Client # for YM
 from dotenv import load_dotenv
-import amr_functions as amr
+import harm_functions as harm
 
 # ================= CONSTANTS & VARIABLES =================
 SCRIPT_NAME = "New Releases"
@@ -494,7 +494,7 @@ def write_to_db(artist, album, update_date, is_my_artist, image_link, album_link
     if is_my_artist:
         image_url = image_link.replace('296x296bb.webp', '632x632bb.webp').replace('296x296bf.webp', '632x632bf.webp')
         image_caption = f'*{artist.replace('&amp;','&')}* \\- [{album.replace('&amp;','&')}]({album_link.replace('://','://embed.')})\n\n\U0001F3B5 [Apple Music]({album_link}){f'\n\U0001F4A5 [Яндекс\\.Музыка]({ym_result})' if ym_result is not None and ym_result != '' else ''}{f'\n\U0001F50A [Звук]({zv_result})' if zv_result is not None and zv_result != '' else ''}'
-        message_id = amr.send_message(image_caption, TOKEN, CHAT_ID, image_url, 'New Releases')
+        message_id = harm.send_message(image_caption, TOKEN, CHAT_ID, image_url, 'New Releases')
 
         message_new_releases = True
 
@@ -717,7 +717,7 @@ def coming_soon(category_link):
             if is_my_artist:
                 image_url = image_link_jpeg.replace('296x296bb-60.jpg', '632x632bb.webp').replace('296x296bf-60.jpg', '632x632bf.webp')
                 image_caption = f'*{artist.replace('&amp;','&')}* \\- [{row['album'].replace('&amp;','&')}]({row['album_link'].replace('://','://embed.')})\n{row['apple_music_release_date'].strftime('%Y-%m-%d')}'
-                message_id = amr.send_message(image_caption, TOKEN, CHAT_ID, image_url, 'Coming Soon')
+                message_id = harm.send_message(image_caption, TOKEN, CHAT_ID, image_url, 'Coming Soon')
                 message_cs_releases = True
 
 
@@ -861,19 +861,19 @@ def next_week_releases_sender():
     else:
         next_week_message += '\n\U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F'
 
-    amr.send_message(next_week_message, TOKEN, CHAT_ID, None, 'Next Week Releases')
-    amr.send_message(this_week_message, TOKEN, CHAT_ID, None, 'Next Week Releases')
+    harm.send_message(next_week_message, TOKEN, CHAT_ID, None, 'Next Week Releases')
+    harm.send_message(this_week_message, TOKEN, CHAT_ID, None, 'Next Week Releases')
 
 
 def main():
     global status_message
 
     if ENV == 'Local': 
-        amr.print_name(SCRIPT_NAME, VERSION)
+        harm.print_name(SCRIPT_NAME, VERSION)
 
     app_version = f'v.{VERSION} [{ENV}]'
     welcome_message = f'🚀 *{SCRIPT_NAME}*\n{app_version}'
-    amr.send_message(welcome_message, TOKEN, LOGGER_ID, None, None)
+    harm.send_message(welcome_message, TOKEN, LOGGER_ID, None, None)
 
     if is_token_anonymous_zv():
         status_message += f'\n⚠️ Zvuk token disabled'
@@ -928,27 +928,27 @@ def main():
             collect_new_releases(category_link, category["category_abbr"])
             print(logger_category)
             status_message += f'\n✅ {logger_category}'
-            amr.db_backup(DB_FILE)
+            harm.db_backup(DB_FILE)
         elif category["category_type"] == 'Coming Soon':
             coming_soon(category_link)
             print(logger_category)
             status_message += f'\n✅ {logger_category}'
-            amr.db_backup(DB_FILE)
+            harm.db_backup(DB_FILE)
 
     collect_cs_releases('MCS')
     print('Coming Soon -> New Releases')
     status_message += f'\n✅ Coming Soon -> New Releases'
-    amr.db_backup(DB_FILE)
+    harm.db_backup(DB_FILE)
 
     if not message_new_releases:
-        amr.send_message('New Releases: \U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F', TOKEN, LOGGER_ID, None, None)
+        harm.send_message('New Releases: \U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F', TOKEN, LOGGER_ID, None, None)
     if not message_cs_releases:
-        amr.send_message('Coming Soon: \U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F', TOKEN, LOGGER_ID, None, None)
+        harm.send_message('Coming Soon: \U0001F937\U0001F3FB\U0000200D\U00002642\U0000FE0F', TOKEN, LOGGER_ID, None, None)
 
     if ZVUK_ERROR:
         status_message += f'\n⚠️ {ZVUK_ERROR}'
     
-    amr.send_message(status_message, TOKEN, LOGGER_ID, None, None)
+    harm.send_message(status_message, TOKEN, LOGGER_ID, None, None)
 
     next_week_releases_sender()
 

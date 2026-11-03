@@ -19,7 +19,7 @@ import urllib.parse
 import requests
 from dotenv import load_dotenv
 from datetime import datetime
-import amr_functions as amr
+import harm_functions as harm
 
 PORT = 8000
 ROOT_FOLDER = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -209,14 +209,14 @@ def tg_sender_loop(stop_event):
                     get_field(release, 'album_link'), get_field(release, 'album_link_ym'),
                     get_field(release, 'album_link_zv'))
 
-                msg_id = amr.send_message(text, TOKEN, CHAT_ID, image_url, topic)
+                msg_id = harm.send_message(text, TOKEN, CHAT_ID, image_url, topic)
                 conn = db_connect()
                 if msg_id:
                     conn.execute('UPDATE new_releases SET tg_message_id = ? WHERE row_id = ?',
                                  (msg_id, row_id))
                     conn.execute('DELETE FROM tg_queue WHERE id = ?', (qid,))
                     conn.commit()
-                    amr.db_backup(DB_FILE)
+                    harm.db_backup(DB_FILE)
                     print(f'✅ TG отправлено для row_id={row_id} (message_id={msg_id})')
                 else:
                     conn.execute('UPDATE tg_queue SET attempts = ? WHERE id = ?',
@@ -381,14 +381,14 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 def main():
     print("=" * 60)
-    print("🎵 AMR Server — локальная разработка")
+    print("🎵 HaRM Server — локальная разработка")
     print("=" * 60)
     if not os.path.isdir(WEBSITE_DIR):
         print("❌ ОШИБКА: папка 'website' не найдена!")
         sys.exit(1)
-    print(f"📁 Сайт:    {WEBSITE_DIR}")
-    print(f"📄 JSON:    {JSON_FILE}")
-    print(f"🗄  БД:      {DB_FILE}")
+    # print(f"📁 Сайт:    {WEBSITE_DIR}")
+    # print(f"📄 JSON:    {JSON_FILE}")
+    # print(f"🗄  БД:      {DB_FILE}")
     print(f"🌐 Страница: http://localhost:{PORT}/{HTML_FILE}")
     print("=" * 60)
 

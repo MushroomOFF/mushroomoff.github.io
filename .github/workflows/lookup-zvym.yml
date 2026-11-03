@@ -1,8 +1,8 @@
-name: AMR Weekly Update
+name: HaRM YM & Zvuk links lookup
 
 on:
   schedule:
-    - cron: '0 4 * * 5'  # Every Friday at 04:00 UTC (07:00 Moscow)(-15 min / +1 hour)
+    - cron: '9 6 * * *' # At 06:09 UTC (+/- 15 min) on every day-of-week from Sunday through Thursday and Saturday. 6:09 UTC is 9:09 in Moscow.
 
 env:
   tg_channel_id: ${{ secrets.TG_CHANNEL_ID }}
@@ -24,17 +24,14 @@ jobs:
         uses: actions/setup-python@v7.0.0
         with:
           python-version: "3.14.7"
-          
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           if [ -f 'scripts/requirements.txt' ]; then pip install -r 'scripts/requirements.txt'; fi
-          
-      - name: Execute LookApp script
-        run: python 'scripts/lookapp.py'
-        
-      - name: Execute NewReleases script
-        run: python 'scripts/new_releases.py'
+
+      - name: Execute py script
+        run: python 'scripts/zvym_links.py'
 
       - name: Commit files
         id: git_commit
@@ -46,7 +43,7 @@ jobs:
             echo "No changes to commit, skip."
             echo "has_changes=false" >> $GITHUB_OUTPUT
           else
-            git commit -a -m "AMR autoupdate (LookApp + NewReleases)"
+            git commit -a -m "HaRM YM & Zvuk autoupdate"
             echo "has_changes=true" >> $GITHUB_OUTPUT
           fi
 
