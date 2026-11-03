@@ -32,7 +32,7 @@ def print_name(script_name, version):
     if len(print_line) > 28:
         print_line_len = len(print_line) + 2
     print(f"\n{'':{'='}^{print_line_len}}")
-    print(f"{'\033[1m'}{'Alternative & Metal Releases':{' '}^{print_line_len}}{'\033[0m'}")
+    print(f"{'\033[1m'}{'Hard Rock & Metal Releases':{' '}^{print_line_len}}{'\033[0m'}")
     print(f"{print_line:{' '}^{print_line_len}}")
     print(f"{'':{'='}^{print_line_len}}\n")
 
