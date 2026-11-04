@@ -108396,10 +108396,10 @@
         "my_type": "o",
         "album_id": 6795843320,
         "album_link": "https://music.apple.com/us/album/mi%C3%B0/6795843320",
-        "album_link_ym": null,
+        "album_link_ym": "https://music.yandex.ru/album/44694654",
         "album_link_zv": "https://zvuk.com/release/53650176",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b2/c0/ef/b2c0efb2-176a-8065-19da-e755037004dc/cover.jpg/296x296bf.webp",
-        "tg_message_id": 1776
+        "tg_message_id": 1777
     },
     {
         "row_id": 7750,
