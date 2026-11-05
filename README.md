@@ -1,4 +1,4 @@
-# 🎵 AMR — Alternative & Metal Releases
+# 🎵 HaRM — Hard Rock & Metal Releases
 
 Автоматизация для Telegram-канала и веб-страницы с музыкальными релизами:
 сбор новых релизов из Apple Music, поиск ссылок на Яндекс.Музыке и Звуке,
@@ -10,12 +10,12 @@
 ```text
 mushroomoff.github.io/
 ├── .github/workflows/        # CI/CD: GitHub Actions (автоматизация в облаке)
-│   ├── amr-weekly-update.yml # еженедельный сбор новых релизов (пятница)
-│   ├── amr-zvym.yml          # ежедневный поиск ссылок Яндекс.Музыка / Звук
-│   ├── amr-deploy.yml        # деплой website/ на GitHub Pages
-│   └── amr_manual-run.yml    # ручной запуск скриптов из вкладки Actions
+│   ├── harm-weekly-update.yml # еженедельный сбор новых релизов (пятница)
+│   ├── harm-zvym.yml          # ежедневный поиск ссылок Яндекс.Музыка / Звук
+│   ├── harm-deploy.yml        # деплой website/ на GitHub Pages
+│   └── harm_manual-run.yml    # ручной запуск скриптов из вкладки Actions
 ├── scripts/                  # Python-скрипты автоматизации
-│   ├── amr_functions.py      # общая библиотека (Telegram, логгер, БД, MarkdownV2)
+│   ├── harm_functions.py      # общая библиотека (Telegram, логгер, БД, MarkdownV2)
 │   ├── lookapp.py            # парсинг Apple Music по артистам -> таблица my_releases
 │   ├── lookapp_errors.py     # проверка релизов с ошибками (только локально)
 │   ├── new_releases.py       # подборки New Releases/Coming Soon из кураторских плейлистов Apple Music
@@ -60,7 +60,7 @@ python scripts/db_backup.py                       # проверка, что в�
 
 | Скрипт | Назначение | Где запускается | Интерактивный |
 |---|---|---|---|
-| `amr_functions.py` | Общая библиотека: отправка в Telegram (MarkdownV2), логгер в `status.log`, `db_backup()` | импортируется, не запускается напрямую | — |
+| `harm_functions.py` | Общая библиотека: отправка в Telegram (MarkdownV2), логгер в `status.log`, `db_backup()` | импортируется, не запускается напрямую | — |
 | `lookapp.py` | Обход артистов из таблицы `artists`, поиск альбомов в Apple Music (us/ru/jp), новые записи в `my_releases` | GitHub Actions (Fri) + локально | да (локально) |
 | `new_releases.py` | Сбор New Releases и Coming Soon из кураторских плейлистов Apple Music, посты в канал TG | GitHub Actions (Fri) + локально | частично |
 | `zvym_links.py` | Поиск ссылок на релизы в Яндекс.Музыке и Звуке, обновление БД и репост сообщений в TG | GitHub Actions (ежедневно) + локально | нет |
@@ -79,12 +79,12 @@ python scripts/db_backup.py                       # проверка, что в�
 
 | Workflow | Файл | Триггер | Что делает |
 |---|---|---|---|
-| AMR Weekly Update | `amr-weekly-update.yml` | cron: пятница 04:00 UTC | `lookapp.py` → `new_releases.py` → коммит изменений → push в `main` |
-| AMR YM & Zvuk Lookup | `amr-zvym.yml` | cron: ежедневно 06:09 UTC | `zvym_links.py` → коммит изменений → push в `main` |
-| AMR Deploy Webpage | `amr-deploy.yml` | push в `main` (изменения в `website/**`) или вручную | деплой папки `website/` на GitHub Pages |
-| Manual run | `amr_manual-run.yml` | только вручную (workflow_dispatch) | установка зависимостей + запуск выбранного скрипта без коммита |
+| HaRM Weekly Update | `harm-weekly-update.yml` | cron: пятница 04:00 UTC | `lookapp.py` → `new_releases.py` → коммит изменений → push в `main` |
+| HaRM YM & Zvuk Lookup | `harm-zvym.yml` | cron: ежедневно 06:09 UTC | `zvym_links.py` → коммит изменений → push в `main` |
+| HaRM Deploy Webpage | `harm-deploy.yml` | push в `main` (изменения в `website/**`) или вручную | деплой папки `website/` на GitHub Pages |
+| Manual run | `harm_manual-run.yml` | только вручную (workflow_dispatch) | установка зависимостей + запуск выбранного скрипта без коммита |
 
-Push-изменений из Actions автоматически триггерит `amr-deploy.yml`,
+Push-изменений из Actions автоматически триггерит `harm-deploy.yml`,
 если обновился `website/` — сайт на GitHub Pages всегда актуален.
 
 ## 🔐 Секреты и переменные окружения
@@ -103,7 +103,7 @@ Push-изменений из Actions автоматически триггери
 
 ## 🌐 Сайт
 
-* Живой сайт: папка `website/` деплоится на GitHub Pages workflow `amr-deploy.yml`.
+* Живой сайт: папка `website/` деплоится на GitHub Pages workflow `harm-deploy.yml`.
 * Данные: `website/new_releases.json` и `website/soon_releases.json` — экспортируются
   скриптами из SQLite и коммитятся Actions.
 * Вне `localhost` страница умеет читать/писать JSON напрямую через GitHub API

@@ -1,6 +1,6 @@
 # ⚙️ Инструкция по установке, настройке и запуску
 
-Документ описывает два способа запуска проекта **AMR**:
+Документ описывает два способа запуска проекта **HaRM**:
 
 1. **Локально на ПК** — все скрипты, локальный сервер разработки `server.py`.
 2. **GitHub Actions** — автоматический запуск по расписанию и деплой сайта на GitHub Pages.
@@ -218,7 +218,7 @@ python scripts/zvym_links.py         # добавили ссылки YM/ZV
 python scripts/covers_downloader.py  # докачали обложки
 python scripts/lookapp_errors.py     # разобрали ошибки
 python scripts/db_backup.py          # финальный экспорт JSON
-git add -A && git commit -m "AMR local update" && git push   # синхронизация с репо
+git add -A && git commit -m "HaRM local update" && git push   # синхронизация с репо
 ```
 
 ---
@@ -253,16 +253,16 @@ git add -A && git commit -m "AMR local update" && git push   # синхрони�
 
 | Workflow | Файл | Запуск | Шаги |
 |---|---|---|---|
-| **AMR Weekly Update** | `amr-weekly-update.yml` | cron `0 4 * * 5` (пятница 04:00 UTC ≈ 07:00 МСК) | checkout → Python 3.14 → `pip install -r scripts/requirements.txt` → `python scripts/lookapp.py` → `python scripts/new_releases.py` → коммит всех изменений → push в `main` |
-| **AMR YM & Zvuk Lookup** | `amr-zvym.yml` | cron `9 6 * * *` (ежедневно 06:09 UTC ≈ 09:09 МСК) | setup → `python scripts/zvym_links.py` → коммит → push в `main` |
-| **AMR Deploy Webpage** | `amr-deploy.yml` | push в `main` с изменениями `website/**` + ручной запуск | configure-pages → upload artifact `./website` → deploy на GitHub Pages |
-| **Manual run** | `amr_manual-run.yml` | только вручную (Actions → Manual run → Run workflow) | setup зависимостей → запуск скрипта **без** коммита и push |
+| **HaRM Weekly Update** | `harm-weekly-update.yml` | cron `0 4 * * 5` (пятница 04:00 UTC ≈ 07:00 МСК) | checkout → Python 3.14 → `pip install -r scripts/requirements.txt` → `python scripts/lookapp.py` → `python scripts/new_releases.py` → коммит всех изменений → push в `main` |
+| **HaRM YM & Zvuk Lookup** | `harm-zvym.yml` | cron `9 6 * * *` (ежедневно 06:09 UTC ≈ 09:09 МСК) | setup → `python scripts/zvym_links.py` → коммит → push в `main` |
+| **HaRM Deploy Webpage** | `harm-deploy.yml` | push в `main` с изменениями `website/**` + ручной запуск | configure-pages → upload artifact `./website` → deploy на GitHub Pages |
+| **Manual run** | `harm_manual-run.yml` | только вручную (Actions → Manual run → Run workflow) | setup зависимостей → запуск скрипта **без** коммита и push |
 
 Особенности:
 
 * Скрипты определяют окружение по `GITHUB_ACTIONS=true` и работают в неинтерактивном
   GitHub-режиме (фиксированные страны `us, ru`, группа артистов `2`).
-* Push из scheduled-workflow повторно триггерит `amr-deploy.yml` → сайт обновляется сам.
+* Push из scheduled-workflow повторно триггерит `harm-deploy.yml` → сайт обновляется сам.
 * Расписание cron GitHub может выполняться с задержкой в часы пик — это нормально.
 
 ### 4.4. Ручной запуск workflow
@@ -277,12 +277,12 @@ git add -A && git commit -m "AMR local update" && git push   # синхрони�
 
 1. **Settings → Pages → Build and deployment → Source: GitHub Actions**
    (не «Deploy from a branch» — деплой делает workflow).
-2. Workflow `amr-deploy.yml` публикует содержимое папки `website/`.
+2. Workflow `harm-deploy.yml` публикует содержимое папки `website/`.
 3. Адрес сайта: `https://<username>.github.io/<repo>/` (появится в логе шага
    *Deploy to GitHub Pages* и на вкладке Actions после первого успешного деплоя).
 4. Обновление сайта происходит автоматически при любом push в `main`,
    затронувшем `website/` (в т.ч. из scheduled-workflows). Можно запустить и вручную:
-   Actions → *AMR Deploy Webpage* → Run workflow.
+   Actions → *HaRM Deploy Webpage* → Run workflow.
 
 ---
 
@@ -324,9 +324,9 @@ python scripts/server.py
 Не установлены зависимости или не активировано виртуальное окружение:
 `source .venv/bin/activate && pip install -r scripts/requirements.txt`.
 
-**`ModuleNotFoundError: No module named 'amr_functions'`**
+**`ModuleNotFoundError: No module named 'harm_functions'`**
 Запускайте скрипты из корня репозитория командой `python scripts/<имя>.py`
-(не `python ./scripts/amr_functions.py` и не из папки `scripts`).
+(не `python ./scripts/harm_functions.py` и не из папки `scripts`).
 
 **«Message not sent! No TOKEN or CHAT_ID» / пустые посты**
 `.env` не найден или не заполнен. Убедитесь, что файл лежит **в корне репозитория**
