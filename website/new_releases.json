@@ -108407,13 +108407,13 @@
         "genre_category": "M",
         "artist": "Ministry",
         "album": "Hate To Go - Take Out Or Delivery",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6790491192,
         "album_link": "https://music.apple.com/us/album/hate-to-go-take-out-or-delivery/6790491192",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/cf/ed/e1/cfede164-fece-66ee-7ec0-1effe4c4f2c3/889466733468.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1778
     },
     {
         "row_id": 7751,
@@ -108421,7 +108421,7 @@
         "genre_category": "M",
         "artist": "Wardruna",
         "album": "Helvegen II - Single",
-        "my_type": null,
+        "my_type": "x",
         "album_id": 6819201306,
         "album_link": "https://music.apple.com/us/album/helvegen-ii-single/6819201306",
         "album_link_ym": "https://music.yandex.ru/album/44311233",
@@ -108435,13 +108435,13 @@
         "genre_category": "M",
         "artist": "Darkest Hour",
         "album": "Suffer Divine",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6791335508,
         "album_link": "https://music.apple.com/us/album/suffer-divine/6791335508",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/1c/58/a9/1c58a949-03d0-ef82-0bab-a3bae26da652/33097.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1779
     },
     {
         "row_id": 7753,
