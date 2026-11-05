@@ -6966,5 +6966,13 @@
         "artist_genre": "Melodic Death Metal",
         "update_type": 1,
         "update_date": "2026-10-30 23:45:59"
+    },
+    {
+        "row_id": 876,
+        "artist": "Helm of Terror",
+        "artist_id": 1849560830,
+        "artist_genre": "Metalcore",
+        "update_type": 2,
+        "update_date": "2026-11-05 22:56:10"
     }
 ]
