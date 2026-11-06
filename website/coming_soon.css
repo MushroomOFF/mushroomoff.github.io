@@ -59,6 +59,19 @@ header {
   align-items: center;
 }
 
+/* ===== ЛОГОТИП СЕРВИСА ===== */
+.logo { gap: 8px; min-width: 0; }
+.logo-img {
+  height: 1em;        /* = font-size заголовка (.logo): не выше текста названия */
+  width: auto;        /* сохраняем пропорции */
+  flex: 0 0 auto;     /* не растягивать и не сжимать — без искажений */
+  display: block;
+}
+/* Чёрный логотип -> белый в тёмной теме (PNG должен быть с прозрачным фоном) */
+@media (prefers-color-scheme: dark) {
+  .logo-img { filter: invert(1); }
+}
+
 .controls {
   display: flex;
   align-items: center;
