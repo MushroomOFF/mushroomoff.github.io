@@ -10,10 +10,10 @@
 ```text
 mushroomoff.github.io/
 ├── .github/workflows/        # CI/CD: GitHub Actions (автоматизация в облаке)
-│   ├── harm-weekly-update.yml # еженедельный сбор новых релизов (пятница)
-│   ├── harm-zvym.yml          # ежедневный поиск ссылок Яндекс.Музыка / Звук
-│   ├── harm-deploy.yml        # деплой website/ на GitHub Pages
-│   └── harm_manual-run.yml    # ручной запуск скриптов из вкладки Actions
+│   ├── weekly-update.yml      # еженедельный сбор новых релизов (пятница)
+│   ├── lookup-zvym.yml        # ежедневный поиск ссылок Яндекс.Музыка / Звук
+│   ├── deploy-website.yml     # деплой website/ на GitHub Pages
+│   └── manual-run.yml         # ручной запуск скриптов из вкладки Actions
 ├── scripts/                  # Python-скрипты автоматизации
 │   ├── harm_functions.py      # общая библиотека (Telegram, логгер, БД, MarkdownV2)
 │   ├── lookapp.py            # парсинг Apple Music по артистам -> таблица my_releases
@@ -47,13 +47,26 @@ mushroomoff.github.io/
 
 Коротко:
 
+**macOS / Linux:**
+
 ```bash
 git clone https://github.com/MushroomOFF/mushroomoff.github.io.git
 cd mushroomoff.github.io
-python3 -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r scripts/requirements.txt
 cp .env.example .env    # и заполнить значения (см. SETUP.md)
 python scripts/db_backup.py                       # проверка, что всё работает
+```
+
+**Windows (PowerShell):**
+
+```powershell
+git clone https://github.com/MushroomOFF/mushroomoff.github.io.git
+cd mushroomoff.github.io
+py -m venv .venv ; .venv\Scripts\Activate.ps1
+pip install -r scripts\requirements.txt
+copy .env.example .env  # и заполнить значения (см. SETUP.md)
+python scripts\db_backup.py                       # проверка, что всё работает
 ```
 
 ## 🧰 Скрипты (`scripts/`)
@@ -79,12 +92,12 @@ python scripts/db_backup.py                       # проверка, что в�
 
 | Workflow | Файл | Триггер | Что делает |
 |---|---|---|---|
-| HaRM Weekly Update | `harm-weekly-update.yml` | cron: пятница 04:00 UTC | `lookapp.py` → `new_releases.py` → коммит изменений → push в `main` |
-| HaRM YM & Zvuk Lookup | `harm-zvym.yml` | cron: ежедневно 06:09 UTC | `zvym_links.py` → коммит изменений → push в `main` |
-| HaRM Deploy Webpage | `harm-deploy.yml` | push в `main` (изменения в `website/**`) или вручную | деплой папки `website/` на GitHub Pages |
-| Manual run | `harm_manual-run.yml` | только вручную (workflow_dispatch) | установка зависимостей + запуск выбранного скрипта без коммита |
+| HaRM weekly update | `weekly-update.yml` | cron: пятница 04:00 UTC | `lookapp.py` → `new_releases.py` → коммит изменений → push в `main` |
+| HaRM YM & Zvuk links lookup | `lookup-zvym.yml` | cron: ежедневно 06:09 UTC | `zvym_links.py` → коммит изменений → push в `main` |
+| Deploy HaRM webpage | `deploy-website.yml` | push в `main` (изменения в `website/**`) или вручную | деплой папки `website/` на GitHub Pages |
+| Manual run | `manual-run.yml` | только вручную (workflow_dispatch) | установка зависимостей + запуск скрипта без коммита |
 
-Push-изменений из Actions автоматически триггерит `harm-deploy.yml`,
+Push-изменений из Actions автоматически триггерит `deploy-website.yml`,
 если обновился `website/` — сайт на GitHub Pages всегда актуален.
 
 ## 🔐 Секреты и переменные окружения
@@ -103,7 +116,7 @@ Push-изменений из Actions автоматически триггери
 
 ## 🌐 Сайт
 
-* Живой сайт: папка `website/` деплоится на GitHub Pages workflow `harm-deploy.yml`.
+* Живой сайт: папка `website/` деплоится на GitHub Pages workflow `deploy-website.yml`.
 * Данные: `website/new_releases.json` и `website/soon_releases.json` — экспортируются
   скриптами из SQLite и коммитятся Actions.
 * Вне `localhost` страница умеет читать/писать JSON напрямую через GitHub API

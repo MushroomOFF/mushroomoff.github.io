@@ -31,10 +31,11 @@
 
 ### 1.1. Установка Python
 
-* **macOS:** `brew install python@3.12` (или новее)
+* **macOS:** `brew install python@3.12` (или новее). Проверка: `python3 --version`.
 * **Ubuntu/Debian:** `sudo apt install python3 python3-venv`
 * **Windows:** скачать установщик с [python.org](https://www.python.org/downloads/)
-  и отметить галочку **«Add Python to PATH»**.
+  и отметить галочку **«Add Python to PATH»**. Проверка в PowerShell/CMD: `py --version`
+  (команда `python3` на Windows обычно недоступна — используйте `python` или `py`).
 
 Проверка:
 
@@ -44,36 +45,69 @@ python3 --version   # Windows: py --version
 
 ### 1.2. Клонирование репозитория
 
+**macOS / Linux:**
+
 ```bash
+git clone https://github.com/MushroomOFF/mushroomoff.github.io.git
+cd mushroomoff.github.io
+```
+
+**Windows (PowerShell):**
+
+```powershell
 git clone https://github.com/MushroomOFF/mushroomoff.github.io.git
 cd mushroomoff.github.io
 ```
 
 ### 1.3. Виртуальное окружение и зависимости
 
+**macOS / Linux (Terminal, zsh/bash):**
+
 ```bash
 python3 -m venv .venv
-
-# macOS / Linux:
 source .venv/bin/activate
-# Windows (PowerShell):
-.venv\Scripts\Activate.ps1
-# Windows (cmd):
-.venv\Scripts\activate.bat
 
 pip install --upgrade pip
 pip install -r scripts/requirements.txt
+```
+
+**Windows (PowerShell):**
+
+```powershell
+py -m venv .venv
+.venv\Scripts\Activate.ps1
+# если PowerShell блокирует скрипты, один раз выполните:
+# Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+python -m pip install --upgrade pip
+pip install -r scripts\requirements.txt
+```
+
+**Windows (cmd):**
+
+```bat
+py -m venv .venv
+.venv\Scripts\activate.bat
+python -m pip install --upgrade pip
+pip install -r scripts\requirements.txt
 ```
 
 Содержимое `scripts/requirements.txt`: `requests`, `pandas`, `python-dotenv`, `yandex-music`.
 
 > **Совет:** работайте из корня репозитория (`cd mushroomoff.github.io`) — все скрипты сами
 > вычисляют пути к `databases/`, `website/` и `.env` относительно своего расположения.
+> Дальнейшие команды в этом документе приведены для macOS/Linux; на Windows заменяйте
+> `/` на `\` и `python3` на `python` (или `py`).
+
+> **Особенность macOS:** `new_releases.py` в локальном режиме использует Safari
+> и AppleScript (разрешите управление Safari: «Системные настройки → Конфиденциальность →
+> Автоматизация»). На Windows этот шаг недоступен — запускайте `new_releases.py`
+> через GitHub Actions (Manual run) или в режиме GitHub.
 
 ### 1.4. Проверка установки
 
 ```bash
-python scripts/db_backup.py
+python scripts/db_backup.py    # Windows: python scripts\db_backup.py
 ```
 
 Скрипт должен вывести список экспортированных таблиц в JSON — значит Python,
@@ -89,7 +123,7 @@ python scripts/db_backup.py
 Создайте `.env` по образцу `.env.example`:
 
 ```bash
-cp .env.example .env    # Windows: copy .env.example .env
+cp .env.example .env    # Windows (cmd/PowerShell): copy .env.example .env
 ```
 
 Шаблон `.env`:
@@ -213,13 +247,16 @@ python scripts/db_sync.py --db databases/music_releases.db --json-dir databases/
 
 ```bash
 python scripts/lookapp.py            # нашли новые релизы
-python scripts/new_releases.py       # собрали подборки, опубликовали
+python scripts/new_releases.py       # собрали подборки, опубликовали (macOS: через Safari)
 python scripts/zvym_links.py         # добавили ссылки YM/ZV
 python scripts/covers_downloader.py  # докачали обложки
 python scripts/lookapp_errors.py     # разобрали ошибки
 python scripts/db_backup.py          # финальный экспорт JSON
 git add -A && git commit -m "HaRM local update" && git push   # синхронизация с репо
 ```
+
+> На Windows шаг `new_releases.py` требует Safari — вместо локального запуска
+> выполните его через GitHub Actions (Actions → *Manual run* → Run workflow).
 
 ---
 
@@ -253,16 +290,16 @@ git add -A && git commit -m "HaRM local update" && git push   # синхрони
 
 | Workflow | Файл | Запуск | Шаги |
 |---|---|---|---|
-| **HaRM Weekly Update** | `harm-weekly-update.yml` | cron `0 4 * * 5` (пятница 04:00 UTC ≈ 07:00 МСК) | checkout → Python 3.14 → `pip install -r scripts/requirements.txt` → `python scripts/lookapp.py` → `python scripts/new_releases.py` → коммит всех изменений → push в `main` |
-| **HaRM YM & Zvuk Lookup** | `harm-zvym.yml` | cron `9 6 * * *` (ежедневно 06:09 UTC ≈ 09:09 МСК) | setup → `python scripts/zvym_links.py` → коммит → push в `main` |
-| **HaRM Deploy Webpage** | `harm-deploy.yml` | push в `main` с изменениями `website/**` + ручной запуск | configure-pages → upload artifact `./website` → deploy на GitHub Pages |
-| **Manual run** | `harm_manual-run.yml` | только вручную (Actions → Manual run → Run workflow) | setup зависимостей → запуск скрипта **без** коммита и push |
+| **HaRM weekly update** | `weekly-update.yml` | cron `0 4 * * 5` (пятница 04:00 UTC ≈ 07:00 МСК) | checkout → Python 3.14 → `pip install -r scripts/requirements.txt` → `python scripts/lookapp.py` → `python scripts/new_releases.py` → коммит всех изменений → push в `main` |
+| **HaRM YM & Zvuk links lookup** | `lookup-zvym.yml` | cron `9 6 * * *` (ежедневно 06:09 UTC ≈ 09:09 МСК) | setup → `python scripts/zvym_links.py` → коммит → push в `main` |
+| **Deploy HaRM webpage** | `deploy-website.yml` | push в `main` с изменениями `website/**` + ручной запуск | configure-pages → upload artifact `./website` → deploy на GitHub Pages |
+| **Manual run** | `manual-run.yml` | только вручную (Actions → Manual run → Run workflow) | setup зависимостей → запуск скрипта (`lookapp.py`) **без** коммита и push |
 
 Особенности:
 
 * Скрипты определяют окружение по `GITHUB_ACTIONS=true` и работают в неинтерактивном
   GitHub-режиме (фиксированные страны `us, ru`, группа артистов `2`).
-* Push из scheduled-workflow повторно триггерит `harm-deploy.yml` → сайт обновляется сам.
+* Push из scheduled-workflow повторно триггерит `deploy-website.yml` → сайт обновляется сам.
 * Расписание cron GitHub может выполняться с задержкой в часы пик — это нормально.
 
 ### 4.4. Ручной запуск workflow
@@ -277,12 +314,12 @@ git add -A && git commit -m "HaRM local update" && git push   # синхрони
 
 1. **Settings → Pages → Build and deployment → Source: GitHub Actions**
    (не «Deploy from a branch» — деплой делает workflow).
-2. Workflow `harm-deploy.yml` публикует содержимое папки `website/`.
+2. Workflow `deploy-website.yml` публикует содержимое папки `website/`.
 3. Адрес сайта: `https://<username>.github.io/<repo>/` (появится в логе шага
    *Deploy to GitHub Pages* и на вкладке Actions после первого успешного деплоя).
 4. Обновление сайта происходит автоматически при любом push в `main`,
    затронувшем `website/` (в т.ч. из scheduled-workflows). Можно запустить и вручную:
-   Actions → *HaRM Deploy Webpage* → Run workflow.
+   Actions → *Deploy HaRM webpage* → Run workflow.
 
 ---
 
@@ -327,6 +364,19 @@ python scripts/server.py
 **`ModuleNotFoundError: No module named 'harm_functions'`**
 Запускайте скрипты из корня репозитория командой `python scripts/<имя>.py`
 (не `python ./scripts/harm_functions.py` и не из папки `scripts`).
+
+**Windows: `.venv\Scripts\Activate.ps1` выдаёт «cannot be loaded because running scripts is disabled»**
+PowerShell блокирует локальные скрипты. Один раз выполните в PowerShell:
+`Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`,
+затем повторите активацию (или используйте cmd: `.venv\Scripts\activate.bat`).
+
+**Windows: команда `python3` не найдена**
+На Windows используйте `python` или `py` — все команды вида `python scripts\...py` работают так же.
+
+**macOS: `new_releases.py` не может получить HTML из Safari**
+Нужны macOS, Safari и разрешение Автоматизации: «Системные настройки → Конфиденциальность
+и безопасность → Автоматизация» → отметьте доступ Terminal/iTerm (или Python) к Safari.
+Альтернатива — запуск скрипта через GitHub Actions (*Manual run*).
 
 **«Message not sent! No TOKEN or CHAT_ID» / пустые посты**
 `.env` не найден или не заполнен. Убедитесь, что файл лежит **в корне репозитория**
