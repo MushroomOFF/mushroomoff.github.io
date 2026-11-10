@@ -109653,13 +109653,13 @@
         "genre_category": "M",
         "artist": "NECK CEMETERY",
         "album": "The Curse of Neck Cemetery",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6818085482,
         "album_link": "https://music.apple.com/us/album/the-curse-of-neck-cemetery/6818085482",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d5/05/e4/d505e472-1c6b-73e9-856d-251551c4cb18/0885288078848_3000.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1837
     },
     {
         "row_id": 7840,
@@ -109667,7 +109667,7 @@
         "genre_category": "M",
         "artist": "Kavrila",
         "album": "Transcend",
-        "my_type": null,
+        "my_type": "x",
         "album_id": 6795825851,
         "album_link": "https://music.apple.com/us/album/transcend/6795825851",
         "album_link_ym": "https://music.yandex.ru/album/43303157",
@@ -109681,7 +109681,7 @@
         "genre_category": "M",
         "artist": "Besotten",
         "album": "Eye of the Monolithicrypt",
-        "my_type": null,
+        "my_type": "x",
         "album_id": 6797791849,
         "album_link": "https://music.apple.com/us/album/eye-of-the-monolithicrypt/6797791849",
         "album_link_ym": null,
@@ -109695,7 +109695,7 @@
         "genre_category": "M",
         "artist": "Goliath A.D",
         "album": "Ascend from Ash - Single",
-        "my_type": null,
+        "my_type": "x",
         "album_id": 6816163016,
         "album_link": "https://music.apple.com/us/album/ascend-from-ash-single/6816163016",
         "album_link_ym": null,
@@ -110059,13 +110059,13 @@
         "genre_category": "MCS",
         "artist": "NECK CEMETERY",
         "album": "The Curse Of Neck Cemetery",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6818085482,
         "album_link": "https://music.apple.com/us/album/the-curse-of-neck-cemetery/6818085482",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d5/05/e4/d505e472-1c6b-73e9-856d-251551c4cb18/0885288078848_3000.jpg/296x296bb-60.jpg",
-        "tg_message_id": 0
+        "tg_message_id": 1838
     },
     {
         "row_id": 7869,
