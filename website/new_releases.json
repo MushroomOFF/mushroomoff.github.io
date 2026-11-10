@@ -109709,7 +109709,7 @@
         "genre_category": "HR",
         "artist": "Royal Blood",
         "album": "Dead Company",
-        "my_type": null,
+        "my_type": "x",
         "album_id": 6800026500,
         "album_link": "https://music.apple.com/us/album/dead-company/6800026500",
         "album_link_ym": null,
@@ -109751,7 +109751,7 @@
         "genre_category": "HR",
         "artist": "Bryan Adams",
         "album": "How's It Goin'",
-        "my_type": null,
+        "my_type": "x",
         "album_id": 6809936545,
         "album_link": "https://music.apple.com/us/album/hows-it-goin/6809936545",
         "album_link_ym": null,
@@ -109765,13 +109765,13 @@
         "genre_category": "HR",
         "artist": "Asia",
         "album": "Indigo",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6786070473,
         "album_link": "https://music.apple.com/us/album/indigo/6786070473",
         "album_link_ym": "https://music.yandex.ru/album/42512906",
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ee/21/88/ee218830-cc6a-c9ac-4d0f-5daf3ad73913/820233957458.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1840
     },
     {
         "row_id": 7848,
@@ -110073,7 +110073,7 @@
         "genre_category": "MCS",
         "artist": "David Granström",
         "album": "Echoes of Impermanence",
-        "my_type": null,
+        "my_type": "x",
         "album_id": 6778458554,
         "album_link": "https://music.apple.com/us/album/echoes-of-impermanence/6778458554",
         "album_link_ym": null,
@@ -110087,12 +110087,12 @@
         "genre_category": "MCS",
         "artist": "Joe Satriani; Steve Vai",
         "album": "SatchVai: The Sea Of Emotion",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6804731236,
         "album_link": "https://music.apple.com/us/album/satchvai-the-sea-of-emotion/6804731236",
         "album_link_ym": "https://music.yandex.ru/album/43027951",
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/61/a3/26/61a32666-0a4d-2c57-c358-fb1c3332d808/4029759222828.jpg/296x296bf-60.jpg",
-        "tg_message_id": 0
+        "tg_message_id": 1839
     }
 ]
