@@ -743474,7 +743474,7 @@
     {
         "row_id": 41347,
         "update_date": "2026-09-18",
-        "rate_tag": "d",
+        "rate_tag": "v",
         "main_artist": "A Killer's Confession",
         "artist": "A Killer's Confession",
         "album": "Victim 3",
@@ -751628,7 +751628,7 @@
     {
         "row_id": 41805,
         "update_date": "2026-10-16",
-        "rate_tag": "d",
+        "rate_tag": "v",
         "main_artist": "As I Lay Dying",
         "artist": "As I Lay Dying",
         "album": "As I Lay Dying",
@@ -756182,7 +756182,7 @@
     {
         "row_id": 42058,
         "update_date": "2026-11-06",
-        "rate_tag": "d",
+        "rate_tag": "v",
         "main_artist": "Ryujin",
         "artist": "RYUJIN",
         "album": "BLACK BRIDE",
@@ -756434,7 +756434,7 @@
     {
         "row_id": 42072,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Баста",
         "artist": "Nargiz",
         "album": "Прощай, любимый город (feat. Баста) - Single",
@@ -756452,7 +756452,7 @@
     {
         "row_id": 42073,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Психея",
         "artist": "Psiheya",
         "album": "Вор - Single",
@@ -756470,7 +756470,7 @@
     {
         "row_id": 42074,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Психея",
         "artist": "Psiheya",
         "album": "10 Years of Greatest S***s",
@@ -756488,7 +756488,7 @@
     {
         "row_id": 42075,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Психея",
         "artist": "Psiheya",
         "album": "Мишень - Single",
@@ -756506,7 +756506,7 @@
     {
         "row_id": 42076,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Психея",
         "artist": "Psiheya",
         "album": "Песнитрущобнадеждыразбитыхсердец, Ч. 2 (Оттенки любви)",
@@ -756524,7 +756524,7 @@
     {
         "row_id": 42077,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Психея",
         "artist": "Psiheya",
         "album": "Самый плохой - Single",
@@ -756542,7 +756542,7 @@
     {
         "row_id": 42078,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Психея",
         "artist": "Psiheya",
         "album": "Здесьисейчанск / Зомбия (feat. Метель) - Single",
@@ -756560,7 +756560,7 @@
     {
         "row_id": 42079,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Психея",
         "artist": "Psiheya",
         "album": "Не знаю - Single",
@@ -756578,7 +756578,7 @@
     {
         "row_id": 42080,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Психея",
         "artist": "Psiheya",
         "album": "Гриптейп (feat. Егор Попс) - Single",
@@ -756596,7 +756596,7 @@
     {
         "row_id": 42081,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Психея",
         "artist": "Psiheya",
         "album": "X лет против (Live 2007)",
@@ -756614,7 +756614,7 @@
     {
         "row_id": 42082,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Artillery",
         "artist": "Rajuu",
         "album": "In That Mode! (feat. Artillery) - Single",
@@ -756632,7 +756632,7 @@
     {
         "row_id": 42083,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Black Eyed Peas",
         "artist": "Static & Ben El & Black Eyed Peas",
         "album": "Shake Ya Boom Boom - Single",
@@ -756650,7 +756650,7 @@
     {
         "row_id": 42084,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Black Eyed Peas",
         "artist": "Static & Ben El, Chesca & Blessd",
         "album": "Shake Ya Boom Boom (Spanglish) [feat. Black Eyed Peas] - Single",
@@ -756668,7 +756668,7 @@
     {
         "row_id": 42085,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Bon Jovi",
         "artist": "Bon Jovi",
         "album": "Kings Of The Mountain (Bon Jovi Live At Agora Ballroom, Chicago '84)",
@@ -756686,7 +756686,7 @@
     {
         "row_id": 42086,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Chris Brown",
         "artist": "Skilla Baby & Summer Walker",
         "album": "Face Card (Remix) [feat. Chris Brown & Bryson Tiller] - Single",
@@ -756704,7 +756704,7 @@
     {
         "row_id": 42087,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Cyhra",
         "artist": "Cyhra",
         "album": "Mark of My Sins (Acoustic Version) - Single",
@@ -756722,7 +756722,7 @@
     {
         "row_id": 42088,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Cyhra",
         "artist": "Cyhra",
         "album": "Mark of My Sins - Single",
@@ -756740,7 +756740,7 @@
     {
         "row_id": 42089,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "DragonForce",
         "artist": "DragonForce",
         "album": "Neverending Nightmare - Single",
@@ -756758,7 +756758,7 @@
     {
         "row_id": 42090,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Drake",
         "artist": "Future",
         "album": "Ya Hit (feat. Drake, Travis Scott & Loe Shimmy) - Single",
@@ -756776,7 +756776,7 @@
     {
         "row_id": 42091,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Drake",
         "artist": "Future",
         "album": "Ya Hit (feat. Drake, Travis Scott & Loe Shimmy) - Single",
@@ -756794,7 +756794,7 @@
     {
         "row_id": 42092,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Eminem",
         "artist": "Eminem",
         "album": "Infinite EP",
@@ -756812,7 +756812,7 @@
     {
         "row_id": 42093,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Eminem",
         "artist": "IDK, エミネム & J Dilla",
         "album": "WELCOME - Single",
@@ -756830,7 +756830,7 @@
     {
         "row_id": 42094,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Eminem",
         "artist": "IDK, エミネム & J Dilla",
         "album": "WELCOME - Single",
@@ -756848,7 +756848,7 @@
     {
         "row_id": 42095,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Fall Out Boy",
         "artist": "Fall Out Boy",
         "album": "ACES - Single",
@@ -756866,7 +756866,7 @@
     {
         "row_id": 42096,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "d",
         "main_artist": "Fear Factory",
         "artist": "Fear Factory",
         "album": "Roboticist",
@@ -756884,7 +756884,7 @@
     {
         "row_id": 42097,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Horndal",
         "artist": "Horndal",
         "album": "Skinripper - Single",
@@ -756902,7 +756902,7 @@
     {
         "row_id": 42098,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Hyro the Hero",
         "artist": "Dream Beard, Hyro the Hero & Judge & Jury",
         "album": "GOOD LUCK - Single",
@@ -756920,7 +756920,7 @@
     {
         "row_id": 42099,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "v",
         "main_artist": "Ice Nine Kills",
         "artist": "ICE NINE KILLS",
         "album": "A Very Vicious Christmas",
@@ -756938,7 +756938,7 @@
     {
         "row_id": 42100,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Jason Derulo",
         "artist": "Jason Derulo & Nora Fatehi",
         "album": "Delete Me - Single",
@@ -756956,7 +756956,7 @@
     {
         "row_id": 42101,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "v",
         "main_artist": "Kittie",
         "artist": "Kittie",
         "album": "Oracle XXV - Single",
@@ -756974,7 +756974,7 @@
     {
         "row_id": 42102,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Left to Suffer",
         "artist": "Left to Suffer",
         "album": "Track One - Single",
@@ -756992,7 +756992,7 @@
     {
         "row_id": 42103,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Little Big",
         "artist": "Little Big",
         "album": "Rave In Peace (In Memory of Keith) - Single",
@@ -757010,7 +757010,7 @@
     {
         "row_id": 42104,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Marilyn Manson",
         "artist": "Marilyn Manson",
         "album": "The Pale Emperor",
@@ -757028,7 +757028,7 @@
     {
         "row_id": 42105,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Marilyn Manson",
         "artist": "Marilyn Manson",
         "album": "Born Villain",
@@ -757046,7 +757046,7 @@
     {
         "row_id": 42106,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Metal Allegiance",
         "artist": "Metal Allegiance",
         "album": "Black Horizon (feat. William DuVall) - Single",
@@ -757064,7 +757064,7 @@
     {
         "row_id": 42107,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Miss Fortune",
         "artist": "Miss Fortune",
         "album": "The Hype You Stole - Single",
@@ -757082,7 +757082,7 @@
     {
         "row_id": 42108,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Motorhead",
         "artist": "Motörhead",
         "album": "Orgasmatron (Cameron Webb 40th Anniversary Remix)",
@@ -757100,7 +757100,7 @@
     {
         "row_id": 42109,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Motorhead",
         "artist": "Motörhead",
         "album": "The Wörld Is Ours, Vol. 2 (Anyplace Crazy as Anywhere Else) [Live]",
@@ -757118,7 +757118,7 @@
     {
         "row_id": 42110,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Myrath",
         "artist": "Myrath",
         "album": "Echoes of the Fallen - Single",
@@ -757136,7 +757136,7 @@
     {
         "row_id": 42111,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Myrath",
         "artist": "Myrath",
         "album": "Still the Dawn Will Come - Single",
@@ -757154,7 +757154,7 @@
     {
         "row_id": 42112,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Myrath",
         "artist": "Myrath",
         "album": "Still the Dawn Will Come - Single",
@@ -757172,7 +757172,7 @@
     {
         "row_id": 42113,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Myrath",
         "artist": "Myrath",
         "album": "Echoes of the Fallen - Single",
@@ -757190,7 +757190,7 @@
     {
         "row_id": 42114,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Nero",
         "artist": "LuKRPR, Alin Jr, NATHO & NERØ",
         "album": "BENZO - Single",
@@ -757208,7 +757208,7 @@
     {
         "row_id": 42115,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Papa Roach",
         "artist": "Papa Roach",
         "album": "Who Do You Trust? (Deluxe Version)",
@@ -757226,7 +757226,7 @@
     {
         "row_id": 42116,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Ryujin",
         "artist": "RYUJIN & Ryoji Shinomoto",
         "album": "SHINRA - Single",
@@ -757244,7 +757244,7 @@
     {
         "row_id": 42117,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "d",
         "main_artist": "Ryujin",
         "artist": "RYUJIN",
         "album": "BLACK BRIDE",
@@ -757262,7 +757262,7 @@
     {
         "row_id": 42118,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Savage Hands",
         "artist": "Savage Hands",
         "album": "underwater - Single",
@@ -757280,7 +757280,7 @@
     {
         "row_id": 42119,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Skrillex",
         "artist": "Tohji, Skrillex & Mechatok",
         "album": "W1000 - Single",
@@ -757298,7 +757298,7 @@
     {
         "row_id": 42120,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "d",
         "main_artist": "Staind",
         "artist": "Staind",
         "album": "The Space Between The Darkness And The Light",
@@ -757316,7 +757316,7 @@
     {
         "row_id": 42121,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "d",
         "main_artist": "Stardown",
         "artist": "Stardown",
         "album": "Venom (15th Anniversary Edition)",
@@ -757334,7 +757334,7 @@
     {
         "row_id": 42122,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Starset",
         "artist": "STARSET",
         "album": "v 0 y a g e r - Single",
@@ -757352,7 +757352,7 @@
     {
         "row_id": 42123,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Starset",
         "artist": "STARSET",
         "album": "Starset (Remixes) - Single",
@@ -757370,7 +757370,7 @@
     {
         "row_id": 42124,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Stratovarius",
         "artist": "Stratovarius & Timo Kotipelto",
         "album": "Sammumaton (Vain elämää kausi 17) - Single",
@@ -757388,7 +757388,7 @@
     {
         "row_id": 42125,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Sumatra",
         "artist": "Sumatra",
         "album": "Schranz Is Hot - Single",
@@ -757406,7 +757406,7 @@
     {
         "row_id": 42126,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Teramaze",
         "artist": "Teramaze",
         "album": "HEAD OF THE KING (5th Anniversary Edition) - EP",
@@ -757424,7 +757424,7 @@
     {
         "row_id": 42127,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Tesseract",
         "artist": "TesseracT",
         "album": "Crucible - Single",
@@ -757442,7 +757442,7 @@
     {
         "row_id": 42128,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Tyr",
         "artist": "Týr",
         "album": "Slaughter Chords - Single",
@@ -757460,7 +757460,7 @@
     {
         "row_id": 42129,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Wolves at the Gate",
         "artist": "Wolves At the Gate",
         "album": "Firewall - Single",
@@ -757478,7 +757478,7 @@
     {
         "row_id": 42130,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "d",
         "main_artist": "Wolves at the Gate",
         "artist": "Wolves At the Gate",
         "album": "Borderland",
@@ -757496,7 +757496,7 @@
     {
         "row_id": 42131,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Yelawolf",
         "artist": "Rittz",
         "album": "LAF (Remix) [feat. Yelawolf, Royce Da 5'9\" & KXNG Crooked] - Single",
@@ -757514,7 +757514,7 @@
     {
         "row_id": 42132,
         "update_date": "2026-11-13",
-        "rate_tag": null,
+        "rate_tag": "x",
         "main_artist": "Kissin' Dynamite",
         "artist": "Kissin' Dynamite",
         "album": "Glory Days (Live 2026) - Single",
