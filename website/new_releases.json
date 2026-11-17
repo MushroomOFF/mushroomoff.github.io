@@ -109769,9 +109769,9 @@
         "album_id": 6786070473,
         "album_link": "https://music.apple.com/us/album/indigo/6786070473",
         "album_link_ym": "https://music.yandex.ru/album/42512906",
-        "album_link_zv": null,
+        "album_link_zv": "https://zvuk.com/release/53813015",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ee/21/88/ee218830-cc6a-c9ac-4d0f-5daf3ad73913/820233957458.jpg/296x296bf.webp",
-        "tg_message_id": 1840
+        "tg_message_id": 1867
     },
     {
         "row_id": 7848,
@@ -110343,9 +110343,9 @@
         "album_id": 6814622784,
         "album_link": "https://music.apple.com/us/album/deathbringer/6814622784",
         "album_link_ym": null,
-        "album_link_zv": null,
+        "album_link_zv": "https://zvuk.com/release/53940024",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/82/67/ca/8267ca12-99b9-c4ed-5ee1-85b7f83dd334/885288658446.jpg/296x296bf.webp",
-        "tg_message_id": 1858
+        "tg_message_id": 1868
     },
     {
         "row_id": 7889,
@@ -110427,9 +110427,9 @@
         "album_id": 6805555953,
         "album_link": "https://music.apple.com/us/album/alchestronomy/6805555953",
         "album_link_ym": null,
-        "album_link_zv": null,
+        "album_link_zv": "https://zvuk.com/release/53940026",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/5f/59/5c/5f595cff-9134-ee79-a048-bca7e04ac3f7/26UM1IM08241.rgb.jpg/296x296bf.webp",
-        "tg_message_id": 1859
+        "tg_message_id": 1869
     },
     {
         "row_id": 7895,
@@ -110525,9 +110525,9 @@
         "album_id": 6789771624,
         "album_link": "https://music.apple.com/us/album/strange-evil-ep/6789771624",
         "album_link_ym": "https://music.yandex.ru/album/43135071",
-        "album_link_zv": null,
+        "album_link_zv": "https://zvuk.com/release/53940021",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/9b/03/62/9b036275-3ffa-dbe2-6e28-be69629ab68d/881453220784_cover.jpg/296x296bf.webp",
-        "tg_message_id": 1862
+        "tg_message_id": 1870
     },
     {
         "row_id": 7902,
@@ -110595,9 +110595,9 @@
         "album_id": 6825030054,
         "album_link": "https://music.apple.com/us/album/death-devotion/6825030054",
         "album_link_ym": null,
-        "album_link_zv": null,
+        "album_link_zv": "https://zvuk.com/release/53939748",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/3a/55/bd/3a55bdc8-fff4-d5d7-b17c-8cd974f67d4f/711641031895.jpg/296x296bf.webp",
-        "tg_message_id": 1866
+        "tg_message_id": 1871
     },
     {
         "row_id": 7907,
@@ -110875,9 +110875,9 @@
         "album_id": 6814622784,
         "album_link": "https://music.apple.com/us/album/deathbringer/6814622784",
         "album_link_ym": null,
-        "album_link_zv": null,
+        "album_link_zv": "https://zvuk.com/release/53940024",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/82/67/ca/8267ca12-99b9-c4ed-5ee1-85b7f83dd334/885288658446.jpg/296x296bb-60.jpg",
-        "tg_message_id": 1863
+        "tg_message_id": 1872
     },
     {
         "row_id": 7927,
@@ -110903,8 +110903,8 @@
         "album_id": 6818637321,
         "album_link": "https://music.apple.com/us/album/breaking-ep/6818637321",
         "album_link_ym": null,
-        "album_link_zv": null,
+        "album_link_zv": "https://zvuk.com/release/53939767",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d3/28/33/d3283377-9537-c781-ce11-8f78991b64c6/634607599140.jpg/296x296bf-60.jpg",
-        "tg_message_id": 1864
+        "tg_message_id": 1873
     }
 ]
