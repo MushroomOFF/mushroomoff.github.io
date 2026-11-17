@@ -110591,13 +110591,13 @@
         "genre_category": "HR",
         "artist": "Bailey Spinn",
         "album": "death & devotion",
-        "my_type": null,
+        "my_type": "o",
         "album_id": 6825030054,
         "album_link": "https://music.apple.com/us/album/death-devotion/6825030054",
         "album_link_ym": null,
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/3a/55/bd/3a55bdc8-fff4-d5d7-b17c-8cd974f67d4f/711641031895.jpg/296x296bf.webp",
-        "tg_message_id": 0
+        "tg_message_id": 1866
     },
     {
         "row_id": 7907,
