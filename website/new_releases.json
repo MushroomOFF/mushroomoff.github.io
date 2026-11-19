@@ -109810,10 +109810,10 @@
         "my_type": "v",
         "album_id": 6812817421,
         "album_link": "https://music.apple.com/us/album/last-night-on-earth-deluxe/6812817421",
-        "album_link_ym": null,
+        "album_link_ym": "https://music.yandex.ru/album/44851464",
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/d9/00/6b/d9006b35-a02c-9ab7-5fec-dd67c9c639fd/840568403000.png/296x296bf.webp",
-        "tg_message_id": 1795
+        "tg_message_id": 1874
     },
     {
         "row_id": 7851,
