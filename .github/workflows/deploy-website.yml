@@ -4,8 +4,8 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'website/**'  # автодеплой только при изменении данных
-  workflow_dispatch:  # ручной запуск: Actions → Run workflow
+      - 'website/**'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -17,22 +17,26 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7.0.1
 
       - name: Setup Pages
         uses: actions/configure-pages@v6.0.0
-
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5.0.0
         with:
           path: ./website
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5.0.1
