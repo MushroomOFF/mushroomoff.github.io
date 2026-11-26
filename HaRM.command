@@ -7,7 +7,10 @@ SCRIPTS_DIR="$BASE_DIR/scripts"
 # "" или строка, начинающаяся с "---" = разделитель/заголовок.
 # Курсор на них не встаёт, номер им не выдаётся.
 OPTIONS=(
-    "--- Weekly update ------------"
+    "--- HaRM Website -------------"
+    "HaRM Website"
+    ""
+    "--- Weekly Update ------------"
     "New Releases"
     "LookApp"
     "LookApp Errors"
@@ -18,9 +21,8 @@ OPTIONS=(
     "Covers Renamer"
     ""
     "--- Database -----------------"
-    "Database Backup"
     "Database Sync"
-    "Open Website"
+    "Database Backup"    
     ""
     "Exit"
 )
@@ -174,31 +176,7 @@ main() {
             tput cnorm
             full_clear
             case $action in
-                0) resize_term 60 95
-                echo "Запуск New Releases..."
-                python3 "$SCRIPTS_DIR/new_releases.py" ;;
-                1) resize_term 60 95
-                echo "Запуск LookApp..."
-                python3 "$SCRIPTS_DIR/lookapp.py" ;;
-                2) resize_term 60 95
-                echo "Запуск LookApp Errors..."
-                python3 "$SCRIPTS_DIR/lookapp_errors.py" ;;
-                3) resize_term 45 95
-                echo "Запуск Zvuk & Yandex.Music Lookup..."
-                python3 "$SCRIPTS_DIR/zvym_links.py" ;;
-                4) resize_term 60 160
-                echo "Запуск Covers Downloader..."
-                python3 "$SCRIPTS_DIR/covers_downloader.py" ;;
-                5) echo "Запуск Covers Renamer..."
-                python3 "$SCRIPTS_DIR/covers_renamer.py" ;;
-                6) resize_term 25 110
-                echo "Запуск Database Backup..."
-                python3 "$SCRIPTS_DIR/db_backup.py" ;;
-                7) resize_term 50 95
-                echo "Запуск Database Sync..."
-                cd "$BASE_DIR" || exit
-                python3 "$SCRIPTS_DIR/db_sync.py" --db databases/music_releases.db --json-dir databases/backups website ;;
-                8) resize_term 60 110
+                0) resize_term 60 110
                 echo "Освобождение порта 8000 (если занят)..."
                 kill -9 $(lsof -ti :8000) 2>/dev/null
                 echo "Запуск Website..."
@@ -212,6 +190,30 @@ main() {
                 read -rsn1
                 kill $SERVER_PID 2>/dev/null
                 echo "Сервер остановлен." ;;
+                1) resize_term 60 95
+                echo "Запуск New Releases..."
+                python3 "$SCRIPTS_DIR/new_releases.py" ;;
+                2) resize_term 60 95
+                echo "Запуск LookApp..."
+                python3 "$SCRIPTS_DIR/lookapp.py" ;;
+                3) resize_term 60 95
+                echo "Запуск LookApp Errors..."
+                python3 "$SCRIPTS_DIR/lookapp_errors.py" ;;
+                4) resize_term 45 95
+                echo "Запуск Zvuk & Yandex.Music Lookup..."
+                python3 "$SCRIPTS_DIR/zvym_links.py" ;;
+                5) resize_term 60 160
+                echo "Запуск Covers Downloader..."
+                python3 "$SCRIPTS_DIR/covers_downloader.py" ;;
+                6) echo "Запуск Covers Renamer..."
+                python3 "$SCRIPTS_DIR/covers_renamer.py" ;;
+                7) resize_term 50 95
+                echo "Запуск Database Sync..."
+                cd "$BASE_DIR" || exit
+                python3 "$SCRIPTS_DIR/db_sync.py" --db databases/music_releases.db --json-dir databases/backups website ;;
+                8) resize_term 25 110
+                echo "Запуск Database Backup..."
+                python3 "$SCRIPTS_DIR/db_backup.py" ;; 
                 9) close_terminal ;;
             esac
             if [ "$action" -ne "$ACTION_EXIT" ]; then

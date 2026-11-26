@@ -5,8 +5,9 @@ import requests
 import sqlite3
 import traceback
 import urllib.parse
-from yandex_music import Client # for YM
+from bs4 import BeautifulSoup
 from dotenv import load_dotenv
+from yandex_music import Client # for YM
 import harm_functions as harm
 
 # ================= CONSTANTS & VARIABLES =================
@@ -466,16 +467,14 @@ def next_week_releases(current_date):
 
 def find_room_link(category_link, category_name):
     """ Searching correct link to room genre"""
-    request = session.get(category_link)
-    request.encoding = 'UTF-8'
-    response = request.text
-    start_position = response.find(f'{"{"}"title":"{category_name}"')
-    begin_position = response.find('"id":"', start_position) + len('"id":"')
-    end_position = response.find('"', begin_position)
-    category_id = response[begin_position:end_position].strip()
-    room_link = f'{category_link[:category_link.find('/curator')]}/room/{category_id}'
-    return room_link
-    
+    r = session.get(category_link)
+    r.encoding = 'utf-8'
+    soup = BeautifulSoup(r.text, 'html.parser')
+
+    for a in soup.select('a[href*="/room/"]'):
+        if a.get_text(strip=True) == category_name:
+            return urllib.parse.urljoin(category_link, a['href'])
+    return None
 
 def write_to_db(artist, album, update_date, is_my_artist, image_link, album_link, category_abbr, album_id):
     global message_new_releases
@@ -892,13 +891,13 @@ def main():
             "category_abbr": 'HR'
         },
         {
-            "category_type": 'New Releases',
+            "category_type": 'Новые релизы',
             "category_link": 'https://music.apple.com/ru/curator/apple-music-метал/976439543',
             "category_name": 'METAL - RU',
             "category_abbr": 'MRU'
         },
         {
-            "category_type": 'New Releases',
+            "category_type": 'Новые релизы',
             "category_link": 'https://music.apple.com/ru/curator/apple-music-хард-рок/979231690',
             "category_name": 'ALTERNATIVE & HARD ROCK - RU',
             "category_abbr": 'HRRU'
@@ -924,7 +923,7 @@ def main():
         else:
             logger_category = category["category_name"].title()
 
-        if category["category_type"] == 'New Releases':
+        if category["category_type"] in ['New Releases', 'Новые релизы']:
             collect_new_releases(category_link, category["category_abbr"])
             print(logger_category)
             status_message += f'\n✅ {logger_category}'
