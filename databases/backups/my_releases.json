@@ -755840,7 +755840,7 @@
     {
         "row_id": 42039,
         "update_date": "2026-11-06",
-        "rate_tag": "d",
+        "rate_tag": "v",
         "main_artist": "Geoff Castellucci",
         "artist": "Geoff Castellucci",
         "album": "The Deep of Winter",
@@ -758396,7 +758396,7 @@
     {
         "row_id": 42181,
         "update_date": "2026-11-20",
-        "rate_tag": "d",
+        "rate_tag": "v",
         "main_artist": "Sworn In",
         "artist": "Sworn In",
         "album": "Catharsis - EP",
@@ -758661,6 +758661,24 @@
         "country": "USA",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/98/9a/06/989a064d-b4f2-ca33-aa43-0dadba50f945/cover.jpg/10000x10000-999.jpg",
         "cover_download_date": "2026-11-20 10:17:49",
+        "update_reason": "New release"
+    },
+    {
+        "row_id": 42196,
+        "update_date": "2026-11-26",
+        "rate_tag": "v",
+        "main_artist": "Rabochiy Gorodok",
+        "artist": "RABOCHIY GORODOK",
+        "album": "LOMBARD",
+        "tracks": 15,
+        "release_date": "2024-04-12",
+        "release_year": 2024,
+        "main_artist_id": 1740596366,
+        "artist_id": 1740596366,
+        "album_id": 6769693862,
+        "country": "USA",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/82/90/c2/8290c235-a5d0-c46d-88c2-5e967b2468d9/cover.jpg/10000x10000-999.jpg",
+        "cover_download_date": "2026-11-26 16:22:25",
         "update_reason": "New release"
     }
 ]

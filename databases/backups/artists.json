@@ -6974,5 +6974,13 @@
         "artist_genre": "Metalcore",
         "update_type": 2,
         "update_date": "2026-11-20 09:39:24"
+    },
+    {
+        "row_id": 877,
+        "artist": "Rabochiy Gorodok",
+        "artist_id": 1740596366,
+        "artist_genre": "Rap Metal",
+        "update_type": 2,
+        "update_date": "2026-11-26 16:22:18"
     }
 ]
