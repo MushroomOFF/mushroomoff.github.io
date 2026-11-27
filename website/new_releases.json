@@ -110426,10 +110426,10 @@
         "my_type": "o",
         "album_id": 6805555953,
         "album_link": "https://music.apple.com/us/album/alchestronomy/6805555953",
-        "album_link_ym": null,
+        "album_link_ym": "https://music.yandex.ru/album/44948246",
         "album_link_zv": "https://zvuk.com/release/53940026",
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/5f/59/5c/5f595cff-9134-ee79-a048-bca7e04ac3f7/26UM1IM08241.rgb.jpg/296x296bf.webp",
-        "tg_message_id": 1869
+        "tg_message_id": 1918
     },
     {
         "row_id": 7895,
@@ -110706,10 +110706,10 @@
         "my_type": "o",
         "album_id": 6812363582,
         "album_link": "https://music.apple.com/us/album/volume-four-the-rarities/6812363582",
-        "album_link_ym": null,
+        "album_link_ym": "https://music.yandex.ru/album/44948901",
         "album_link_zv": null,
         "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/25/5c/ee/255cee27-0412-da6f-87a5-47f728c469d2/26UM1IM15948.rgb.jpg/296x296bf.webp",
-        "tg_message_id": 1877
+        "tg_message_id": 1919
     },
     {
         "row_id": 7915,
