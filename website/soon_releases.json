@@ -27118,5 +27118,113 @@
         "release_date": "2027-01-29",
         "release_date_text": "January 29, 2027",
         "my_artist": 1
+    },
+    {
+        "row_id": 2341,
+        "update_date": "2026-11-27",
+        "artist_name": "Ozzy Osbourne; Black Sabbath",
+        "album_name": "Back To The Beginning (Live)",
+        "artist_link": "https://music.apple.com/us/artist/ozzy-osbourne/886834",
+        "album_link": "https://music.apple.com/us/album/back-to-the-beginning-live/6836780774",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/90/2e/f6/902ef6c7-d2f4-e55d-2c27-461f23bd99f2/26UM1IM15786.rgb.jpg/296x296bf-60.jpg",
+        "release_date": "2026-12-11",
+        "release_date_text": "December 11, 2026",
+        "my_artist": 1
+    },
+    {
+        "row_id": 2342,
+        "update_date": "2026-11-27",
+        "artist_name": "The Dillinger Escape Plan",
+        "album_name": "Dissociation (10th Anniversary)",
+        "artist_link": "https://music.apple.com/us/artist/the-dillinger-escape-plan/2987400",
+        "album_link": "https://music.apple.com/us/album/dissociation-10th-anniversary/6836999138",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f5/eb/eb/f5ebeb5f-56c5-350f-011f-c2e32a05bfee/131204.jpg/296x296bf-60.jpg",
+        "release_date": "2026-12-11",
+        "release_date_text": "December 11, 2026",
+        "my_artist": null
+    },
+    {
+        "row_id": 2343,
+        "update_date": "2026-11-27",
+        "artist_name": "Heathen",
+        "album_name": "Lifetime in Hell",
+        "artist_link": "https://music.apple.com/us/artist/heathen/59865029",
+        "album_link": "https://music.apple.com/us/album/lifetime-in-hell/6826295500",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/43/1b/bf/431bbf46-bb7f-e753-1f20-6d5c48635b25/810226380776.jpg/296x296bf-60.jpg",
+        "release_date": "2027-02-19",
+        "release_date_text": "February 19, 2027",
+        "my_artist": null
+    },
+    {
+        "row_id": 2344,
+        "update_date": "2026-11-27",
+        "artist_name": "Knosis",
+        "album_name": "EXDEUS",
+        "artist_link": "https://music.apple.com/us/artist/knosis/1661618070",
+        "album_link": "https://music.apple.com/us/album/exdeus/6834369700",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/d6/ab/db/d6abdb52-a3f8-0c43-8755-5017c9ac5992/cover.jpg/296x296bf-60.jpg",
+        "release_date": "2027-02-19",
+        "release_date_text": "February 19, 2027",
+        "my_artist": null
+    },
+    {
+        "row_id": 2345,
+        "update_date": "2026-11-27",
+        "artist_name": "UFO",
+        "album_name": "Mechanix (2026 Remaster - Deluxe Edition)",
+        "artist_link": "https://music.apple.com/us/artist/ufo/1012723",
+        "album_link": "https://music.apple.com/us/album/mechanix-2026-remaster-deluxe-edition/6814828501",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/61/61/3e/61613e61-9192-311f-7f1f-41a8a94eda62/0840401725726.png/296x296bf-60.jpg",
+        "release_date": "2026-12-04",
+        "release_date_text": "December 4, 2026",
+        "my_artist": null
+    },
+    {
+        "row_id": 2346,
+        "update_date": "2026-11-27",
+        "artist_name": "Mono Inc.",
+        "album_name": "20 Years of Darkness",
+        "artist_link": "https://music.apple.com/us/artist/mono-inc/85168119",
+        "album_link": "https://music.apple.com/us/album/20-years-of-darkness/6800713051",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a7/f5/3e/a7f53e89-a1b3-a9e2-088d-ffc208975738/4251880911122.jpg/296x296bf-60.jpg",
+        "release_date": "2026-12-04",
+        "release_date_text": "December 4, 2026",
+        "my_artist": null
+    },
+    {
+        "row_id": 2347,
+        "update_date": "2026-11-27",
+        "artist_name": "Jim Peterik and World Stage",
+        "album_name": "River Of The Music - The Power Of Duets, Vol. 2",
+        "artist_link": "https://music.apple.com/us/artist/jim-peterik-and-world-stage/91733750",
+        "album_link": "https://music.apple.com/us/album/river-of-the-music-the-power-of-duets-vol-2/6804727722",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/76/81/5c/76815cd1-8ffa-5efa-8f41-19b386cbbdd3/885288366884.jpg/296x296bf-60.jpg",
+        "release_date": "2026-12-04",
+        "release_date_text": "December 4, 2026",
+        "my_artist": null
+    },
+    {
+        "row_id": 2348,
+        "update_date": "2026-11-27",
+        "artist_name": "Stormwarning",
+        "album_name": "Future In Utopia",
+        "artist_link": "https://music.apple.com/us/artist/stormwarning/1205938022",
+        "album_link": "https://music.apple.com/us/album/future-in-utopia/6824973897",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/fb/68/cd/fb68cdd6-6091-e3f0-d533-2590d7cdf2af/711641041351.jpg/296x296bf-60.jpg",
+        "release_date": "2027-01-22",
+        "release_date_text": "January 22, 2027",
+        "my_artist": null
+    },
+    {
+        "row_id": 2349,
+        "update_date": "2026-11-27",
+        "artist_name": "Pascow",
+        "album_name": "Und wir so",
+        "artist_link": "https://music.apple.com/us/artist/pascow/265088908",
+        "album_link": "https://music.apple.com/us/album/und-wir-so/6806353152",
+        "cover_link": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/05/a2/80/05a28001-f2ba-ba82-3b7f-0d5209b7c4bf/885288428520.jpg/296x296bf-60.jpg",
+        "release_date": "2027-03-05",
+        "release_date_text": "March 5, 2027",
+        "my_artist": null
     }
 ]
